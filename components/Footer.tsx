@@ -10,7 +10,7 @@ import {
 } from '@mantine/core';
 import { BiGhost } from 'react-icons/bi';
 import { FaPiggyBank } from 'react-icons/fa';
-import { BsTwitter, BsDiscord } from 'react-icons/bs';
+import { BsTwitter, BsGithub } from 'react-icons/bs';
 
 const useStyles = createStyles((theme) => ({
   footer: {
@@ -131,11 +131,11 @@ export default function FooterLinks() {
         </Text>
 
         <Group spacing={0} className={classes.social} position="right" noWrap>
-          <ActionIcon size="lg">
+          <ActionIcon size="lg" component="a" href="https://twitter.com/0xCazador">
             <BsTwitter size="1.05rem" />
           </ActionIcon>
-          <ActionIcon size="lg">
-            <BsDiscord size="1.05rem" />
+          <ActionIcon size="lg" component="a" href="https://github.com/0xcazador/defi-simulator">
+            <BsGithub size="1.05rem" />
           </ActionIcon>
         </Group>
       </Container>
