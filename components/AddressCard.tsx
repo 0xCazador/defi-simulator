@@ -369,7 +369,6 @@ const UserReserveAssetList = ({ }: UserReserveAssetListProps) => {
   } = useAaveData('');
   const items: ImmutableArray<ReserveAssetDataItem> =
     addressData?.[currentMarket]?.workingData?.userReservesData || [];
-  if (items.length === 0) return null;
 
   const market = markets.find((market) => market.id === currentMarket);
 
@@ -440,7 +439,6 @@ const UserBorrowedAssetList = ({ }: UserBorrowedAssetListProps) => {
   } = useAaveData('');
   const items: ImmutableArray<BorrowedAssetDataItem> =
     addressData?.[currentMarket]?.workingData?.userBorrowsData || [];
-  if (items.length === 0) return null;
 
   const market = markets.find((market) => market.id === currentMarket);
 
@@ -787,7 +785,7 @@ const UserAssetPriceInput = ({
     // the input is uncontrolled, but we need to support external "reset" functionality
     if (
       inputRef.current &&
-      workingPrice === originalPrice &&
+      inputRef.current.value !== formatMoney(workingPrice, '') &&
       formatMoney(workingPrice, '') !== inputRef.current?.value
     ) {
       inputRef.current.value = formatMoney(workingPrice, '');
