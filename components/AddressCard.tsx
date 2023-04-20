@@ -785,8 +785,7 @@ const UserAssetPriceInput = ({
     // the input is uncontrolled, but we need to support external "reset" functionality
     if (
       inputRef.current &&
-      inputRef.current.value !== formatMoney(workingPrice, '') &&
-      formatMoney(workingPrice, '') !== inputRef.current?.value
+      inputRef.current.value !== formatMoney(workingPrice, '')
     ) {
       inputRef.current.value = formatMoney(workingPrice, '');
     }
