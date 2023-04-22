@@ -722,7 +722,7 @@ const UserAssetQuantityInput = ({
     <>
       <TextInput
         ref={inputRef}
-        value={workingQuantity || ''}
+        value={ensureTinyNumberFormatting(workingQuantity) || ''}
         label={`${assetSymbol} Quantity`}
         onChange={(e) => handleChange(Number(e.target.value))}
         size="md"
@@ -734,7 +734,7 @@ const UserAssetQuantityInput = ({
         value={workingQuantity}
         label={null}
         min={0}
-        max={(originalQuantity || 1) * 10}
+        max={Math.max((originalQuantity || 1) * 10, 10)}
         onChange={(value) => handleChange(Number(value))}
         style={{ pointerEvents: 'none' }}
         styles={{ thumb: { borderWidth: 1, padding: 0, fontSize: '24px' } }}
@@ -759,7 +759,7 @@ const ResetInputValueIcon = ({
   if (!originalValue || originalValue === workingValue) return null;
 
   return (
-    <Tooltip label={`Reset to Original Value (${originalValue})`} position="top-end" withArrow>
+    <Tooltip label={`Reset to Original Value (${ensureTinyNumberFormatting(originalValue)})`} position="top-end" withArrow>
       <ActionIcon>
         <RxReset size={18} style={{ display: 'block' }} onClick={onClick} />
       </ActionIcon>
@@ -855,4 +855,13 @@ const UserAssetPriceInput = ({
 export const AbbreviatedEthereumAddress = ({ address }: { address: string }) => {
   if (address?.length < 14) return <>{`${address}`}</>;
   return <>{`${address?.slice(0, 4)}...${address?.slice(-6)}`}</>;
+};
+
+// Avoid exponential notation for very small numbers
+const ensureTinyNumberFormatting = (num: number) => {
+  if (num > 0.000001) return num;
+  const decimalsPart = num?.toString()?.split('.')?.[1] || '';
+  const eDecimals = Number(decimalsPart?.split('e-')?.[1]) || 0;
+  const countOfDecimals = decimalsPart.length + eDecimals;
+  return Number(num).toFixed(countOfDecimals);
 };
