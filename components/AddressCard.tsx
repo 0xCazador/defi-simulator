@@ -859,7 +859,7 @@ export const AbbreviatedEthereumAddress = ({ address }: { address: string }) => 
 
 // Avoid exponential notation for very small numbers
 const ensureTinyNumberFormatting = (num: number) => {
-  if (num > 0.000001) return num;
+  if (!num || num > 0.000001) return num;
   const decimalsPart = num?.toString()?.split('.')?.[1] || '';
   const eDecimals = Number(decimalsPart?.split('e-')?.[1]) || 0;
   const countOfDecimals = decimalsPart.length + eDecimals;
