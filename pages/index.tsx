@@ -40,7 +40,7 @@ export default function HomePage() {
   }, [router.query]);
 
   return (
-    <Container px="xs" style={{ overflow: "hidden" }}>
+    <Container px="xs" style={{ contain: "paint" }}>
       <AppBar />
       <AddressInput />
       {currentAddress && <ExperimentalAlert />}
