@@ -54,14 +54,14 @@ export default function HomePage() {
 const SplashSection = () => (
   <>
     <Center mt={15}>
-      <Text fz="md" span>
+      <Text fz="md" ta="center" span>
         Paste an Aave CDP address in the box above to visualize how changes to borrow/reserve assets
         affect an Aave CDP's health factor and borrowing power.
       </Text>
     </Center>
 
     <Center mt={15}>
-      <Text fz="md">Want to go for a quick spin? Use a random address instead:</Text>
+      <Text fz="md" ta="center">Want to go for a quick spin? Use a random address instead:</Text>
     </Center>
 
     <Space h="md" />

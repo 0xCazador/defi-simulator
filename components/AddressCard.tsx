@@ -90,12 +90,12 @@ export const HealthFactorAddressSummary = ({ addressData }: HealthFactorAddressS
 
       <Center>
         {count > 1 && (
-          <Text size="sm">Use the dropdown in the nav bar to view positions in other markets.</Text>
+          <Text size="sm" ta="center" mt="md">Use the dropdown in the nav bar to view positions in other markets.</Text>
         )}
       </Center>
 
       <Center>
-        <Text size="sm">
+        <Text size="sm" ta="center" mt="md">
           Add, remove, and modify asset prices/quantities below to visualize changes to health
           factor and borrowing power.
         </Text>
