@@ -39,7 +39,6 @@
     "accounting": "^0.4.1",
     "alchemy-sdk": "^2.7.0",
     "bignumber.js": "^9.1.1",
-    "cookies-next": "^2.1.1",
     "dayjs": "^1.11.7",
     "ethers": "^5.7.2",
     "jest-fetch-mock": "^3.0.3",
