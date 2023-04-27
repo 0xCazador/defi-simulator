@@ -733,6 +733,7 @@ const UserAssetQuantityInput = ({
       <Slider
         value={workingQuantity}
         label={null}
+        thumbLabel={`${assetSymbol} Quantity Slider`}
         min={0}
         max={Math.max((originalQuantity || 1) * 10, 10)}
         onChange={(value) => handleChange(Number(value))}
@@ -840,6 +841,7 @@ const UserAssetPriceInput = ({
       <Slider
         value={workingPrice}
         label={null}
+        thumbLabel={`${assetSymbol} Price Slider`}
         min={0}
         max={(originalPrice || 1) * 10}
         onChange={handleSliderChange}

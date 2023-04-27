@@ -131,10 +131,10 @@ export default function FooterLinks() {
         </Text>
 
         <Group spacing={0} className={classes.social} position="right" noWrap>
-          <ActionIcon size="lg" component="a" href="https://twitter.com/0xCazador" target="_blank">
+          <ActionIcon title="Link to Twitter" size="lg" component="a" href="https://twitter.com/0xCazador" target="_blank">
             <BsTwitter size="1.05rem" />
           </ActionIcon>
-          <ActionIcon size="lg" component="a" href="https://github.com/0xcazador/defi-simulator" target="_blank">
+          <ActionIcon title="Link to GitHub" size="lg" component="a" href="https://github.com/0xcazador/defi-simulator" target="_blank">
             <BsGithub size="1.05rem" />
           </ActionIcon>
         </Group>
