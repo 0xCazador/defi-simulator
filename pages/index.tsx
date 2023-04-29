@@ -3,16 +3,12 @@ import {
   Button,
   Center,
   Container,
-  List,
-  Mark,
   Space,
-  Text,
-  ThemeIcon,
-  Title,
+  Text
 } from '@mantine/core';
 import { FiAlertTriangle } from 'react-icons/fi';
 import { useEffect, useState, Children, cloneElement, ReactChild, ReactElement } from 'react';
-import { useRouter } from 'next/router';
+import { NextRouter, useRouter } from 'next/router';
 import { ethers } from 'ethers';
 import { useAaveData } from '../hooks/useAaveData';
 import AppBar from '../components/AppBar';
@@ -21,23 +17,21 @@ import AddressCard, { HealthFactorSkeleton } from '../components/AddressCard';
 import Footer from '../components/Footer';
 
 export default function HomePage() {
-  const router = useRouter();
+  const router: NextRouter = useRouter();
   const address = router?.query?.address as string;
-  const { currentAddress, setCurrentAddress } = useAaveData(address);
+  const isValidAddress: boolean = ethers.utils.isAddress(address) || isValidENSAddress(address);
+  const { currentAddress, setCurrentAddress } = useAaveData(isValidAddress ? address : "");
 
   useEffect(() => {
-    if (!router.query.address && currentAddress) {
+    if (!address && currentAddress) {
       setCurrentAddress('');
     }
     if (router.query.address && router.query.address !== currentAddress) {
-      if (
-        ethers.utils.isAddress(String(router.query.address)) ||
-        isValidENSAddress(String(router.query.address))
-      ) {
-        setCurrentAddress(String(router.query.address));
+      if (isValidAddress) {
+        setCurrentAddress(address);
       }
     }
-  }, [router.query]);
+  }, [address]);
 
   return (
     <Container px="xs" style={{ contain: "paint" }}>
