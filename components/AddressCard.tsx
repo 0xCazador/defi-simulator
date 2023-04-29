@@ -130,7 +130,7 @@ export const HealthFactorSkeleton = ({ animate }: HealthFactorSkeletonProps) => 
           </Paper>
         </Grid.Col>
         <Grid.Col lg={3} xs={6} style={{ textAlign: 'center' }}>
-          <Text fz="xs">{'Avail. to Borrow: '}</Text>
+          <Text fz="xs">{'Available to Borrow: '}</Text>
           <Skeleton height={45} mb="xl" animate={animate} />
         </Grid.Col>
         <Grid.Col lg={3} xs={6} style={{ textAlign: 'center' }}>
@@ -285,7 +285,7 @@ const HealthFactorSummary = ({ data }: HealthFactorSummaryInputProps) => {
           </Paper>
         </Grid.Col>
         <Grid.Col lg={3} xs={6} style={{ textAlign: 'center' }}>
-          <Text fz="xs">{'Avail. to Borrow: '}</Text>
+          <Text fz="xs">{'Available to Borrow: '}</Text>
           {availableBorrowsDiffers && (
             <Text fz="xs" c="dimmed">
               {originalAvailableBorrowsUSD} ➔
@@ -550,13 +550,13 @@ const UserAssetItem = memo(
     return (
       <Paper shadow="xs" sx={{ marginBottom: '30px' }}>
         <Group>
-          <Text fz="lg" fw={700}>
+          <Text fz="md" fw={700}>
             {assetSymbol}
           </Text>
           <img
             src={`/icons/tokens/${iconName}.svg`}
-            width="25px"
-            height="25px"
+            width="32px"
+            height="32px"
             alt={`${assetSymbol}`}
           />
         </Group>
@@ -724,6 +724,7 @@ const UserAssetQuantityInput = ({
         ref={inputRef}
         value={ensureTinyNumberFormatting(workingQuantity) || ''}
         label={`${assetSymbol} Quantity`}
+        labelProps={{ size: "sm" }}
         onChange={(e) => handleChange(Number(e.target.value))}
         size="md"
         type="number"
@@ -736,10 +737,11 @@ const UserAssetQuantityInput = ({
         thumbLabel={`${assetSymbol} Quantity Slider`}
         min={0}
         max={Math.max((originalQuantity || 1) * 10, 10)}
+        size="xl"
         onChange={(value) => handleChange(Number(value))}
         style={{ pointerEvents: 'none' }}
-        styles={{ thumb: { borderWidth: 1, padding: 0, fontSize: '24px' } }}
-        thumbSize={22}
+        styles={{ thumb: { borderWidth: 1, padding: 0, fontSize: '28px' } }}
+        thumbSize={32}
         thumbChildren={<TbArrowsMoveHorizontal style={{ pointerEvents: 'all' }} />}
       />
     </>
@@ -830,6 +832,7 @@ const UserAssetPriceInput = ({
       <TextInput
         defaultValue={formatMoney(workingPrice, '')}
         label={`${assetSymbol} Price (USD)`}
+        labelProps={{ size: "sm" }}
         onChange={(e) => handleChange(unformat(e.target.value))}
         onBlur={handleBlur}
         size="md"
@@ -844,10 +847,11 @@ const UserAssetPriceInput = ({
         thumbLabel={`${assetSymbol} Price Slider`}
         min={0}
         max={(originalPrice || 1) * 10}
+        size="xl"
         onChange={handleSliderChange}
         style={{ pointerEvents: 'none' }}
-        styles={{ thumb: { borderWidth: 1, padding: 0, fontSize: '24px' } }}
-        thumbSize={22}
+        styles={{ thumb: { borderWidth: 1, padding: 0, fontSize: '28px' } }}
+        thumbSize={32}
         thumbChildren={<TbArrowsMoveHorizontal style={{ pointerEvents: 'all' }} />}
       />
     </>
