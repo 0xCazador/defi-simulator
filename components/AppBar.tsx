@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 import { formatNumber } from 'accounting';
 
-import { FaChevronDown } from 'react-icons/fa';
+import { FaChevronDown, FaInfinity } from 'react-icons/fa';
 import { CiVault } from 'react-icons/ci';
 
 import {
@@ -18,6 +18,7 @@ import {
   Badge,
   Title,
   NavLink,
+  Center,
 } from '@mantine/core';
 import { BiGhost } from 'react-icons/bi';
 import { markets, useAaveData } from '../hooks/useAaveData';
@@ -138,7 +139,14 @@ export default function AppBar() {
                   {market.title}
                   {hasHF ? (
                     <Badge color="green" radius="sm" variant="filled" ml={10}>
-                      {formatNumber(hf, 2)}
+                      {hf === Infinity ? (
+                        <Center inline>
+                          <FaInfinity size={14} style={{ paddingTop: '4px' }} />
+                        </Center>
+                      ) : (
+                        <span>{formatNumber(hf, 2)}</span>
+                      )}
+
                     </Badge>
                   ) : (
                     <Badge color="gray" radius="sm" variant="filled" ml={10}>
