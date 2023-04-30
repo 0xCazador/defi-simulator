@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 import { formatNumber } from 'accounting';
 
 import { FaChevronDown, FaInfinity } from 'react-icons/fa';
-import { CiVault } from 'react-icons/ci';
 
 import {
   Container,

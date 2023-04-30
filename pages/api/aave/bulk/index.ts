@@ -167,7 +167,7 @@ const aaveUserSummaryToHealthFactor = (
   };
   const hf: HealthFactorData = {
     address,
-    fetchError: "",
+    fetchError: '',
     isFetching: false,
     lastFetched: Date.now(),
     market,

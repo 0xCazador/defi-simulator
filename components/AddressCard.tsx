@@ -724,7 +724,7 @@ const UserAssetQuantityInput = ({
         ref={inputRef}
         value={ensureTinyNumberFormatting(workingQuantity) || ''}
         label={`${assetSymbol} Quantity`}
-        labelProps={{ size: "sm" }}
+        labelProps={{ size: 'sm' }}
         onChange={(e) => handleChange(Number(e.target.value))}
         size="md"
         type="number"
@@ -832,7 +832,7 @@ const UserAssetPriceInput = ({
       <TextInput
         defaultValue={formatMoney(workingPrice, '')}
         label={`${assetSymbol} Price (USD)`}
-        labelProps={{ size: "sm" }}
+        labelProps={{ size: 'sm' }}
         onChange={(e) => handleChange(unformat(e.target.value))}
         onBlur={handleBlur}
         size="md"

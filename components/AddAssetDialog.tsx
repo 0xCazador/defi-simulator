@@ -57,8 +57,7 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
           if (
             asset.name.toUpperCase().includes(searchText.toUpperCase()) ||
             asset.symbol.toUpperCase().includes(searchText.toUpperCase())
-          )
-            return true;
+          ) return true;
           return false;
         })
         .filter((asset) => {
