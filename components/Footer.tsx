@@ -9,8 +9,7 @@ import {
   Center,
 } from '@mantine/core';
 import { BiGhost } from 'react-icons/bi';
-import { FaPiggyBank } from 'react-icons/fa';
-import { BsTwitter, BsGithub } from 'react-icons/bs';
+import { BsTwitter, BsGithub, BsDiscord } from 'react-icons/bs';
 
 const useStyles = createStyles((theme) => ({
   footer: {
@@ -117,10 +116,10 @@ export default function FooterLinks() {
         <Divider orientation="vertical" />
 
         <Center>
-          <Text size="xs" c="dimmed">
-            Questions or comments? Please find me on Twitter{' '}
-            <a href="https://twitter.com/0xCazador" target="_blank" rel="noreferrer">
-              @OxCazador
+          <Text size="xs" c="dimmed" mt="lg">
+            Questions or comments? Please{' '}
+            <a href="https://discord.gg/VF64xjhXEs" target="_blank" rel="noreferrer">
+              join the Discord!
             </a>
           </Text>
         </Center>
@@ -131,6 +130,9 @@ export default function FooterLinks() {
         </Text>
 
         <Group spacing={0} className={classes.social} position="right" noWrap>
+          <ActionIcon title="Link to Discord" size="lg" component="a" href="https://discord.gg/VF64xjhXEs" target="_blank">
+            <BsDiscord size="1.05rem" />
+          </ActionIcon>
           <ActionIcon title="Link to Twitter" size="lg" component="a" href="https://twitter.com/0xCazador" target="_blank">
             <BsTwitter size="1.05rem" />
           </ActionIcon>
