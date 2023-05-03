@@ -737,7 +737,7 @@ const UserAssetQuantityInput = ({
         thumbLabel={`${assetSymbol} Quantity Slider`}
         min={0}
         max={Math.max((originalQuantity || 1) * 10, 10)}
-        size="xl"
+        size="lg"
         onChange={(value) => handleChange(Number(value))}
         style={{ pointerEvents: 'none' }}
         styles={{ thumb: { borderWidth: 1, padding: 0, fontSize: '28px' } }}
@@ -847,7 +847,7 @@ const UserAssetPriceInput = ({
         thumbLabel={`${assetSymbol} Price Slider`}
         min={0}
         max={(originalPrice || 1) * 10}
-        size="xl"
+        size="lg"
         onChange={handleSliderChange}
         style={{ pointerEvents: 'none' }}
         styles={{ thumb: { borderWidth: 1, padding: 0, fontSize: '28px' } }}
