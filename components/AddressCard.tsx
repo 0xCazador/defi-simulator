@@ -79,18 +79,12 @@ export const HealthFactorAddressSummary = ({ addressData }: HealthFactorAddressS
         {count ? (
           <Text size="sm" style={{ display: 'inline-block' }}>
             <AbbreviatedEthereumAddress address={currentAddress} />
-            {`: Found ${count} Aave ${count === 1 ? 'position' : 'positions'}.`}
+            {`: Found Aave ${count === 1 ? 'position' : 'positions'} in ${count} ${count === 1 ? 'market' : 'markets'}.`}
           </Text>
         ) : (
           <Text size="sm" style={{ display: 'inline-block' }}>
             <AbbreviatedEthereumAddress address={currentAddress} />: No Aave positions found.
           </Text>
-        )}
-      </Center>
-
-      <Center>
-        {count > 1 && (
-          <Text size="sm" ta="center" mt="md">Use the dropdown in the nav bar to view positions in other markets.</Text>
         )}
       </Center>
 
@@ -718,6 +712,7 @@ const UserAssetQuantityInput = ({
       onClick={() => handleChange(originalQuantity)}
     />
   );
+
   return (
     <>
       <TextInput

@@ -18,6 +18,7 @@ import {
   Title,
   NavLink,
   Center,
+  Indicator,
 } from '@mantine/core';
 import { BiGhost } from 'react-icons/bi';
 import { markets, useAaveData } from '../hooks/useAaveData';
@@ -54,6 +55,11 @@ export default function AppBar() {
   const { classes, cx } = useStyles();
   const router = useRouter();
 
+  const numMarketsWithHF: number = markets.filter(market => {
+    const hasHF: boolean = (addressData?.[market.id]?.workingData?.healthFactor || -1) > -1;
+    return hasHF;
+  }).length;
+
   const handleSelectMarket = (marketId: string) => {
     setCurrentMarket(marketId);
   };
@@ -83,80 +89,84 @@ export default function AppBar() {
           </Title>
         </Group>
 
-        <Menu width={260} position="bottom-end" onClose={() => { }} onOpen={() => { }}>
-          <Menu.Target>
-            <UnstyledButton
-              className={cx(classes.market, { [classes.marketActive]: hasMarketMenuOpened })}
-            >
-              <Group spacing={7}>
-                <Text weight={500} size="sm" sx={{ lineHeight: 1 }} mr={2}>
-                  {currentMarketIcon}
-                  {currentMarketData?.title}
-                </Text>
-                <FaChevronDown size={10} />
-              </Group>
-            </UnstyledButton>
-          </Menu.Target>
-          <Menu.Dropdown>
-            <Menu.Label>
-              {currentAddress ? (
-                <Text span>
-                  CDP Markets for{' '}
-                  <Text fw={700} span>
-                    <AbbreviatedEthereumAddress address={currentAddress} />
-                  </Text>{' '}
-                </Text>
-              ) : (
-                <Text>No address found</Text>
-              )}
-            </Menu.Label>
+        <Indicator inline label={`${numMarketsWithHF}`} size={12} disabled={numMarketsWithHF < 2}>
+          <Menu width={260} position="bottom-end" onClose={() => { }} onOpen={() => { }}>
+            <Menu.Target>
+              <UnstyledButton
+                className={cx(classes.market, { [classes.marketActive]: hasMarketMenuOpened })}
+              >
+                <Group spacing={7}>
+                  <Text weight={500} size="sm" sx={{ lineHeight: 1 }} mr={2}>
+                    {currentMarketIcon}
+                    {currentMarketData?.title}
+                  </Text>
+                  <FaChevronDown size={10} />
+                </Group>
+              </UnstyledButton>
+            </Menu.Target>
+            <Menu.Dropdown>
+              <Menu.Label>
+                {currentAddress ? (
+                  <Text span>
+                    Markets for{' '}
+                    <Text fw={700} span>
+                      <AbbreviatedEthereumAddress address={currentAddress} />
+                    </Text>{' '}
+                  </Text>
+                ) : (
+                  <Text>No address found</Text>
+                )}
+              </Menu.Label>
 
-            <Menu.Divider />
+              <Menu.Divider />
 
-            <Menu.Label>Aave Markets</Menu.Label>
+              <Menu.Label>Aave Markets</Menu.Label>
 
-            {markets.map((market) => {
-              // aave utils returns -1 hf when there is no position
-              const hf: number = addressData?.[market.id]?.workingData?.healthFactor ?? -1;
-              const hasHF: boolean = hf > -1;
-              const icon = (
-                <img
-                  src={`/icons/networks/${market.id.split('_')[0].toLowerCase()}.svg`}
-                  width="25px"
-                  height="25px"
-                  alt={`${market.title}`}
-                />
-              );
+              {markets.map((market) => {
+                // aave utils returns -1 hf when there is no position
+                const hf: number = addressData?.[market.id]?.workingData?.healthFactor ?? -1;
+                const hasHF: boolean = hf > -1;
+                const icon = (
+                  <img
+                    src={`/icons/networks/${market.id.split('_')[0].toLowerCase()}.svg`}
+                    width="25px"
+                    height="25px"
+                    alt={`${market.title}`}
+                  />
+                );
 
-              return (
-                <Menu.Item
-                  key={market.id}
-                  id={market.id}
-                  icon={icon}
-                  onClick={() => handleSelectMarket(market.id)}
-                >
-                  {market.title}
-                  {hasHF ? (
-                    <Badge color="green" radius="sm" variant="filled" ml={10}>
-                      {hf === Infinity ? (
-                        <Center inline>
-                          <FaInfinity size={14} style={{ paddingTop: '4px' }} />
-                        </Center>
-                      ) : (
-                        <span>{formatNumber(hf, 2)}</span>
-                      )}
+                return (
+                  <Menu.Item
+                    key={market.id}
+                    id={market.id}
+                    icon={icon}
+                    onClick={() => handleSelectMarket(market.id)}
+                  >
+                    {market.title}
+                    {hasHF ? (
+                      <Badge color="green" radius="sm" variant="filled" ml={10}>
+                        {hf === Infinity ? (
+                          <Center inline>
+                            <FaInfinity size={14} style={{ paddingTop: '4px' }} />
+                          </Center>
+                        ) : (
+                          <span>{formatNumber(hf, 2)}</span>
+                        )}
 
-                    </Badge>
-                  ) : (
-                    <Badge color="gray" radius="sm" variant="filled" ml={10}>
-                      ---
-                    </Badge>
-                  )}
-                </Menu.Item>
-              );
-            })}
-          </Menu.Dropdown>
-        </Menu>
+                      </Badge>
+                    ) : (
+                      <Badge color="gray" radius="sm" variant="filled" ml={10}>
+                        ---
+                      </Badge>
+                    )}
+                  </Menu.Item>
+                );
+              })}
+            </Menu.Dropdown>
+          </Menu>
+
+        </Indicator>
+
       </Container>
     </Header>
   );
