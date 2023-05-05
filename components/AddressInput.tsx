@@ -10,7 +10,7 @@ import { RandomAddressButton } from '../pages';
 
 type Props = {};
 
-const AddressInput = ({}: Props) => {
+const AddressInput = ({ }: Props) => {
   const [inputAddress, setInputAddress] = useState('');
   const [showCopied, setShowCopied] = useState(false);
   const router = useRouter();
@@ -58,24 +58,28 @@ const AddressInput = ({}: Props) => {
       rightSection={
         <Center>
           <RandomAddressButton>
-            <ActionIcon bg="#25262b" pr={4} pl={4}>
-              <GiDiceSixFacesFive title="Use Random Address" size={16} />
-            </ActionIcon>
+            <Tooltip label="Use Random Address" position="left" withArrow>
+              <ActionIcon bg="#25262b" pr={4} pl={4}>
+                <GiDiceSixFacesFive title="Use Random Address" size={16} />
+              </ActionIcon>
+            </Tooltip>
           </RandomAddressButton>
-          <Tooltip label="Address copied to clipboard!" opened={showCopied} color="green" withArrow>
+          <Tooltip label={showCopied ? "Address copied to clipboard!" : "Copy address to clipboard"} opened={showCopied ? true : undefined} color={showCopied ? "green" : undefined} position="left" withArrow>
             <ActionIcon bg="#25262b" pr={8}>
               <FaCopy title="Copy address to clipboard" size={16} onClick={handleCopy} />
             </ActionIcon>
           </Tooltip>
-          <a
-            title="Visit address details on Etherscan"
-            target="_blank"
-            href={`https://etherscan.io/address/${inputAddress}`}
-            style={{ color: '#e9ecef', marginRight: '44px', marginTop: '2px' }}
-            rel="noreferrer"
-          >
-            <FaExternalLinkAlt size={16} />
-          </a>
+          <Tooltip label="View address on Etherscan" position="left" withArrow>
+            <a
+              title="Visit address details on Etherscan"
+              target="_blank"
+              href={`https://etherscan.io/address/${inputAddress}`}
+              style={{ color: '#e9ecef', marginRight: '44px', marginTop: '2px' }}
+              rel="noreferrer"
+            >
+              <FaExternalLinkAlt size={16} />
+            </a>
+          </Tooltip>
         </Center>
       }
     />

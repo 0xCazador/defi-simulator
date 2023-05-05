@@ -17,11 +17,8 @@ import {
   Mark,
   Button,
   Tooltip,
-  Alert,
   Checkbox,
-  NumberInput,
   Skeleton,
-  Space,
 } from '@mantine/core';
 import { FaAsterisk, FaInfinity } from 'react-icons/fa';
 import { RxReset } from 'react-icons/rx';
