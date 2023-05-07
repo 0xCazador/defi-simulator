@@ -3,6 +3,7 @@ import {
   Button,
   Center,
   Container,
+  Divider,
   Space,
   Text,
 } from '@mantine/core';
@@ -37,35 +38,50 @@ export default function HomePage() {
     <Container px="xs" style={{ contain: 'paint' }}>
       <AppBar />
       <AddressInput />
-      {currentAddress && <ExperimentalAlert />}
       {currentAddress && <AddressCard />}
       {!currentAddress && <SplashSection />}
+      <ExperimentalAlert />
       <Footer />
     </Container>
   );
 }
 
-const SplashSection = () => (
-  <>
-    <Center mt={15}>
-      <Text fz="md" ta="center" span>
-        Paste an Aave CDP address in the box above to visualize how changes to borrow/reserve assets
-        affect an Aave CDP's health factor and borrowing power.
-      </Text>
-    </Center>
+const SplashSection = () => {
+  const router: NextRouter = useRouter();
+  return (
+    <>
+      <Center mt={15}>
+        <Text fz="md" ta="center" span>
+          Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets
+          affect the position's health factor and borrowing power.
+        </Text>
+      </Center>
 
-    <Center mt={15}>
-      <Text fz="md" ta="center">Want to go for a quick spin? Use a random address instead:</Text>
-    </Center>
+      <Divider
+        my="sm"
+        variant="dashed"
+        labelPosition="center"
+        label="OR"
+      />
 
-    <Space h="md" />
+      <Center mt={15}>
+        <Text fz="md" ta="center">Want to go for a quick spin?</Text>
+      </Center>
 
-    <Center>
-      <RandomAddressButton />
-    </Center>
-    <HealthFactorSkeleton animate={false} />
-  </>
-);
+      <Space h="md" />
+
+      <Center>
+        <RandomAddressButton />
+        <Space w="xl" />
+        <Divider orientation="vertical" />
+        <Space w="xl" />
+        <Button onClick={() => router.push("?address=sandbox.eth")}>Build Position from Scratch</Button>
+      </Center>
+    </>
+
+  )
+}
+
 
 type RandomAddressButtonProps = {
   children?: React.ReactNode;
@@ -340,13 +356,13 @@ export const RandomAddressButton = ({ children }: RandomAddressButtonProps) => {
   const address = addresses[getRandomInt(0, addresses.length)];
 
   const renderChildren = () => Children.map(children, (child) => cloneElement(child as ReactElement, {
-        onClick: () => router.push(`?address=${address}`),
-      }));
+    onClick: () => router.push(`?address=${address}`),
+  }));
 
   return children ? (
     <span>{renderChildren()}</span>
   ) : (
-    <Button onClick={() => router.push(`?address=${address}`)}>Try Random Address</Button>
+    <Button onClick={() => router.push(`?address=${address}`)}>Use Random Aave Address</Button>
   );
 };
 
@@ -358,7 +374,7 @@ const ExperimentalAlert = () => {
   return (
     <Alert
       mb={15}
-      mt={15}
+      mt={45}
       icon={<FiAlertTriangle size="1rem" />}
       title="Experimental!"
       color="red"

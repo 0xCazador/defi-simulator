@@ -1,4 +1,4 @@
-import { ReactElement, memo, useEffect, useRef } from 'react';
+import { ReactElement, memo, useEffect, useRef, useState } from 'react';
 import ethers from 'ethers';
 import { formatNumber, formatMoney, unformat } from 'accounting';
 
@@ -178,10 +178,13 @@ const HealthFactorSummary = ({ data }: HealthFactorSummaryInputProps) => {
     );
   }
 
-  const originalHealthFactor: string = formatNumber(
+  const addressHasPosition: boolean = (data.fetchedData?.healthFactor || -1) > -1;
+
+  const originalHealthFactorDisplayable: string = formatNumber(
     Math.max(data.fetchedData?.healthFactor || 0, 0),
     2
   );
+
   const healthFactor: ReactElement =
     data.workingData?.healthFactor === Infinity ? (
       <Center inline>
@@ -190,13 +193,13 @@ const HealthFactorSummary = ({ data }: HealthFactorSummaryInputProps) => {
     ) : (
       <span>{formatNumber(Math.max(data.workingData?.healthFactor || 0, 0), 2)}</span>
     );
-  const healthFactorDiffers: boolean =
-    data.workingData?.healthFactor?.toFixed(2) !== data.fetchedData?.healthFactor?.toFixed(2);
+  const healthFactorDiffers: boolean = addressHasPosition &&
+    (data.workingData?.healthFactor?.toFixed(2) !== data.fetchedData?.healthFactor?.toFixed(2));
 
   const originalTotalBorrowsUSD: string = formatMoney(data.fetchedData?.totalBorrowsUSD ?? 0);
   const totalBorrowsUSD: string = formatMoney(data.workingData?.totalBorrowsUSD ?? 0);
-  const totalBorrowsDiffers: boolean =
-    data.fetchedData?.totalBorrowsUSD?.toFixed(2) !== data.workingData?.totalBorrowsUSD?.toFixed(2);
+  const totalBorrowsDiffers: boolean = addressHasPosition &&
+    (data.fetchedData?.totalBorrowsUSD?.toFixed(2) !== data.workingData?.totalBorrowsUSD?.toFixed(2));
 
   const originalAvailableBorrowsUSD: string = formatMoney(
     Math.max(data.fetchedData?.availableBorrowsUSD ?? 0, 0)
@@ -204,9 +207,9 @@ const HealthFactorSummary = ({ data }: HealthFactorSummaryInputProps) => {
   const availableBorrowsUSD: string = formatMoney(
     Math.max(data.workingData?.availableBorrowsUSD ?? 0, 0)
   );
-  const availableBorrowsDiffers: boolean =
-    data.fetchedData?.availableBorrowsUSD?.toFixed(2) !==
-    data.workingData?.availableBorrowsUSD?.toFixed(2);
+  const availableBorrowsDiffers: boolean = addressHasPosition &&
+    (data.fetchedData?.availableBorrowsUSD?.toFixed(2) !==
+      data.workingData?.availableBorrowsUSD?.toFixed(2));
 
   const originalTotalCollateralUSD: number =
     data.fetchedData?.userReservesData.reduce(
@@ -220,8 +223,8 @@ const HealthFactorSummary = ({ data }: HealthFactorSummaryInputProps) => {
     ) ?? 0;
   const originalTotalCollateralUSDFormatted: string = formatMoney(originalTotalCollateralUSD);
   const totalCollateralUSDFormatted: string = formatMoney(totalCollateralUSD);
-  const totalCollateralDiffers: boolean =
-    originalTotalCollateralUSD?.toFixed(2) !== totalCollateralUSD?.toFixed(2);
+  const totalCollateralDiffers: boolean = addressHasPosition &&
+    (originalTotalCollateralUSD?.toFixed(2) !== totalCollateralUSD?.toFixed(2));
 
   const originalNetValueUSD: string = formatMoney(
     originalTotalCollateralUSD - (data.fetchedData?.totalBorrowsUSD ?? 0)
@@ -229,9 +232,9 @@ const HealthFactorSummary = ({ data }: HealthFactorSummaryInputProps) => {
   const netValueUSD: string = formatMoney(
     totalCollateralUSD - (data.workingData?.totalBorrowsUSD ?? 0)
   );
-  const netValueUSDDiffers: boolean =
-    (originalTotalCollateralUSD - (data.fetchedData?.totalBorrowsUSD ?? 0)).toFixed(2) !==
-    (totalCollateralUSD - (data.workingData?.totalBorrowsUSD ?? 0)).toFixed(2);
+  const netValueUSDDiffers: boolean = addressHasPosition &&
+    ((originalTotalCollateralUSD - (data.fetchedData?.totalBorrowsUSD ?? 0)).toFixed(2) !==
+      (totalCollateralUSD - (data.workingData?.totalBorrowsUSD ?? 0)).toFixed(2));
 
   return (
     <Paper pb={5} style={{ position: 'sticky', top: '0', zIndex: '5' }}>
@@ -245,7 +248,7 @@ const HealthFactorSummary = ({ data }: HealthFactorSummaryInputProps) => {
             {healthFactorDiffers && (
               <>
                 <Text mr="4px" span c="dimmed">
-                  {`${originalHealthFactor}`}
+                  {`${originalHealthFactorDisplayable}`}
                 </Text>
                 <Text span c="dimmed">
                   ➔
@@ -687,6 +690,7 @@ const UserAssetQuantityInput = ({
   setAssetQuantity,
 }: UserAssetQuantityInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [lastInputValue, setLastInputValue] = useState(workingQuantity); // used to set slider to intuitive range
 
   useEffect(() => {
     // if it's a new asset, scroll into view and focus
@@ -696,9 +700,10 @@ const UserAssetQuantityInput = ({
     }
   }, [!!inputRef.current]);
 
-  const handleChange = (value: number) => {
+  const handleChange = (value: number, isSlider: boolean = false) => {
     if (value && value < 0) return;
     if (value === workingQuantity) return;
+    if (!isSlider) setLastInputValue(value);
     setAssetQuantity(assetSymbol, value);
   };
 
@@ -728,9 +733,9 @@ const UserAssetQuantityInput = ({
         label={null}
         thumbLabel={`${assetSymbol} Quantity Slider`}
         min={0}
-        max={Math.max((originalQuantity || 1) * 10, 10)}
-        size="lg"
-        onChange={(value) => handleChange(Number(value))}
+        max={Math.max((lastInputValue || 1) * 10, 10)}
+        size="md"
+        onChange={(value) => handleChange(Number(value), true)}
         style={{ pointerEvents: 'none' }}
         styles={{ thumb: { borderWidth: 1, padding: 0, fontSize: '28px' } }}
         thumbSize={32}
@@ -775,6 +780,7 @@ const UserAssetPriceInput = ({
   setAssetPriceInUSD,
 }: UserAssetPriceInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [lastInputValue, setLastInputValue] = useState(workingPrice); // used to set slider to intuitive range
 
   useEffect(() => {
     // the input is uncontrolled, but we need to support external "reset" functionality
@@ -795,6 +801,7 @@ const UserAssetPriceInput = ({
   const handleChange = (value: number) => {
     if (value && value < 0) return;
     if (value === workingPrice) return;
+    setLastInputValue(value);
     setAssetPriceInUSD(assetSymbol, value);
   };
 
@@ -838,8 +845,8 @@ const UserAssetPriceInput = ({
         label={null}
         thumbLabel={`${assetSymbol} Price Slider`}
         min={0}
-        max={(originalPrice || 1) * 10}
-        size="lg"
+        max={(lastInputValue || 1) * 10}
+        size="md"
         onChange={handleSliderChange}
         style={{ pointerEvents: 'none' }}
         styles={{ thumb: { borderWidth: 1, padding: 0, fontSize: '28px' } }}
