@@ -75,7 +75,7 @@ const SplashSection = () => {
         <Space w="xl" />
         <Divider orientation="vertical" />
         <Space w="xl" />
-        <Button onClick={() => router.push("?address=sandbox.eth")}>Build Position from Scratch</Button>
+        <Button onClick={() => router.push("?address=sandbox.eth")}>Build from Scratch</Button>
       </Center>
     </>
 
@@ -362,7 +362,7 @@ export const RandomAddressButton = ({ children }: RandomAddressButtonProps) => {
   return children ? (
     <span>{renderChildren()}</span>
   ) : (
-    <Button onClick={() => router.push(`?address=${address}`)}>Use Random Aave Address</Button>
+    <Button onClick={() => router.push(`?address=${address}`)}>Use Random Address</Button>
   );
 };
 
