@@ -23,6 +23,7 @@ import {
 import { BiGhost } from 'react-icons/bi';
 import { markets, useAaveData } from '../hooks/useAaveData';
 import { AbbreviatedEthereumAddress } from './AddressCard';
+import { BsCheck, BsCheckLg } from 'react-icons/bs';
 
 const useStyles = createStyles((theme) => ({
   inner: {
@@ -126,6 +127,8 @@ export default function AppBar() {
                 // aave utils returns -1 hf when there is no position
                 const hf: number = addressData?.[market.id]?.workingData?.healthFactor ?? -1;
                 const hasHF: boolean = hf > -1;
+                const isCurrentMarket: boolean = currentMarket === market.id;
+
                 const icon = (
                   <img
                     src={`/icons/networks/${market.id.split('_')[0].toLowerCase()}.svg`}
@@ -159,6 +162,7 @@ export default function AppBar() {
                         ---
                       </Badge>
                     )}
+                    {isCurrentMarket && <Center inline><BsCheckLg style={{ marginLeft: "5px", marginTop: "10px" }} /></Center>}
                   </Menu.Item>
                 );
               })}
