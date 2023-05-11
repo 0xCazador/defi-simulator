@@ -540,7 +540,7 @@ const UserAssetItem = memo(
     disableSetUseReserveAssetAsCollateral,
     isNewlyAddedBySimUser,
   }: UserAssetItemProps) => {
-    const iconName = assetSymbol.toLowerCase().replace('.e', '').replace('.b', '');
+    const iconName = assetSymbol.toLowerCase().replace('.e', '').replace('.b', '').replace('m.', '');
     return (
       <Paper shadow="xs" sx={{ marginBottom: '30px' }}>
         <Group>

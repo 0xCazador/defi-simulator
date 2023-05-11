@@ -176,6 +176,17 @@ export const markets: AaveMarketDataType[] = [
       UI_POOL_DATA_PROVIDER: pools.AaveV3Avalanche.UI_POOL_DATA_PROVIDER,
     },
   },
+  {
+    v3: true,
+    id: 'METIS_V3',
+    title: 'Metis v3',
+    chainId: ChainId.metis_andromeda,
+    api: 'https://andromeda.metis.io/?owner=1088',
+    addresses: {
+      LENDING_POOL_ADDRESS_PROVIDER: pools.AaveV3Metis.POOL_ADDRESSES_PROVIDER,
+      UI_POOL_DATA_PROVIDER: pools.AaveV3Metis.UI_POOL_DATA_PROVIDER,
+    },
+  },
 ];
 
 /** hook to fetch user aave data
@@ -319,13 +330,13 @@ export function useAaveData(address: string) {
 
     assetType === 'RESERVE'
       ? reserves.set((p) => {
-          p.splice(itemIndex, 1);
-          return p;
-        })
+        p.splice(itemIndex, 1);
+        return p;
+      })
       : borrows.set((p) => {
-          p.splice(itemIndex, 1);
-          return p;
-        });
+        p.splice(itemIndex, 1);
+        return p;
+      });
 
     updateAllDerivedHealthFactorData();
   };

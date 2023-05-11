@@ -12,11 +12,8 @@ import {
   Center,
 } from '@mantine/core';
 import { RxReset } from 'react-icons/rx';
-import { AssetTransfersCategory } from 'alchemy-sdk';
 import {
   useAaveData,
-  AssetDetails,
-  UserReservesData,
   ReserveAssetDataItem,
   BorrowedAssetDataItem,
 } from '../hooks/useAaveData';
