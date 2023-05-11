@@ -120,7 +120,7 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
 
         <List>
           {assets.map((asset) => {
-            const iconName = asset.symbol.toLowerCase().replace('.e', '').replace('.b', '');
+            const iconName = asset.symbol.toLowerCase().replace('.e', '').replace('.b', '').replace('m.', '');
             return (
               <List.Item
                 key={asset.symbol}
