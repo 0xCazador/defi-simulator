@@ -1,6 +1,7 @@
 import { ReactElement, memo, useEffect, useRef, useState } from 'react';
 import ethers from 'ethers';
 import { formatNumber, formatMoney, unformat } from 'accounting';
+import noUiSlider from 'nouislider';
 
 import {
   Center,
@@ -9,7 +10,6 @@ import {
   Title,
   Grid,
   TextInput,
-  Slider,
   Paper,
   Divider,
   Container,
@@ -24,8 +24,8 @@ import { FaAsterisk, FaInfinity } from 'react-icons/fa';
 import { RxReset } from 'react-icons/rx';
 import { IoLogoUsd } from 'react-icons/io';
 import { ImmutableArray, ImmutableObject } from '@hookstate/core';
-import { TbArrowsMoveHorizontal } from 'react-icons/tb';
 import AddAssetDialog from './AddAssetDialog';
+
 import {
   useAaveData,
   HealthFactorData,
@@ -729,17 +729,8 @@ const UserAssetQuantityInput = ({
         rightSection={resetIcon}
       />
       <Slider
-        value={workingQuantity}
-        label={null}
-        thumbLabel={`${assetSymbol} Quantity Slider`}
-        min={0}
-        max={Math.max((lastInputValue || 1) * 10, 10)}
-        size="md"
-        onChange={(value) => handleChange(Number(value), true)}
-        style={{ pointerEvents: 'none' }}
-        styles={{ thumb: { borderWidth: 1, padding: 0, fontSize: '28px' } }}
-        thumbSize={32}
-        thumbChildren={<TbArrowsMoveHorizontal style={{ pointerEvents: 'all' }} />}
+        defaultValue={workingQuantity}
+        onChange={(value) => handleChange(value, true)}
       />
     </>
   );
@@ -841,19 +832,61 @@ const UserAssetPriceInput = ({
         icon={<IoLogoUsd />}
       />
       <Slider
-        value={workingPrice}
-        label={null}
-        thumbLabel={`${assetSymbol} Price Slider`}
-        min={0}
-        max={(lastInputValue || 1) * 10}
-        size="md"
+        defaultValue={workingPrice}
         onChange={handleSliderChange}
-        style={{ pointerEvents: 'none' }}
-        styles={{ thumb: { borderWidth: 1, padding: 0, fontSize: '28px' } }}
-        thumbSize={32}
-        thumbChildren={<TbArrowsMoveHorizontal style={{ pointerEvents: 'all' }} />}
       />
     </>
+  );
+};
+
+type SliderProps = {
+  defaultValue: number,
+  onChange: (value: number) => void
+};
+
+const Slider = ({
+  defaultValue,
+  onChange
+}: SliderProps) => {
+  const [value, setValue] = useState(defaultValue);
+  const divRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => { // initialize the slider
+    if (divRef.current?.noUiSlider) return; // already initialized
+    createSlider();
+  }, []);
+
+  useEffect(() => { // handle external reset or change
+    if (value != null && defaultValue != null && defaultValue !== value) {
+      createSlider()
+    }
+  }, [defaultValue, value]);
+
+  const createSlider = () => {
+    const node = divRef.current;
+    if (node.noUiSlider) {
+      node.noUiSlider.destroy();
+      node.noUiSlider = null;
+    }
+
+    noUiSlider.create(node, {
+      start: [defaultValue],
+      range: {
+        'min': [0],
+        '50%': [Math.max(defaultValue, 1)],
+        '80%': [Math.max(defaultValue * 2, 2)],
+        'max': [Math.max(defaultValue * 20, 20)]
+      }
+    }).on('slide', handleChange);
+  }
+
+  const handleChange = (val: number) => {
+    onChange(val);
+    setValue(val);
+  }
+
+  return (
+    <div ref={divRef} />
   );
 };
 

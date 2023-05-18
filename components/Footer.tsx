@@ -118,7 +118,7 @@ export default function FooterLinks() {
         <Center>
           <Text size="xs" c="dimmed" mt="lg">
             Questions or comments? Please{' '}
-            <a href="https://discord.gg/VF64xjhXEs" target="_blank" rel="noreferrer">
+            <a href="https://discord.gg/VF64xjhXEs" target="_blank" rel="noreferrer" style={{ color: "#e9ecef" }}>
               join the Discord!
             </a>
           </Text>

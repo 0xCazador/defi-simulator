@@ -7,6 +7,10 @@ import {
 } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
 
+// Styles specific to noUI slider
+import 'nouislider/dist/nouislider.css';
+import "../css/slider.css";
+
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
 
