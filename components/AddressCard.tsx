@@ -185,7 +185,13 @@ const HealthFactorSummary = ({ data }: HealthFactorSummaryInputProps) => {
     2
   );
 
-  const healthFactor: ReactElement =
+  const hfColor: string = (data.workingData?.healthFactor || 0) < 1.1
+    ? "red"
+    : (data.workingData?.healthFactor || 0) > 3
+      ? "green"
+      : "yellow";
+
+  const healthFactorElem: ReactElement =
     data.workingData?.healthFactor === Infinity ? (
       <Center inline>
         <FaInfinity size={24} style={{ paddingTop: '8px' }} />
@@ -255,9 +261,9 @@ const HealthFactorSummary = ({ data }: HealthFactorSummaryInputProps) => {
                 </Text>
               </>
             )}
-            <Mark ml="4px" mr="2px">
+            <Mark ml="4px" mr="2px" color={hfColor}>
               <Text span pl="2px" pr="2px">
-                {healthFactor}
+                {healthFactorElem}
               </Text>
             </Mark>
             <ResetMarketButton />
