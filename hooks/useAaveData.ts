@@ -189,6 +189,14 @@ export const markets: AaveMarketDataType[] = [
   },
 ];
 
+export const getHealthFactorColor = (hf: number) => {
+  return (hf || 0) < 1.1
+    ? "red"
+    : (hf || 0) > 3
+      ? "green"
+      : "yellow";
+}
+
 /** hook to fetch user aave data
  * @returns { currentAddress,
     currentMarket,

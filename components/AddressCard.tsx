@@ -32,6 +32,7 @@ import {
   ReserveAssetDataItem,
   BorrowedAssetDataItem,
   markets,
+  getHealthFactorColor,
 } from '../hooks/useAaveData';
 
 type Props = {};
@@ -185,11 +186,7 @@ const HealthFactorSummary = ({ data }: HealthFactorSummaryInputProps) => {
     2
   );
 
-  const hfColor: string = (data.workingData?.healthFactor || 0) < 1.1
-    ? "red"
-    : (data.workingData?.healthFactor || 0) > 3
-      ? "green"
-      : "yellow";
+  const hfColor: string = getHealthFactorColor(data.fetchedData?.healthFactor || 0);
 
   const healthFactorElem: ReactElement =
     data.workingData?.healthFactor === Infinity ? (

@@ -21,7 +21,7 @@ import {
   Indicator,
 } from '@mantine/core';
 import { BiGhost } from 'react-icons/bi';
-import { markets, useAaveData } from '../hooks/useAaveData';
+import { getHealthFactorColor, markets, useAaveData } from '../hooks/useAaveData';
 import { AbbreviatedEthereumAddress } from './AddressCard';
 import { BsCheck, BsCheckLg } from 'react-icons/bs';
 
@@ -128,6 +128,7 @@ export default function AppBar() {
                 const hf: number = addressData?.[market.id]?.workingData?.healthFactor ?? -1;
                 const hasHF: boolean = hf > -1;
                 const isCurrentMarket: boolean = currentMarket === market.id;
+                const hfColor: string = getHealthFactorColor(hf);
 
                 const icon = (
                   <img
@@ -147,7 +148,7 @@ export default function AppBar() {
                   >
                     {market.title}
                     {hasHF ? (
-                      <Badge color="green" radius="sm" variant="filled" ml={10}>
+                      <Badge color={hfColor} radius="sm" variant="filled" ml={10}>
                         {hf === Infinity ? (
                           <Center inline>
                             <FaInfinity size={14} style={{ paddingTop: '4px' }} />
