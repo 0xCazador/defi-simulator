@@ -186,7 +186,7 @@ const HealthFactorSummary = ({ data }: HealthFactorSummaryInputProps) => {
     2
   );
 
-  const hfColor: string = getHealthFactorColor(data.fetchedData?.healthFactor || 0);
+  const hfColor: string = getHealthFactorColor(data.workingData?.healthFactor || 0);
 
   const healthFactorElem: ReactElement =
     data.workingData?.healthFactor === Infinity ? (
