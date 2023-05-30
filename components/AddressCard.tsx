@@ -877,8 +877,9 @@ const Slider = ({
       start: [defaultValue],
       range: {
         'min': [0],
+        '15%': [Math.max(defaultValue * 0.5, 0.5)],
         '50%': [Math.max(defaultValue, 1)],
-        '80%': [Math.max(defaultValue * 2, 2)],
+        '85%': [Math.max(defaultValue * 2, 2)],
         'max': [Math.max(defaultValue * 20, 20)]
       }
     }).on('slide', handleChange);

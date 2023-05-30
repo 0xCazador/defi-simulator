@@ -126,7 +126,7 @@ export default function FooterLinks() {
       </Container>
       <Container className={classes.afterFooter}>
         <Text color="dimmed" size="sm" mb={15}>
-          © defisim.xyz. All rights reserved.
+          defisim.xyz
         </Text>
 
         <Group spacing={0} className={classes.social} position="right" noWrap>
