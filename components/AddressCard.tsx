@@ -23,6 +23,7 @@ import {
   Avatar,
   Badge,
   Flex,
+  Space,
 } from '@mantine/core';
 import { FaAsterisk, FaInfinity } from 'react-icons/fa';
 import { RxReset } from 'react-icons/rx';
@@ -59,8 +60,8 @@ const AddressCard = ({ }: Props) => {
         <HealthFactorSummary summaryRef={summaryRef} data={data} />
         <LiquidationScenario data={data} applyLiquidationScenario={applyLiquidationScenario} />
         <UserReserveAssetList summaryOffset={summaryOffset} />
-        <Divider size="xl" variant="dashed" />
-        <Divider size="xl" variant="dashed" mb="xl" />
+        <Space h="xl" />
+        <Space h="xl" />
         <UserBorrowedAssetList summaryOffset={summaryOffset} />
       </div>
 
@@ -748,6 +749,7 @@ const UserAssetItem = memo(
             disableSetUseReserveAssetAsCollateral={disableSetUseReserveAssetAsCollateral}
           />
         )}
+        <Divider variant="dashed" size="md" mt="xl" />
       </Paper>
     );
   },
