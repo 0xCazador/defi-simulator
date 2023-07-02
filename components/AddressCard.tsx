@@ -1,4 +1,4 @@
-import { ReactElement, memo, useEffect, useRef, useState } from 'react';
+import { MutableRefObject, ReactElement, RefObject, memo, useEffect, useRef, useState } from 'react';
 import ethers from 'ethers';
 import { formatNumber, formatMoney, unformat } from 'accounting';
 import noUiSlider from 'nouislider';
@@ -41,7 +41,6 @@ import {
   AssetDetails,
   getCalculatedLiquidationScenario
 } from '../hooks/useAaveData';
-import BigNumber from 'bignumber.js';
 import { BsChevronDown, BsChevronUp } from 'react-icons/bs';
 import { AaveHealthFactorData } from '../hooks/useAaveData';
 
@@ -50,13 +49,21 @@ type Props = {};
 const AddressCard = ({ }: Props) => {
   const { addressData, currentMarket, applyLiquidationScenario } = useAaveData('');
   const data = addressData?.[currentMarket];
+  const summaryRef = useRef<HTMLDivElement>(null);
+  const summaryOffset: number = summaryRef?.current?.clientHeight || 0;
 
   return (
-    <div style={{ marginTop: '15px' }}>
+    <div style={{ marginTop: '15px' }} >
       <HealthFactorAddressSummary addressData={addressData} />
-      <HealthFactorSummary data={data} applyLiquidationScenario={applyLiquidationScenario} />
-      <UserReserveAssetList />
-      <UserBorrowedAssetList />
+      <div style={{ zIndex: '6', backgroundColor: "#1A1B1E" }}>
+        <HealthFactorSummary summaryRef={summaryRef} data={data} />
+        <LiquidationScenario data={data} applyLiquidationScenario={applyLiquidationScenario} />
+        <UserReserveAssetList summaryOffset={summaryOffset} />
+        <Divider size="xl" variant="dashed" />
+        <Divider size="xl" variant="dashed" />
+        <UserBorrowedAssetList summaryOffset={summaryOffset} />
+      </div>
+
     </div>
   );
 };
@@ -171,12 +178,12 @@ export const HealthFactorSkeleton = ({ animate }: HealthFactorSkeletonProps) => 
   );
 };
 
-type HealthFactorSummaryInputProps = {
+type HealthFactorSummaryProps = {
   data: ImmutableObject<HealthFactorData>;
-  applyLiquidationScenario: () => void;
+  summaryRef: RefObject<HTMLDivElement>
 };
 
-const HealthFactorSummary = ({ data, applyLiquidationScenario }: HealthFactorSummaryInputProps) => {
+const HealthFactorSummary = ({ data, summaryRef }: HealthFactorSummaryProps) => {
   if (data?.isFetching) return <HealthFactorSkeleton animate />;
 
   if (!data) {
@@ -251,85 +258,86 @@ const HealthFactorSummary = ({ data, applyLiquidationScenario }: HealthFactorSum
       (totalCollateralUSD - (data.workingData?.totalBorrowsUSD ?? 0)).toFixed(2));
 
   return (
-    <Paper pb={5} style={{ position: 'sticky', top: '0', zIndex: '5' }}>
-      <Divider
-        my="sm"
-        variant="dashed"
-        labelPosition="center"
-        label={
-          <Title order={3}>
-            {'Health Factor: '}
-            {healthFactorDiffers && (
-              <>
-                <Text mr="4px" span c="dimmed">
-                  {`${originalHealthFactorDisplayable}`}
+    <div ref={summaryRef} style={{ position: 'sticky', top: '0', zIndex: '5' }}>
+      <Paper pb={5} >
+        <Divider
+          my="sm"
+          variant="dashed"
+          labelPosition="center"
+          label={
+            <Title order={3}>
+              {'Health Factor: '}
+              {healthFactorDiffers && (
+                <>
+                  <Text mr="4px" span c="dimmed">
+                    {`${originalHealthFactorDisplayable}`}
+                  </Text>
+                  <Text span c="dimmed">
+                    ➔
+                  </Text>
+                </>
+              )}
+              <Mark ml="4px" mr="2px" color={hfColor}>
+                <Text span pl="2px" pr="2px">
+                  {healthFactorElem}
                 </Text>
-                <Text span c="dimmed">
-                  ➔
+              </Mark>
+              <ResetMarketButton />
+            </Title>
+          }
+        />
+        <Grid>
+          <Grid.Col lg={3} xs={6} style={{ textAlign: 'center', minHeight: '78px' }}>
+            <Paper>
+              <Text fz="xs">{'Total Borrowed: '}</Text>
+              {totalBorrowsDiffers && (
+                <Text fz="xs" c="dimmed">
+                  {originalTotalBorrowsUSD} ➔
                 </Text>
-              </>
-            )}
-            <Mark ml="4px" mr="2px" color={hfColor}>
-              <Text span pl="2px" pr="2px">
-                {healthFactorElem}
+              )}
+              <Text span fw={700} fz="md" mb={20}>
+                {totalBorrowsUSD}
               </Text>
-            </Mark>
-            <ResetMarketButton />
-          </Title>
-        }
-      />
-      <Grid>
-        <Grid.Col lg={3} xs={6} style={{ textAlign: 'center', minHeight: '78px' }}>
-          <Paper>
-            <Text fz="xs">{'Total Borrowed: '}</Text>
-            {totalBorrowsDiffers && (
+            </Paper>
+          </Grid.Col>
+          <Grid.Col lg={3} xs={6} style={{ textAlign: 'center' }}>
+            <Text fz="xs">{'Available to Borrow: '}</Text>
+            {availableBorrowsDiffers && (
               <Text fz="xs" c="dimmed">
-                {originalTotalBorrowsUSD} ➔
-              </Text>
-            )}
-            <Text span fw={700} fz="md" mb={20}>
-              {totalBorrowsUSD}
-            </Text>
-          </Paper>
-        </Grid.Col>
-        <Grid.Col lg={3} xs={6} style={{ textAlign: 'center' }}>
-          <Text fz="xs">{'Available to Borrow: '}</Text>
-          {availableBorrowsDiffers && (
-            <Text fz="xs" c="dimmed">
-              {originalAvailableBorrowsUSD} ➔
-            </Text>
-          )}
-          <Text span fw={700} fz="md">
-            {availableBorrowsUSD}
-          </Text>
-        </Grid.Col>
-        <Grid.Col lg={3} xs={6} style={{ textAlign: 'center', minHeight: '78px' }}>
-          <Paper>
-            <Text fz="xs">{'Reserve Asset Value: '}</Text>
-            {totalCollateralDiffers && (
-              <Text fz="xs" c="dimmed">
-                {originalTotalCollateralUSDFormatted} ➔
+                {originalAvailableBorrowsUSD} ➔
               </Text>
             )}
             <Text span fw={700} fz="md">
-              {totalCollateralUSDFormatted}
+              {availableBorrowsUSD}
             </Text>
-          </Paper>
-        </Grid.Col>
-        <Grid.Col lg={3} xs={6} style={{ textAlign: 'center' }}>
-          <Text fz="xs">{'Net Asset Value: '}</Text>
-          {netValueUSDDiffers && (
-            <Text fz="xs" c="dimmed">
-              {originalNetValueUSD} ➔
+          </Grid.Col>
+          <Grid.Col lg={3} xs={6} style={{ textAlign: 'center', minHeight: '78px' }}>
+            <Paper>
+              <Text fz="xs">{'Reserve Asset Value: '}</Text>
+              {totalCollateralDiffers && (
+                <Text fz="xs" c="dimmed">
+                  {originalTotalCollateralUSDFormatted} ➔
+                </Text>
+              )}
+              <Text span fw={700} fz="md">
+                {totalCollateralUSDFormatted}
+              </Text>
+            </Paper>
+          </Grid.Col>
+          <Grid.Col lg={3} xs={6} style={{ textAlign: 'center' }}>
+            <Text fz="xs">{'Net Asset Value: '}</Text>
+            {netValueUSDDiffers && (
+              <Text fz="xs" c="dimmed">
+                {originalNetValueUSD} ➔
+              </Text>
+            )}
+            <Text span fw={700} fz="md">
+              {netValueUSD}
             </Text>
-          )}
-          <Text span fw={700} fz="md">
-            {netValueUSD}
-          </Text>
-        </Grid.Col>
-      </Grid>
-      <LiquidationScenario data={data} applyLiquidationScenario={applyLiquidationScenario} />
-    </Paper>
+          </Grid.Col>
+        </Grid>
+      </Paper>
+    </div>
   );
 };
 
@@ -352,7 +360,7 @@ const LiquidationScenario = ({
 
   return (
     <>
-      <Divider my="sm" variant="dashed"
+      <Divider variant="dashed"
         labelPosition="center"
         label={
           <>
@@ -366,12 +374,12 @@ const LiquidationScenario = ({
             </Button>
           </>
         }
+        style={{ backgroundColor: "#1A1B1E", marginTop: "0px", marginBottom: "0px" }}
       />
       <Transition mounted={showLiquidation} transition="slide-down" duration={1600} exitDuration={0} timingFunction="ease">
         {(styles) => {
           return (
             <Flex
-
               gap="sm"
               justify="center"
               align="center"
@@ -470,9 +478,11 @@ const ResetMarketButton = ({ }) => {
   );
 };
 
-type UserReserveAssetListProps = {};
+type UserReserveAssetListProps = {
+  summaryOffset: number
+};
 
-const UserReserveAssetList = ({ }: UserReserveAssetListProps) => {
+const UserReserveAssetList = ({ summaryOffset }: UserReserveAssetListProps) => {
   const {
     addressData,
     currentMarket,
@@ -496,6 +506,10 @@ const UserReserveAssetList = ({ }: UserReserveAssetListProps) => {
           display: 'flex',
           justifyContent: 'space-between',
           padding: '0px',
+          position: 'sticky',
+          top: `${summaryOffset}px`,
+          zIndex: '4',
+          backgroundColor: "#1A1B1E"
         }}
       >
         <Title order={4} sx={{ marginBottom: '10px' }}>
@@ -536,14 +550,15 @@ const UserReserveAssetList = ({ }: UserReserveAssetListProps) => {
           />
         );
       })}
-      <Divider my="sm" variant="dashed" />
     </div>
   );
 };
 
-type UserBorrowedAssetListProps = {};
+type UserBorrowedAssetListProps = {
+  summaryOffset: number
+};
 
-const UserBorrowedAssetList = ({ }: UserBorrowedAssetListProps) => {
+const UserBorrowedAssetList = ({ summaryOffset }: UserBorrowedAssetListProps) => {
   const {
     addressData,
     currentMarket,
@@ -566,6 +581,10 @@ const UserBorrowedAssetList = ({ }: UserBorrowedAssetListProps) => {
           display: 'flex',
           justifyContent: 'space-between',
           padding: '0px',
+          position: 'sticky',
+          top: `${summaryOffset}px`,
+          zIndex: '3',
+          backgroundColor: "#1A1B1E"
         }}
       >
         <Title order={4} sx={{ marginBottom: '10px' }}>
@@ -605,7 +624,6 @@ const UserBorrowedAssetList = ({ }: UserBorrowedAssetListProps) => {
           />
         );
       })}
-      <Divider my="sm" variant="dashed" />
     </div>
   );
 };
