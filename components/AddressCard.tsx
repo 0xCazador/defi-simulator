@@ -60,7 +60,7 @@ const AddressCard = ({ }: Props) => {
         <LiquidationScenario data={data} applyLiquidationScenario={applyLiquidationScenario} />
         <UserReserveAssetList summaryOffset={summaryOffset} />
         <Divider size="xl" variant="dashed" />
-        <Divider size="xl" variant="dashed" />
+        <Divider size="xl" variant="dashed" mb="xl" />
         <UserBorrowedAssetList summaryOffset={summaryOffset} />
       </div>
 
@@ -363,6 +363,7 @@ const LiquidationScenario = ({
   return (
     <>
       <Divider variant="dashed"
+        my="sm"
         labelPosition="center"
         label={
           <>
@@ -376,7 +377,7 @@ const LiquidationScenario = ({
             </Button>
           </>
         }
-        style={{ backgroundColor: "#1A1B1E", marginTop: "0px", marginBottom: "0px" }}
+        style={{ backgroundColor: "#1A1B1E" }}
       />
       <Transition mounted={showLiquidation} transition="slide-down" duration={1600} exitDuration={0} timingFunction="ease">
         {(styles) => {
