@@ -23,7 +23,7 @@ import {
 import { BiGhost } from 'react-icons/bi';
 import { getHealthFactorColor, markets, useAaveData } from '../hooks/useAaveData';
 import { AbbreviatedEthereumAddress } from './AddressCard';
-import { BsCheck, BsCheckLg } from 'react-icons/bs';
+import { BsCheckLg } from 'react-icons/bs';
 
 const useStyles = createStyles((theme) => ({
   inner: {

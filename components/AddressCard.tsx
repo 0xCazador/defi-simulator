@@ -19,6 +19,10 @@ import {
   Tooltip,
   Checkbox,
   Skeleton,
+  Transition,
+  Avatar,
+  Badge,
+  Flex,
 } from '@mantine/core';
 import { FaAsterisk, FaInfinity } from 'react-icons/fa';
 import { RxReset } from 'react-icons/rx';
@@ -33,18 +37,24 @@ import {
   BorrowedAssetDataItem,
   markets,
   getHealthFactorColor,
+  getIconNameFromAssetSymbol,
+  AssetDetails,
+  getCalculatedLiquidationScenario
 } from '../hooks/useAaveData';
+import BigNumber from 'bignumber.js';
+import { BsChevronDown, BsChevronUp } from 'react-icons/bs';
+import { AaveHealthFactorData } from '../hooks/useAaveData';
 
 type Props = {};
 
 const AddressCard = ({ }: Props) => {
-  const { addressData, currentMarket } = useAaveData('');
+  const { addressData, currentMarket, applyLiquidationScenario } = useAaveData('');
   const data = addressData?.[currentMarket];
 
   return (
     <div style={{ marginTop: '15px' }}>
       <HealthFactorAddressSummary addressData={addressData} />
-      <HealthFactorSummary data={data} />
+      <HealthFactorSummary data={data} applyLiquidationScenario={applyLiquidationScenario} />
       <UserReserveAssetList />
       <UserBorrowedAssetList />
     </div>
@@ -163,9 +173,10 @@ export const HealthFactorSkeleton = ({ animate }: HealthFactorSkeletonProps) => 
 
 type HealthFactorSummaryInputProps = {
   data: ImmutableObject<HealthFactorData>;
+  applyLiquidationScenario: () => void;
 };
 
-const HealthFactorSummary = ({ data }: HealthFactorSummaryInputProps) => {
+const HealthFactorSummary = ({ data, applyLiquidationScenario }: HealthFactorSummaryInputProps) => {
   if (data?.isFetching) return <HealthFactorSkeleton animate />;
 
   if (!data) {
@@ -317,9 +328,117 @@ const HealthFactorSummary = ({ data }: HealthFactorSummaryInputProps) => {
           </Text>
         </Grid.Col>
       </Grid>
-      <Divider my="sm" variant="dashed" />
+      <LiquidationScenario data={data} applyLiquidationScenario={applyLiquidationScenario} />
     </Paper>
   );
+};
+
+type LiquidationScenarioProps = {
+  data: ImmutableObject<HealthFactorData>;
+  applyLiquidationScenario: () => void;
+};
+
+const LiquidationScenario = ({
+  data,
+  applyLiquidationScenario
+}: LiquidationScenarioProps) => {
+  const [showLiquidation, setShowLiquidation] = useState(false);
+
+  const scenario: AssetDetails[] = getCalculatedLiquidationScenario(
+    data?.workingData as AaveHealthFactorData,
+    data.marketReferenceCurrencyPriceInUSD);
+
+  if (!scenario?.length) return <Divider my="sm" variant="dashed" label="No Liquidation Scenario Available" labelPosition="center" />;
+
+  return (
+    <>
+      <Divider my="sm" variant="dashed"
+        labelPosition="center"
+        label={
+          <>
+            <Button
+              variant="subtle"
+              color="gray"
+              compact
+              onClick={() => setShowLiquidation(!showLiquidation)}
+              rightIcon={showLiquidation ? <BsChevronUp /> : <BsChevronDown />}>
+              Liquidation Scenario
+            </Button>
+          </>
+        }
+      />
+      <Transition mounted={showLiquidation} transition="slide-down" duration={1600} exitDuration={0} timingFunction="ease">
+        {(styles) => {
+          return (
+            <Flex
+
+              gap="sm"
+              justify="center"
+              align="center"
+              direction="row"
+              wrap="wrap"
+            >
+              {
+                scenario.map(liqAsset => {
+                  const workingAsset = data.workingData?.userReservesData.find(reserve => reserve.asset.symbol === liqAsset.symbol)?.asset;
+                  const currentAssetPrice = workingAsset ? workingAsset.priceInUSD : liqAsset.initialPriceInUSD;
+
+                  const diff = currentAssetPrice - liqAsset.priceInUSD;
+
+                  const change = Math.round((diff * 100) / currentAssetPrice) * -1;
+                  //console.log({ existingAsset: workingAsset, currentAssetPrice, change })
+                  const avatarName = getIconNameFromAssetSymbol(liqAsset.symbol);
+
+                  const avatar = (
+                    <Avatar
+                      alt={`Logo for ${liqAsset.symbol}`}
+                      size={24}
+                      mr={2}
+                      src={`/icons/tokens/${avatarName}.svg`}
+                    />
+                  );
+
+                  return (
+
+                    <Badge
+                      key={liqAsset.symbol}
+                      pl={0}
+                      size="lg"
+                      radius="lg"
+                      mr="sm"
+                      c="dimmed"
+                      leftSection={avatar}>
+                      <Text span>
+                        {`${liqAsset.symbol}: `}
+                        {`${formatMoney(liqAsset.priceInUSD)}`}
+                      </Text>
+                      {/** 
+                      {change !== 0 && currentAssetPrice !== 0 &&
+                        <Text span size="xs" c="dimmed">
+                          <Text span size="xs" color={change < 0 ? "red" : "dimmed"}>
+                            {` (${change > 0 ? "+" : ""}${change}%)`}
+                          </Text>
+                        </Text>
+                      }
+                      */}
+                    </Badge>
+
+                  )
+
+                })
+              }
+              <Button variant="subtle" color="gray" compact onClick={applyLiquidationScenario}>
+                Apply
+              </Button>
+            </Flex>
+          )
+        }}
+      </Transition>
+      {showLiquidation && <Divider my="sm" variant="dashed" />}
+
+    </>
+
+  )
 };
 
 const ResetMarketButton = ({ }) => {
@@ -543,7 +662,7 @@ const UserAssetItem = memo(
     disableSetUseReserveAssetAsCollateral,
     isNewlyAddedBySimUser,
   }: UserAssetItemProps) => {
-    const iconName = assetSymbol.toLowerCase().replace('.e', '').replace('.b', '').replace('m.', '');
+    const iconName = getIconNameFromAssetSymbol(assetSymbol);
     return (
       <Paper shadow="xs" sx={{ marginBottom: '30px' }}>
         <Group>
@@ -885,15 +1004,16 @@ const Slider = ({
     }).on('slide', handleChange);
   }
 
-  const handleChange = (val: number) => {
-    onChange(val);
-    setValue(val);
+  const handleChange = (val: number[]) => {
+    onChange(Number(val[0]));
+    setValue(Number(val[0]));
   }
 
   return (
     <div ref={divRef} />
   );
 };
+
 
 export const AbbreviatedEthereumAddress = ({ address }: { address: string }) => {
   if (address?.length < 14) return <>{`${address}`}</>;

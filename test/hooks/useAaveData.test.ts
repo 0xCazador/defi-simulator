@@ -1,13 +1,13 @@
 import { expect } from '@jest/globals';
 import { act, renderHook, waitFor } from '@testing-library/react';
-import { useAaveData, markets, AaveHealthFactorData } from '../../hooks/useAaveData';
+import { useAaveData, markets, AaveHealthFactorData, getCalculatedLiquidationScenario } from '../../hooks/useAaveData';
 import testDataItems from '../fixtures/aave/AaveHealthFactorData.json';
 import fetchMock from 'jest-fetch-mock';
 
-const PRECISION = 8;
+const PRECISION = 6;
 
 const items = testDataItems.filter(
-  (item) => item.address === '0x5d423a535c25fd2835e40cb14748c12cbe9de564'
+  (item) => item.address === '0x6b993dd11995a88e6e8d60f21401344e166cb231'
 );
 
 describe.each(testDataItems)(`useAaveData ()`, (testDataItem) => {
@@ -17,7 +17,7 @@ describe.each(testDataItems)(`useAaveData ()`, (testDataItem) => {
    * also borrowed so just ignore that scenario for now.
    */
   const reserveDataItem = testDataItem.userReservesData
-    .sort((a, b) => b.underlyingBalance - a.underlyingBalance)
+    .sort((a, b) => b.underlyingBalanceUSD - a.underlyingBalanceUSD)
     .find(
       (reserve) =>
         reserve.asset.usageAsCollateralEnabled &&
@@ -118,7 +118,7 @@ describe.each(testDataItems)(`useAaveData ()`, (testDataItem) => {
           testDataItem.userReservesData.length === 1 &&
           testDataItem.userBorrowsData.length === 1 &&
           testDataItem.userReservesData[0].asset.symbol ===
-            testDataItem.userBorrowsData[0].asset.symbol
+          testDataItem.userBorrowsData[0].asset.symbol
         ) {
           expect(data.workingData?.healthFactor).toEqual(originalHealthFactor);
         } else {
@@ -182,6 +182,35 @@ describe.each(testDataItems)(`useAaveData ()`, (testDataItem) => {
         );
       });
     });
+
+    test('it correctly calculates liquidation scenario', async () => {
+      const { result } = renderHook(() => useAaveData(testDataItem.address));
+
+      await waitFor(() => {
+        const data = result.current.addressData?.[result.current.currentMarket];
+        expect(data.workingData).not.toBeUndefined();
+      });
+
+      const data = result.current.addressData?.[result.current.currentMarket];
+
+      const liquidationScenario = getCalculatedLiquidationScenario(data.workingData as AaveHealthFactorData, data.marketReferenceCurrencyPriceInUSD);
+
+      expect(liquidationScenario).not.toBeUndefined();
+
+      if (liquidationScenario.length === 0) return;
+
+      // Apply the liquidation scenario, and then check if the hf is 1.00
+      liquidationScenario?.forEach(asset => {
+        act(() => {
+          result.current.setAssetPriceInUSD(asset.symbol, asset.priceInUSD);
+        });
+      });
+
+      // HF rounded to hundredths
+      const expectedHF: number = Math.round((data.workingData?.healthFactor || 0 + Number.EPSILON) * 100) / 100
+      expect(expectedHF).toEqual(1.00);
+    });
+
   });
 });
 

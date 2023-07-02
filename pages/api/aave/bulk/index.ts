@@ -10,11 +10,13 @@ import {
 } from '@aave/math-utils';
 import BigNumber from 'bignumber.js';
 import {
+  AaveHealthFactorData,
   AaveMarketDataType,
   AssetDetails,
   BorrowedAssetDataItem,
   HealthFactorData,
   ReserveAssetDataItem,
+  getCalculatedLiquidationScenario,
   markets,
 } from '../../../../hooks/useAaveData';
 
@@ -115,6 +117,7 @@ const aaveUserSummaryToHealthFactor = (
       reserveFactor: Number(reserveItem.reserve.reserveFactor),
       usageAsCollateralEnabled: reserveItem.reserve.usageAsCollateralEnabled,
       reserveLiquidationThreshold: Number(reserveItem.reserve.reserveLiquidationThreshold),
+      initialPriceInUSD: Number(reserveItem.reserve.priceInUSD),
     };
     return details;
   };
@@ -165,17 +168,19 @@ const aaveUserSummaryToHealthFactor = (
         return item;
       }),
   };
+  const marketReferenceCurrencyPriceInUSD = new BigNumber(
+    baseCurrencyData.marketReferenceCurrencyPriceInUsd
+  )
+    .shiftedBy(-8)
+    .toNumber();
+
   const hf: HealthFactorData = {
     address,
     fetchError: '',
     isFetching: false,
     lastFetched: Date.now(),
     market,
-    marketReferenceCurrencyPriceInUSD: new BigNumber(
-      baseCurrencyData.marketReferenceCurrencyPriceInUsd
-    )
-      .shiftedBy(-8)
-      .toNumber(),
+    marketReferenceCurrencyPriceInUSD,
     availableAssets: userSummary.userReservesData.map((asset) =>
       getAssetDetailsFromReserveItem(asset)
     ),
@@ -202,7 +207,12 @@ const aaveUserSummaryToHealthFactor = (
       userBorrowsData: [...reserveData.userBorrowsData],
     },
   };
+
+  const liquidationScenario = getCalculatedLiquidationScenario(hf.workingData as AaveHealthFactorData, marketReferenceCurrencyPriceInUSD);
+  hf.workingData.liquidationScenario = liquidationScenario;
   return hf;
 };
 
 export default handler;
+
+

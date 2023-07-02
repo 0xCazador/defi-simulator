@@ -19,13 +19,6 @@ export type HealthFactorData = {
   workingData?: AaveHealthFactorData;
 };
 
-export type UserReservesData = {
-  healthFactor: string;
-  totalBorrowsUSD: string;
-  availableBorrowsUSD: string;
-  userReservesData: [ReserveAssetDataItem];
-};
-
 export type AaveHealthFactorData = {
   address?: string;
   healthFactor: number;
@@ -69,6 +62,7 @@ export type AssetDetails = {
   reserveLiquidationThreshold: number;
   reserveFactor: number;
   usageAsCollateralEnabled: boolean;
+  initialPriceInUSD: number,
   aTokenAddress?: string;
   stableDebtTokenAddress?: string;
   variableDebtTokenAddress?: string;
@@ -188,14 +182,6 @@ export const markets: AaveMarketDataType[] = [
     },
   },
 ];
-
-export const getHealthFactorColor = (hf: number) => {
-  return (hf || 0) < 1.1
-    ? "red"
-    : (hf || 0) > 3
-      ? "green"
-      : "yellow";
-}
 
 /** hook to fetch user aave data
  * @returns { currentAddress,
@@ -359,6 +345,7 @@ export function useAaveData(address: string) {
           )
         )
       );
+    updateAllDerivedHealthFactorData();
   };
 
   const setBorrowedAssetQuantity = (symbol: string, quantity: number) => {
@@ -399,6 +386,11 @@ export function useAaveData(address: string) {
     updateAllDerivedHealthFactorData();
   };
 
+  const applyLiquidationScenario = () => {
+    const liquidationScenario = getCalculatedLiquidationScenario(data?.[currentMarket]?.workingData as AaveHealthFactorData, data?.[currentMarket]?.marketReferenceCurrencyPriceInUSD) as AssetDetails[];
+    liquidationScenario?.forEach(asset => setAssetPriceInUSD(asset.symbol, asset.priceInUSD));
+  }
+
   const setUseReserveAssetAsCollateral = (symbol: string, value: boolean) => {
     const workingData = store.addressData.nested(address)[currentMarket]
       .workingData as State<AaveHealthFactorData>;
@@ -415,7 +407,102 @@ export function useAaveData(address: string) {
     store.currentAddress.set(address);
   };
 
-  /**
+  const updateAllDerivedHealthFactorData = () => {
+    const currentMarketReferenceCurrencyPriceInUSD: number =
+      store.addressData.nested(address)[currentMarket].marketReferenceCurrencyPriceInUSD.get();
+
+    const healthFactorItem = store.addressData.nested(address)?.[
+      currentMarket
+    ] as State<HealthFactorData>;
+
+    const workingData = healthFactorItem.workingData.get({ noproxy: true }) as AaveHealthFactorData;
+
+    const updatedWorkingData: AaveHealthFactorData = updateDerivedHealthFactorData(
+      workingData,
+      currentMarketReferenceCurrencyPriceInUSD
+    )
+
+    healthFactorItem.workingData.set(updatedWorkingData);
+  };
+
+  return {
+    isFetching: isLoadingAny,
+    currentAddress,
+    currentMarket,
+    addressData: data,
+    addressDataStore: store.addressData?.[currentAddress],
+    removeAsset,
+    resetCurrentMarketChanges,
+    addBorrowAsset,
+    addReserveAsset,
+    setCurrentMarket,
+    setCurrentAddress,
+    setBorrowedAssetQuantity,
+    setReserveAssetQuantity,
+    setAssetPriceInUSD,
+    applyLiquidationScenario,
+    setUseReserveAssetAsCollateral,
+  };
+}
+
+/**
+ * 
+ *  *** Aave-specific Utility Functions ***
+ * 
+ */
+
+export const getHealthFactorColor = (hf: number = 0) => {
+  return hf < 1.1
+    ? "red"
+    : hf > 3
+      ? "green"
+      : "yellow";
+}
+
+export const isStablecoinAsset = (asset: AssetDetails) => {
+  const symbol = asset.symbol?.toUpperCase();
+  return symbol?.includes("DAI") || symbol?.includes("USD");
+}
+
+export const getEligibleLiquidationScenarioReserves = (hfData: AaveHealthFactorData) => {
+  const MINIMUM_CUMULATIVE_RESERVE_USD = 50;
+  const MINIMUM_CUMULATIVE_RESERVE_PCT = 5;
+
+  const eligibleReserves: ReserveAssetDataItem[] = hfData.userReservesData.filter((reserve: ReserveAssetDataItem) => {
+    const isStableCoin = isStablecoinAsset(reserve.asset);
+    const isCollateralEnabled = !!reserve.usageAsCollateralEnabledOnUser;
+    return !isStableCoin && isCollateralEnabled;
+  }) || [];
+
+  let cumulativeReserveUSDValue = 0;
+  let cumulativeReserveMRCValue = 0;
+
+  eligibleReserves.forEach(reserve => {
+    cumulativeReserveUSDValue += reserve.underlyingBalanceUSD;
+    cumulativeReserveMRCValue += reserve.underlyingBalanceMarketReferenceCurrency;
+  });
+
+  const exceedsMinResPct: boolean = cumulativeReserveMRCValue > (hfData.totalCollateralMarketReferenceCurrency * (MINIMUM_CUMULATIVE_RESERVE_PCT / 100))
+  const exceedsMinResUSD: boolean = cumulativeReserveUSDValue > MINIMUM_CUMULATIVE_RESERVE_USD;
+
+  const hasSufficientValue = exceedsMinResPct && exceedsMinResUSD;
+
+  if (!hasSufficientValue) return [];
+
+  // in order for the non-stable reserves to be eligible for a liquidation scenario, 
+  // there must be at least one borrowed asset that is not included in the 
+  // eligible reserve assets.
+  const hasDifferentBorrowedAsset: boolean = !!hfData.userBorrowsData.length && !!hfData.userBorrowsData
+    .find((borrowItem: BorrowedAssetDataItem) => !eligibleReserves
+      .find((reserveItem: ReserveAssetDataItem) => {
+        return reserveItem.asset.symbol === borrowItem.asset.symbol;
+      }));
+
+  return hasDifferentBorrowedAsset ? eligibleReserves : [];
+}
+
+
+/**
    * Assuming that the userReservesData or userBorrowsData has been updated in one of the following ways:
    *
    * - A userReservesData item has been added or removed
@@ -442,233 +529,332 @@ export function useAaveData(address: string) {
    * @param hfData the healthFactorData to update
    * @returns hfData the updated healthFactorData
    */
-  const updateAllDerivedHealthFactorData = () => {
-    let updatedCurrentLiquidationThreshold: BigNumber = new BigNumber(0);
-    let updatedCurrentLoanToValue: BigNumber = new BigNumber(0);
-    let updatedHealthFactor: BigNumber = new BigNumber(0);
-    let updatedAvailableBorrowsUSD: BigNumber = new BigNumber(0);
-    let updatedAvailableBorrowsMarketReferenceCurrency: BigNumber = new BigNumber(0);
-    let updatedTotalBorrowsUSD: BigNumber = new BigNumber(0);
+export const updateDerivedHealthFactorData = (data: AaveHealthFactorData, currentMarketReferenceCurrencyPriceInUSD: number) => {
+  let updatedCurrentLiquidationThreshold: BigNumber = new BigNumber(0);
+  let updatedCurrentLoanToValue: BigNumber = new BigNumber(0);
+  let updatedHealthFactor: BigNumber = new BigNumber(0);
+  let updatedAvailableBorrowsUSD: BigNumber = new BigNumber(0);
+  let updatedAvailableBorrowsMarketReferenceCurrency: BigNumber = new BigNumber(0);
+  let updatedTotalBorrowsUSD: BigNumber = new BigNumber(0);
 
-    let updatedCollateral: BigNumber = new BigNumber(0);
-    let weightedReservesETH: BigNumber = new BigNumber(0);
-    let weightedLTVETH: BigNumber = new BigNumber(0);
-    let totalBorrowsETH: BigNumber = new BigNumber(0);
+  let updatedCollateral: BigNumber = new BigNumber(0);
+  let weightedReservesETH: BigNumber = new BigNumber(0);
+  let weightedLTVETH: BigNumber = new BigNumber(0);
+  let totalBorrowsETH: BigNumber = new BigNumber(0);
 
-    const currentMarketReferenceCurrencyPriceInUSD: BigNumber = new BigNumber(
-      store.addressData.nested(address)[currentMarket].marketReferenceCurrencyPriceInUSD.get()
+
+  data.userReservesData.forEach((reserveItem) => {
+    const underlyingBalance: BigNumber = new BigNumber(reserveItem.underlyingBalance);
+    const priceInUSD: BigNumber = new BigNumber(reserveItem.asset.priceInUSD);
+
+    // Update reserveItem.priceInMarketReferenceCurrency
+    const existingPriceInMarketReferenceCurrency = new BigNumber(
+      reserveItem.asset.priceInMarketReferenceCurrency
     );
-
-    const healthFactorItem = store.addressData.nested(address)?.[
-      currentMarket
-    ] as State<HealthFactorData>;
-
-    const workingData = healthFactorItem.workingData as State<AaveHealthFactorData>;
-
-    workingData.userReservesData.forEach((reserveItem) => {
-      const underlyingBalance: BigNumber = new BigNumber(reserveItem.underlyingBalance.get());
-      const priceInUSD: BigNumber = new BigNumber(reserveItem.asset.priceInUSD.get());
-
-      // Update reserveItem.priceInMarketReferenceCurrency
-      const existingPriceInMarketReferenceCurrency = new BigNumber(
-        reserveItem.asset.priceInMarketReferenceCurrency.get()
-      );
-      const updatedMarketReferenceCurrency = priceInUSD.dividedBy(
-        currentMarketReferenceCurrencyPriceInUSD
-      );
-      if (!existingPriceInMarketReferenceCurrency.isEqualTo(updatedMarketReferenceCurrency)) {
-        reserveItem.asset
-          .nested('priceInMarketReferenceCurrency')
-          .set(updatedMarketReferenceCurrency.toNumber());
-      }
-
-      // Update reserveItem.underlyingBalanceMarketReferenceCurrency
-      const existingUnderlyingBalanceMarketReferenceCurrency: BigNumber = new BigNumber(
-        reserveItem.underlyingBalanceMarketReferenceCurrency.get()
-      );
-      const updatedUnderlyingBalanceMarketReferenceCurrency =
-        updatedMarketReferenceCurrency.multipliedBy(underlyingBalance);
-      if (
-        !existingUnderlyingBalanceMarketReferenceCurrency.isEqualTo(
-          updatedUnderlyingBalanceMarketReferenceCurrency
-        )
-      ) {
-        reserveItem
-          .nested('underlyingBalanceMarketReferenceCurrency')
-          .set(updatedUnderlyingBalanceMarketReferenceCurrency.toNumber());
-      }
-
-      // Update reserveItem.underlyingBalanceUSD
-      const existingUnderlyingBalanceUSD = new BigNumber(reserveItem.underlyingBalanceUSD.get());
-      const updatedUnderlyingBalanceUSD = underlyingBalance.multipliedBy(priceInUSD);
-      if (!existingUnderlyingBalanceUSD.isEqualTo(updatedUnderlyingBalanceUSD)) {
-        reserveItem.nested('underlyingBalanceUSD').set(updatedUnderlyingBalanceUSD.toNumber());
-      }
-
-      // Update the necessary accumulated values for updating healthFactor etc.
-      if (reserveItem.usageAsCollateralEnabledOnUser.get()) {
-        updatedCollateral = updatedCollateral.plus(updatedUnderlyingBalanceMarketReferenceCurrency);
-
-        const itemReserveLiquidationThreshold: BigNumber = new BigNumber(
-          reserveItem.asset.reserveLiquidationThreshold.get()
-        ).dividedBy(10000);
-        const itemBaseLoanToValue: BigNumber = new BigNumber(
-          reserveItem.asset.baseLTVasCollateral.get()
-        ).dividedBy(10000);
-
-        weightedReservesETH = weightedReservesETH.plus(
-          itemReserveLiquidationThreshold.multipliedBy(
-            updatedUnderlyingBalanceMarketReferenceCurrency
-          )
-        );
-        weightedLTVETH = weightedLTVETH.plus(
-          itemBaseLoanToValue.multipliedBy(updatedUnderlyingBalanceMarketReferenceCurrency)
-        );
-      }
-    });
-
-    workingData.userBorrowsData.forEach((borrowItem) => {
-      const totalBorrows: BigNumber = new BigNumber(borrowItem.totalBorrows.get());
-      const priceInUSD: BigNumber = new BigNumber(borrowItem.asset.priceInUSD.get());
-
-      // Update borrowItem.priceInMarketReferenceCurrency
-      const existingPriceInMarketReferenceCurrency = new BigNumber(
-        borrowItem.asset.priceInMarketReferenceCurrency.get()
-      );
-      const updatedMarketReferenceCurrency = priceInUSD.dividedBy(
-        currentMarketReferenceCurrencyPriceInUSD
-      );
-      if (!existingPriceInMarketReferenceCurrency.isEqualTo(updatedMarketReferenceCurrency)) {
-        borrowItem.asset
-          .nested('priceInMarketReferenceCurrency')
-          .set(updatedMarketReferenceCurrency.toNumber());
-      }
-
-      // Update borrowItem.totalBorrowsMarketReferenceCurrency
-      const existingTotalBorrowsMarketReferenceCurrency: BigNumber = new BigNumber(
-        borrowItem.totalBorrowsMarketReferenceCurrency.get()
-      );
-      const updatedTotalBorrowsMarketReferenceCurrency =
-        updatedMarketReferenceCurrency.multipliedBy(totalBorrows);
-      if (
-        !existingTotalBorrowsMarketReferenceCurrency.isEqualTo(
-          updatedTotalBorrowsMarketReferenceCurrency
-        )
-      ) {
-        borrowItem
-          .nested('totalBorrowsMarketReferenceCurrency')
-          .set(updatedTotalBorrowsMarketReferenceCurrency.toNumber());
-      }
-
-      // Update borrowItem.totalBorrowsUSD
-      const existingTotalBorrowsUSD = new BigNumber(borrowItem.totalBorrowsUSD.get());
-      const updatedTotalBorrowsUSD = totalBorrows.multipliedBy(priceInUSD);
-      if (!existingTotalBorrowsUSD.isEqualTo(updatedTotalBorrowsUSD)) {
-        borrowItem.nested('totalBorrowsUSD').set(updatedTotalBorrowsUSD.toNumber());
-      }
-
-      // Update the necessary accumulated values for updating healthFactor etc.
-      totalBorrowsETH = totalBorrowsETH.plus(updatedTotalBorrowsMarketReferenceCurrency);
-    });
-
-    // Update "totalCollateralMarketReferenceCurrency"
-    if (
-      !updatedCollateral.isEqualTo(
-        new BigNumber(workingData.totalCollateralMarketReferenceCurrency.get())
-      )
-    ) {
-      workingData
-        .nested('totalCollateralMarketReferenceCurrency')
-        .set(updatedCollateral.toNumber());
-    }
-
-    // Updated "currentLiquidationThreshold"
-    if (weightedReservesETH.isGreaterThan(0) && updatedCollateral.isGreaterThan(0)) {
-      updatedCurrentLiquidationThreshold = weightedReservesETH.dividedBy(updatedCollateral);
-    }
-
-    if (
-      !updatedCurrentLiquidationThreshold.isEqualTo(
-        new BigNumber(workingData.nested('currentLiquidationThreshold').get())
-      )
-    ) {
-      workingData
-        .nested('currentLiquidationThreshold')
-        .set(updatedCurrentLiquidationThreshold.toNumber());
-    }
-
-    // Update "currentLoanToValue"
-    if (weightedLTVETH.isGreaterThan(0) && updatedCollateral.isGreaterThan(0)) {
-      updatedCurrentLoanToValue = weightedLTVETH.dividedBy(updatedCollateral);
-    }
-    if (
-      !updatedCurrentLoanToValue.isEqualTo(
-        new BigNumber(workingData.nested('currentLoanToValue').get())
-      )
-    ) {
-      workingData.nested('currentLoanToValue').set(updatedCurrentLoanToValue.toNumber());
-    }
-
-    // Update "healthFactor"
-    if (
-      updatedCollateral.isGreaterThan(0) &&
-      totalBorrowsETH.isGreaterThan(0) &&
-      updatedCurrentLiquidationThreshold.isGreaterThan(0)
-    ) {
-      updatedHealthFactor = updatedCollateral
-        .multipliedBy(updatedCurrentLiquidationThreshold)
-        .dividedBy(totalBorrowsETH);
-    } else if (totalBorrowsETH.isEqualTo(0)) {
-      updatedHealthFactor = new BigNumber(Infinity);
-    }
-
-    if (!updatedHealthFactor.isEqualTo(new BigNumber(workingData.nested('healthFactor').get()))) {
-      workingData.nested('healthFactor').set(updatedHealthFactor.toNumber());
-    }
-
-    // Update "availableBorrowsUSD"
-    updatedAvailableBorrowsMarketReferenceCurrency = updatedCollateral
-      .multipliedBy(updatedCurrentLoanToValue)
-      .minus(totalBorrowsETH);
-    updatedAvailableBorrowsUSD = updatedAvailableBorrowsMarketReferenceCurrency.multipliedBy(
+    const updatedMarketReferenceCurrency = priceInUSD.dividedBy(
       currentMarketReferenceCurrencyPriceInUSD
     );
+    if (!existingPriceInMarketReferenceCurrency.isEqualTo(updatedMarketReferenceCurrency)) {
+      reserveItem.asset.priceInMarketReferenceCurrency = updatedMarketReferenceCurrency.toNumber();
+    }
 
-    if (updatedAvailableBorrowsUSD.isLessThan(0)) updatedAvailableBorrowsUSD = new BigNumber(0);
-
+    // Update reserveItem.underlyingBalanceMarketReferenceCurrency
+    const existingUnderlyingBalanceMarketReferenceCurrency: BigNumber = new BigNumber(
+      reserveItem.underlyingBalanceMarketReferenceCurrency
+    );
+    const updatedUnderlyingBalanceMarketReferenceCurrency =
+      updatedMarketReferenceCurrency.multipliedBy(underlyingBalance);
     if (
-      !updatedAvailableBorrowsUSD.isEqualTo(
-        new BigNumber(workingData.nested('availableBorrowsUSD').get())
+      !existingUnderlyingBalanceMarketReferenceCurrency.isEqualTo(
+        updatedUnderlyingBalanceMarketReferenceCurrency
       )
     ) {
-      workingData.nested('availableBorrowsUSD').set(updatedAvailableBorrowsUSD.toNumber());
+      reserveItem.underlyingBalanceMarketReferenceCurrency = updatedUnderlyingBalanceMarketReferenceCurrency.toNumber();
     }
 
-    // Update "totalBorrowsUSD"
-    updatedTotalBorrowsUSD = totalBorrowsETH.multipliedBy(currentMarketReferenceCurrencyPriceInUSD);
+    // Update reserveItem.underlyingBalanceUSD
+    const existingUnderlyingBalanceUSD = new BigNumber(reserveItem.underlyingBalanceUSD);
+    const updatedUnderlyingBalanceUSD = underlyingBalance.multipliedBy(priceInUSD);
+    if (!existingUnderlyingBalanceUSD.isEqualTo(updatedUnderlyingBalanceUSD)) {
+      reserveItem.underlyingBalanceUSD = updatedUnderlyingBalanceUSD.toNumber();
+    }
 
+    // Update the necessary accumulated values for updating healthFactor etc.
+    if (reserveItem.usageAsCollateralEnabledOnUser) {
+      updatedCollateral = updatedCollateral.plus(updatedUnderlyingBalanceMarketReferenceCurrency);
+
+      const itemReserveLiquidationThreshold: BigNumber = new BigNumber(
+        reserveItem.asset.reserveLiquidationThreshold
+      ).dividedBy(10000);
+      const itemBaseLoanToValue: BigNumber = new BigNumber(
+        reserveItem.asset.baseLTVasCollateral
+      ).dividedBy(10000);
+
+      weightedReservesETH = weightedReservesETH.plus(
+        itemReserveLiquidationThreshold.multipliedBy(
+          updatedUnderlyingBalanceMarketReferenceCurrency
+        )
+      );
+      weightedLTVETH = weightedLTVETH.plus(
+        itemBaseLoanToValue.multipliedBy(updatedUnderlyingBalanceMarketReferenceCurrency)
+      );
+    }
+  });
+
+  data.userBorrowsData.forEach((borrowItem) => {
+    const totalBorrows: BigNumber = new BigNumber(borrowItem.totalBorrows);
+    const priceInUSD: BigNumber = new BigNumber(borrowItem.asset.priceInUSD);
+
+    // Update borrowItem.priceInMarketReferenceCurrency
+    const existingPriceInMarketReferenceCurrency = new BigNumber(
+      borrowItem.asset.priceInMarketReferenceCurrency
+    );
+    const updatedMarketReferenceCurrency = priceInUSD.dividedBy(
+      currentMarketReferenceCurrencyPriceInUSD
+    );
+    if (!existingPriceInMarketReferenceCurrency.isEqualTo(updatedMarketReferenceCurrency)) {
+      borrowItem.asset.priceInMarketReferenceCurrency = updatedMarketReferenceCurrency.toNumber();
+    }
+
+    // Update borrowItem.totalBorrowsMarketReferenceCurrency
+    const existingTotalBorrowsMarketReferenceCurrency: BigNumber = new BigNumber(
+      borrowItem.totalBorrowsMarketReferenceCurrency
+    );
+    const updatedTotalBorrowsMarketReferenceCurrency =
+      updatedMarketReferenceCurrency.multipliedBy(totalBorrows);
     if (
-      !updatedTotalBorrowsUSD.isEqualTo(new BigNumber(workingData.nested('totalBorrowsUSD').get()))
+      !existingTotalBorrowsMarketReferenceCurrency.isEqualTo(
+        updatedTotalBorrowsMarketReferenceCurrency
+      )
     ) {
-      workingData.nested('totalBorrowsUSD').set(updatedTotalBorrowsUSD.toNumber());
+      borrowItem.totalBorrowsMarketReferenceCurrency = updatedTotalBorrowsMarketReferenceCurrency.toNumber();
     }
-  };
 
-  return {
-    isFetching: isLoadingAny,
-    currentAddress,
-    currentMarket,
-    addressData: data,
-    addressDataStore: store.addressData?.[currentAddress],
-    removeAsset,
-    resetCurrentMarketChanges,
-    addBorrowAsset,
-    addReserveAsset,
-    setCurrentMarket,
-    setCurrentAddress,
-    setBorrowedAssetQuantity,
-    setReserveAssetQuantity,
-    setAssetPriceInUSD,
-    setUseReserveAssetAsCollateral,
-  };
+    // Update borrowItem.totalBorrowsUSD
+    const existingTotalBorrowsUSD = new BigNumber(borrowItem.totalBorrowsUSD);
+    const updatedTotalBorrowsUSD = totalBorrows.multipliedBy(priceInUSD);
+    if (!existingTotalBorrowsUSD.isEqualTo(updatedTotalBorrowsUSD)) {
+      borrowItem.totalBorrowsUSD = updatedTotalBorrowsUSD.toNumber();
+    }
+
+    // Update the necessary accumulated values for updating healthFactor etc.
+    totalBorrowsETH = totalBorrowsETH.plus(updatedTotalBorrowsMarketReferenceCurrency);
+  });
+
+  // Update "totalCollateralMarketReferenceCurrency"
+  if (
+    !updatedCollateral.isEqualTo(
+      new BigNumber(data.totalCollateralMarketReferenceCurrency)
+    )
+  ) {
+    data.totalCollateralMarketReferenceCurrency = updatedCollateral.toNumber();
+  }
+
+  // Updated "currentLiquidationThreshold"
+  if (weightedReservesETH.isGreaterThan(0) && updatedCollateral.isGreaterThan(0)) {
+    updatedCurrentLiquidationThreshold = weightedReservesETH.dividedBy(updatedCollateral);
+  }
+
+  if (
+    !updatedCurrentLiquidationThreshold.isEqualTo(
+      new BigNumber(data.currentLiquidationThreshold)
+    )
+  ) {
+    data.currentLiquidationThreshold = updatedCurrentLiquidationThreshold.toNumber();
+  }
+
+  // Update "currentLoanToValue"
+  if (weightedLTVETH.isGreaterThan(0) && updatedCollateral.isGreaterThan(0)) {
+    updatedCurrentLoanToValue = weightedLTVETH.dividedBy(updatedCollateral);
+  }
+  if (
+    !updatedCurrentLoanToValue.isEqualTo(
+      new BigNumber(data.currentLoanToValue)
+    )
+  ) {
+    data.currentLoanToValue = updatedCurrentLoanToValue.toNumber();
+  }
+
+  // Update "healthFactor"
+  if (
+    updatedCollateral.isGreaterThan(0) &&
+    totalBorrowsETH.isGreaterThan(0) &&
+    updatedCurrentLiquidationThreshold.isGreaterThan(0)
+  ) {
+    updatedHealthFactor = updatedCollateral
+      .multipliedBy(updatedCurrentLiquidationThreshold)
+      .dividedBy(totalBorrowsETH);
+  } else if (totalBorrowsETH.isEqualTo(0)) {
+    updatedHealthFactor = new BigNumber(Infinity);
+  }
+
+  if (!updatedHealthFactor.isEqualTo(new BigNumber(data.healthFactor))) {
+    data.healthFactor = updatedHealthFactor.toNumber();
+  }
+
+  // Update "availableBorrowsUSD"
+  updatedAvailableBorrowsMarketReferenceCurrency = updatedCollateral
+    .multipliedBy(updatedCurrentLoanToValue)
+    .minus(totalBorrowsETH);
+  updatedAvailableBorrowsUSD = updatedAvailableBorrowsMarketReferenceCurrency.multipliedBy(
+    currentMarketReferenceCurrencyPriceInUSD
+  );
+
+  if (updatedAvailableBorrowsUSD.isLessThan(0)) updatedAvailableBorrowsUSD = new BigNumber(0);
+
+  if (
+    !updatedAvailableBorrowsUSD.isEqualTo(
+      new BigNumber(data.availableBorrowsUSD)
+    )
+  ) {
+    data.availableBorrowsUSD = updatedAvailableBorrowsUSD.toNumber();
+  }
+
+  // Update "totalBorrowsUSD"
+  updatedTotalBorrowsUSD = totalBorrowsETH.multipliedBy(currentMarketReferenceCurrencyPriceInUSD);
+
+  if (
+    !updatedTotalBorrowsUSD.isEqualTo(new BigNumber(data.totalBorrowsUSD))
+  ) {
+    data.totalBorrowsUSD = updatedTotalBorrowsUSD.toNumber();
+  }
+
+  return data;
+
+}
+
+/**
+ * 
+ * @param hfData AaveHealthFactorData
+ * @param currentMarketReferenceCurrencyPriceInUSD number
+ * @returns AssetDetails[]
+ * 
+ * Given a working position, return assets with updated priceInUSD that when applied would result in an hf ~1.00
+ * 
+ */
+export const getCalculatedLiquidationScenario = (hfData: AaveHealthFactorData, currentMarketReferenceCurrencyPriceInUSD: number) => {
+  if (!hfData) return [];
+  // deep clone to avoid mutating state
+  hfData = JSON.parse(JSON.stringify(hfData)) as AaveHealthFactorData;
+
+  const reserves: ReserveAssetDataItem[] = getEligibleLiquidationScenarioReserves(hfData);
+
+  let assets: AssetDetails[] = reserves.map((res: ReserveAssetDataItem) => res.asset);
+
+  let hf: number = hfData?.healthFactor || -1;
+
+  const HF_LIMIT: number = 1.0049999999999;
+
+  if (!assets.length || hf === Infinity || hf === -1) return [];
+
+  // If the rounded hf === 1.00, just use the current asset prices since they represent a valid liquidation scenario.
+  if ((Math.round((hf + Number.EPSILON) * 100) / 100) === 1.00) {
+    return assets;
+  }
+
+  // We're going to somewhat naively (and inefficiently) loop while we iteratively manipulate the asset
+  // price until we get a HF that approaches ~1.00. While there is definitely more efficient
+  // means of calculating the asset prices that would result in a hf of ~1.00, handling all the edge
+  // cases with that approach proved rather elusive.
+
+  let i = 0;
+
+  // I don't expect this limit to get approached, but just in case things go haywire, don't let the app crash.
+  const SHORT_CIRCUIT_LOOP_LIMIT = 500;
+
+  // First, if we're below the HF_LIMIT, iteratively increase the price until hf > HF_LIMIT
+  while (hf < HF_LIMIT && i < SHORT_CIRCUIT_LOOP_LIMIT) {
+    i++;
+
+    assets.forEach(asset => {
+      let priceIncrement = (asset.priceInUSD || 1) * .10;
+
+      priceIncrement = Math.round((priceIncrement + Number.EPSILON) * 100) / 100
+
+      asset.priceInUSD = asset.priceInUSD + priceIncrement;
+
+      const reserveItemAsset = hfData.userReservesData.find(item => item.asset.symbol === asset.symbol);
+
+      if (reserveItemAsset) reserveItemAsset.asset.priceInUSD = asset.priceInUSD;
+
+      const borrowItemAsset = hfData.userBorrowsData.find(item => item.asset.symbol === asset.symbol);
+
+      if (borrowItemAsset) borrowItemAsset.asset.priceInUSD = asset.priceInUSD;
+
+      const updatedWorkingData = updateDerivedHealthFactorData(
+        hfData,
+        currentMarketReferenceCurrencyPriceInUSD
+      )
+
+      hf = updatedWorkingData.healthFactor;
+
+    })
+  }
+
+  let shortCircuit = false;
+
+  // Next, uniformly decrement the asset prices until we approach the liquidation threshold.
+  while (hf > HF_LIMIT && i < SHORT_CIRCUIT_LOOP_LIMIT && !shortCircuit) {
+    i++;
+
+    // Track a uniform percentage to decrement asset prices, so that the overall decrement percentage
+    // for all assets will be approximately the same.
+    let decrementPercentage = 0;
+
+    assets.forEach(asset => {
+      if (hf < HF_LIMIT) return;
+
+      const initialPrice = asset.priceInUSD;
+
+      let priceDecrement = decrementPercentage
+        // Use the uniform percentage, if we  have it
+        ? Math.max(0.01, (decrementPercentage * asset.priceInUSD) / 100)
+        // Else use an approximation based on the difference between current hf and HF_LIMIT
+        : Math.max(0.01, Math.min(asset.priceInUSD * ((hf - HF_LIMIT) * .45), asset.priceInUSD * .50));
+
+      priceDecrement = Math.round((priceDecrement + Number.EPSILON) * 100) / 100
+
+      if (!decrementPercentage) {
+        decrementPercentage = (priceDecrement * 100) / asset.priceInUSD;
+      }
+
+      asset.priceInUSD = asset.priceInUSD - priceDecrement;
+
+      // If an asset price needs to go negative in order to arrive at liquidation threshold,
+      // short circuit the operation and assume there is no viable price liquidation scenario for this
+      // position.
+      if (asset.priceInUSD < 0) {
+        shortCircuit = true;
+      }
+
+      const reserveItemAsset = hfData.userReservesData.find(item => item.asset.symbol === asset.symbol);
+
+      if (reserveItemAsset) reserveItemAsset.asset.priceInUSD = asset.priceInUSD;
+
+      const borrowItemAsset = hfData.userBorrowsData.find(item => item.asset.symbol === asset.symbol);
+
+      if (borrowItemAsset) borrowItemAsset.asset.priceInUSD = asset.priceInUSD;
+
+      const updatedWorkingData = updateDerivedHealthFactorData(
+        hfData,
+        currentMarketReferenceCurrencyPriceInUSD
+      )
+
+      if (updatedWorkingData.healthFactor < 1.00) {
+        asset.priceInUSD = initialPrice
+        return;
+      }
+
+      hf = updatedWorkingData.healthFactor;
+
+    })
+  }
+
+  if (shortCircuit || i === SHORT_CIRCUIT_LOOP_LIMIT) assets = [];
+
+  return assets;
+}
+
+export const getIconNameFromAssetSymbol = (assetSymbol: string) => {
+  return assetSymbol?.toLowerCase().replace('.e', '').replace('.b', '').replace('m.', '');
 }
