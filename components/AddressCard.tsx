@@ -352,9 +352,11 @@ const LiquidationScenario = ({
 }: LiquidationScenarioProps) => {
   const [showLiquidation, setShowLiquidation] = useState(false);
 
+  if (data.isFetching) return null;
+
   const scenario: AssetDetails[] = getCalculatedLiquidationScenario(
     data?.workingData as AaveHealthFactorData,
-    data.marketReferenceCurrencyPriceInUSD);
+    data?.marketReferenceCurrencyPriceInUSD);
 
   if (!scenario?.length) return <Divider my="sm" variant="dashed" label="No Liquidation Scenario Available" labelPosition="center" />;
 
