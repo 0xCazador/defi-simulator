@@ -352,7 +352,7 @@ const LiquidationScenario = ({
 }: LiquidationScenarioProps) => {
   const [showLiquidation, setShowLiquidation] = useState(false);
 
-  if (data.isFetching) return null;
+  if (data?.isFetching) return null;
 
   const scenario: AssetDetails[] = getCalculatedLiquidationScenario(
     data?.workingData as AaveHealthFactorData,
