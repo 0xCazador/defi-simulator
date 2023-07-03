@@ -1,5 +1,4 @@
-import { MutableRefObject, ReactElement, RefObject, memo, useEffect, useRef, useState } from 'react';
-import ethers from 'ethers';
+import { ReactElement, RefObject, memo, useEffect, useRef, useState } from 'react';
 import { formatNumber, formatMoney, unformat } from 'accounting';
 import noUiSlider from 'nouislider';
 
@@ -24,8 +23,9 @@ import {
   Badge,
   Flex,
   Space,
+  Popover,
 } from '@mantine/core';
-import { FaAsterisk, FaInfinity } from 'react-icons/fa';
+import { FaAsterisk, FaInfinity, FaInfoCircle } from 'react-icons/fa';
 import { RxReset } from 'react-icons/rx';
 import { IoLogoUsd } from 'react-icons/io';
 import { ImmutableArray, ImmutableObject } from '@hookstate/core';
@@ -390,6 +390,21 @@ const LiquidationScenario = ({
               direction="row"
               wrap="wrap"
             >
+              <Popover width="250px" position="bottom" withArrow shadow="md">
+                <Popover.Target>
+                  <ActionIcon style={{ display: 'inline-block' }}>
+                    <FaInfoCircle size={18} />
+                  </ActionIcon>
+                </Popover.Target>
+                <Popover.Dropdown>
+                  <Text size="sm">The liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.
+                    <a href="https://docs.aave.com/faq/liquidations" target="_blank" rel="noreferrer" style={{ color: "#e9ecef" }}>
+                      {" Read more here"}
+                    </a>
+                    {"."}
+                  </Text>
+                </Popover.Dropdown>
+              </Popover>
               {
                 scenario.map(liqAsset => {
                   const workingAsset = data.workingData?.userReservesData.find(reserve => reserve.asset.symbol === liqAsset.symbol)?.asset;
