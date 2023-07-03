@@ -48,7 +48,7 @@ import { AaveHealthFactorData } from '../hooks/useAaveData';
 type Props = {};
 
 const AddressCard = ({ }: Props) => {
-  const { addressData, currentMarket, applyLiquidationScenario } = useAaveData('');
+  const { addressData, currentMarket, applyLiquidationScenario, isFetching } = useAaveData('');
   const data = addressData?.[currentMarket];
   const summaryRef = useRef<HTMLDivElement>(null);
   const summaryOffset: number = summaryRef?.current?.clientHeight || 0;
@@ -57,12 +57,19 @@ const AddressCard = ({ }: Props) => {
     <div style={{ marginTop: '15px' }} >
       <HealthFactorAddressSummary addressData={addressData} />
       <div style={{ zIndex: '6', backgroundColor: "#1A1B1E" }}>
-        <HealthFactorSummary summaryRef={summaryRef} data={data} />
-        <LiquidationScenario data={data} applyLiquidationScenario={applyLiquidationScenario} />
-        <UserReserveAssetList summaryOffset={summaryOffset} />
-        <Space h="xl" />
-        <Space h="xl" />
-        <UserBorrowedAssetList summaryOffset={summaryOffset} />
+        {isFetching
+          ? <HealthFactorSkeleton animate />
+          : (
+            <>
+              <HealthFactorSummary summaryRef={summaryRef} data={data} />
+              <LiquidationScenario data={data} applyLiquidationScenario={applyLiquidationScenario} />
+              <UserReserveAssetList summaryOffset={summaryOffset} />
+              <Space h="xl" />
+              <Space h="xl" />
+              <UserBorrowedAssetList summaryOffset={summaryOffset} />
+            </>
+          )
+        }
       </div>
 
     </div>
