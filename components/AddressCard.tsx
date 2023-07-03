@@ -764,7 +764,7 @@ const UserAssetItem = memo(
             disableSetUseReserveAssetAsCollateral={disableSetUseReserveAssetAsCollateral}
           />
         )}
-        <Divider variant="dashed" size="md" mt="xl" />
+        <Divider variant="dashed" mt="xl" />
       </Paper>
     );
   },
