@@ -241,14 +241,18 @@ export function useAaveData(address: string) {
   }, [isLoadingAny]);
 
   // After fetching, if the current market doesn't have a position but another
-  // on does, select the market that has a position.
+  // on does, select the market that has a position (prefer highest reserve balance).
   useEffect(() => {
     if (!isFetching) {
       const currentMarketHasPosition =
         data?.[currentMarket].workingData?.healthFactor &&
         (data?.[currentMarket]?.workingData?.healthFactor ?? -1) > -1;
       if (currentMarketHasPosition) return;
-      const marketWithPosition = markets.find(
+      const marketWithPosition = markets.sort((marketA, marketB) => {
+        const marketDataA = data?.[marketA.id]?.workingData;
+        const marketDataB = data?.[marketB.id]?.workingData;
+        return (marketDataB?.totalCollateralMarketReferenceCurrency || 0) - (marketDataA?.totalCollateralMarketReferenceCurrency || 0);
+      }).find(
         (market) =>
           data?.[market.id]?.workingData?.healthFactor &&
           (data?.[market.id]?.workingData?.healthFactor ?? -1) > -1
