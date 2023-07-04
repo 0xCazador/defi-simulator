@@ -85,7 +85,8 @@ const getAaveData = async (address: string, market: AaveMarketDataType) => {
     userSummary,
     address,
     market,
-    baseCurrencyData
+    baseCurrencyData,
+    userReserves.userEmodeCategoryId,
   );
   return hf;
 };
@@ -94,7 +95,8 @@ const aaveUserSummaryToHealthFactor = (
   userSummary: FormatUserSummaryResponse,
   address: string,
   market: AaveMarketDataType,
-  baseCurrencyData: any
+  baseCurrencyData: any,
+  userEmodeCategoryId: number
 ) => {
   const getAssetDetailsFromReserveItem = (reserveItem: ComputedUserReserve) => {
     const details: AssetDetails = {
@@ -160,6 +162,7 @@ const aaveUserSummaryToHealthFactor = (
 
         return item;
       }),
+    userEmodeCategoryId
   };
   const reserveDataCopy = { ...reserveData };
 
@@ -189,6 +192,7 @@ const aaveUserSummaryToHealthFactor = (
       currentLoanToValue: reserveData.currentLoanToValue,
       userReservesData: reserveData.userReservesData,
       userBorrowsData: reserveData.userBorrowsData,
+      userEmodeCategoryId: reserveData.userEmodeCategoryId
     },
     workingData: {
       healthFactor: reserveDataCopy.healthFactor,
@@ -201,6 +205,7 @@ const aaveUserSummaryToHealthFactor = (
       currentLoanToValue: reserveDataCopy.currentLoanToValue,
       userReservesData: reserveDataCopy.userReservesData,
       userBorrowsData: reserveDataCopy.userBorrowsData,
+      userEmodeCategoryId: reserveDataCopy.userEmodeCategoryId
     },
   };
   const liquidationScenario = getCalculatedLiquidationScenario(hf.workingData as AaveHealthFactorData, marketReferenceCurrencyPriceInUSD);

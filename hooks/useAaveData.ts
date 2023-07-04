@@ -30,6 +30,7 @@ export type AaveHealthFactorData = {
   currentLoanToValue: number;
   userReservesData: ReserveAssetDataItem[];
   userBorrowsData: BorrowedAssetDataItem[];
+  userEmodeCategoryId?: number
 };
 
 export type ReserveAssetDataItem = {
@@ -237,8 +238,10 @@ export function useAaveData(address: string) {
     if (!markets.find((market) => data?.[market.id]?.isFetching)) {
       setIsFetching(false);
     }
-  }, [...markets.map((market) => data?.[market.id]?.isFetching)]);
+  }, [isLoadingAny]);
 
+  // After fetching, if the current market doesn't have a position but another
+  // on does, select the market that has a position.
   useEffect(() => {
     if (!isFetching) {
       const currentMarketHasPosition =
@@ -250,7 +253,13 @@ export function useAaveData(address: string) {
           data?.[market.id]?.workingData?.healthFactor &&
           (data?.[market.id]?.workingData?.healthFactor ?? -1) > -1
       );
-      if (marketWithPosition) setCurrentMarket(marketWithPosition.id);
+      // This guard doesn't make much sense but for some reason this useEffect was being triggered
+      // sometimes even when the markets hadn't just finished loading. We only want to apply
+      // this logic right after loading.
+      const didFetchRecently = !!markets.find((market) => data?.[market.id]?.lastFetched > Date.now() - 1000);
+      if (marketWithPosition && didFetchRecently) {
+        setCurrentMarket(marketWithPosition.id);
+      }
     }
   }, [isFetching]);
 
@@ -424,6 +433,8 @@ export function useAaveData(address: string) {
 
     healthFactorItem.workingData.set(updatedWorkingData);
   };
+
+  //console.log({ data })
 
   return {
     isFetching: isLoadingAny,

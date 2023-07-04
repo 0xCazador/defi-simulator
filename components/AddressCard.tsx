@@ -24,6 +24,8 @@ import {
   Flex,
   Space,
   Popover,
+  Overlay,
+  Alert,
 } from '@mantine/core';
 import { FaAsterisk, FaInfinity, FaInfoCircle } from 'react-icons/fa';
 import { RxReset } from 'react-icons/rx';
@@ -44,6 +46,7 @@ import {
 } from '../hooks/useAaveData';
 import { BsChevronDown, BsChevronUp } from 'react-icons/bs';
 import { AaveHealthFactorData } from '../hooks/useAaveData';
+import { FiAlertTriangle } from 'react-icons/fi';
 
 type Props = {};
 
@@ -52,24 +55,45 @@ const AddressCard = ({ }: Props) => {
   const data = addressData?.[currentMarket];
   const summaryRef = useRef<HTMLDivElement>(null);
   const summaryOffset: number = summaryRef?.current?.clientHeight || 0;
+  const isEmode: boolean = (data?.workingData?.userEmodeCategoryId || 0) !== 0;
 
   return (
     <div style={{ marginTop: '15px' }} >
       <HealthFactorAddressSummary addressData={addressData} />
       <div style={{ zIndex: '6', backgroundColor: "#1A1B1E" }}>
-        {isFetching
-          ? <HealthFactorSkeleton animate />
-          : (
-            <>
-              <HealthFactorSummary summaryRef={summaryRef} data={data} />
-              <LiquidationScenario data={data} applyLiquidationScenario={applyLiquidationScenario} />
-              <UserReserveAssetList summaryOffset={summaryOffset} />
-              <Space h="xl" />
-              <Space h="xl" />
-              <UserBorrowedAssetList summaryOffset={summaryOffset} />
-            </>
-          )
-        }
+        {isEmode ? (
+          <>
+            <Alert
+              mb={15}
+              mt={45}
+              icon={<FiAlertTriangle size="1rem" />}
+              title="Emode Not Supported!"
+              color="red"
+              variant="outline"
+            >
+              This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.
+            </Alert>
+            <HealthFactorSkeleton animate={false} />
+          </>
+        ) : (
+          <>
+            {
+              isFetching
+                ? <HealthFactorSkeleton animate />
+                : (
+                  <>
+                    <HealthFactorSummary summaryRef={summaryRef} data={data} />
+                    <LiquidationScenario data={data} applyLiquidationScenario={applyLiquidationScenario} />
+                    <UserReserveAssetList summaryOffset={summaryOffset} />
+                    <Space h="xl" />
+                    <Space h="xl" />
+                    <UserBorrowedAssetList summaryOffset={summaryOffset} />
+                  </>
+                )
+            }
+          </>
+        )}
+
       </div>
 
     </div>

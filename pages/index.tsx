@@ -8,7 +8,7 @@ import {
   Text,
 } from '@mantine/core';
 import { FiAlertTriangle } from 'react-icons/fi';
-import { useEffect, useState, Children, cloneElement, ReactChild, ReactElement } from 'react';
+import { useEffect, useState, Children, cloneElement, ReactElement } from 'react';
 import { NextRouter, useRouter } from 'next/router';
 import { ethers } from 'ethers';
 import { useAaveData } from '../hooks/useAaveData';
@@ -499,7 +499,7 @@ export const RandomAddressButton = ({ children }: RandomAddressButtonProps) => {
     "0xe6395145c839dac68d4f4c006101f88614d359f0",
     "0x7a16ff8270133f063aab6c9977183d9e72835428"
   ];
-  
+
   const address = addresses[getRandomInt(0, addresses.length)];
 
   const renderChildren = () => Children.map(children, (child) => cloneElement(child as ReactElement, {

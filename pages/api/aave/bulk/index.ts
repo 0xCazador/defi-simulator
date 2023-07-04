@@ -92,7 +92,8 @@ const getAaveData = async (address: string, market: AaveMarketDataType) => {
     userSummary,
     address,
     market,
-    baseCurrencyData
+    baseCurrencyData,
+    userReserves.userEmodeCategoryId,
   );
   return hf;
 };
@@ -101,7 +102,8 @@ const aaveUserSummaryToHealthFactor = (
   userSummary: FormatUserSummaryResponse,
   address: string,
   market: AaveMarketDataType,
-  baseCurrencyData: PoolBaseCurrencyHumanized
+  baseCurrencyData: PoolBaseCurrencyHumanized,
+  userEmodeCategoryId: number
 ) => {
   const getAssetDetailsFromReserveItem = (reserveItem: ComputedUserReserve) => {
     const details: AssetDetails = {
@@ -167,6 +169,7 @@ const aaveUserSummaryToHealthFactor = (
 
         return item;
       }),
+    userEmodeCategoryId
   };
   const marketReferenceCurrencyPriceInUSD = new BigNumber(
     baseCurrencyData.marketReferenceCurrencyPriceInUsd
@@ -194,6 +197,7 @@ const aaveUserSummaryToHealthFactor = (
       currentLoanToValue: reserveData.currentLoanToValue,
       userReservesData: reserveData.userReservesData,
       userBorrowsData: reserveData.userBorrowsData,
+      userEmodeCategoryId: reserveData.userEmodeCategoryId
     },
     workingData: {
       healthFactor: reserveData.healthFactor,
@@ -205,6 +209,7 @@ const aaveUserSummaryToHealthFactor = (
       currentLoanToValue: reserveData.currentLoanToValue,
       userReservesData: [...reserveData.userReservesData],
       userBorrowsData: [...reserveData.userBorrowsData],
+      userEmodeCategoryId: reserveData.userEmodeCategoryId
     },
   };
 
