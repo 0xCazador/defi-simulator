@@ -405,7 +405,7 @@ const LiquidationScenario = ({
               compact
               onClick={() => setShowLiquidation(!showLiquidation)}
               rightIcon={showLiquidation ? <BsChevronUp /> : <BsChevronDown />}>
-              Liquidation Scenario
+              Price Liquidation Scenario
             </Button>
           </>
         }
