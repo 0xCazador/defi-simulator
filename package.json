@@ -18,7 +18,9 @@
     "preflight": "npm run prettier:check && npm run lint && npm run typecheck && npm run jest",
     "test": "npm run jest",
     "storybook": "start-storybook -p 7001",
-    "storybook:build": "build-storybook"
+    "storybook:build": "build-storybook",
+    "extract": "lingui extract",
+    "compile": "lingui compile"
   },
   "dependencies": {
     "@aave/contract-helpers": "^1.17.4",
@@ -27,6 +29,7 @@
     "@emotion/react": "^11.10.6",
     "@emotion/server": "^11.10.0",
     "@hookstate/core": "^4.0.1",
+    "@lingui/react": "^4.3.0",
     "@mantine/carousel": "6.0.2",
     "@mantine/core": "6.0.2",
     "@mantine/dates": "6.0.2",
@@ -50,7 +53,10 @@
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
-    "@babel/core": "^7.21.4",
+    "@babel/core": "^7.22.8",
+    "@babel/plugin-proposal-do-expressions": "^7.22.5",
+    "@lingui/cli": "^4.3.0",
+    "@lingui/macro": "^4.3.0",
     "@next/eslint-plugin-next": "^12.3.4",
     "@storybook/react": "^7.0.2",
     "@testing-library/dom": "^8.20.0",
@@ -64,6 +70,7 @@
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
     "babel-loader": "^8.3.0",
+    "babel-plugin-macros": "^3.1.0",
     "eslint": "^8.37.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",

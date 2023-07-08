@@ -7,9 +7,16 @@ import {
 } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
 
+import { i18n } from '@lingui/core'
+import { I18nProvider } from '@lingui/react'
+import { messages } from '../src/locales/en/messages'
+
 // Styles specific to noUI slider
 import 'nouislider/dist/nouislider.css';
 import "../css/slider.css";
+
+i18n.load('en', messages)
+i18n.activate('en')
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
@@ -27,12 +34,12 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
         />
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
-
-      <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
-        <Component {...pageProps} />
-        <Notifications />
-      </MantineProvider>
-
+      <I18nProvider i18n={i18n}>
+        <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
+          <Component {...pageProps} />
+          <Notifications />
+        </MantineProvider>
+      </I18nProvider>
     </>
   );
 }

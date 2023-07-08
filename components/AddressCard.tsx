@@ -1,6 +1,7 @@
 import { ReactElement, RefObject, memo, useEffect, useRef, useState } from 'react';
 import { formatNumber, formatMoney, unformat } from 'accounting';
 import noUiSlider from 'nouislider';
+import { Trans } from '@lingui/macro';
 
 import {
   Center,
@@ -298,7 +299,7 @@ const HealthFactorSummary = ({ data, summaryRef }: HealthFactorSummaryProps) => 
           labelPosition="center"
           label={
             <Title order={3}>
-              {'Health Factor: '}
+              <Trans>{'Health Factor: '}</Trans>
               {healthFactorDiffers && (
                 <>
                   <Text mr="4px" span c="dimmed">
