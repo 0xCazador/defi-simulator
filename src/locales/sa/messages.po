@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: sa\n"
+
+#: components/AddressCard.tsx:449
+msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
+msgstr "<0>मूल्यपरिसमापनपरिदृश्यं अनुमानतः उच्चतमं आरक्षितसम्पत्त्याः मूल्यं प्रतिनिधियति यत् स्थितिं परिसमापनस्य अधीनं भवितुम् अर्हति। स्थिरसम्पत्तयः अस्मिन् परिदृश्ये न समाविष्टाः, तेषां वर्तमानमूल्यं च निर्वाहयितुं कल्प्यते । अनेकाः कारकाः परिसमापनं प्रभावितयन्ति । एतत् परिदृश्यं सन्दर्भार्थं केवलमेकं उदाहरणम् अस्ति । अनेकाः भिन्नाः परिदृश्याः परिसमापनं प्रेरयितुं शक्नुवन्ति।<1>अत्र अधिकं पठन्तु</1> .</0>"
+
+#: components/AddressCard.tsx:66
+msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
+msgstr "<0>अस्मिन् ऋणस्थाने Emode (Efficieny Mode) सक्षमम् अस्ति, परन्तु DeFi Simulator अद्यापि Emode सक्षमं कृत्वा स्थितानां समर्थनं न करोति । शीघ्रमेव Emode इत्यस्य समर्थनं योजयिष्यामः इति आशास्महे।</0> <1/> इति"
+
+#: components/AddAssetDialog.tsx:82
+#: components/AddAssetDialog.tsx:151
+msgid "Add {0} Asset"
+msgstr "{0} सम्पत्तिं योजयतु"
+
+#: components/AddressCard.tsx:152
+msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
+msgstr "स्वास्थ्यकारकस्य ऋणशक्तेः च परिवर्तनस्य कल्पनां कर्तुं अधः सम्पत्तिमूल्यानि परिमाणानि च योजयन्तु, निष्कासयन्तु, परिवर्तयन्तु च।"
+
+#: components/AddressInput.tsx:68
+msgid "Address copied to clipboard!"
+msgstr "पता क्लिप्बोर्ड् प्रति प्रतिलिखितम्!"
+
+#: components/AddressCard.tsx:508
+msgid "Apply"
+msgstr "आचरतु"
+
+#: components/AddressCard.tsx:188
+#: components/AddressCard.tsx:352
+msgid "Available to Borrow:"
+msgstr "ऋणं ग्रहीतुं उपलब्धम् : १."
+
+#: components/AddressCard.tsx:664
+msgid "Borrowed Assets"
+msgstr "उधारी सम्पत्ति"
+
+#: pages/index.tsx:89
+msgid "Build from Scratch"
+msgstr "आद्यतः निर्माणं कुर्वन्तु"
+
+#: pages/index.tsx:542
+msgid "Close alert"
+msgstr "सचेतना बन्दं कुर्वन्तु"
+
+#: components/AddressInput.tsx:68
+#: components/AddressInput.tsx:70
+msgid "Copy address to clipboard"
+msgstr "पतां क्लिप्बोर्ड् प्रति प्रतिलिख्यताम्"
+
+#: pages/index.tsx:537
+msgid "Experimental!"
+msgstr "प्रयोगात्मक !"
+
+#: components/AddressCard.tsx:131
+msgid "Found"
+msgstr "प्राप्तः"
+
+#: components/AddressCard.tsx:198
+#: components/AddressCard.tsx:376
+msgid "Net Asset Value:"
+msgstr "शुद्ध सम्पत्तिमूल्यम् : १."
+
+#: components/AddressCard.tsx:145
+msgid "No Aave positions found."
+msgstr "न आवे पदं लब्धम्।"
+
+#: components/AddressCard.tsx:409
+msgid "No Liquidation Scenario Available"
+msgstr "कोऽपि परिसमापन परिदृश्यः उपलब्धः नास्ति"
+
+#: pages/index.tsx:75
+msgid "OR"
+msgstr "वा"
+
+#: pages/index.tsx:64
+msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
+msgstr "उपरि पेटीयां Aave ऋणस्थित्या सह एकं पता चिनोतु यत् ऋणं/आरक्षितसम्पत्तौ परिवर्तनं पदस्य स्वास्थ्यकारकं ऋणशक्तिं च कथं प्रभावितं करोति इति कल्पनां कुर्वन्तु।"
+
+#: components/AddressCard.tsx:426
+msgid "Price Liquidation Scenario"
+msgstr "मूल्य परिसमापन परिदृश्य"
+
+#: components/Footer.tsx:125
+msgid "Questions or comments? Please <0>join the Discord!</0>"
+msgstr "प्रश्नाः वा टिप्पण्याः वा ? कृपया <0>विवादे सम्मिलितं भवन्तु!</0>"
+
+#: components/AddressCard.tsx:812
+msgid "Remove {assetSymbol}"
+msgstr "{assetSymbol} निष्कासयन्तु।"
+
+#: components/AddressCard.tsx:193
+#: components/AddressCard.tsx:364
+msgid "Reserve Asset Value:"
+msgstr "आरक्षित सम्पत्तिमूल्यम् : १."
+
+#: components/AddressCard.tsx:587
+msgid "Reserve Assets"
+msgstr "आरक्षित सम्पत्ति"
+
+#: components/AddressCard.tsx:541
+msgid "Reset all simulated values"
+msgstr "सर्वाणि अनुकरणीयमूल्यानि पुनः सेट् कुर्वन्तु"
+
+#: components/AddAssetDialog.tsx:94
+msgid "Reset search query"
+msgstr "अन्वेषणप्रश्नं पुनः सेट् कुर्वन्तु"
+
+#: components/AddressCard.tsx:972
+msgid "Reset to Original Value ({0})"
+msgstr "मूलमूल्यं ({0}) प्रति पुनः सेट् कुर्वन्तु ।"
+
+#: components/AddAssetDialog.tsx:86
+msgid "Search for {0} Assets"
+msgstr "{0} सम्पत्तिः अन्वेष्टुम्"
+
+#: components/AddAssetDialog.tsx:118
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
+msgstr "CDP मध्ये {3} सम्पत्तिरूपेण योजयितुं अधः {0} ({1}) {2} इति चिनोतु ।"
+
+#: components/AddressCard.tsx:239
+msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
+msgstr "किमपि घटितम्, वयं सम्प्रति पताऋणस्थानदत्तांशं लोड् कर्तुं न शक्नुमः। पश्चात् पुनः प्रयासं कुर्वन्तु।"
+
+#: components/AddAssetDialog.tsx:110
+msgid "There are no assets that match the search query. Reset the search query to select an asset."
+msgstr "अन्वेषणप्रश्नस्य अनुरूपाः सम्पत्तिः नास्ति । सम्पत्तिं चयनं कर्तुं अन्वेषणप्रश्नं पुनः सेट् कुर्वन्तु ।"
+
+#: components/AddressCard.tsx:671
+msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
+msgstr "{0} विपण्यां <0/> कृते ऋणं गृहीतं सम्पत्तिः नास्ति । अस्य पतेः कृते ऋणं गृहीतसम्पत्त्याः अनुकरणार्थं \"ऋणं सम्पत्तिं योजयतु\" इति चिनोतु ।"
+
+#: components/AddressCard.tsx:594
+msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
+msgstr "{0} विपण्यां <0/> कृते आरक्षितसम्पत्तयः नास्ति । अस्य पतेः कृते आरक्षितसम्पत्त्याः अनुकरणार्थं \"Add Reserve Asset\" इति चिनोतु ।"
+
+#: pages/index.tsx:544
+msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
+msgstr "इदं Aave ऋण अनुकरणकं प्रयोगात्मकं सक्रियविकासाधीनम् अस्ति। केवलं अस्य एप्-परिणामस्य आधारेण वित्तीयनिर्णयं न कुर्वन्तु।"
+
+#: components/AddressCard.tsx:183
+#: components/AddressCard.tsx:340
+msgid "Total Borrowed:"
+msgstr "कुल ऋणं गृहीतम् : १."
+
+#: components/AddressInput.tsx:62
+#: components/AddressInput.tsx:64
+#: pages/index.tsx:523
+msgid "Use Random Address"
+msgstr "Random Address इत्यस्य उपयोगं कुर्वन्तु"
+
+#: components/AddressCard.tsx:883
+msgid "Use {assetSymbol} as collateral"
+msgstr "{assetSymbol} इत्यस्य उपयोगं जमानतरूपेण कुर्वन्तु"
+
+#: components/AddressInput.tsx:73
+msgid "View address on Etherscan"
+msgstr "Etherscan इत्यत्र पता पश्यन्तु"
+
+#: components/AddressInput.tsx:75
+msgid "Visit address details on Etherscan"
+msgstr "Etherscan इत्यत्र पताविवरणं पश्यन्तु"
+
+#: pages/index.tsx:79
+msgid "Want to go for a quick spin?"
+msgstr "द्रुतस्पिनार्थं गन्तुम् इच्छति वा ?"
+
+#: components/AddressCard.tsx:137
+msgid "in"
+msgstr "इत्यस्मिन्‌"
+
+#: components/Footer.tsx:115
+msgid "is an unofficial, open source, community-built Aave debt simulator."
+msgstr "एकः अनधिकृतः, मुक्तस्रोतः, समुदायनिर्मितः Aave ऋण-अनुकरणकः अस्ति ।"
+
+#: components/AddressCard.tsx:141
+msgid "{0, plural, one {market} other {markets}}"
+msgstr "{ 0, plural, one {विपणि} other {विपणयः} }"
+
+#: components/AddressCard.tsx:135
+msgid "{0, plural, one {position} other {positions}}"
+msgstr "{ 0, plural, one {स्थितिः} other {पदानि} }"
+
+#: components/AddressCard.tsx:1047
+msgid "{assetSymbol} Price ({currencySymbol})"
+msgstr "{assetSymbol} मूल्य ({currencySymbol}) 1.1."
+
+#: components/AddressCard.tsx:943
+msgid "{assetSymbol} Quantity"
+msgstr "{assetSymbol} मात्रा"

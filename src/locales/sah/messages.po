@@ -1,0 +1,198 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: sah\n"
+
+#: components/AddressCard.tsx:449
+msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
+msgstr ""
+"<0>Туруоруулук ассеттэрдэн хамгаалах болон хамгаалах боломжтой хамгийн өндөр үнэтэй ассетүүдийг агуулсан төлөвлөгөөгийн сценарий нь позицийг хамгаалахад хүчинтэй болох боломжтой. Стабил ассетүүд энэ сценарийд ороогүй бөгөөд одоогийн утгыг хадгалахыг оролдоно. Хамгийн их хэмжээтэй боломжтой асуудлууд хамгаалалтыг өөрчлөх боломжтой. Энэ сценарий нь зөвхөн нэмэлт мэдээллийн нэг жишээ юм. Хамгийн ихдээ өөр сценариуд хамгаалалтыг эхлүүлж чадна.</0>\n"
+"<1>Дэлгэрэнгүй уншихын тулд энд дарна уу</1>."
+
+#: components/AddressCard.tsx:66
+msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
+msgstr "<0>Энэ үр дүнтэй зээлний байршл нь Emode (Эффективтэй ажиллах горим) идэвхжсэн байна, гэхдээ DeFi Симулятор нь Emode идэвхжсэн байршлуудыг олдохгүй байна. Бид Emode-г дэмжихийг урьж байна.</0><1/>"
+
+#: components/AddAssetDialog.tsx:82
+#: components/AddAssetDialog.tsx:151
+msgid "Add {0} Asset"
+msgstr "{0} Ассет нэмэх"
+
+#: components/AddressCard.tsx:152
+msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
+msgstr "Туруоруу хатырааны жана каржылык күчүн туруоруулахтаа, алдын алуу, алып салуу жана өзгөртүүлөрдү көрүү үчүн төлөөлөрдү түзөтүү."
+
+#: components/AddressInput.tsx:68
+msgid "Address copied to clipboard!"
+msgstr "Хаяг хуулбарлалаа!"
+
+#: components/AddressCard.tsx:508
+msgid "Apply"
+msgstr "Колдонуу"
+
+#: components/AddressCard.tsx:188
+#: components/AddressCard.tsx:352
+msgid "Available to Borrow:"
+msgstr "Зээл авах боломжтой:"
+
+#: components/AddressCard.tsx:664
+msgid "Borrowed Assets"
+msgstr "Алын ассеттер"
+
+#: pages/index.tsx:89
+msgid "Build from Scratch"
+msgstr "Төмөнкүдөгүнөн баштапкынан түзөтүү"
+
+#: pages/index.tsx:542
+msgid "Close alert"
+msgstr "Эскертүүчүнү жабуу"
+
+#: components/AddressInput.tsx:68
+#: components/AddressInput.tsx:70
+msgid "Copy address to clipboard"
+msgstr "Хаягыг хуулах"
+
+#: pages/index.tsx:537
+msgid "Experimental!"
+msgstr "Эксперименталдык!"
+
+#: components/AddressCard.tsx:131
+msgid "Found"
+msgstr "Табылды"
+
+#: components/AddressCard.tsx:198
+#: components/AddressCard.tsx:376
+msgid "Net Asset Value:"
+msgstr "Цэнэглэгчийн үнэт ассет:"
+
+#: components/AddressCard.tsx:145
+msgid "No Aave positions found."
+msgstr "Aave байршл олдсонгүй."
+
+#: components/AddressCard.tsx:409
+msgid "No Liquidation Scenario Available"
+msgstr "Түмүктүүлүүлээгээгээр сценарий байхгүй"
+
+#: pages/index.tsx:75
+msgid "OR"
+msgstr "ЭМЕС"
+
+#: pages/index.tsx:64
+msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
+msgstr "Туруорууларын хаалларынан борроу/резерв ассеттэрин туруорууларынан хаалларынан хааллын фактору баарынан борроулануу күчүн тургутуу үчүн, жогорудагы талаанын боксунда бир адрес көрсөтүүгө көчүрүүлөрүү көрсөтүүгө."
+
+#: components/AddressCard.tsx:426
+msgid "Price Liquidation Scenario"
+msgstr "Үнэ түмүктүүлэх сценарий"
+
+#: components/Footer.tsx:125
+msgid "Questions or comments? Please <0>join the Discord!</0>"
+msgstr "Сургуулимэтэй эсэрэгээтэй болсо, <0>Discord-той холбогдоно уу!</0>"
+
+#: components/AddressCard.tsx:812
+msgid "Remove {assetSymbol}"
+msgstr "{assetSymbol} алып салыңыз"
+
+#: components/AddressCard.tsx:193
+#: components/AddressCard.tsx:364
+msgid "Reserve Asset Value:"
+msgstr "Тутамдын үнэлгээний утга:"
+
+#: components/AddressCard.tsx:587
+msgid "Reserve Assets"
+msgstr "Тутум ассеттер"
+
+#: components/AddressCard.tsx:541
+msgid "Reset all simulated values"
+msgstr "Бүх симуляцын утгыг шинэчлэх"
+
+#: components/AddAssetDialog.tsx:94
+msgid "Reset search query"
+msgstr "Хайлтын хайлтыг шинэчлэх"
+
+#: components/AddressCard.tsx:972
+msgid "Reset to Original Value ({0})"
+msgstr "Эхний утга руу буцаах ({0})"
+
+#: components/AddAssetDialog.tsx:86
+msgid "Search for {0} Assets"
+msgstr "{0} үйлчилгээнүүдийг хайх"
+
+#: components/AddAssetDialog.tsx:118
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
+msgstr "{3} үйлчилгээний хэсэгт {0} ({1}) {2} сонгохын тулд дараахь холбоосыг нэмэх."
+
+#: components/AddressCard.tsx:239
+msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
+msgstr "Туох болгону, аадырыс долга позиция дээрээ маалын мэдээлэлээ ачаалж чадахгүй байна. Дараа дахин оролдоно уу."
+
+#: components/AddAssetDialog.tsx:110
+msgid "There are no assets that match the search query. Reset the search query to select an asset."
+msgstr "Хайлтын хуудас дээр таарах маалга алга. Хайлтын хуудасыг тэгээд маалга сонгоно уу."
+
+#: components/AddressCard.tsx:671
+msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
+msgstr "{0} борсасында <0/>алын ассеттер жок. Бу адресге алын ассеттерни симуляциялаштырылган \"Алын ассеттерни кошуу\" танданыз."
+
+#: components/AddressCard.tsx:594
+msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
+msgstr "{0} борсасында <0/>тутум ассеттер жок. Бу адресге тутум ассеттерни симуляциялаштырылган \"Тутум ассеттерни кошуу\" танданыз."
+
+#: pages/index.tsx:544
+msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
+msgstr "Бу Ааве борг симулятору экспериментал болуп, активдүү тургутууларда. Бу программанын натыйжаларына каалаганда, каржылык туулгаларыңызды тек бул программанын натыйжаларына багыттан алып, карар бермеңиз."
+
+#: components/AddressCard.tsx:183
+#: components/AddressCard.tsx:340
+msgid "Total Borrowed:"
+msgstr "Нийт Зээлээр:"
+
+#: components/AddressInput.tsx:62
+#: components/AddressInput.tsx:64
+#: pages/index.tsx:523
+msgid "Use Random Address"
+msgstr "Санамсаргүй хаяг ашиглах"
+
+#: components/AddressCard.tsx:883
+msgid "Use {assetSymbol} as collateral"
+msgstr "{assetSymbol} гэсэн зээлээрээ харилцан ашиглах"
+
+#: components/AddressInput.tsx:73
+msgid "View address on Etherscan"
+msgstr "Etherscan дээр хаягыг үзэх"
+
+#: components/AddressInput.tsx:75
+msgid "Visit address details on Etherscan"
+msgstr "Etherscan дээр хаягын дэлгэрэнгүй мэдээллийг харах"
+
+#: pages/index.tsx:79
+msgid "Want to go for a quick spin?"
+msgstr "Тез бириктүүгө көчүрүүгө келеби?"
+
+#: components/AddressCard.tsx:137
+msgid "in"
+msgstr "таҥарында"
+
+#: components/Footer.tsx:115
+msgid "is an unofficial, open source, community-built Aave debt simulator."
+msgstr "Бу, эрэлэгээр, ачаа туһунан, Aave бороо симулятор."
+
+#: components/AddressCard.tsx:141
+msgid "{0, plural, one {market} other {markets}}"
+msgstr "{ 0, plural, other {сатыылар} }"
+
+#: components/AddressCard.tsx:135
+msgid "{0, plural, one {position} other {positions}}"
+msgstr "{ 0, plural, other {долбоорулар} }"
+
+#: components/AddressCard.tsx:1047
+msgid "{assetSymbol} Price ({currencySymbol})"
+msgstr "{assetSymbol} Баары ({currencySymbol})"
+
+#: components/AddressCard.tsx:943
+msgid "{assetSymbol} Quantity"
+msgstr "{assetSymbol} Саны"

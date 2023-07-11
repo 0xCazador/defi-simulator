@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: ln\n"
+
+#: components/AddressCard.tsx:449
+msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
+msgstr "<0>Scénarios ya liquidation ya prix ezali ko représenter ba prix ya ba biens de réserve ya likolo oyo ekoki kozala soumise na liquidation ya position. Ba biens stable ekotisami te na scénario oyo mpe ekanisami ete ekobatela motuya na yango ya lelo. Makambo mingi esimbaka liquidation. Scénarios oyo ezali kaka exemple moko pona référence. Ba scénarios ebele ya ndenge na ndenge ekoki ko déclencher liquidation.<1>Tanga mingi awa</1> .</0>"
+
+#: components/AddressCard.tsx:66
+msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
+msgstr "<0>Position oyo ya niongo ezali na Emode (Mode d'Efficieny) activé, kasi DeFi Simulator e soutenir nanu te ba positions na Emode activé. Tozali na elikya ya kobakisa lisungi mpo na Emode kala mingi te.</0> <1/>"
+
+#: components/AddAssetDialog.tsx:82
+#: components/AddAssetDialog.tsx:151
+msgid "Add {0} Asset"
+msgstr "Bakisa {0} Biloko ya motuya"
+
+#: components/AddressCard.tsx:152
+msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
+msgstr "Bakisa, longola, mpe kobongisa ntalo ya biloko mpe motango oyo ezali awa na nse mpo na komona na makanisi mbongwana na facteur ya bokolongono mpe nguya ya kodefa."
+
+#: components/AddressInput.tsx:68
+msgid "Address copied to clipboard!"
+msgstr "Addresse e copier na tableau de bord!"
+
+#: components/AddressCard.tsx:508
+msgid "Apply"
+msgstr "Kosalela"
+
+#: components/AddressCard.tsx:188
+#: components/AddressCard.tsx:352
+msgid "Available to Borrow:"
+msgstr "Ezali mpo na kodefa:"
+
+#: components/AddressCard.tsx:664
+msgid "Borrowed Assets"
+msgstr "Biloko oyo badefi"
+
+#: pages/index.tsx:89
+msgid "Build from Scratch"
+msgstr "Tongela uta na Zéro"
+
+#: pages/index.tsx:542
+msgid "Close alert"
+msgstr "Bokanga alerte"
+
+#: components/AddressInput.tsx:68
+#: components/AddressInput.tsx:70
+msgid "Copy address to clipboard"
+msgstr "Kopi adresse na clipboard"
+
+#: pages/index.tsx:537
+msgid "Experimental!"
+msgstr "Ezali na makambo ya komeka!"
+
+#: components/AddressCard.tsx:131
+msgid "Found"
+msgstr "Komona"
+
+#: components/AddressCard.tsx:198
+#: components/AddressCard.tsx:376
+msgid "Net Asset Value:"
+msgstr "Valeur net ya ba biens:"
+
+#: components/AddressCard.tsx:145
+msgid "No Aave positions found."
+msgstr "Ba positions ya Aave ezwami te."
+
+#: components/AddressCard.tsx:409
+msgid "No Liquidation Scenario Available"
+msgstr "Scénario ya Liquidation Ezali Te"
+
+#: pages/index.tsx:75
+msgid "OR"
+msgstr "TO"
+
+#: pages/index.tsx:64
+msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
+msgstr "Kola adresse oyo ezali na position ya niongo ya Aave na esika oyo ezali likolo mpo na komona na makanisi ndenge nini mbongwana ya kodefa/bozwi ya réserve ezali na bopusi na facteur ya santé ya position mpe nguya ya kodefa."
+
+#: components/AddressCard.tsx:426
+msgid "Price Liquidation Scenario"
+msgstr "Scénarios ya Liquidation ya Prix"
+
+#: components/Footer.tsx:125
+msgid "Questions or comments? Please <0>join the Discord!</0>"
+msgstr "Mituna to makanisi? Svp <0>kosangana na Discord!</0>"
+
+#: components/AddressCard.tsx:812
+msgid "Remove {assetSymbol}"
+msgstr "Longola {assetSymbol}."
+
+#: components/AddressCard.tsx:193
+#: components/AddressCard.tsx:364
+msgid "Reserve Asset Value:"
+msgstr "Valeur ya Biloko ya Réserve:"
+
+#: components/AddressCard.tsx:587
+msgid "Reserve Assets"
+msgstr "Biloko ya Réserve"
+
+#: components/AddressCard.tsx:541
+msgid "Reset all simulated values"
+msgstr "Réinitialiser ba valeurs nionso ya simulé"
+
+#: components/AddAssetDialog.tsx:94
+msgid "Reset search query"
+msgstr "Réinitialiser motuna ya boluki"
+
+#: components/AddressCard.tsx:972
+msgid "Reset to Original Value ({0})"
+msgstr "Bozongisi na Valeur ya ebandeli ({0}) ."
+
+#: components/AddAssetDialog.tsx:86
+msgid "Search for {0} Assets"
+msgstr "Boluka {0} Biloko ya motuya"
+
+#: components/AddAssetDialog.tsx:118
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
+msgstr "Pona {0} ({1}) {2} na se pona kobakisa yango lokola eloko ya {3} na CDP."
+
+#: components/AddressCard.tsx:239
+msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
+msgstr "Eloko moko esalemaki, tozali na makoki te ya ko charger ba données ya position ya niongo ya adresse sikoyo. Meká lisusu na nsima."
+
+#: components/AddAssetDialog.tsx:110
+msgid "There are no assets that match the search query. Reset the search query to select an asset."
+msgstr "Ezali na biloko moko te oyo ekokani na motuna ya boluki. Réinitialiser query ya boluki mpo na kopona asset."
+
+#: components/AddressCard.tsx:671
+msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
+msgstr "Ezali na biloko oyo badefi te mpo na <0/>na zando ya {0}. Pona \"Add Borrow Asset\" pona ko simuler ba biens oyo odefi pona adresse oyo."
+
+#: components/AddressCard.tsx:594
+msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
+msgstr "Ezali na ba biens ya réserve te pona <0/>na zando ya {0}. Pona \"Add Réserve Asset\" pona ko simuler ba biens ya réserve pona adresse oyo."
+
+#: pages/index.tsx:544
+msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
+msgstr "Simulateur oyo ya ba niongo ya Aave ezali expérimentale mpe ezali sous développement actif. Kozua ba décisions financières te kaka na ba résultats ya app oyo."
+
+#: components/AddressCard.tsx:183
+#: components/AddressCard.tsx:340
+msgid "Total Borrowed:"
+msgstr "Total oyo badefi:"
+
+#: components/AddressInput.tsx:62
+#: components/AddressInput.tsx:64
+#: pages/index.tsx:523
+msgid "Use Random Address"
+msgstr "Salelá Adrɛsi ya kozanga kokana"
+
+#: components/AddressCard.tsx:883
+msgid "Use {assetSymbol} as collateral"
+msgstr "Salelá {assetSymbol} lokola garantie"
+
+#: components/AddressInput.tsx:73
+msgid "View address on Etherscan"
+msgstr "Tala adresse na Etherscan"
+
+#: components/AddressInput.tsx:75
+msgid "Visit address details on Etherscan"
+msgstr "Kotala ba détails ya adresse na Etherscan"
+
+#: pages/index.tsx:79
+msgid "Want to go for a quick spin?"
+msgstr "Olingi kokende kosala spin ya mbangu?"
+
+#: components/AddressCard.tsx:137
+msgid "in"
+msgstr "na"
+
+#: components/Footer.tsx:115
+msgid "is an unofficial, open source, community-built Aave debt simulator."
+msgstr "ezali simulateur ya ba niongo ya Aave oyo ezali officiel te, ya source ouverte, oyo etongami na communauté."
+
+#: components/AddressCard.tsx:141
+msgid "{0, plural, one {market} other {markets}}"
+msgstr "{ 0, plural, one {zando} other {ba marchés ya ba marchés} }"
+
+#: components/AddressCard.tsx:135
+msgid "{0, plural, one {position} other {positions}}"
+msgstr "{ 0, plural, one {esika} other {bisika ya kofanda} }"
+
+#: components/AddressCard.tsx:1047
+msgid "{assetSymbol} Price ({currencySymbol})"
+msgstr "{assetSymbol} Ntalo ({currencySymbol}) ."
+
+#: components/AddressCard.tsx:943
+msgid "{assetSymbol} Quantity"
+msgstr "{assetSymbol} Motango ya monene"

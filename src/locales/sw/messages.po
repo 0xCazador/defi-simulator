@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: sw\n"
+
+#: components/AddressCard.tsx:449
+msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
+msgstr "<0>Hali ya kufilisishwa kwa bei inawakilisha takriban bei za juu zaidi za rasilimali ambazo zinaweza kughairi nafasi hiyo. Rasilimali thabiti hazijajumuishwa katika hali hii na inachukuliwa kudumisha thamani yake ya sasa. Sababu nyingi huathiri kufutwa. Hali hii ni mfano mmoja tu wa marejeleo. Matukio mengi tofauti yanaweza kusababisha kufutwa.<1>Soma zaidi hapa</1> .</0>"
+
+#: components/AddressCard.tsx:66
+msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
+msgstr "<0>Nafasi hii ya deni imewashwa Emode (Njia ya Ufanisi), lakini DeFi Simulator bado haitumii nafasi ikiwa na Emode imewashwa. Tunatarajia kuongeza usaidizi kwa Emode hivi karibuni.</0> <1/>"
+
+#: components/AddAssetDialog.tsx:82
+#: components/AddAssetDialog.tsx:151
+msgid "Add {0} Asset"
+msgstr "Ongeza Kipengee cha {0}"
+
+#: components/AddressCard.tsx:152
+msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
+msgstr "Ongeza, ondoa na urekebishe bei na idadi ya mali hapa chini ili kuona mabadiliko kwenye kipengele cha afya na uwezo wa kukopa."
+
+#: components/AddressInput.tsx:68
+msgid "Address copied to clipboard!"
+msgstr "Anwani imenakiliwa kwenye ubao wa kunakili!"
+
+#: components/AddressCard.tsx:508
+msgid "Apply"
+msgstr "Omba"
+
+#: components/AddressCard.tsx:188
+#: components/AddressCard.tsx:352
+msgid "Available to Borrow:"
+msgstr "Inapatikana kwa Kukopa:"
+
+#: components/AddressCard.tsx:664
+msgid "Borrowed Assets"
+msgstr "Mali Zilizokopwa"
+
+#: pages/index.tsx:89
+msgid "Build from Scratch"
+msgstr "Jenga kutoka Mwanzo"
+
+#: pages/index.tsx:542
+msgid "Close alert"
+msgstr "Funga tahadhari"
+
+#: components/AddressInput.tsx:68
+#: components/AddressInput.tsx:70
+msgid "Copy address to clipboard"
+msgstr "Nakili anwani kwenye ubao wa kunakili"
+
+#: pages/index.tsx:537
+msgid "Experimental!"
+msgstr "Majaribio!"
+
+#: components/AddressCard.tsx:131
+msgid "Found"
+msgstr "Imepatikana"
+
+#: components/AddressCard.tsx:198
+#: components/AddressCard.tsx:376
+msgid "Net Asset Value:"
+msgstr "Thamani Halisi ya Mali:"
+
+#: components/AddressCard.tsx:145
+msgid "No Aave positions found."
+msgstr "Hakuna nafasi za Aave zilizopatikana."
+
+#: components/AddressCard.tsx:409
+msgid "No Liquidation Scenario Available"
+msgstr "Hakuna Hali ya Kukomesha Inayopatikana"
+
+#: pages/index.tsx:75
+msgid "OR"
+msgstr "AU"
+
+#: pages/index.tsx:64
+msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
+msgstr "Bandika anwani iliyo na nafasi ya deni la Aave kwenye kisanduku kilicho hapo juu ili kuona jinsi mabadiliko ya kukopa/kuhifadhi mali yanavyoathiri hali ya afya ya nafasi na uwezo wa kukopa."
+
+#: components/AddressCard.tsx:426
+msgid "Price Liquidation Scenario"
+msgstr "Hali ya Kupunguza Bei"
+
+#: components/Footer.tsx:125
+msgid "Questions or comments? Please <0>join the Discord!</0>"
+msgstr "Maswali au maoni? Tafadhali <0>jiunge na Discord!</0>"
+
+#: components/AddressCard.tsx:812
+msgid "Remove {assetSymbol}"
+msgstr "Ondoa {assetSymbol}"
+
+#: components/AddressCard.tsx:193
+#: components/AddressCard.tsx:364
+msgid "Reserve Asset Value:"
+msgstr "Hifadhi Thamani ya Mali:"
+
+#: components/AddressCard.tsx:587
+msgid "Reserve Assets"
+msgstr "Hifadhi ya Mali"
+
+#: components/AddressCard.tsx:541
+msgid "Reset all simulated values"
+msgstr "Weka upya thamani zote zilizoigwa"
+
+#: components/AddAssetDialog.tsx:94
+msgid "Reset search query"
+msgstr "Weka upya hoja ya utafutaji"
+
+#: components/AddressCard.tsx:972
+msgid "Reset to Original Value ({0})"
+msgstr "Weka Upya hadi Thamani Halisi ({0})"
+
+#: components/AddAssetDialog.tsx:86
+msgid "Search for {0} Assets"
+msgstr "Tafuta Vipengee vya {0}"
+
+#: components/AddAssetDialog.tsx:118
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
+msgstr "Chagua {0} ({1}) {2} hapa chini ili kuiongeza kama {3} kipengee kwenye CDP."
+
+#: components/AddressCard.tsx:239
+msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
+msgstr "Hitilafu fulani imetokea, hatuwezi kupakia data ya nafasi ya deni la anwani kwa sasa. Jaribu tena baadae."
+
+#: components/AddAssetDialog.tsx:110
+msgid "There are no assets that match the search query. Reset the search query to select an asset."
+msgstr "Hakuna vipengee vinavyolingana na hoja ya utafutaji. Weka upya hoja ya utafutaji ili kuchagua kipengee."
+
+#: components/AddressCard.tsx:671
+msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
+msgstr "Hakuna mali iliyokopwa kwa <0/>katika soko la {0}. Chagua \"Ongeza Kipengee cha Kukopa\" ili kuiga vipengee vilivyokopwa kwa anwani hii."
+
+#: components/AddressCard.tsx:594
+msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
+msgstr "Hakuna mali ya akiba ya <0/>katika soko la {0}. Chagua \"Ongeza Kipengele cha Akiba\" ili kuiga vipengee vya hifadhi kwa anwani hii."
+
+#: pages/index.tsx:544
+msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
+msgstr "Kiigaji hiki cha madeni cha Aave ni cha majaribio na kinaendelezwa kikamilifu. Usifanye maamuzi ya kifedha kulingana na matokeo ya programu hii pekee."
+
+#: components/AddressCard.tsx:183
+#: components/AddressCard.tsx:340
+msgid "Total Borrowed:"
+msgstr "Jumla Iliyokopwa:"
+
+#: components/AddressInput.tsx:62
+#: components/AddressInput.tsx:64
+#: pages/index.tsx:523
+msgid "Use Random Address"
+msgstr "Tumia Anwani Nasibu"
+
+#: components/AddressCard.tsx:883
+msgid "Use {assetSymbol} as collateral"
+msgstr "Tumia {assetSymbol} kama dhamana"
+
+#: components/AddressInput.tsx:73
+msgid "View address on Etherscan"
+msgstr "Tazama anwani kwenye Etherscan"
+
+#: components/AddressInput.tsx:75
+msgid "Visit address details on Etherscan"
+msgstr "Tembelea maelezo ya anwani kwenye Etherscan"
+
+#: pages/index.tsx:79
+msgid "Want to go for a quick spin?"
+msgstr "Je, ungependa kuzunguka haraka?"
+
+#: components/AddressCard.tsx:137
+msgid "in"
+msgstr "katika"
+
+#: components/Footer.tsx:115
+msgid "is an unofficial, open source, community-built Aave debt simulator."
+msgstr "ni chanzo kisicho rasmi, chanzo wazi, kiigaji cha madeni cha Aave kilichojengwa na jumuiya."
+
+#: components/AddressCard.tsx:141
+msgid "{0, plural, one {market} other {markets}}"
+msgstr "{ 0, plural, one {soko} other {masoko} }"
+
+#: components/AddressCard.tsx:135
+msgid "{0, plural, one {position} other {positions}}"
+msgstr "{ 0, plural, one {nafasi} other {nafasi} }"
+
+#: components/AddressCard.tsx:1047
+msgid "{assetSymbol} Price ({currencySymbol})"
+msgstr "{assetSymbol} Bei ({currencySymbol})"
+
+#: components/AddressCard.tsx:943
+msgid "{assetSymbol} Quantity"
+msgstr "{assetSymbol} Kiasi"

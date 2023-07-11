@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: hy\n"
+
+#: components/AddressCard.tsx:449
+msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
+msgstr "<0>Գների լուծարման սցենարը ներկայացնում է պահուստային ակտիվների մոտավոր ամենաբարձր գները, որոնք կարող են լուծարման ենթարկել դիրքը: Կայուն ակտիվները ներառված չեն այս սցենարում և ենթադրվում է, որ պահպանում են իրենց ներկա արժեքը: Լուծարման վրա ազդում են բազմաթիվ գործոններ. Այս սցենարը միայն մեկ օրինակ է հղման համար: Շատ տարբեր սցենարներ կարող են հանգեցնել լուծարման:<1>Կարդալ ավելին այստեղ</1> .</0>"
+
+#: components/AddressCard.tsx:66
+msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
+msgstr "<0>Այս պարտքի դիրքը միացված է Emode-ին (Արդյունավետ ռեժիմ), սակայն DeFi Simulator-ը դեռ չի աջակցում Emode-ի միացված դիրքերը: Մենք հուսով ենք, որ շուտով կավելացնենք Emode-ի աջակցությունը:</0> <1/>"
+
+#: components/AddAssetDialog.tsx:82
+#: components/AddAssetDialog.tsx:151
+msgid "Add {0} Asset"
+msgstr "Ավելացնել {0} ակտիվ"
+
+#: components/AddressCard.tsx:152
+msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
+msgstr "Ավելացրեք, հեռացրեք և փոփոխեք ակտիվների գներն ու քանակը ստորև՝ առողջության գործոնի և փոխառության ուժի փոփոխությունները պատկերացնելու համար:"
+
+#: components/AddressInput.tsx:68
+msgid "Address copied to clipboard!"
+msgstr "Հասցեն պատճենվեց clipboard-ում:"
+
+#: components/AddressCard.tsx:508
+msgid "Apply"
+msgstr "Դիմել"
+
+#: components/AddressCard.tsx:188
+#: components/AddressCard.tsx:352
+msgid "Available to Borrow:"
+msgstr "Հասանելի է փոխառելու համար."
+
+#: components/AddressCard.tsx:664
+msgid "Borrowed Assets"
+msgstr "Փոխառված ակտիվներ"
+
+#: pages/index.tsx:89
+msgid "Build from Scratch"
+msgstr "Կառուցել զրոյից"
+
+#: pages/index.tsx:542
+msgid "Close alert"
+msgstr "Փակել ահազանգը"
+
+#: components/AddressInput.tsx:68
+#: components/AddressInput.tsx:70
+msgid "Copy address to clipboard"
+msgstr "Պատճենել հասցեն clipboard-ում"
+
+#: pages/index.tsx:537
+msgid "Experimental!"
+msgstr "Փորձարարական!"
+
+#: components/AddressCard.tsx:131
+msgid "Found"
+msgstr "Գտնվել է"
+
+#: components/AddressCard.tsx:198
+#: components/AddressCard.tsx:376
+msgid "Net Asset Value:"
+msgstr "Զուտ ակտիվների արժեքը."
+
+#: components/AddressCard.tsx:145
+msgid "No Aave positions found."
+msgstr "Aave դիրքեր չեն գտնվել:"
+
+#: components/AddressCard.tsx:409
+msgid "No Liquidation Scenario Available"
+msgstr "Լուծարման սցենար չկա"
+
+#: pages/index.tsx:75
+msgid "OR"
+msgstr "ԿԱՄ"
+
+#: pages/index.tsx:64
+msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
+msgstr "Տեղադրեք հասցե Aave պարտքի դիրքով վերևի դաշտում՝ պատկերացնելու համար, թե ինչպես են փոխառության/պահուստավորման ակտիվների փոփոխություններն ազդում դիրքի առողջական գործոնի և փոխառության հզորության վրա:"
+
+#: components/AddressCard.tsx:426
+msgid "Price Liquidation Scenario"
+msgstr "Գների լուծարման սցենար"
+
+#: components/Footer.tsx:125
+msgid "Questions or comments? Please <0>join the Discord!</0>"
+msgstr "Հարցեր, թե մեկնաբանություններ. Խնդրում ենք <0>միանալ Discord-ին:</0>"
+
+#: components/AddressCard.tsx:812
+msgid "Remove {assetSymbol}"
+msgstr "Հեռացնել {assetSymbol}"
+
+#: components/AddressCard.tsx:193
+#: components/AddressCard.tsx:364
+msgid "Reserve Asset Value:"
+msgstr "Պահուստային ակտիվների արժեքը."
+
+#: components/AddressCard.tsx:587
+msgid "Reserve Assets"
+msgstr "Պահուստային ակտիվներ"
+
+#: components/AddressCard.tsx:541
+msgid "Reset all simulated values"
+msgstr "Վերականգնել բոլոր նմանակված արժեքները"
+
+#: components/AddAssetDialog.tsx:94
+msgid "Reset search query"
+msgstr "Վերականգնել որոնման հարցումը"
+
+#: components/AddressCard.tsx:972
+msgid "Reset to Original Value ({0})"
+msgstr "Վերակայել սկզբնական արժեքին ({0})"
+
+#: components/AddAssetDialog.tsx:86
+msgid "Search for {0} Assets"
+msgstr "Որոնեք {0} ակտիվներ"
+
+#: components/AddAssetDialog.tsx:118
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
+msgstr "Ստորև ընտրեք {0} ({1}) {2}՝ այն որպես {3} ակտիվ CDP-ին ավելացնելու համար:"
+
+#: components/AddressCard.tsx:239
+msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
+msgstr "Ինչ-որ բան տեղի ունեցավ, մենք այս պահին չենք կարողանում բեռնել հասցեի պարտքի դիրքի տվյալները: Փորձեք ավելի ուշ:"
+
+#: components/AddAssetDialog.tsx:110
+msgid "There are no assets that match the search query. Reset the search query to select an asset."
+msgstr "Որոնման հարցումին համապատասխանող օբյեկտներ չկան: Վերակայեք որոնման հարցումը՝ օբյեկտ ընտրելու համար:"
+
+#: components/AddressCard.tsx:671
+msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
+msgstr "{0} շուկայում <0/>-ի համար փոխառված ակտիվներ չկան: Ընտրեք «Ավելացնել փոխառության ակտիվներ»՝ այս հասցեի համար փոխառված ակտիվները նմանակելու համար:"
+
+#: components/AddressCard.tsx:594
+msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
+msgstr "{0} շուկայում <0/>-ի համար պահուստային ակտիվներ չկան: Ընտրեք «Ավելացնել պահուստային ակտիվներ»՝ այս հասցեի պահուստային ակտիվները մոդելավորելու համար:"
+
+#: pages/index.tsx:544
+msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
+msgstr "Այս Aave պարտքի սիմուլյատորը փորձնական է և ակտիվ մշակման փուլում է: Ֆինանսական որոշումներ մի կայացրեք՝ հիմնվելով միայն այս հավելվածի արդյունքների վրա:"
+
+#: components/AddressCard.tsx:183
+#: components/AddressCard.tsx:340
+msgid "Total Borrowed:"
+msgstr "Ընդամենը փոխառված."
+
+#: components/AddressInput.tsx:62
+#: components/AddressInput.tsx:64
+#: pages/index.tsx:523
+msgid "Use Random Address"
+msgstr "Օգտագործեք պատահական հասցե"
+
+#: components/AddressCard.tsx:883
+msgid "Use {assetSymbol} as collateral"
+msgstr "Օգտագործեք {assetSymbol} որպես գրավ"
+
+#: components/AddressInput.tsx:73
+msgid "View address on Etherscan"
+msgstr "Դիտեք հասցեն Etherscan-ում"
+
+#: components/AddressInput.tsx:75
+msgid "Visit address details on Etherscan"
+msgstr "Այցելեք հասցեի մանրամասները Etherscan-ում"
+
+#: pages/index.tsx:79
+msgid "Want to go for a quick spin?"
+msgstr "Ցանկանու՞մ եք արագ պտտվել:"
+
+#: components/AddressCard.tsx:137
+msgid "in"
+msgstr "մեջ"
+
+#: components/Footer.tsx:115
+msgid "is an unofficial, open source, community-built Aave debt simulator."
+msgstr "ոչ պաշտոնական, բաց կոդով, համայնքի կողմից ստեղծված Aave պարտքի սիմուլյատոր է:"
+
+#: components/AddressCard.tsx:141
+msgid "{0, plural, one {market} other {markets}}"
+msgstr "{ 0, plural, one {շուկա} other {շուկաներ} }"
+
+#: components/AddressCard.tsx:135
+msgid "{0, plural, one {position} other {positions}}"
+msgstr "{ 0, plural, one {դիրք} other {պաշտոններ} }"
+
+#: components/AddressCard.tsx:1047
+msgid "{assetSymbol} Price ({currencySymbol})"
+msgstr "{assetSymbol} Գինը ({currencySymbol})"
+
+#: components/AddressCard.tsx:943
+msgid "{assetSymbol} Quantity"
+msgstr "{assetSymbol} Քանակ"

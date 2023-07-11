@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: so\n"
+
+#: components/AddressCard.tsx:449
+msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
+msgstr "0 Hantida xasiloon kuma jiraan dhacdadan waxaana loo malaynayaa inay ilaalinayaan qiimahooda hadda. Waxyaabo badan ayaa saameeya dareeraha. Dhacdadani waa hal tusaale oo keliya oo tixraac ah. Xaalado badan oo kala duwan ayaa kicin kara dareere.<1>Halkan ka sii akhri</1> .</0>"
+
+#: components/AddressCard.tsx:66
+msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
+msgstr "<0>Booskan deynta ayaa karti leh Emode (Qaabka waxtarka leh), laakiin DeFi Simulator weli ma taageero boosaska Emode karti u leeyahay. Waxaan rajeyneynaa inaan dhowaan ku dari doono taageerada Emode.</0> <1/>"
+
+#: components/AddAssetDialog.tsx:82
+#: components/AddAssetDialog.tsx:151
+msgid "Add {0} Asset"
+msgstr "Kudar {0} Hanti"
+
+#: components/AddressCard.tsx:152
+msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
+msgstr "Ku dar, ka saar, oo wax ka beddel qiimaha hantida iyo tirada hoose si aad u aragto isbeddellada ku yimaadda arrimaha caafimaadka iyo awoodda amaahda."
+
+#: components/AddressInput.tsx:68
+msgid "Address copied to clipboard!"
+msgstr "Ciwaanka waa la koobiyeeyay"
+
+#: components/AddressCard.tsx:508
+msgid "Apply"
+msgstr "Codso"
+
+#: components/AddressCard.tsx:188
+#: components/AddressCard.tsx:352
+msgid "Available to Borrow:"
+msgstr "La heli karo in la Amaahdo:"
+
+#: components/AddressCard.tsx:664
+msgid "Borrowed Assets"
+msgstr "Hantida la amaahday"
+
+#: pages/index.tsx:89
+msgid "Build from Scratch"
+msgstr "Ka dhis xoq"
+
+#: pages/index.tsx:542
+msgid "Close alert"
+msgstr "Digniin dhaw"
+
+#: components/AddressInput.tsx:68
+#: components/AddressInput.tsx:70
+msgid "Copy address to clipboard"
+msgstr "Ku koobbi ciwaanka sabuuradda"
+
+#: pages/index.tsx:537
+msgid "Experimental!"
+msgstr "Tijaabi!"
+
+#: components/AddressCard.tsx:131
+msgid "Found"
+msgstr "La helay"
+
+#: components/AddressCard.tsx:198
+#: components/AddressCard.tsx:376
+msgid "Net Asset Value:"
+msgstr "Qiimaha Hantida Saafiga ah:"
+
+#: components/AddressCard.tsx:145
+msgid "No Aave positions found."
+msgstr "Boos Aave lama helin"
+
+#: components/AddressCard.tsx:409
+msgid "No Liquidation Scenario Available"
+msgstr "Ma jiro xaalad dareere ah oo la heli karo"
+
+#: pages/index.tsx:75
+msgid "OR"
+msgstr "AMA"
+
+#: pages/index.tsx:64
+msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
+msgstr "Ku dheji ciwaan leh booska deynta Aave ee sanduuqa sare si aad u aragto sida isbeddelka amaahda/ kaydinta hantida ay u saameeyaan qodobka caafimaadka booska iyo awoodda amaahda."
+
+#: components/AddressCard.tsx:426
+msgid "Price Liquidation Scenario"
+msgstr "Muuqaalka Dareeraha Qiimaha"
+
+#: components/Footer.tsx:125
+msgid "Questions or comments? Please <0>join the Discord!</0>"
+msgstr "Su'aalo ama faallooyin? Fadlan <0>ku biir Discord!</0>"
+
+#: components/AddressCard.tsx:812
+msgid "Remove {assetSymbol}"
+msgstr "Ka saar {assetSymbol}"
+
+#: components/AddressCard.tsx:193
+#: components/AddressCard.tsx:364
+msgid "Reserve Asset Value:"
+msgstr "Qiimaha Hantida Kaydka ah:"
+
+#: components/AddressCard.tsx:587
+msgid "Reserve Assets"
+msgstr "Hantida Kaydka ah"
+
+#: components/AddressCard.tsx:541
+msgid "Reset all simulated values"
+msgstr "Dib u deji dhammaan qiimayaasha la ekaysiiyay"
+
+#: components/AddAssetDialog.tsx:94
+msgid "Reset search query"
+msgstr "Dib u dajin weydiinta raadinta"
+
+#: components/AddressCard.tsx:972
+msgid "Reset to Original Value ({0})"
+msgstr "Dib ugu laabo Qiimaha Asalka ah ({0})"
+
+#: components/AddAssetDialog.tsx:86
+msgid "Search for {0} Assets"
+msgstr "Raadi {0} Hantida"
+
+#: components/AddAssetDialog.tsx:118
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
+msgstr "Hoos ka dooro {0} ({1}) {2} si aad ugu darto hanti ahaan {3} CDP."
+
+#: components/AddressCard.tsx:239
+msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
+msgstr "Wax baa dhacay, ma awoodno inaan ku shubno xogta booska deynta cinwaanka hadda. Isku day mar kale hadhow"
+
+#: components/AddAssetDialog.tsx:110
+msgid "There are no assets that match the search query. Reset the search query to select an asset."
+msgstr "Ma jiraan wax hanti ah oo ku habboon weydiinta raadinta. Dib u dajin waydiinta raadinta si aad u doorato hanti."
+
+#: components/AddressCard.tsx:671
+msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
+msgstr "Ma jiraan hanti la amaahday <0/> suuqa {0}. Dooro \"Ku dar Hanti Amaahda\" si aad ugu ekaato hantida la amaahday cinwaankan."
+
+#: components/AddressCard.tsx:594
+msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
+msgstr "Ma jiraan hanti kayd ah oo <0/> suuqa {0}. Dooro \"Add Reserve Asset\" si aad ugu ekaato hantida kaydka ciwaankan."
+
+#: pages/index.tsx:544
+msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
+msgstr "Qalabkan daynta ee Aave waa tijaabo waxaana ku socda horumar firfircoon. Ha samayn go'aamo maaliyadeed oo ku salaysan kaliya natiijooyinka abkan."
+
+#: components/AddressCard.tsx:183
+#: components/AddressCard.tsx:340
+msgid "Total Borrowed:"
+msgstr "Wadarta La amaahday:"
+
+#: components/AddressInput.tsx:62
+#: components/AddressInput.tsx:64
+#: pages/index.tsx:523
+msgid "Use Random Address"
+msgstr "Isticmaal Cinwaanka Random"
+
+#: components/AddressCard.tsx:883
+msgid "Use {assetSymbol} as collateral"
+msgstr "Isticmaal {assetSymbol} dammaanad ahaan"
+
+#: components/AddressInput.tsx:73
+msgid "View address on Etherscan"
+msgstr "Ka eeg ciwaanka Etherscan"
+
+#: components/AddressInput.tsx:75
+msgid "Visit address details on Etherscan"
+msgstr "Booqo faahfaahinta ciwaanka ee Etherscan"
+
+#: pages/index.tsx:79
+msgid "Want to go for a quick spin?"
+msgstr "Ma doonaysaa inaad si degdeg ah u dhaqaaqdo?"
+
+#: components/AddressCard.tsx:137
+msgid "in"
+msgstr "gudaha"
+
+#: components/Footer.tsx:115
+msgid "is an unofficial, open source, community-built Aave debt simulator."
+msgstr "waa il aan rasmi ahayn, il furan, qaabaynta deynta Aave ee beesha ay dhistay."
+
+#: components/AddressCard.tsx:141
+msgid "{0, plural, one {market} other {markets}}"
+msgstr "{ 0, plural, one {suuqa} other {suuqyada} }"
+
+#: components/AddressCard.tsx:135
+msgid "{0, plural, one {position} other {positions}}"
+msgstr "{ 0, plural, one {booska} other {boosaska} }"
+
+#: components/AddressCard.tsx:1047
+msgid "{assetSymbol} Price ({currencySymbol})"
+msgstr "{assetSymbol} Qiimaha ({currencySymbol})"
+
+#: components/AddressCard.tsx:943
+msgid "{assetSymbol} Quantity"
+msgstr "{assetSymbol} Tirada"

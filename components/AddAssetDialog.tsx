@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { t, Trans } from "@lingui/macro";
 
 import {
   Button,
@@ -78,11 +79,11 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
           setSearchText('');
           setOpen(false);
         }}
-        title={`Add ${assetType === 'BORROW' ? 'Borrow' : 'Reserve'} Asset`}
+        title={t`Add ${assetType === 'BORROW' ? 'Borrow' : 'Reserve'} Asset`}
       >
         <TextInput
           value={searchText}
-          label={`Search for ${assetType === 'BORROW' ? 'Borrow' : 'Reserve'} Assets`}
+          label={t`Search for ${assetType === 'BORROW' ? 'Borrow' : 'Reserve'} Assets`}
           onChange={(e) => setSearchText(e.target.value)}
           size="sm"
           mb={8}
@@ -90,7 +91,7 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
           inputWrapperOrder={['label', 'error', 'input', 'description']}
           rightSection={
             searchText?.length > 0 && (
-              <Tooltip label="Reset search query" position="top-end" withArrow>
+              <Tooltip label={t`Reset search query`} position="top-end" withArrow>
                 <ActionIcon>
                   <RxReset
                     size={18}
@@ -106,13 +107,15 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
         {assets.length === 0 ? (
           <Center>
             <Text mt={15} mb={15}>
-              There are no assets that match the search query. Reset the search query to select an
-              asset.
+              <Trans>
+                There are no assets that match the search query. Reset the search query to select an
+                asset.
+              </Trans>
             </Text>
           </Center>
         ) : (
           <Text mb={8}>
-            {`Select ${assets.length === 1 ? 'the' : 'one of the'} (${assets.length}) ${assets.length === 1 ? 'asset' : 'assets'
+            {t`Select ${assets.length === 1 ? 'the' : 'one of the'} (${assets.length}) ${assets.length === 1 ? 'asset' : 'assets'
               } below to add it as a ${assetType === 'BORROW' ? 'borrow' : 'reserve'
               } asset to the CDP.`}
           </Text>
@@ -145,7 +148,7 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
 
       <Group position="center">
         <Button variant="outline" onClick={() => setOpen(true)}>
-          {`Add ${assetType === 'BORROW' ? 'Borrow' : 'Reserve'} Asset`}
+          {t`Add ${assetType === 'BORROW' ? 'Borrow' : 'Reserve'} Asset`}
         </Button>
       </Group>
     </>

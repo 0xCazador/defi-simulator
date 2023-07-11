@@ -6,6 +6,8 @@ import { formatNumber } from 'accounting';
 
 import { FaChevronDown, FaInfinity } from 'react-icons/fa';
 
+import { Trans } from "@lingui/macro";
+
 import {
   Container,
   Group,
@@ -16,7 +18,6 @@ import {
   Text,
   Badge,
   Title,
-  NavLink,
   Center,
   Indicator,
 } from '@mantine/core';
@@ -109,19 +110,19 @@ export default function AppBar() {
               <Menu.Label>
                 {currentAddress ? (
                   <Text span>
-                    Markets for{' '}
+                    <Trans>Markets for</Trans>{' '}
                     <Text fw={700} span>
                       <AbbreviatedEthereumAddress address={currentAddress} />
                     </Text>{' '}
                   </Text>
                 ) : (
-                  <Text>No address found</Text>
+                  <Text><Trans>No address found</Trans></Text>
                 )}
               </Menu.Label>
 
               <Menu.Divider />
 
-              <Menu.Label>Aave Markets</Menu.Label>
+              <Menu.Label><Trans>Aave Markets</Trans></Menu.Label>
 
               {markets.map((market) => {
                 // aave utils returns -1 hf when there is no position
@@ -169,7 +170,6 @@ export default function AppBar() {
               })}
             </Menu.Dropdown>
           </Menu>
-
         </Indicator>
 
       </Container>

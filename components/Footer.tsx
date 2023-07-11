@@ -10,6 +10,7 @@ import {
 } from '@mantine/core';
 import { BiGhost } from 'react-icons/bi';
 import { BsTwitter, BsGithub, BsDiscord } from 'react-icons/bs';
+import { Trans } from "@lingui/macro";
 
 const useStyles = createStyles((theme) => ({
   footer: {
@@ -109,7 +110,11 @@ export default function FooterLinks() {
         <div className={classes.logo}>
           <BiGhost size={36} />
           <Text size="xs" color="dimmed" className={classes.description}>
-            DeFi Simulator is an unofficial, open source, community-built Aave debt simulator.
+            DeFi Simulator
+            {" "}
+            <Trans>
+              is an unofficial, open source, community-built Aave debt simulator.
+            </Trans>
           </Text>
         </div>
 
@@ -117,10 +122,12 @@ export default function FooterLinks() {
 
         <Center>
           <Text size="xs" c="dimmed" mt="lg">
-            Questions or comments? Please{' '}
-            <a href="https://discord.gg/VF64xjhXEs" target="_blank" rel="noreferrer" style={{ color: "#e9ecef" }}>
-              join the Discord!
-            </a>
+            <Trans>
+              Questions or comments? Please{' '}
+              <a href="https://discord.gg/VF64xjhXEs" target="_blank" rel="noreferrer" style={{ color: "#e9ecef" }}>
+                join the Discord!
+              </a>
+            </Trans>
           </Text>
         </Center>
       </Container>
@@ -133,7 +140,7 @@ export default function FooterLinks() {
           <ActionIcon title="Link to Discord" size="lg" component="a" href="https://discord.gg/VF64xjhXEs" target="_blank">
             <BsDiscord size="1.05rem" />
           </ActionIcon>
-          <ActionIcon title="Link to Twitter" size="lg" component="a" href="https://twitter.com/0xCazador" target="_blank">
+          <ActionIcon title="Link to Twitter" size="lg" component="a" href="https://twitter.com/defisim" target="_blank">
             <BsTwitter size="1.05rem" />
           </ActionIcon>
           <ActionIcon title="Link to GitHub" size="lg" component="a" href="https://github.com/0xcazador/defi-simulator" target="_blank">

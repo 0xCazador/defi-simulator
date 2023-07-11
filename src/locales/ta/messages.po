@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: ta\n"
+
+#: components/AddressCard.tsx:449
+msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
+msgstr "<0>விலை கலைப்பு சூழ்நிலையானது, நிலையை கலைக்கப்படக்கூடிய தோராயமான அதிகபட்ச இருப்பு சொத்து விலைகளைக் குறிக்கிறது. நிலையான சொத்துக்கள் இந்த சூழ்நிலையில் சேர்க்கப்படவில்லை மற்றும் அவற்றின் தற்போதைய மதிப்பை பராமரிக்க வேண்டும் என்று கருதப்படுகிறது. பல காரணிகள் கலைப்பை பாதிக்கின்றன. இந்த காட்சி குறிப்புக்கு ஒரு உதாரணம் மட்டுமே. பல்வேறு சூழ்நிலைகள் கலைப்பைத் தூண்டலாம்.<1>மேலும் இங்கே படிக்கவும்</1> .</0>"
+
+#: components/AddressCard.tsx:66
+msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
+msgstr "<0>இந்த கடன் நிலையில் எமோட் (செயல்திறன் பயன்முறை) இயக்கப்பட்டுள்ளது, ஆனால் DeFi சிமுலேட்டர் இன்னும் Emode இயக்கப்பட்ட நிலைகளை ஆதரிக்கவில்லை. விரைவில் Emodeக்கான ஆதரவைச் சேர்ப்போம் என்று நம்புகிறோம்.</0> <1/>"
+
+#: components/AddAssetDialog.tsx:82
+#: components/AddAssetDialog.tsx:151
+msgid "Add {0} Asset"
+msgstr "{0} சொத்தைச் சேர்க்கவும்"
+
+#: components/AddressCard.tsx:152
+msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
+msgstr "உடல்நலக் காரணி மற்றும் கடன் வாங்கும் திறன் ஆகியவற்றில் ஏற்படும் மாற்றங்களைக் காட்சிப்படுத்த, கீழே உள்ள சொத்து விலைகள் மற்றும் அளவுகளைச் சேர்க்கவும், அகற்றவும் மற்றும் மாற்றவும்."
+
+#: components/AddressInput.tsx:68
+msgid "Address copied to clipboard!"
+msgstr "முகவரி கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது!"
+
+#: components/AddressCard.tsx:508
+msgid "Apply"
+msgstr "விண்ணப்பிக்கவும்"
+
+#: components/AddressCard.tsx:188
+#: components/AddressCard.tsx:352
+msgid "Available to Borrow:"
+msgstr "கடன் வாங்கக் கிடைக்கிறது:"
+
+#: components/AddressCard.tsx:664
+msgid "Borrowed Assets"
+msgstr "கடன் வாங்கிய சொத்துகள்"
+
+#: pages/index.tsx:89
+msgid "Build from Scratch"
+msgstr "புதிதாக உருவாக்கவும்"
+
+#: pages/index.tsx:542
+msgid "Close alert"
+msgstr "மூடு எச்சரிக்கை"
+
+#: components/AddressInput.tsx:68
+#: components/AddressInput.tsx:70
+msgid "Copy address to clipboard"
+msgstr "முகவரியை கிளிப்போர்டுக்கு நகலெடுக்கவும்"
+
+#: pages/index.tsx:537
+msgid "Experimental!"
+msgstr "பரிசோதனை!"
+
+#: components/AddressCard.tsx:131
+msgid "Found"
+msgstr "கண்டறியப்பட்டது"
+
+#: components/AddressCard.tsx:198
+#: components/AddressCard.tsx:376
+msgid "Net Asset Value:"
+msgstr "நிகர சொத்து மதிப்பு:"
+
+#: components/AddressCard.tsx:145
+msgid "No Aave positions found."
+msgstr "Aave நிலைகள் எதுவும் இல்லை."
+
+#: components/AddressCard.tsx:409
+msgid "No Liquidation Scenario Available"
+msgstr "எந்த கலைப்பு காட்சியும் கிடைக்கவில்லை"
+
+#: pages/index.tsx:75
+msgid "OR"
+msgstr "அல்லது"
+
+#: pages/index.tsx:64
+msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
+msgstr "கடன் வாங்குதல்/கையிருப்பு சொத்துகளில் ஏற்படும் மாற்றங்கள் பதவியின் ஆரோக்கியக் காரணி மற்றும் கடன் வாங்கும் சக்தியை எவ்வாறு பாதிக்கின்றன என்பதைக் காட்சிப்படுத்த, மேலே உள்ள பெட்டியில் Aave கடன் நிலையுடன் முகவரியை ஒட்டவும்."
+
+#: components/AddressCard.tsx:426
+msgid "Price Liquidation Scenario"
+msgstr "விலை கலைப்பு காட்சி"
+
+#: components/Footer.tsx:125
+msgid "Questions or comments? Please <0>join the Discord!</0>"
+msgstr "கேள்விகள் அல்லது கருத்துகள்? தயவு செய்து <0>விவாதத்தில் சேரவும்!</0>"
+
+#: components/AddressCard.tsx:812
+msgid "Remove {assetSymbol}"
+msgstr "அகற்று {assetSymbol}"
+
+#: components/AddressCard.tsx:193
+#: components/AddressCard.tsx:364
+msgid "Reserve Asset Value:"
+msgstr "கையிருப்பு சொத்து மதிப்பு:"
+
+#: components/AddressCard.tsx:587
+msgid "Reserve Assets"
+msgstr "கையிருப்பு சொத்துக்கள்"
+
+#: components/AddressCard.tsx:541
+msgid "Reset all simulated values"
+msgstr "அனைத்து உருவகப்படுத்தப்பட்ட மதிப்புகளையும் மீட்டமைக்கவும்"
+
+#: components/AddAssetDialog.tsx:94
+msgid "Reset search query"
+msgstr "தேடல் வினவலை மீட்டமைக்கவும்"
+
+#: components/AddressCard.tsx:972
+msgid "Reset to Original Value ({0})"
+msgstr "அசல் மதிப்பிற்கு மீட்டமை ({0})"
+
+#: components/AddAssetDialog.tsx:86
+msgid "Search for {0} Assets"
+msgstr "{0} சொத்துகளைத் தேடவும்"
+
+#: components/AddAssetDialog.tsx:118
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
+msgstr "CDP இல் {3} சொத்தாகச் சேர்க்க, கீழே உள்ள {0} ({1}) {2} என்பதைத் தேர்ந்தெடுக்கவும்."
+
+#: components/AddressCard.tsx:239
+msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
+msgstr "ஏதோ நடந்தது, இப்போது எங்களால் முகவரிக் கடன் நிலைத் தரவை ஏற்ற முடியவில்லை. பின்னர் மீண்டும் முயற்சிக்கவும்."
+
+#: components/AddAssetDialog.tsx:110
+msgid "There are no assets that match the search query. Reset the search query to select an asset."
+msgstr "தேடல் வினவலுடன் பொருந்தக்கூடிய சொத்துகள் எதுவும் இல்லை. ஒரு சொத்தைத் தேர்ந்தெடுக்க தேடல் வினவலை மீட்டமைக்கவும்."
+
+#: components/AddressCard.tsx:671
+msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
+msgstr "{0} சந்தையில் <0/>க்கு கடன் வாங்கிய சொத்துக்கள் எதுவும் இல்லை. இந்த முகவரிக்கு கடன் வாங்கிய சொத்துக்களை உருவகப்படுத்த, \"கடன் சொத்தை சேர்\" என்பதைத் தேர்ந்தெடுக்கவும்."
+
+#: components/AddressCard.tsx:594
+msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
+msgstr "{0} சந்தையில் <0/>க்கான இருப்பு சொத்துக்கள் இல்லை. இந்த முகவரிக்கான இருப்பு சொத்துக்களை உருவகப்படுத்த, \"ரிசர்வ் சொத்தை சேர்\" என்பதைத் தேர்ந்தெடுக்கவும்."
+
+#: pages/index.tsx:544
+msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
+msgstr "இந்த Aave கடன் சிமுலேட்டர் சோதனை மற்றும் செயலில் வளர்ச்சியில் உள்ளது. இந்த பயன்பாட்டின் முடிவுகளின் அடிப்படையில் மட்டுமே நிதி முடிவுகளை எடுக்க வேண்டாம்."
+
+#: components/AddressCard.tsx:183
+#: components/AddressCard.tsx:340
+msgid "Total Borrowed:"
+msgstr "மொத்த கடன்:"
+
+#: components/AddressInput.tsx:62
+#: components/AddressInput.tsx:64
+#: pages/index.tsx:523
+msgid "Use Random Address"
+msgstr "சீரற்ற முகவரியைப் பயன்படுத்தவும்"
+
+#: components/AddressCard.tsx:883
+msgid "Use {assetSymbol} as collateral"
+msgstr "பிணையமாக {assetSymbol} ஐப் பயன்படுத்தவும்"
+
+#: components/AddressInput.tsx:73
+msgid "View address on Etherscan"
+msgstr "ஈதர்ஸ்கானில் முகவரியைக் காண்க"
+
+#: components/AddressInput.tsx:75
+msgid "Visit address details on Etherscan"
+msgstr "Etherscan இல் முகவரி விவரங்களைப் பார்வையிடவும்"
+
+#: pages/index.tsx:79
+msgid "Want to go for a quick spin?"
+msgstr "விரைவான சுழற்சிக்கு செல்ல வேண்டுமா?"
+
+#: components/AddressCard.tsx:137
+msgid "in"
+msgstr "உள்ளே"
+
+#: components/Footer.tsx:115
+msgid "is an unofficial, open source, community-built Aave debt simulator."
+msgstr "ஒரு அதிகாரப்பூர்வமற்ற, திறந்த மூல, சமூகத்தால் கட்டமைக்கப்பட்ட Aave கடன் சிமுலேட்டர்."
+
+#: components/AddressCard.tsx:141
+msgid "{0, plural, one {market} other {markets}}"
+msgstr "{ 0, plural, one {சந்தை} other {சந்தைகள்} }"
+
+#: components/AddressCard.tsx:135
+msgid "{0, plural, one {position} other {positions}}"
+msgstr "{ 0, plural, one {நிலை} other {பதவிகள்} }"
+
+#: components/AddressCard.tsx:1047
+msgid "{assetSymbol} Price ({currencySymbol})"
+msgstr "{assetSymbol} விலை ({currencySymbol})"
+
+#: components/AddressCard.tsx:943
+msgid "{assetSymbol} Quantity"
+msgstr "{assetSymbol} அளவு"

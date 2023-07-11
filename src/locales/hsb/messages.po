@@ -1,0 +1,198 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: hsb\n"
+
+#: components/AddressCard.tsx:449
+msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
+msgstr ""
+"<0>Scenarijo wobchadźenja z cenami přebytkowych aktivow předstajuje přibližnje najwyšše ceny rezervnych aktivow, kotrež móže přiněst poziciju do wobchadźenja. Stabilne aktivy so w tutym scenariju njewobchadźuja a předpokłada so, zo so jich aktualna warosć zachowa. Wobchadźenje wplywajo rěznorake faktory. Tutón scenarij předstajuje jenož jaden přikład za referencu. Wobchadźenje móže wobchadźić rěznorake scenarije.</0>\n"
+"<1>Dalše informacije znajdźo tutónjo</1>."
+
+#: components/AddressCard.tsx:66
+msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
+msgstr "<0>Ta wobchadźenska pozicija ma wobchadźenje Emode (Efficiency Mode) wobchadźene, ale DeFi Simulator hač do dźensa pozicije z wobchadźenim Emode njezaštwuje. Hopimy, zo podpěra za wobchadźenje Emode přidamy w krotkim.</0><1/>"
+
+#: components/AddAssetDialog.tsx:82
+#: components/AddAssetDialog.tsx:151
+msgid "Add {0} Asset"
+msgstr "Přidać {0} aktiv"
+
+#: components/AddressCard.tsx:152
+msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
+msgstr "Přidawać, wotstronić a změnić cenowe a množstwowe wobrazy, zo by se změny w zdrjewje faktora a wypožycowanskeje mocy wobrazowali."
+
+#: components/AddressInput.tsx:68
+msgid "Address copied to clipboard!"
+msgstr "Adresa je so do schowanskeho wobkładnika kopěrowała!"
+
+#: components/AddressCard.tsx:508
+msgid "Apply"
+msgstr "Zastosować"
+
+#: components/AddressCard.tsx:188
+#: components/AddressCard.tsx:352
+msgid "Available to Borrow:"
+msgstr "Dostupne za wobchadźenje:"
+
+#: components/AddressCard.tsx:664
+msgid "Borrowed Assets"
+msgstr "Přewjedźene aktywy"
+
+#: pages/index.tsx:89
+msgid "Build from Scratch"
+msgstr "Wot nulki wobchadźić"
+
+#: pages/index.tsx:542
+msgid "Close alert"
+msgstr "Zamknjeny alarm"
+
+#: components/AddressInput.tsx:68
+#: components/AddressInput.tsx:70
+msgid "Copy address to clipboard"
+msgstr "Adresu do schowanskeho wobkładnika kopěrowaś"
+
+#: pages/index.tsx:537
+msgid "Experimental!"
+msgstr "Eksperimentelny!"
+
+#: components/AddressCard.tsx:131
+msgid "Found"
+msgstr "Wobchadźeny"
+
+#: components/AddressCard.tsx:198
+#: components/AddressCard.tsx:376
+msgid "Net Asset Value:"
+msgstr "Neto warosć aktivow:"
+
+#: components/AddressCard.tsx:145
+msgid "No Aave positions found."
+msgstr "Žadne Aave pozicije namakane."
+
+#: components/AddressCard.tsx:409
+msgid "No Liquidation Scenario Available"
+msgstr "Koždy likwidaciski scenar njeje k dispoziciji"
+
+#: pages/index.tsx:75
+msgid "OR"
+msgstr "ABO"
+
+#: pages/index.tsx:64
+msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
+msgstr "Wopřijeć adresu z položki hórjeka, zo by se wobraznje změny wobdźěłowanja wobdźěłowanskeje pozicije a wobdźěłowanskeje mocy wplywowały."
+
+#: components/AddressCard.tsx:426
+msgid "Price Liquidation Scenario"
+msgstr "Cena likwidaciskeho scenara"
+
+#: components/Footer.tsx:125
+msgid "Questions or comments? Please <0>join the Discord!</0>"
+msgstr "Pytania abo komentarje? Prošu <0>přizjewi se k Discordu!</0>"
+
+#: components/AddressCard.tsx:812
+msgid "Remove {assetSymbol}"
+msgstr "Wotstronić {assetSymbol}"
+
+#: components/AddressCard.tsx:193
+#: components/AddressCard.tsx:364
+msgid "Reserve Asset Value:"
+msgstr "Wert rezervowanych aktivow:"
+
+#: components/AddressCard.tsx:587
+msgid "Reserve Assets"
+msgstr "Rezerwowe aktywy"
+
+#: components/AddressCard.tsx:541
+msgid "Reset all simulated values"
+msgstr "Změnić wšě simulowane warcoby"
+
+#: components/AddAssetDialog.tsx:94
+msgid "Reset search query"
+msgstr "Změnić poskutkowanje pytanja"
+
+#: components/AddressCard.tsx:972
+msgid "Reset to Original Value ({0})"
+msgstr "Změnić na půwotnu warćbu ({0})"
+
+#: components/AddAssetDialog.tsx:86
+msgid "Search for {0} Assets"
+msgstr "Pytać po aktivach {0}"
+
+#: components/AddAssetDialog.tsx:118
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
+msgstr "Wubrać {0} ({1}) {2} dole, zo by jano jako rezervowane aktywum do CDP přidatej."
+
+#: components/AddressCard.tsx:239
+msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
+msgstr "Něšto so stawa, němóžemy aktuelnje datowe pozicije zadawki adresy začitać. Přećahnyšo se pozdźišo."
+
+#: components/AddAssetDialog.tsx:110
+msgid "There are no assets that match the search query. Reset the search query to select an asset."
+msgstr "Žane aktywa so k zapytanju hodźa. Změń zapytanske zapytowanje, zo byš aktyw wubrał."
+
+#: components/AddressCard.tsx:671
+msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
+msgstr "Za <0/>na tróźnicy {0} njewobchadźa žane přewjedźene aktywy. Wubjer \"Přidać přewjedźene aktywy\", zo by přewjedźene aktywy za tutu adresu symulěrował."
+
+#: components/AddressCard.tsx:594
+msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
+msgstr "Za <0/>na tróźnicy {0} njewobchadźa žane rezerwowe aktywy. Wubjer \"Přidać rezerwowe aktywy\", zo by rezerwowe aktywy za tutu adresu symulěrował."
+
+#: pages/index.tsx:544
+msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
+msgstr "Tutón eksperimentelny symulator zadłuženja Aave je w aktiwnym wuwiću. Nječinić finansowe rěšenja na zakładźe wuslědkow tutónjeje aplikacije."
+
+#: components/AddressCard.tsx:183
+#: components/AddressCard.tsx:340
+msgid "Total Borrowed:"
+msgstr "Cyle wobdźěłane:"
+
+#: components/AddressInput.tsx:62
+#: components/AddressInput.tsx:64
+#: pages/index.tsx:523
+msgid "Use Random Address"
+msgstr "Wuži wuslědnu adresu"
+
+#: components/AddressCard.tsx:883
+msgid "Use {assetSymbol} as collateral"
+msgstr "Wuži {assetSymbol} jako zastaw"
+
+#: components/AddressInput.tsx:73
+msgid "View address on Etherscan"
+msgstr "Adresu na Etherscanu pokazać"
+
+#: components/AddressInput.tsx:75
+msgid "Visit address details on Etherscan"
+msgstr "Adresowe detalje na Etherscanu wobdźěłać"
+
+#: pages/index.tsx:79
+msgid "Want to go for a quick spin?"
+msgstr "Chceće so rychle wobrótkać?"
+
+#: components/AddressCard.tsx:137
+msgid "in"
+msgstr "w"
+
+#: components/Footer.tsx:115
+msgid "is an unofficial, open source, community-built Aave debt simulator."
+msgstr "je njeoficjalny, otwarty, społecznościowy symulator zadłużenia Aave."
+
+#: components/AddressCard.tsx:141
+msgid "{0, plural, one {market} other {markets}}"
+msgstr "{ 0, plural, one {trh} two {trhowa} few {trhowa} other {trhowa} }"
+
+#: components/AddressCard.tsx:135
+msgid "{0, plural, one {position} other {positions}}"
+msgstr "{ 0, plural, one {połoženje} two {połoženja} few {połoženja} other {połoženja} }"
+
+#: components/AddressCard.tsx:1047
+msgid "{assetSymbol} Price ({currencySymbol})"
+msgstr "{assetSymbol} Cena ({currencySymbol})"
+
+#: components/AddressCard.tsx:943
+msgid "{assetSymbol} Quantity"
+msgstr "{assetSymbol} Množstwo"

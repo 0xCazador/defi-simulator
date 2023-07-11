@@ -1,0 +1,198 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: tn\n"
+
+#: components/AddressCard.tsx:449
+msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
+msgstr ""
+"<0>Senario sa go dira lefelo la molaetsa ke go dira lefelo la molaetsa la go dira gore ditiriso tsa go dira lefelo la molaetsa di ka dira gore lefelo le tle le dirwe. Ditiriso tse di dirisiwang ke go dira lefelo la molaetsa di a ka dira gore lefelo le tle le dirwe. Senario eno ke seno se se dirisiwang go tswa mo go fetelela. Ditiriso tse di dirisiwang di ka dira gore lefelo le tle le dirwe.</0>\n"
+"<1>Bala ka ntlha ya go dira lefelo la molaetsa ka teng</1>."
+
+#: components/AddressCard.tsx:66
+msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
+msgstr "<0>Tiriso eno ya go dira lefelo la molaetsa e na le Emode (Efficiency Mode) e dirisiwang, faele DeFi Simulator ga e ka dirisiwa go dira lefelo la molaetsa le le na le Emode. Re a go tlhokomela go dirisa Emode ka nako e e tlang.</0><1/>"
+
+#: components/AddAssetDialog.tsx:82
+#: components/AddAssetDialog.tsx:151
+msgid "Add {0} Asset"
+msgstr "Tshega {0} Asset"
+
+#: components/AddressCard.tsx:152
+msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
+msgstr "Tshwanelo ya go ngwala, go tshepisa le go fetola ditlhopha tsa tshiamiso le tshwanelo ya go tsenya."
+
+#: components/AddressInput.tsx:68
+msgid "Address copied to clipboard!"
+msgstr "Tlhaloso e tlhokomelweng mo kopantsheng!"
+
+#: components/AddressCard.tsx:508
+msgid "Apply"
+msgstr "Tshwanelo"
+
+#: components/AddressCard.tsx:188
+#: components/AddressCard.tsx:352
+msgid "Available to Borrow:"
+msgstr "Tlhokomela go dira:"
+
+#: components/AddressCard.tsx:664
+msgid "Borrowed Assets"
+msgstr "Ditiragalo tsa go dira sephiri"
+
+#: pages/index.tsx:89
+msgid "Build from Scratch"
+msgstr "Tshwanelo ya go dira go tshela"
+
+#: pages/index.tsx:542
+msgid "Close alert"
+msgstr "Tshwanelo ya go tsala"
+
+#: components/AddressInput.tsx:68
+#: components/AddressInput.tsx:70
+msgid "Copy address to clipboard"
+msgstr "Tlhalosa kopantsho mo kopantsheng"
+
+#: pages/index.tsx:537
+msgid "Experimental!"
+msgstr "Ya go tshwanela!"
+
+#: components/AddressCard.tsx:131
+msgid "Found"
+msgstr "E tlhokafetse"
+
+#: components/AddressCard.tsx:198
+#: components/AddressCard.tsx:376
+msgid "Net Asset Value:"
+msgstr "Thapelo ya Tlhokomelo ya Tlhokomelo:"
+
+#: components/AddressCard.tsx:145
+msgid "No Aave positions found."
+msgstr "Ga go na ditiriso tsa Aave tse di dirisiwang."
+
+#: components/AddressCard.tsx:409
+msgid "No Liquidation Scenario Available"
+msgstr "Ga gona seno se se dirilweng mo go tiro ya go dira sephuthelo."
+
+#: pages/index.tsx:75
+msgid "OR"
+msgstr "LE"
+
+#: pages/index.tsx:64
+msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
+msgstr "Tshwetso lefelo le le dirilweng le tshwetso ya Aave debt position mo kisong ya go dira gore go tle go dira gore ditlhopho tsa go dira le go dira gore ditlhopho tsa go dira tsa position di tle di tshwetse health factor le borrowing power."
+
+#: components/AddressCard.tsx:426
+msgid "Price Liquidation Scenario"
+msgstr "Seno se se dirilweng mo go tiro ya go dira sephuthelo."
+
+#: components/Footer.tsx:125
+msgid "Questions or comments? Please <0>join the Discord!</0>"
+msgstr "Molao kgotsa go tlhalosa? Ka kopo <0>tsamaya mo Discord!</0>"
+
+#: components/AddressCard.tsx:812
+msgid "Remove {assetSymbol}"
+msgstr "Tshwetso {assetSymbol}"
+
+#: components/AddressCard.tsx:193
+#: components/AddressCard.tsx:364
+msgid "Reserve Asset Value:"
+msgstr "Thapelo ya boitsebiso jwa tsholofelo:"
+
+#: components/AddressCard.tsx:587
+msgid "Reserve Assets"
+msgstr "Ditiragalo tsa go dira sephiri"
+
+#: components/AddressCard.tsx:541
+msgid "Reset all simulated values"
+msgstr "Tshwanelo ya go tsenya diphetho tse di dirilweng"
+
+#: components/AddAssetDialog.tsx:94
+msgid "Reset search query"
+msgstr "Tshwanelo ya go tsenya tlhaloso ya go tsaya"
+
+#: components/AddressCard.tsx:972
+msgid "Reset to Original Value ({0})"
+msgstr "Tshwanelo ya go tsenya go ya go tshwanela ({0})"
+
+#: components/AddAssetDialog.tsx:86
+msgid "Search for {0} Assets"
+msgstr "Tshebeletso ya go tsaya tsholofelo ya {0}"
+
+#: components/AddAssetDialog.tsx:118
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
+msgstr "Tshwanelo ya go tsaya {0} ({1}) {2} ka tlase go ya go go dira tsholofelo ya {3} mo CDP."
+
+#: components/AddressCard.tsx:239
+msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
+msgstr "Go dira gore se se dirilwe, re tla sebetsa go tsenngwa ka mokgwa wa go tsenya dikgopo tsa debiti ya aterese fa go tswa kae. Itshwarela mo go feta."
+
+#: components/AddAssetDialog.tsx:110
+msgid "There are no assets that match the search query. Reset the search query to select an asset."
+msgstr "Ga gona ditiragalo tse di tlhokang go dira tshwanelo. Tshwanelo go tsenya ditiragalo tsa go tsaya tshwanelo."
+
+#: components/AddressCard.tsx:671
+msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
+msgstr "Ga gona ditiragalo tsa go dira sephiri mo {0} thutong. Itsege \"Dira Ditiragalo tsa go dira sephiri\" go dira ditiragalo tsa go dira sephiri mo tlhokomelong eno."
+
+#: components/AddressCard.tsx:594
+msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
+msgstr "Ga gona ditiragalo tsa go dira sephiri mo {0} thutong. Itsege \"Dira Ditiragalo tsa go dira sephiri\" go dira ditiragalo tsa go dira sephiri mo tlhokomelong eno."
+
+#: pages/index.tsx:544
+msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
+msgstr "Simulator ya Aave debt e ke ya go dira tshwetso ya go dira le e dirilweng ka go dira. Ga go dira tiro ya go dira tsa madi ka go dira ka mokgwa wa go dira wa app eno."
+
+#: components/AddressCard.tsx:183
+#: components/AddressCard.tsx:340
+msgid "Total Borrowed:"
+msgstr "Borakgosi jwa go tsenya tshwanelo:"
+
+#: components/AddressInput.tsx:62
+#: components/AddressInput.tsx:64
+#: pages/index.tsx:523
+msgid "Use Random Address"
+msgstr "Tshwanelo go tsenya Aterese e e Tshwanang"
+
+#: components/AddressCard.tsx:883
+msgid "Use {assetSymbol} as collateral"
+msgstr "Tshwanelo go tsenya {assetSymbol} jangololwa"
+
+#: components/AddressInput.tsx:73
+msgid "View address on Etherscan"
+msgstr "Buka aterese mo Etherscan"
+
+#: components/AddressInput.tsx:75
+msgid "Visit address details on Etherscan"
+msgstr "Temelela ditlalelo tsa aterese mo Etherscan"
+
+#: pages/index.tsx:79
+msgid "Want to go for a quick spin?"
+msgstr "O batla go ya go tshwetso ya go dira ya go dira?"
+
+#: components/AddressCard.tsx:137
+msgid "in"
+msgstr "mo"
+
+#: components/Footer.tsx:115
+msgid "is an unofficial, open source, community-built Aave debt simulator."
+msgstr "Ke sebapali sa Aave sa go tlhokomela ditiragalo tsa go dira dilo tse di tshwanang le tiro ya Aave."
+
+#: components/AddressCard.tsx:141
+msgid "{0, plural, one {market} other {markets}}"
+msgstr "{ 0, plural, one {lefatsheng} other {mafatsheng} }"
+
+#: components/AddressCard.tsx:135
+msgid "{0, plural, one {position} other {positions}}"
+msgstr "{ 0, plural, one {bokgoni} other {bokgoni} }"
+
+#: components/AddressCard.tsx:1047
+msgid "{assetSymbol} Price ({currencySymbol})"
+msgstr "{assetSymbol} Tsela ya go itshupa ({currencySymbol})"
+
+#: components/AddressCard.tsx:943
+msgid "{assetSymbol} Quantity"
+msgstr "{assetSymbol} Tlhaloso"

@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: ka\n"
+
+#: components/AddressCard.tsx:449
+msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
+msgstr "<0>ფასის ლიკვიდაციის სცენარი წარმოადგენს სარეზერვო აქტივების მიახლოებით უმაღლეს ფასებს, რომელიც შეიძლება დაექვემდებაროს პოზიციას ლიკვიდაციას. სტაბილური აქტივები არ შედის ამ სცენარში და ვარაუდობენ, რომ ინარჩუნებენ მათ მიმდინარე ღირებულებას. ლიკვიდაციაზე გავლენას ახდენს მრავალი ფაქტორი. ეს სცენარი მხოლოდ ერთი მაგალითია მითითებისთვის. ბევრმა სხვადასხვა სცენარმა შეიძლება გამოიწვიოს ლიკვიდაცია.<1>დაწვრილებით აქ</1> .</0>"
+
+#: components/AddressCard.tsx:66
+msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
+msgstr "<0>ამ დავალიანების პოზიციაზე ჩართულია Emode (ეფექტურობის რეჟიმი), მაგრამ DeFi Simulator ჯერ არ უჭერს მხარს პოზიციებს, სადაც ჩართულია Emode. ჩვენ ვიმედოვნებთ, რომ მალე დავამატებთ მხარდაჭერას Emode-სთვის.</0> <1/>"
+
+#: components/AddAssetDialog.tsx:82
+#: components/AddAssetDialog.tsx:151
+msgid "Add {0} Asset"
+msgstr "დაამატეთ {0} აქტივი"
+
+#: components/AddressCard.tsx:152
+msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
+msgstr "დაამატეთ, წაშალეთ და შეცვალეთ აქტივების ფასები და რაოდენობა ქვემოთ, რათა ვიზუალურად წარმოიდგინოთ ცვლილებები ჯანმრთელობის ფაქტორში და სესხის აღების ძალაში."
+
+#: components/AddressInput.tsx:68
+msgid "Address copied to clipboard!"
+msgstr "მისამართი კოპირებულია ბუფერში!"
+
+#: components/AddressCard.tsx:508
+msgid "Apply"
+msgstr "მიმართეთ"
+
+#: components/AddressCard.tsx:188
+#: components/AddressCard.tsx:352
+msgid "Available to Borrow:"
+msgstr "ხელმისაწვდომია სესხება:"
+
+#: components/AddressCard.tsx:664
+msgid "Borrowed Assets"
+msgstr "ნასესხები აქტივები"
+
+#: pages/index.tsx:89
+msgid "Build from Scratch"
+msgstr "აშენება ნულიდან"
+
+#: pages/index.tsx:542
+msgid "Close alert"
+msgstr "დახურვის გაფრთხილება"
+
+#: components/AddressInput.tsx:68
+#: components/AddressInput.tsx:70
+msgid "Copy address to clipboard"
+msgstr "დააკოპირეთ მისამართი ბუფერში"
+
+#: pages/index.tsx:537
+msgid "Experimental!"
+msgstr "ექსპერიმენტული!"
+
+#: components/AddressCard.tsx:131
+msgid "Found"
+msgstr "ნაპოვნია"
+
+#: components/AddressCard.tsx:198
+#: components/AddressCard.tsx:376
+msgid "Net Asset Value:"
+msgstr "წმინდა აქტივების ღირებულება:"
+
+#: components/AddressCard.tsx:145
+msgid "No Aave positions found."
+msgstr "Aave პოზიციები ვერ მოიძებნა."
+
+#: components/AddressCard.tsx:409
+msgid "No Liquidation Scenario Available"
+msgstr "ლიკვიდაციის სცენარი არ არის ხელმისაწვდომი"
+
+#: pages/index.tsx:75
+msgid "OR"
+msgstr "ან"
+
+#: pages/index.tsx:64
+msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
+msgstr "ჩასვით მისამართი Aave ვალის პოზიციით ზემოთ ველში, რათა წარმოიდგინოთ, როგორ მოქმედებს სესხის აღება/რეზერვის ცვლილებები პოზიციის ჯანმრთელობის ფაქტორზე და სესხის აღების ძალაზე."
+
+#: components/AddressCard.tsx:426
+msgid "Price Liquidation Scenario"
+msgstr "ფასის ლიკვიდაციის სცენარი"
+
+#: components/Footer.tsx:125
+msgid "Questions or comments? Please <0>join the Discord!</0>"
+msgstr "კითხვები თუ კომენტარები? გთხოვთ <0>შეუერთდეთ Discord-ს!</0>"
+
+#: components/AddressCard.tsx:812
+msgid "Remove {assetSymbol}"
+msgstr "{assetSymbol} წაშლა"
+
+#: components/AddressCard.tsx:193
+#: components/AddressCard.tsx:364
+msgid "Reserve Asset Value:"
+msgstr "სარეზერვო აქტივების ღირებულება:"
+
+#: components/AddressCard.tsx:587
+msgid "Reserve Assets"
+msgstr "სარეზერვო აქტივები"
+
+#: components/AddressCard.tsx:541
+msgid "Reset all simulated values"
+msgstr "ყველა სიმულირებული მნიშვნელობის გადატვირთვა"
+
+#: components/AddAssetDialog.tsx:94
+msgid "Reset search query"
+msgstr "საძიებო მოთხოვნის გადატვირთვა"
+
+#: components/AddressCard.tsx:972
+msgid "Reset to Original Value ({0})"
+msgstr "თავდაპირველ მნიშვნელობაზე დაბრუნება ({0})"
+
+#: components/AddAssetDialog.tsx:86
+msgid "Search for {0} Assets"
+msgstr "მოძებნეთ {0} აქტივები"
+
+#: components/AddAssetDialog.tsx:118
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
+msgstr "აირჩიეთ {0} ({1}) {2} ქვემოთ, რომ დაამატოთ ის, როგორც {3} აქტივი CDP-ში."
+
+#: components/AddressCard.tsx:239
+msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
+msgstr "მოხდა რაღაც, ახლა ჩვენ ვერ ვტვირთავთ მისამართის ვალის პოზიციის მონაცემებს. Მოგვიანებით სცადეთ."
+
+#: components/AddAssetDialog.tsx:110
+msgid "There are no assets that match the search query. Reset the search query to select an asset."
+msgstr "არ არსებობს აქტივები, რომლებიც ემთხვევა საძიებო მოთხოვნას. გადააყენეთ საძიებო მოთხოვნა აქტივის ასარჩევად."
+
+#: components/AddressCard.tsx:671
+msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
+msgstr "არ არის ნასესხები აქტივები <0/>-ისთვის {0} ბაზარზე. აირჩიეთ „სესხების აქტივის დამატება“ ამ მისამართისთვის ნასესხები აქტივების სიმულაციისთვის."
+
+#: components/AddressCard.tsx:594
+msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
+msgstr "არ არსებობს სარეზერვო აქტივები <0/>-ისთვის {0} ბაზარზე. ამ მისამართისთვის სარეზერვო აქტივების სიმულაციისთვის აირჩიეთ „სარეზერვო აქტივის დამატება“."
+
+#: pages/index.tsx:544
+msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
+msgstr "ეს Aave ვალის სიმულატორი ექსპერიმენტულია და აქტიური განვითარების პროცესშია. ნუ მიიღებთ ფინანსურ გადაწყვეტილებებს მხოლოდ ამ აპლიკაციის შედეგებზე დაყრდნობით."
+
+#: components/AddressCard.tsx:183
+#: components/AddressCard.tsx:340
+msgid "Total Borrowed:"
+msgstr "სულ ნასესხები:"
+
+#: components/AddressInput.tsx:62
+#: components/AddressInput.tsx:64
+#: pages/index.tsx:523
+msgid "Use Random Address"
+msgstr "გამოიყენეთ შემთხვევითი მისამართი"
+
+#: components/AddressCard.tsx:883
+msgid "Use {assetSymbol} as collateral"
+msgstr "გამოიყენეთ {assetSymbol} გირაოს სახით"
+
+#: components/AddressInput.tsx:73
+msgid "View address on Etherscan"
+msgstr "იხილეთ მისამართი Etherscan-ზე"
+
+#: components/AddressInput.tsx:75
+msgid "Visit address details on Etherscan"
+msgstr "ეწვიეთ მისამართის დეტალებს Etherscan-ზე"
+
+#: pages/index.tsx:79
+msgid "Want to go for a quick spin?"
+msgstr "გსურთ სწრაფად დატრიალდეთ?"
+
+#: components/AddressCard.tsx:137
+msgid "in"
+msgstr "in"
+
+#: components/Footer.tsx:115
+msgid "is an unofficial, open source, community-built Aave debt simulator."
+msgstr "არის არაოფიციალური, ღია კოდის, საზოგადოების მიერ აშენებული Aave ვალის სიმულატორი."
+
+#: components/AddressCard.tsx:141
+msgid "{0, plural, one {market} other {markets}}"
+msgstr "{ 0, plural, one {ბაზარი} other {ბაზრები} }"
+
+#: components/AddressCard.tsx:135
+msgid "{0, plural, one {position} other {positions}}"
+msgstr "{ 0, plural, one {პოზიცია} other {პოზიციები} }"
+
+#: components/AddressCard.tsx:1047
+msgid "{assetSymbol} Price ({currencySymbol})"
+msgstr "{assetSymbol} ფასი ({currencySymbol})"
+
+#: components/AddressCard.tsx:943
+msgid "{assetSymbol} Quantity"
+msgstr "{assetSymbol} რაოდენობა"

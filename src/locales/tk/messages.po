@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: tk\n"
+
+#: components/AddressCard.tsx:449
+msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
+msgstr "<0> Bahalary ýatyrmak ssenariýasy, ýatyrylyp bilinjek ätiýaçlyk aktiwleriniň takmynan iň ýokary bahalaryny görkezýär. Durnuk aktiwler bu ssenariýa goşulmaýar we häzirki gymmatyny saklamak üçin kabul edilýär. Liquidatyrylmagyna köp faktorlar täsir edýär. Bu ssenariýa salgylanmak üçin diňe bir mysal. Köp dürli ssenariýalar ýatyrylmagyna sebäp bolup biler. <1> Has giňişleýin okaň</1> .</0>"
+
+#: components/AddressCard.tsx:66
+msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
+msgstr "<0> Bu karz ýagdaýy Emode (Efficieny Mode) açyk, ýöne DeFi Simulator Emode açyk pozisiýalary entek goldamaýar. Emode üçin ýakyn wagtda goldaw goşarys diýip umyt edýäris.</0> <1 />"
+
+#: components/AddAssetDialog.tsx:82
+#: components/AddAssetDialog.tsx:151
+msgid "Add {0} Asset"
+msgstr "{0} Aktiw goşuň"
+
+#: components/AddressCard.tsx:152
+msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
+msgstr "Saglyk faktoryna we karz güýjüne üýtgeşmeleri göz öňüne getirmek üçin aşakdaky aktiwleriň bahalaryny we mukdaryny goşuň, aýyryň we üýtgediň."
+
+#: components/AddressInput.tsx:68
+msgid "Address copied to clipboard!"
+msgstr "Salgy paneli göçürildi!"
+
+#: components/AddressCard.tsx:508
+msgid "Apply"
+msgstr "Giriş"
+
+#: components/AddressCard.tsx:188
+#: components/AddressCard.tsx:352
+msgid "Available to Borrow:"
+msgstr "Karz alyp bilersiňiz:"
+
+#: components/AddressCard.tsx:664
+msgid "Borrowed Assets"
+msgstr "Karz alnan aktiwler"
+
+#: pages/index.tsx:89
+msgid "Build from Scratch"
+msgstr "Noldan başlaň"
+
+#: pages/index.tsx:542
+msgid "Close alert"
+msgstr "Duýduryşy ýapyň"
+
+#: components/AddressInput.tsx:68
+#: components/AddressInput.tsx:70
+msgid "Copy address to clipboard"
+msgstr "Salgyny bufere göçüriň"
+
+#: pages/index.tsx:537
+msgid "Experimental!"
+msgstr "Synag!"
+
+#: components/AddressCard.tsx:131
+msgid "Found"
+msgstr "Tapyldy"
+
+#: components/AddressCard.tsx:198
+#: components/AddressCard.tsx:376
+msgid "Net Asset Value:"
+msgstr "Arassa aktiwiň gymmaty:"
+
+#: components/AddressCard.tsx:145
+msgid "No Aave positions found."
+msgstr "Aave pozisiýalary tapylmady"
+
+#: components/AddressCard.tsx:409
+msgid "No Liquidation Scenario Available"
+msgstr "Iquatyryş ssenariisi ýok"
+
+#: pages/index.tsx:75
+msgid "OR"
+msgstr "ORA-DA"
+
+#: pages/index.tsx:64
+msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
+msgstr "Karz / ätiýaçlyk aktiwlerine bolan üýtgeşmeleriň ýagdaýyň saglyk faktoryna we karz güýjüne nähili täsir edýändigini göz öňüne getirmek üçin ýokardaky gutujyga “Aave” karzy ýagdaýy bilen bir salgy goýuň."
+
+#: components/AddressCard.tsx:426
+msgid "Price Liquidation Scenario"
+msgstr "Bahalary ýatyrmak ssenariisi"
+
+#: components/Footer.tsx:125
+msgid "Questions or comments? Please <0>join the Discord!</0>"
+msgstr "Soraglar ýa-da teswirler? <0> Discord-a goşulmagyňyzy haýyş edýäris!</0>"
+
+#: components/AddressCard.tsx:812
+msgid "Remove {assetSymbol}"
+msgstr "{assetSymbol} aýyryň"
+
+#: components/AddressCard.tsx:193
+#: components/AddressCard.tsx:364
+msgid "Reserve Asset Value:"
+msgstr "Ervetiýaçlyk aktiwleriň gymmaty:"
+
+#: components/AddressCard.tsx:587
+msgid "Reserve Assets"
+msgstr "Ervetiýaçlyk aktiwleri"
+
+#: components/AddressCard.tsx:541
+msgid "Reset all simulated values"
+msgstr "Simhli simulirlenen bahalary täzeden düzüň"
+
+#: components/AddAssetDialog.tsx:94
+msgid "Reset search query"
+msgstr "Gözleg talaplaryny täzeden düzüň"
+
+#: components/AddressCard.tsx:972
+msgid "Reset to Original Value ({0})"
+msgstr "Asyl bahasyna gaýtaryň ({0})"
+
+#: components/AddAssetDialog.tsx:86
+msgid "Search for {0} Assets"
+msgstr "{0} Aktiwleri gözläň"
+
+#: components/AddAssetDialog.tsx:118
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
+msgstr "CDP-ä {3} aktiw hökmünde goşmak üçin aşakda {0} ({1}) {2} saýlaň."
+
+#: components/AddressCard.tsx:239
+msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
+msgstr "Bir zat boldy, häzir salgy salgysynyň ýagdaýy baradaky maglumatlary ýükläp bilmeris. Soňrak synanyşyň."
+
+#: components/AddAssetDialog.tsx:110
+msgid "There are no assets that match the search query. Reset the search query to select an asset."
+msgstr "Gözleg gözlegine gabat gelýän hiç hili emläk ýok. Aktiw saýlamak üçin gözleg talaplaryny täzeden düzüň."
+
+#: components/AddressCard.tsx:671
+msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
+msgstr "{0} bazarynda <0 /> üçin karz alnan aktiwler ýok. Bu salgy üçin karz alnan emläkleri simulirlemek üçin \"Karz aktiwini goş\" saýlaň."
+
+#: components/AddressCard.tsx:594
+msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
+msgstr "{0} bazarynda <0 /> ätiýaçlyk serişdeleri ýok. Bu salgy üçin ätiýaçlyk aktiwlerini simulirlemek üçin \"ervetiýaçlyk aktiwini goş\" saýlaň."
+
+#: pages/index.tsx:544
+msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
+msgstr "Bu “Aave” karz simulyatory eksperimental we işjeň işlenip düzülýär. Diňe şu programmanyň netijelerine esaslanyp maliýe karar bermäň."
+
+#: components/AddressCard.tsx:183
+#: components/AddressCard.tsx:340
+msgid "Total Borrowed:"
+msgstr "Karz alnanlaryň jemi:"
+
+#: components/AddressInput.tsx:62
+#: components/AddressInput.tsx:64
+#: pages/index.tsx:523
+msgid "Use Random Address"
+msgstr "Tötänleýin salgy ulanyň"
+
+#: components/AddressCard.tsx:883
+msgid "Use {assetSymbol} as collateral"
+msgstr "Girew hökmünde {assetSymbol} ulanyň"
+
+#: components/AddressInput.tsx:73
+msgid "View address on Etherscan"
+msgstr "Etherskanda salgy görüň"
+
+#: components/AddressInput.tsx:75
+msgid "Visit address details on Etherscan"
+msgstr "Etherskanda salgy salgysyny görüň"
+
+#: pages/index.tsx:79
+msgid "Want to go for a quick spin?"
+msgstr "Çalt aýlanmak isleýärsiňizmi?"
+
+#: components/AddressCard.tsx:137
+msgid "in"
+msgstr "içinde"
+
+#: components/Footer.tsx:115
+msgid "is an unofficial, open source, community-built Aave debt simulator."
+msgstr "resmi däl, açyk çeşme, jemgyýet tarapyndan gurlan Aave karz simulýatory."
+
+#: components/AddressCard.tsx:141
+msgid "{0, plural, one {market} other {markets}}"
+msgstr "{ 0, plural, one {bazary} other {bazarlary} }"
+
+#: components/AddressCard.tsx:135
+msgid "{0, plural, one {position} other {positions}}"
+msgstr "{ 0, plural, one {ýagdaýy} other {wezipeleri} }"
+
+#: components/AddressCard.tsx:1047
+msgid "{assetSymbol} Price ({currencySymbol})"
+msgstr "{assetSymbol} Bahasy ({currencySymbol})"
+
+#: components/AddressCard.tsx:943
+msgid "{assetSymbol} Quantity"
+msgstr "{assetSymbol} mukdar"

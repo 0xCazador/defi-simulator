@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: ee\n"
+
+#: components/AddressCard.tsx:449
+msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
+msgstr "<0>Asi ƒe asiɖeɖe le nu ŋu ƒe nɔnɔmea tsi tre ɖi na nunɔamesi siwo wodzra ɖo ɖi ƒe asi kɔkɔtɔ kekeake si ate ŋu ana ɖoƒea naɖe asi le eŋu. Wometsɔ nunɔamesi siwo li ke de nɔnɔme sia me o eye wotsɔe be woƒe asixɔxɔ si li fifia la gakpɔtɔ li. Nu geɖe kpɔa ŋusẽ ɖe liquidation dzi. Kpɔɖeŋu ɖeka koe nɔnɔme sia nye si ŋu woate ŋu aƒo nu tsoe. Nɔnɔme vovovo geɖewo ateŋu ahe liquidation vɛ.<1>Xlẽ nu geɖe le afisia</1> .</0>"
+
+#: components/AddressCard.tsx:66
+msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
+msgstr "<0>Fenyi ƒe nɔnɔme sia na Emode (Efficieny Mode) le dɔ wɔm, gake DeFi Simulator medo alɔ nɔnɔme siwo me Emode le dɔ wɔm haɖe o. Míele mɔ kpɔm be míatsɔ kpekpeɖeŋu akpe ɖe Emode ŋu kpuie.</0> <1/> ƒe nyawo"
+
+#: components/AddAssetDialog.tsx:82
+#: components/AddAssetDialog.tsx:151
+msgid "Add {0} Asset"
+msgstr "Tsɔ {0} Nunɔamesi kpee"
+
+#: components/AddressCard.tsx:152
+msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
+msgstr "Tsɔ nunɔamesiwo ƒe asiwo kple agbɔsɔsɔ siwo le ete kpee, ɖe wo ɖa, eye nàtrɔ asi le wo ŋu be nàkpɔ tɔtrɔ siwo ava le lãmesẽnyawo kple gadodo ƒe ŋusẽ ŋu le susu me."
+
+#: components/AddressInput.tsx:68
+msgid "Address copied to clipboard!"
+msgstr "Adrɛs si wogbugbɔ ŋlɔ ɖe clipboard dzi!"
+
+#: components/AddressCard.tsx:508
+msgid "Apply"
+msgstr "Tsᴐe wᴐ dᴐ"
+
+#: components/AddressCard.tsx:188
+#: components/AddressCard.tsx:352
+msgid "Available to Borrow:"
+msgstr "Woate Ŋu Ado Fe:"
+
+#: components/AddressCard.tsx:664
+msgid "Borrowed Assets"
+msgstr "Nusiwo Wodo"
+
+#: pages/index.tsx:89
+msgid "Build from Scratch"
+msgstr "Tu tso Gɔmedzedze dzi"
+
+#: pages/index.tsx:542
+msgid "Close alert"
+msgstr "Klo nuxlɔ̃ame"
+
+#: components/AddressInput.tsx:68
+#: components/AddressInput.tsx:70
+msgid "Copy address to clipboard"
+msgstr "Kɔpi adrɛs ɖe clipboard dzi"
+
+#: pages/index.tsx:537
+msgid "Experimental!"
+msgstr "Dodokpɔ!"
+
+#: components/AddressCard.tsx:131
+msgid "Found"
+msgstr "Kpᴐe"
+
+#: components/AddressCard.tsx:198
+#: components/AddressCard.tsx:376
+msgid "Net Asset Value:"
+msgstr "Nuwo ƒe Asixɔxɔ Kɔkɔe:"
+
+#: components/AddressCard.tsx:145
+msgid "No Aave positions found."
+msgstr "Womekpɔ Aave ƒe nɔƒe aɖeke o."
+
+#: components/AddressCard.tsx:409
+msgid "No Liquidation Scenario Available"
+msgstr "Liquidation Scenario Aɖeke Meli O"
+
+#: pages/index.tsx:75
+msgid "OR"
+msgstr "ALO"
+
+#: pages/index.tsx:64
+msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
+msgstr "Kpe adrɛs si dzi Aave fenyinyi ƒe nɔnɔme le ɖe aɖaka si le etame me be nàkpɔ alesi tɔtrɔ siwo va le fenyi/nunɔamesiwo dzra ɖo me kpɔa ŋusẽ ɖe ɖoƒea ƒe lãmesẽnyawo kple fenyiŋusẽ dzii le susu me."
+
+#: components/AddressCard.tsx:426
+msgid "Price Liquidation Scenario"
+msgstr "Asixɔxɔ ƒe Nugblẽfexexe ƒe Nɔnɔme"
+
+#: components/Footer.tsx:125
+msgid "Questions or comments? Please <0>join the Discord!</0>"
+msgstr "Nyabiasewo alo nyaŋuɖoɖowoa? Taflatse <0>wɔ ɖeka kple Discord la!</0>"
+
+#: components/AddressCard.tsx:812
+msgid "Remove {assetSymbol}"
+msgstr "Ðe {assetSymbol} ɖa."
+
+#: components/AddressCard.tsx:193
+#: components/AddressCard.tsx:364
+msgid "Reserve Asset Value:"
+msgstr "Nusiwo Wodzra Ðo ƒe Asixɔxɔ:"
+
+#: components/AddressCard.tsx:587
+msgid "Reserve Assets"
+msgstr "Nusiwo Wodzra Ðo Ðe Nuwo Ŋu"
+
+#: components/AddressCard.tsx:541
+msgid "Reset all simulated values"
+msgstr "Gbugbɔ ɖo asixɔxɔ siwo katã wowɔ abe ɖe wowɔe ene"
+
+#: components/AddAssetDialog.tsx:94
+msgid "Reset search query"
+msgstr "Gbugbɔ ɖo didibiabia la ɖe ɖoɖo nu"
+
+#: components/AddressCard.tsx:972
+msgid "Reset to Original Value ({0})"
+msgstr "Gbugbɔ Ðo Asixɔxɔ Gbãtɔ ({0}) ."
+
+#: components/AddAssetDialog.tsx:86
+msgid "Search for {0} Assets"
+msgstr "Di {0} Nuwo"
+
+#: components/AddAssetDialog.tsx:118
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
+msgstr "Tia {0} ({1}) {2} le ete be nàtsɔe akpe ɖe eŋu abe {3} nunɔamesi ene ɖe CDP la ŋu."
+
+#: components/AddressCard.tsx:239
+msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
+msgstr "Nane dzɔ, míete ŋu tsɔ adrɛs ƒe fenyinyi ƒe nɔnɔme ŋuti nyatakakawo de eme fifia o. Gadze agbagba ake emegbe."
+
+#: components/AddAssetDialog.tsx:110
+msgid "There are no assets that match the search query. Reset the search query to select an asset."
+msgstr "Nunɔamesi aɖeke meli si sɔ kple nyabiase si wobia o. Gbugbɔ ɖo didibiabia la be nàtia nunɔamesi aɖe."
+
+#: components/AddressCard.tsx:671
+msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
+msgstr "Nusiwo wodo na <0/>le {0} asi me o. Tia \"Add Borrow Asset\" be nàwɔ nunɔamesi siwo wodo ƒe kpɔɖeŋu na adrɛs sia."
+
+#: components/AddressCard.tsx:594
+msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
+msgstr "Nusiwo wodzra ɖo ɖi na <0/>le {0} ƒe asi me meli o. Tia \"Add Reserve Asset\" be nàwɔ reserve assets ƒe kpɔɖeŋu na adrɛs sia."
+
+#: pages/index.tsx:544
+msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
+msgstr "Aave fenyinyi ƒe nɔnɔmetata sia nye dodokpɔ eye wòle ŋgɔyiyi wɔm vevie. Mèganɔ te ɖe dɔwɔnu sia me tsonu ɖeɖeko dzi awɔ ganyawo ŋuti nyametsotsowo o."
+
+#: components/AddressCard.tsx:183
+#: components/AddressCard.tsx:340
+msgid "Total Borrowed:"
+msgstr "Nusiwo Wodo Katã:"
+
+#: components/AddressInput.tsx:62
+#: components/AddressInput.tsx:64
+#: pages/index.tsx:523
+msgid "Use Random Address"
+msgstr "Zã Adrɛs si Woŋlɔ Ðe Ðoɖo Nu"
+
+#: components/AddressCard.tsx:883
+msgid "Use {assetSymbol} as collateral"
+msgstr "Zã {assetSymbol} abe agbanɔamedzi ene"
+
+#: components/AddressInput.tsx:73
+msgid "View address on Etherscan"
+msgstr "Kpɔ adrɛs le Etherscan dzi"
+
+#: components/AddressInput.tsx:75
+msgid "Visit address details on Etherscan"
+msgstr "Yi adrɛs ŋuti nyatakakawo le Etherscan"
+
+#: pages/index.tsx:79
+msgid "Want to go for a quick spin?"
+msgstr "Àdi be yeayi aɖatsa le tsatsam kabakabaa?"
+
+#: components/AddressCard.tsx:137
+msgid "in"
+msgstr "eme"
+
+#: components/Footer.tsx:115
+msgid "is an unofficial, open source, community-built Aave debt simulator."
+msgstr "nye Aave fenyinyi ƒe nɔnɔmetata si menye dziɖuɖua tɔ o, si woate ŋu azã faa, si nutoa me tɔwo tu."
+
+#: components/AddressCard.tsx:141
+msgid "{0, plural, one {market} other {markets}}"
+msgstr "{ 0, plural, one {asime} other {asiwo me} }"
+
+#: components/AddressCard.tsx:135
+msgid "{0, plural, one {position} other {positions}}"
+msgstr "{ 0, plural, one {ɖoƒe} other {ɖoƒewo} }"
+
+#: components/AddressCard.tsx:1047
+msgid "{assetSymbol} Price ({currencySymbol})"
+msgstr "{assetSymbol} Asixɔxɔ ({currencySymbol}) ."
+
+#: components/AddressCard.tsx:943
+msgid "{assetSymbol} Quantity"
+msgstr "{assetSymbol} Agbɔsɔsɔme"

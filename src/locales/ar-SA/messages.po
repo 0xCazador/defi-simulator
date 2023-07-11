@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: ar-SA\n"
+
+#: components/AddressCard.tsx:449
+msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
+msgstr "<0> يمثل سيناريو تصفية السعر أعلى أسعار الأصول الاحتياطية التقريبية التي يمكن أن تعرض المركز للتصفية. لا يتم تضمين الأصول الثابتة في هذا السيناريو ويفترض أنها تحافظ على قيمتها الحالية. هناك العديد من العوامل التي تؤثر على التصفية. هذا السيناريو هو مثال واحد فقط للرجوع اليها. يمكن أن تؤدي العديد من السيناريوهات المختلفة إلى التصفية. <1> اقرأ المزيد هنا</1> .</0>"
+
+#: components/AddressCard.tsx:66
+msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
+msgstr "<0> تم تمكين Emode (وضع Efficieny) لمركز الدين هذا ، لكن DeFi Simulator لا يدعم حتى الآن المراكز التي تم تمكين Emode بها. نأمل أن نضيف دعمًا لـ Emode قريبًا.</0> <1 />"
+
+#: components/AddAssetDialog.tsx:82
+#: components/AddAssetDialog.tsx:151
+msgid "Add {0} Asset"
+msgstr "أضف {0} أصل"
+
+#: components/AddressCard.tsx:152
+msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
+msgstr "قم بإضافة وإزالة وتعديل أسعار الأصول وكمياتها أدناه لتصور التغييرات في عامل الصحة وقوة الاقتراض."
+
+#: components/AddressInput.tsx:68
+msgid "Address copied to clipboard!"
+msgstr "تم نسخ العنوان إلى الحافظة!"
+
+#: components/AddressCard.tsx:508
+msgid "Apply"
+msgstr "يتقدم"
+
+#: components/AddressCard.tsx:188
+#: components/AddressCard.tsx:352
+msgid "Available to Borrow:"
+msgstr "متاح للاقتراض:"
+
+#: components/AddressCard.tsx:664
+msgid "Borrowed Assets"
+msgstr "الأصول المقترضة"
+
+#: pages/index.tsx:89
+msgid "Build from Scratch"
+msgstr "بناء من الصفر"
+
+#: pages/index.tsx:542
+msgid "Close alert"
+msgstr "تنبيه وثيق"
+
+#: components/AddressInput.tsx:68
+#: components/AddressInput.tsx:70
+msgid "Copy address to clipboard"
+msgstr "نسخ العنوان إلى الحافظة"
+
+#: pages/index.tsx:537
+msgid "Experimental!"
+msgstr "تجريبي!"
+
+#: components/AddressCard.tsx:131
+msgid "Found"
+msgstr "وجد"
+
+#: components/AddressCard.tsx:198
+#: components/AddressCard.tsx:376
+msgid "Net Asset Value:"
+msgstr "صافي قيمة الأصول:"
+
+#: components/AddressCard.tsx:145
+msgid "No Aave positions found."
+msgstr "لم يتم العثور على وظائف Aave."
+
+#: components/AddressCard.tsx:409
+msgid "No Liquidation Scenario Available"
+msgstr "لا يوجد سيناريو للتصفية متاح"
+
+#: pages/index.tsx:75
+msgid "OR"
+msgstr "أو"
+
+#: pages/index.tsx:64
+msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
+msgstr "الصق عنوانًا مع وضع دين Aave في المربع أعلاه لتصور كيف تؤثر التغييرات في الاقتراض / الأصول الاحتياطية على عامل صحة الموقف وقوة الاقتراض."
+
+#: components/AddressCard.tsx:426
+msgid "Price Liquidation Scenario"
+msgstr "سيناريو التصفية السعرية"
+
+#: components/Footer.tsx:125
+msgid "Questions or comments? Please <0>join the Discord!</0>"
+msgstr "أسئلة أو تعليقات؟ من فضلك <0> انضم إلى Discord!</0>"
+
+#: components/AddressCard.tsx:812
+msgid "Remove {assetSymbol}"
+msgstr "إزالة {assetSymbol}"
+
+#: components/AddressCard.tsx:193
+#: components/AddressCard.tsx:364
+msgid "Reserve Asset Value:"
+msgstr "قيمة الأصول الاحتياطية:"
+
+#: components/AddressCard.tsx:587
+msgid "Reserve Assets"
+msgstr "الأصول الاحتياطية"
+
+#: components/AddressCard.tsx:541
+msgid "Reset all simulated values"
+msgstr "إعادة تعيين جميع القيم المحاكاة"
+
+#: components/AddAssetDialog.tsx:94
+msgid "Reset search query"
+msgstr "إعادة تعيين استعلام البحث"
+
+#: components/AddressCard.tsx:972
+msgid "Reset to Original Value ({0})"
+msgstr "إعادة التعيين إلى القيمة الأصلية ({0})"
+
+#: components/AddAssetDialog.tsx:86
+msgid "Search for {0} Assets"
+msgstr "ابحث عن الأصول {0}"
+
+#: components/AddAssetDialog.tsx:118
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
+msgstr "حدد {0} ({1}) {2} أدناه لإضافته كأصل {3} إلى CDP."
+
+#: components/AddressCard.tsx:239
+msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
+msgstr "حدث شيء ما ، لم نتمكن من تحميل بيانات مركز دين العنوان في الوقت الحالي. حاول مرة أخرى في وقت لاحق."
+
+#: components/AddAssetDialog.tsx:110
+msgid "There are no assets that match the search query. Reset the search query to select an asset."
+msgstr "لا توجد أصول تطابق استعلام البحث. أعد تعيين استعلام البحث لتحديد أحد الأصول."
+
+#: components/AddressCard.tsx:671
+msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
+msgstr "لا توجد أصول مقترضة لـ <0 /> في سوق {0}. حدد \"Add Borrow Asset\" لمحاكاة الأصول المقترضة لهذا العنوان."
+
+#: components/AddressCard.tsx:594
+msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
+msgstr "لا توجد أصول احتياطية لـ <0 /> في سوق {0}. حدد \"إضافة احتياطي الأصول\" لمحاكاة الأصول الاحتياطية لهذا العنوان."
+
+#: pages/index.tsx:544
+msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
+msgstr "جهاز محاكاة الديون Aave هو تجريبي وقيد التطوير النشط. لا تتخذ قرارات مالية تستند فقط إلى نتائج هذا التطبيق."
+
+#: components/AddressCard.tsx:183
+#: components/AddressCard.tsx:340
+msgid "Total Borrowed:"
+msgstr "إجمالي المقترض:"
+
+#: components/AddressInput.tsx:62
+#: components/AddressInput.tsx:64
+#: pages/index.tsx:523
+msgid "Use Random Address"
+msgstr "استخدم عنوان عشوائي"
+
+#: components/AddressCard.tsx:883
+msgid "Use {assetSymbol} as collateral"
+msgstr "استخدم {assetSymbol} كضمان"
+
+#: components/AddressInput.tsx:73
+msgid "View address on Etherscan"
+msgstr "عرض العنوان على Etherscan"
+
+#: components/AddressInput.tsx:75
+msgid "Visit address details on Etherscan"
+msgstr "قم بزيارة تفاصيل العنوان على Etherscan"
+
+#: pages/index.tsx:79
+msgid "Want to go for a quick spin?"
+msgstr "تريد أن تذهب في جولة سريعة؟"
+
+#: components/AddressCard.tsx:137
+msgid "in"
+msgstr "في"
+
+#: components/Footer.tsx:115
+msgid "is an unofficial, open source, community-built Aave debt simulator."
+msgstr "هو برنامج محاكاة ديون Aave غير رسمي ومفتوح المصدر ومبني من قبل المجتمع."
+
+#: components/AddressCard.tsx:141
+msgid "{0, plural, one {market} other {markets}}"
+msgstr "{ 0, plural, zero {الأسواق} one {سوق} two {الأسواق} few {الأسواق} many {الأسواق} other {الأسواق} }"
+
+#: components/AddressCard.tsx:135
+msgid "{0, plural, one {position} other {positions}}"
+msgstr "{ 0, plural, zero {المواقف} one {موضع} two {المواقف} few {المواقف} many {المواقف} other {المواقف} }"
+
+#: components/AddressCard.tsx:1047
+msgid "{assetSymbol} Price ({currencySymbol})"
+msgstr "{assetSymbol} السعر ({currencySymbol})"
+
+#: components/AddressCard.tsx:943
+msgid "{assetSymbol} Quantity"
+msgstr "{assetSymbol} الكمية"

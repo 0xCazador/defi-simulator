@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: rw\n"
+
+#: components/AddressCard.tsx:449
+msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
+msgstr "<0> Ibiciro byo gusesa ibiciro byerekana igereranyo cyibiciro byumutungo wimigabane ushobora kugereranya umwanya wo guseswa. Umutungo uhamye ntabwo urimo muriki gihe kandi ufatwa kugumana agaciro kabo. Ibintu byinshi bigira ingaruka ku iseswa. Ibi ni urugero rumwe gusa rwo gukoreshwa. Ibintu byinshi bitandukanye bishobora gutera iseswa. <1> Soma byinshi hano</1> .</0>"
+
+#: components/AddressCard.tsx:66
+msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
+msgstr "<0> Iyi myanya yumwenda ifite Emode (Efficieny Mode) ishoboye, ariko DeFi Simulator ntabwo irashyigikira imyanya hamwe na Emode ishoboye. Turizera kongeramo inkunga kuri Emode vuba.</0> <1 />"
+
+#: components/AddAssetDialog.tsx:82
+#: components/AddAssetDialog.tsx:151
+msgid "Add {0} Asset"
+msgstr "Ongeraho {0} Umutungo"
+
+#: components/AddressCard.tsx:152
+msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
+msgstr "Ongeraho, ukureho, kandi uhindure ibiciro byumutungo nubunini hepfo kugirango ugaragaze impinduka kubintu byubuzima nimbaraga zo kuguza."
+
+#: components/AddressInput.tsx:68
+msgid "Address copied to clipboard!"
+msgstr "Aderesi yimuwe kuri clip clip!"
+
+#: components/AddressCard.tsx:508
+msgid "Apply"
+msgstr "Koresha"
+
+#: components/AddressCard.tsx:188
+#: components/AddressCard.tsx:352
+msgid "Available to Borrow:"
+msgstr "Ushobora Kuguza:"
+
+#: components/AddressCard.tsx:664
+msgid "Borrowed Assets"
+msgstr "Umutungo watijwe"
+
+#: pages/index.tsx:89
+msgid "Build from Scratch"
+msgstr "Kubaka guhera"
+
+#: pages/index.tsx:542
+msgid "Close alert"
+msgstr "Funga hafi"
+
+#: components/AddressInput.tsx:68
+#: components/AddressInput.tsx:70
+msgid "Copy address to clipboard"
+msgstr "Gukoporora aderesi kuri clipboard"
+
+#: pages/index.tsx:537
+msgid "Experimental!"
+msgstr "Ubushakashatsi!"
+
+#: components/AddressCard.tsx:131
+msgid "Found"
+msgstr "Byabonetse"
+
+#: components/AddressCard.tsx:198
+#: components/AddressCard.tsx:376
+msgid "Net Asset Value:"
+msgstr "Agaciro k'umutungo:"
+
+#: components/AddressCard.tsx:145
+msgid "No Aave positions found."
+msgstr "Nta myanya ya Aave yabonetse."
+
+#: components/AddressCard.tsx:409
+msgid "No Liquidation Scenario Available"
+msgstr "Ntakibazo cyo gusesa kiboneka"
+
+#: pages/index.tsx:75
+msgid "OR"
+msgstr "CYANGWA"
+
+#: pages/index.tsx:64
+msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
+msgstr "Shyira adresse hamwe na Aave ideni ryumwanya mubisanduku hejuru kugirango wiyumvire uburyo impinduka zo kuguza / kubika umutungo zigira ingaruka kubuzima bwumwanya nimbaraga zo kuguza."
+
+#: components/AddressCard.tsx:426
+msgid "Price Liquidation Scenario"
+msgstr "Ibiciro byo gusesa"
+
+#: components/Footer.tsx:125
+msgid "Questions or comments? Please <0>join the Discord!</0>"
+msgstr "Ibibazo cyangwa ibitekerezo? Nyamuneka <0> injira muri Discord!</0>"
+
+#: components/AddressCard.tsx:812
+msgid "Remove {assetSymbol}"
+msgstr "Kuraho {assetSymbol}"
+
+#: components/AddressCard.tsx:193
+#: components/AddressCard.tsx:364
+msgid "Reserve Asset Value:"
+msgstr "Agaciro k'umutungo wabitswe:"
+
+#: components/AddressCard.tsx:587
+msgid "Reserve Assets"
+msgstr "Umutungo wabitswe"
+
+#: components/AddressCard.tsx:541
+msgid "Reset all simulated values"
+msgstr "Ongera usubize indangagaciro zose"
+
+#: components/AddAssetDialog.tsx:94
+msgid "Reset search query"
+msgstr "Ongera usubize ikibazo cy'ishakisha"
+
+#: components/AddressCard.tsx:972
+msgid "Reset to Original Value ({0})"
+msgstr "Ongera usubire ku gaciro kambere ({0})"
+
+#: components/AddAssetDialog.tsx:86
+msgid "Search for {0} Assets"
+msgstr "Shakisha {0} Umutungo"
+
+#: components/AddAssetDialog.tsx:118
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
+msgstr "Hitamo {0} ({1}) {2} hepfo kugirango wongere nk'umutungo wa {3} kuri CDP."
+
+#: components/AddressCard.tsx:239
+msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
+msgstr "Ikintu cyabaye, ntidushobora gupakira adresse yimyenda yumwanya ubungubu. Gerageza nanone nyuma."
+
+#: components/AddAssetDialog.tsx:110
+msgid "There are no assets that match the search query. Reset the search query to select an asset."
+msgstr "Nta mutungo uhuye n'ikibazo cyo gushakisha. Ongera usubize ikibazo cyo gushakisha kugirango uhitemo umutungo."
+
+#: components/AddressCard.tsx:671
+msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
+msgstr "Nta mutungo watijwe kuri <0 /> ku isoko rya {0}. Hitamo \"Ongera Umutungo w'inguzanyo\" kugirango wigane umutungo watijwe kuriyi aderesi."
+
+#: components/AddressCard.tsx:594
+msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
+msgstr "Nta mutungo wabitswe kuri <0 /> ku isoko rya {0}. Hitamo \"Ongera Umutungo Wibitse\" kugirango wigane umutungo wabitswe kuriyi aderesi."
+
+#: pages/index.tsx:544
+msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
+msgstr "Iyi Aave yigana umwenda ni igeragezwa kandi iri mubikorwa byiterambere. Ntugafate ibyemezo byubukungu bishingiye gusa kubisubizo byiyi porogaramu."
+
+#: components/AddressCard.tsx:183
+#: components/AddressCard.tsx:340
+msgid "Total Borrowed:"
+msgstr "Inguzanyo zose:"
+
+#: components/AddressInput.tsx:62
+#: components/AddressInput.tsx:64
+#: pages/index.tsx:523
+msgid "Use Random Address"
+msgstr "Koresha Aderesi Yemewe"
+
+#: components/AddressCard.tsx:883
+msgid "Use {assetSymbol} as collateral"
+msgstr "Koresha {assetSymbol} nk'ingwate"
+
+#: components/AddressInput.tsx:73
+msgid "View address on Etherscan"
+msgstr "Reba aderesi kuri Etherscan"
+
+#: components/AddressInput.tsx:75
+msgid "Visit address details on Etherscan"
+msgstr "Sura adresse ibisobanuro kuri Etherscan"
+
+#: pages/index.tsx:79
+msgid "Want to go for a quick spin?"
+msgstr "Urashaka kujya kuzunguruka vuba?"
+
+#: components/AddressCard.tsx:137
+msgid "in"
+msgstr "in"
+
+#: components/Footer.tsx:115
+msgid "is an unofficial, open source, community-built Aave debt simulator."
+msgstr "ni idasanzwe, ifungura isoko, yubatswe na Aave umwenda wigana."
+
+#: components/AddressCard.tsx:141
+msgid "{0, plural, one {market} other {markets}}"
+msgstr "{ 0, plural, one {isoko} other {amasoko} }"
+
+#: components/AddressCard.tsx:135
+msgid "{0, plural, one {position} other {positions}}"
+msgstr "{ 0, plural, one {umwanya} other {imyanya} }"
+
+#: components/AddressCard.tsx:1047
+msgid "{assetSymbol} Price ({currencySymbol})"
+msgstr "{assetSymbol} Igiciro ({currencySymbol})"
+
+#: components/AddressCard.tsx:943
+msgid "{assetSymbol} Quantity"
+msgstr "{assetSymbol} Umubare"

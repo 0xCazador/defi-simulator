@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: ko\n"
+
+#: components/AddressCard.tsx:449
+msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
+msgstr "<0>가격 청산 시나리오는 포지션이 청산될 수 있는 대략적인 최고 보유자산 가격을 나타냅니다. 안정적 자산은 이 시나리오에 포함되지 않으며 현재 가치를 유지하는 것으로 가정합니다. 청산에는 여러 요인이 영향을 미칩니다. 이 시나리오는 참고를 위한 하나의 예시일 뿐입니다. 다양한 시나리오에서 청산이 발생할 수 있습니다.<1>자세한 내용은 여기를</1> 참조하세요.</0>"
+
+#: components/AddressCard.tsx:66
+msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
+msgstr "<0>이 부채 포지션은 이모드(효율성 모드)가 활성화되어 있지만, DeFi 시뮬레이터는 아직 이모드가 활성화된 포지션을 지원하지 않습니다. 곧 이모드에 대한 지원을 추가할 예정입니다.</0><1/>"
+
+#: components/AddAssetDialog.tsx:82
+#: components/AddAssetDialog.tsx:151
+msgid "Add {0} Asset"
+msgstr "{0}] 에셋 추가"
+
+#: components/AddressCard.tsx:152
+msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
+msgstr "아래에서 자산 가격과 수량을 추가, 제거, 수정하여 건전성 계수와 차입 능력의 변화를 시각화합니다."
+
+#: components/AddressInput.tsx:68
+msgid "Address copied to clipboard!"
+msgstr "주소가 클립보드에 복사되었습니다!"
+
+#: components/AddressCard.tsx:508
+msgid "Apply"
+msgstr "신청하기"
+
+#: components/AddressCard.tsx:188
+#: components/AddressCard.tsx:352
+msgid "Available to Borrow:"
+msgstr "빌릴 수 있습니다:"
+
+#: components/AddressCard.tsx:664
+msgid "Borrowed Assets"
+msgstr "차입 자산"
+
+#: pages/index.tsx:89
+msgid "Build from Scratch"
+msgstr "처음부터 빌드"
+
+#: pages/index.tsx:542
+msgid "Close alert"
+msgstr "알림 닫기"
+
+#: components/AddressInput.tsx:68
+#: components/AddressInput.tsx:70
+msgid "Copy address to clipboard"
+msgstr "클립보드에 주소 복사"
+
+#: pages/index.tsx:537
+msgid "Experimental!"
+msgstr "실험적!"
+
+#: components/AddressCard.tsx:131
+msgid "Found"
+msgstr "발견됨"
+
+#: components/AddressCard.tsx:198
+#: components/AddressCard.tsx:376
+msgid "Net Asset Value:"
+msgstr "순자산 가치:"
+
+#: components/AddressCard.tsx:145
+msgid "No Aave positions found."
+msgstr "Aave 포지션을 찾을 수 없습니다."
+
+#: components/AddressCard.tsx:409
+msgid "No Liquidation Scenario Available"
+msgstr "사용 가능한 청산 시나리오 없음"
+
+#: pages/index.tsx:75
+msgid "OR"
+msgstr "또는"
+
+#: pages/index.tsx:64
+msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
+msgstr "위 상자에 Aave 부채 포지션이 있는 주소를 붙여넣으면 자산 차입/예비자산 변경이 포지션의 건전성 비율과 차입력에 어떤 영향을 미치는지 시각화할 수 있습니다."
+
+#: components/AddressCard.tsx:426
+msgid "Price Liquidation Scenario"
+msgstr "가격 청산 시나리오"
+
+#: components/Footer.tsx:125
+msgid "Questions or comments? Please <0>join the Discord!</0>"
+msgstr "질문이나 의견이 있으신가요? <0>디스코드에 참여해</0> 주세요 <0>!</0>"
+
+#: components/AddressCard.tsx:812
+msgid "Remove {assetSymbol}"
+msgstr "{assetSymbol}] 제거"
+
+#: components/AddressCard.tsx:193
+#: components/AddressCard.tsx:364
+msgid "Reserve Asset Value:"
+msgstr "자산 가치 예약:"
+
+#: components/AddressCard.tsx:587
+msgid "Reserve Assets"
+msgstr "자산 예약"
+
+#: components/AddressCard.tsx:541
+msgid "Reset all simulated values"
+msgstr "모든 시뮬레이션 값 초기화"
+
+#: components/AddAssetDialog.tsx:94
+msgid "Reset search query"
+msgstr "검색어 재설정"
+
+#: components/AddressCard.tsx:972
+msgid "Reset to Original Value ({0})"
+msgstr "원래 값으로 재설정({0})"
+
+#: components/AddAssetDialog.tsx:86
+msgid "Search for {0} Assets"
+msgstr "{0}] 에셋 검색"
+
+#: components/AddAssetDialog.tsx:118
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
+msgstr "아래에서 {0} ({1}) {2}를 선택하여 CDP에 {3} 자산으로 추가합니다."
+
+#: components/AddressCard.tsx:239
+msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
+msgstr "문제가 발생하여 지금 주소 부채 포지션 데이터를 로드할 수 없습니다. 나중에 다시 시도해 주세요."
+
+#: components/AddAssetDialog.tsx:110
+msgid "There are no assets that match the search query. Reset the search query to select an asset."
+msgstr "검색어와 일치하는 자산이 없습니다. 검색 쿼리를 재설정하여 에셋을 선택합니다."
+
+#: components/AddressCard.tsx:671
+msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
+msgstr "{0}] 마켓에 <0/>에 대한 차입 자산이 없습니다. \"자산 차입 추가\"를 선택하여 이 주소에 대한 차입 자산을 시뮬레이션합니다."
+
+#: components/AddressCard.tsx:594
+msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
+msgstr "{0}] 마켓에 <0/>에 대한 예약 자산이 없습니다. \"예탁 자산 추가\"를 선택하면 이 주소에 대한 예탁 자산을 시뮬레이션할 수 있습니다."
+
+#: pages/index.tsx:544
+msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
+msgstr "이 Aave 부채 시뮬레이터는 실험적이며 현재 개발 중입니다. 이 앱의 결과에만 의존하여 재무 결정을 내리지 마세요."
+
+#: components/AddressCard.tsx:183
+#: components/AddressCard.tsx:340
+msgid "Total Borrowed:"
+msgstr "총 차입금:"
+
+#: components/AddressInput.tsx:62
+#: components/AddressInput.tsx:64
+#: pages/index.tsx:523
+msgid "Use Random Address"
+msgstr "임의 주소 사용"
+
+#: components/AddressCard.tsx:883
+msgid "Use {assetSymbol} as collateral"
+msgstr "{assetSymbol}]을 담보로 사용하세요"
+
+#: components/AddressInput.tsx:73
+msgid "View address on Etherscan"
+msgstr "이더스캔에서 주소 보기"
+
+#: components/AddressInput.tsx:75
+msgid "Visit address details on Etherscan"
+msgstr "이더스캔의 주소 상세 정보 방문하기"
+
+#: pages/index.tsx:79
+msgid "Want to go for a quick spin?"
+msgstr "빠르게 한 바퀴 돌고 싶으신가요?"
+
+#: components/AddressCard.tsx:137
+msgid "in"
+msgstr "in"
+
+#: components/Footer.tsx:115
+msgid "is an unofficial, open source, community-built Aave debt simulator."
+msgstr "는 커뮤니티에서 만든 비공식 오픈 소스 Aave 부채 시뮬레이터입니다."
+
+#: components/AddressCard.tsx:141
+msgid "{0, plural, one {market} other {markets}}"
+msgstr "{ 0, plural, other {시장} }"
+
+#: components/AddressCard.tsx:135
+msgid "{0, plural, one {position} other {positions}}"
+msgstr "{ 0, plural, other {위치} }"
+
+#: components/AddressCard.tsx:1047
+msgid "{assetSymbol} Price ({currencySymbol})"
+msgstr "{assetSymbol} 가격 ({currencySymbol})"
+
+#: components/AddressCard.tsx:943
+msgid "{assetSymbol} Quantity"
+msgstr "{assetSymbol} 수량"

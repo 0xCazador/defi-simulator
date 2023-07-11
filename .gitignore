@@ -36,3 +36,7 @@ yarn-error.log*
 
 # storybook
 storybook-static
+
+# lingui translation catalogs
+src/locales/_build/
+src/locales/**/*.js

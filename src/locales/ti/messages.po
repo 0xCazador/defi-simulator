@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: ti\n"
+
+#: components/AddressCard.tsx:449
+msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
+msgstr "<0>እቲ ናይ ዋጋ ምፍራስ ስናርዮ ነቲ መርገጺ ምፍራስ ከቃልዖ ዝኽእል ብግምት ዝለዓለ ዕቑር ንብረት ዋጋታት ዝውክል እዩ። ርጉእ ንብረት ኣብዚ ስናርዮ ኣይተኻተተንን ህሉው ዋጋኦም ከምዝዕቅቡን ይግመት። ብዙሓት ረቛሒታት ኣብ ምፍራስ ይጸልዉ። እዚ ስናርዮ እዚ ንመወከሲ ዝኸውን ሓደ ኣብነት ጥራይ እዩ። ብዙሓት ዝተፈላለዩ ተርእዮታት ምፍራስ ከበግሱ ይኽእሉ እዮም።<1>ተወሳኺ ኣብዚ ኣንብቡ።</1> .</0>"
+
+#: components/AddressCard.tsx:66
+msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
+msgstr "<0>እዚ ናይ ዕዳ ቦታ Emode (Efficieny Mode) enabled ኣለዎ፣ DeFi Simulator ግን ገና Emode enabled ዘለዎም positions ኣይድግፍን እዩ። ኣብ ቀረባ እዋን ንኢሞድ ደገፍ ክንውስኸሉ ተስፋ ንገብር።</0> <1/> ዝብል ጽሑፍ ኣሎ።"
+
+#: components/AddAssetDialog.tsx:82
+#: components/AddAssetDialog.tsx:151
+msgid "Add {0} Asset"
+msgstr "{0} ንብረት ምውሳኽ"
+
+#: components/AddressCard.tsx:152
+msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
+msgstr "ኣብ ታሕቲ ዘሎ ዋጋታትን ብዝሕን ንብረት ምውሳኽ፣ ምእላይን ምምሕያሽን ኣብ ረቛሒ ጥዕናን ሓይል ልቓሕን ዝመጽእ ለውጢ ንምስኣል።"
+
+#: components/AddressInput.tsx:68
+msgid "Address copied to clipboard!"
+msgstr "ኣድራሻ ናብ ቅንጥብጣብ ሰሌዳ ተቐዲሑ!"
+
+#: components/AddressCard.tsx:508
+msgid "Apply"
+msgstr "ኣተግብር"
+
+#: components/AddressCard.tsx:188
+#: components/AddressCard.tsx:352
+msgid "Available to Borrow:"
+msgstr "ንምልቃሕ ዝቐርብ፤"
+
+#: components/AddressCard.tsx:664
+msgid "Borrowed Assets"
+msgstr "ዝተለቅሐ ንብረት"
+
+#: pages/index.tsx:89
+msgid "Build from Scratch"
+msgstr "ካብ ባዶ ምህናጽ"
+
+#: pages/index.tsx:542
+msgid "Close alert"
+msgstr "ምዕጻው መጠንቀቕታ"
+
+#: components/AddressInput.tsx:68
+#: components/AddressInput.tsx:70
+msgid "Copy address to clipboard"
+msgstr "ኣድራሻ ናብ ቅንጥብጣብ ሰሌዳ ቅዳሕ"
+
+#: pages/index.tsx:537
+msgid "Experimental!"
+msgstr "ፈተነ!"
+
+#: components/AddressCard.tsx:131
+msgid "Found"
+msgstr "ተረኺቡ"
+
+#: components/AddressCard.tsx:198
+#: components/AddressCard.tsx:376
+msgid "Net Asset Value:"
+msgstr "ጽሩይ ዋጋ ንብረት፤"
+
+#: components/AddressCard.tsx:145
+msgid "No Aave positions found."
+msgstr "ዝኾነ ናይ Aave መርገጺታት ኣይተረኽበን።"
+
+#: components/AddressCard.tsx:409
+msgid "No Liquidation Scenario Available"
+msgstr "ናይ ምፍራስ ስናርዮ የለን"
+
+#: pages/index.tsx:75
+msgid "OR"
+msgstr "ወይ"
+
+#: pages/index.tsx:64
+msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
+msgstr "ኣብዚ ኣብ ላዕሊ ዘሎ ሳጹን ናይ Aave ዕዳ ፖዚሽን ዘለዎ ኣድራሻ ለጥፍ እሞ ኣብ ምልቃሕ/ዕቑር ንብረት ዝግበር ለውጢ ነቲ ናይቲ ቦታ ጥዕናዊ ረቛሒን ናይ ምልቃሕ ሓይልን ብኸመይ ከም ዝጸልዎ ኣብ ኣእምሮኻ ምልጣፍ።"
+
+#: components/AddressCard.tsx:426
+msgid "Price Liquidation Scenario"
+msgstr "ዋጋ ምፍራስ ስናርዮ"
+
+#: components/Footer.tsx:125
+msgid "Questions or comments? Please <0>join the Discord!</0>"
+msgstr "ሕቶታት ወይ ርእይቶታት? በጃኹም <0>ኣብ ዲስኮርድ ተጸንበሩ!</0>"
+
+#: components/AddressCard.tsx:812
+msgid "Remove {assetSymbol}"
+msgstr "{assetSymbol} ኣወግድ።"
+
+#: components/AddressCard.tsx:193
+#: components/AddressCard.tsx:364
+msgid "Reserve Asset Value:"
+msgstr "ዕቑር ንብረት ዋጋ፤"
+
+#: components/AddressCard.tsx:587
+msgid "Reserve Assets"
+msgstr "ዕቑር ንብረት"
+
+#: components/AddressCard.tsx:541
+msgid "Reset all simulated values"
+msgstr "ኩሎም ዝተመሰሉ ክብርታት ዳግማይ ኣቐምጦም"
+
+#: components/AddAssetDialog.tsx:94
+msgid "Reset search query"
+msgstr "ናይ ምድላይ ሕቶ ዳግማይ ኣቐምጦ"
+
+#: components/AddressCard.tsx:972
+msgid "Reset to Original Value ({0})"
+msgstr "ናብ መበቆላዊ ዋጋ ምምላስ ({0})"
+
+#: components/AddAssetDialog.tsx:86
+msgid "Search for {0} Assets"
+msgstr "{0} ንብረት ድለዩ።"
+
+#: components/AddAssetDialog.tsx:118
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
+msgstr "ከም {3} ንብረት ናብ CDP ንምውሳኽ ኣብ ታሕቲ {0} ({1}) {2} ምረጽ።"
+
+#: components/AddressCard.tsx:239
+msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
+msgstr "ገለ ነገር ኣጋጢሙ፣ ኣብዚ ሕጂ እዋን ናይ ኣድራሻ ዕዳ መርገጺ ዳታ ክንጽዕን ኣይከኣልናን። ድሒርካ ደጊምካ ፈትን።"
+
+#: components/AddAssetDialog.tsx:110
+msgid "There are no assets that match the search query. Reset the search query to select an asset."
+msgstr "ምስቲ ናይ ምድላይ ሕቶ ዝሰማማዕ ንብረት የለን። ንብረት ንምምራጽ ነቲ ናይ ምድላይ ሕቶ ዳግማይ ኣቐምጦ።"
+
+#: components/AddressCard.tsx:671
+msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
+msgstr "ኣብ ዕዳጋ {0} ን<0/> ዝተለቅሐ ንብረት የለን። ነዚ ኣድራሻ ዝተለቅሐ ንብረት ንምምሳል \"Add Borrow Asset\" ምረጽ።"
+
+#: components/AddressCard.tsx:594
+msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
+msgstr "ኣብ ዕዳጋ {0} ን<0/> ዝኸውን ዕቑር ንብረት የለን። ነዚ ኣድራሻ ዕቑር ንብረት ንምምሳል \"Add Reserve Asset\" ምረጽ።"
+
+#: pages/index.tsx:544
+msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
+msgstr "እዚ Aave debt simulator ዝበሃል ናይ ፈተነን ኣብ ንጡፍ ምዕባለ ዝርከብን እዩ። ኣብ ውጽኢት ናይዚ ኣፕ ጥራይ ተመርኲስካ ፋይናንሳዊ ውሳነታት ኣይትውሰድ።"
+
+#: components/AddressCard.tsx:183
+#: components/AddressCard.tsx:340
+msgid "Total Borrowed:"
+msgstr "ጠቕላላ ዝተለቅሐ፤"
+
+#: components/AddressInput.tsx:62
+#: components/AddressInput.tsx:64
+#: pages/index.tsx:523
+msgid "Use Random Address"
+msgstr "ዕድመ ልክዕ ኣድራሻ ተጠቐም"
+
+#: components/AddressCard.tsx:883
+msgid "Use {assetSymbol} as collateral"
+msgstr "{assetSymbol} ከም ዋሕስ ምጥቃም"
+
+#: components/AddressInput.tsx:73
+msgid "View address on Etherscan"
+msgstr "ኣድራሻ ኣብ ኢተርስካን ርአ"
+
+#: components/AddressInput.tsx:75
+msgid "Visit address details on Etherscan"
+msgstr "ዝርዝር ኣድራሻ ኣብ ኢተርስካን ተወከሱ"
+
+#: pages/index.tsx:79
+msgid "Want to go for a quick spin?"
+msgstr "ቅልጡፍ ምዝዋር ክትከይድ ትደሊ?"
+
+#: components/AddressCard.tsx:137
+msgid "in"
+msgstr "አብ ውሽጢ"
+
+#: components/Footer.tsx:115
+msgid "is an unofficial, open source, community-built Aave debt simulator."
+msgstr "ዘይወግዓዊ፡ ክፉት ምንጪ ዘለዎ፡ ብማሕበረሰብ ዝተሃንጸ Aave debt simulator እዩ።"
+
+#: components/AddressCard.tsx:141
+msgid "{0, plural, one {market} other {markets}}"
+msgstr "{ 0, plural, one {ዕዳጋ} other {ዕዳጋታት} }"
+
+#: components/AddressCard.tsx:135
+msgid "{0, plural, one {position} other {positions}}"
+msgstr "{ 0, plural, one {ቦታ} other {መርገጺታት} }"
+
+#: components/AddressCard.tsx:1047
+msgid "{assetSymbol} Price ({currencySymbol})"
+msgstr "{assetSymbol} ዋጋ ({currencySymbol})"
+
+#: components/AddressCard.tsx:943
+msgid "{assetSymbol} Quantity"
+msgstr "{assetSymbol} ብዝሒ"

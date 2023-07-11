@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: is\n"
+
+#: components/AddressCard.tsx:449
+msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
+msgstr "<0>Verðslitasviðið táknar um það bil hæsta bindieignaverð sem gæti sett stöðuna undir slit. Stöðugar eignir eru ekki innifaldar í þessari atburðarás og er gert ráð fyrir að þær haldi núvirði sínu. Margir þættir hafa áhrif á slit. Þessi atburðarás er aðeins eitt dæmi til viðmiðunar. Margar mismunandi aðstæður geta komið af stað gjaldþroti.<1>Lestu meira hér</1> .</0>"
+
+#: components/AddressCard.tsx:66
+msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
+msgstr "<0>Þessi skuldastaða er með Emode (hagkvæmniham) virkt, en DeFi Simulator styður ekki enn stöður með Emode virkt. Við vonumst til að bæta við stuðningi við Emode fljótlega.</0> <1/>"
+
+#: components/AddAssetDialog.tsx:82
+#: components/AddAssetDialog.tsx:151
+msgid "Add {0} Asset"
+msgstr "Bæta við {0} eign"
+
+#: components/AddressCard.tsx:152
+msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
+msgstr "Bættu við, fjarlægðu og breyttu eignaverði og magni hér að neðan til að sjá breytingar á heilsuþáttum og lántöku."
+
+#: components/AddressInput.tsx:68
+msgid "Address copied to clipboard!"
+msgstr "Heimilisfang afritað á klemmuspjald!"
+
+#: components/AddressCard.tsx:508
+msgid "Apply"
+msgstr "Sækja um"
+
+#: components/AddressCard.tsx:188
+#: components/AddressCard.tsx:352
+msgid "Available to Borrow:"
+msgstr "Hægt að lána:"
+
+#: components/AddressCard.tsx:664
+msgid "Borrowed Assets"
+msgstr "Lánareignir"
+
+#: pages/index.tsx:89
+msgid "Build from Scratch"
+msgstr "Byggja frá grunni"
+
+#: pages/index.tsx:542
+msgid "Close alert"
+msgstr "Lokaðu viðvörun"
+
+#: components/AddressInput.tsx:68
+#: components/AddressInput.tsx:70
+msgid "Copy address to clipboard"
+msgstr "Afritaðu heimilisfang á klemmuspjald"
+
+#: pages/index.tsx:537
+msgid "Experimental!"
+msgstr "Tilraunakennt!"
+
+#: components/AddressCard.tsx:131
+msgid "Found"
+msgstr "Fundið"
+
+#: components/AddressCard.tsx:198
+#: components/AddressCard.tsx:376
+msgid "Net Asset Value:"
+msgstr "Hreint eignavirði:"
+
+#: components/AddressCard.tsx:145
+msgid "No Aave positions found."
+msgstr "Engar Aave stöður fundust."
+
+#: components/AddressCard.tsx:409
+msgid "No Liquidation Scenario Available"
+msgstr "Engin slitatburðarás í boði"
+
+#: pages/index.tsx:75
+msgid "OR"
+msgstr "EÐA"
+
+#: pages/index.tsx:64
+msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
+msgstr "Límdu heimilisfang með Aave skuldastöðu í reitinn hér að ofan til að sjá hvernig breytingar á lántökum/varasjóðseignum hafa áhrif á heilsuþátt stöðunnar og lántökugetu."
+
+#: components/AddressCard.tsx:426
+msgid "Price Liquidation Scenario"
+msgstr "Atburðarás verðslita"
+
+#: components/Footer.tsx:125
+msgid "Questions or comments? Please <0>join the Discord!</0>"
+msgstr "Spurningar eða athugasemdir? Vinsamlegast <0>vertu með í Discord!</0>"
+
+#: components/AddressCard.tsx:812
+msgid "Remove {assetSymbol}"
+msgstr "Fjarlægðu {assetSymbol}"
+
+#: components/AddressCard.tsx:193
+#: components/AddressCard.tsx:364
+msgid "Reserve Asset Value:"
+msgstr "Varaverðmæti:"
+
+#: components/AddressCard.tsx:587
+msgid "Reserve Assets"
+msgstr "Varaeign"
+
+#: components/AddressCard.tsx:541
+msgid "Reset all simulated values"
+msgstr "Endurstilla öll hermgildi"
+
+#: components/AddAssetDialog.tsx:94
+msgid "Reset search query"
+msgstr "Endurstilla leitarfyrirspurn"
+
+#: components/AddressCard.tsx:972
+msgid "Reset to Original Value ({0})"
+msgstr "Endurstillt í upprunalegt gildi ({0})"
+
+#: components/AddAssetDialog.tsx:86
+msgid "Search for {0} Assets"
+msgstr "Leitaðu að {0} eignum"
+
+#: components/AddAssetDialog.tsx:118
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
+msgstr "Veldu {0} ({1}) {2} fyrir neðan til að bæta því sem {3} eign við CDP."
+
+#: components/AddressCard.tsx:239
+msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
+msgstr "Eitthvað gerðist, við getum ekki hlaðið inn gögnum um skuldastöðu heimilisfangsins núna. Reyndu aftur seinna."
+
+#: components/AddAssetDialog.tsx:110
+msgid "There are no assets that match the search query. Reset the search query to select an asset."
+msgstr "Það eru engar eignir sem passa við leitarfyrirspurnina. Endurstilltu leitarfyrirspurnina til að velja eign."
+
+#: components/AddressCard.tsx:671
+msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
+msgstr "Það eru engar lánaðar eignir fyrir <0/>á {0} markaðnum. Veldu „Bæta við lánaeign“ til að líkja eftir lánuðum eignum fyrir þetta heimilisfang."
+
+#: components/AddressCard.tsx:594
+msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
+msgstr "Engar varaeignir eru fyrir <0/>á {0} markaðnum. Veldu „Bæta við varaeign“ til að líkja eftir varaeignum fyrir þetta heimilisfang."
+
+#: pages/index.tsx:544
+msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
+msgstr "Þessi Aave skuldahermir er tilraunaverkefni og í virkri þróun. Ekki taka fjárhagslegar ákvarðanir eingöngu byggðar á niðurstöðum þessa apps."
+
+#: components/AddressCard.tsx:183
+#: components/AddressCard.tsx:340
+msgid "Total Borrowed:"
+msgstr "Heildarlán:"
+
+#: components/AddressInput.tsx:62
+#: components/AddressInput.tsx:64
+#: pages/index.tsx:523
+msgid "Use Random Address"
+msgstr "Notaðu Random Address"
+
+#: components/AddressCard.tsx:883
+msgid "Use {assetSymbol} as collateral"
+msgstr "Notaðu {assetSymbol} sem tryggingu"
+
+#: components/AddressInput.tsx:73
+msgid "View address on Etherscan"
+msgstr "Skoðaðu heimilisfang á Etherscan"
+
+#: components/AddressInput.tsx:75
+msgid "Visit address details on Etherscan"
+msgstr "Skoðaðu upplýsingar um heimilisfang á Etherscan"
+
+#: pages/index.tsx:79
+msgid "Want to go for a quick spin?"
+msgstr "Langar þig að fara í snöggan snúning?"
+
+#: components/AddressCard.tsx:137
+msgid "in"
+msgstr "inn"
+
+#: components/Footer.tsx:115
+msgid "is an unofficial, open source, community-built Aave debt simulator."
+msgstr "er óopinber, opinn uppspretta, samfélagsgerður Aave skuldahermi."
+
+#: components/AddressCard.tsx:141
+msgid "{0, plural, one {market} other {markets}}"
+msgstr "{ 0, plural, one {markaði} other {mörkuðum} }"
+
+#: components/AddressCard.tsx:135
+msgid "{0, plural, one {position} other {positions}}"
+msgstr "{ 0, plural, one {stöðu} other {stöður} }"
+
+#: components/AddressCard.tsx:1047
+msgid "{assetSymbol} Price ({currencySymbol})"
+msgstr "{assetSymbol} Verð ({currencySymbol})"
+
+#: components/AddressCard.tsx:943
+msgid "{assetSymbol} Quantity"
+msgstr "{assetSymbol} Magn"

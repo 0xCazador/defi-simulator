@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: th\n"
+
+#: components/AddressCard.tsx:449
+msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
+msgstr "<0>สถานการณ์จำลองการชำระราคาแสดงถึงราคาสินทรัพย์สำรองสูงสุดโดยประมาณที่อาจทำให้สถานะถูกชำระบัญชี สถานการณ์นี้ไม่รวมสินทรัพย์ที่มั่นคงและจะถือว่ารักษามูลค่าปัจจุบัน มีหลายปัจจัยที่ส่งผลต่อการชำระบัญชี สถานการณ์นี้เป็นเพียงตัวอย่างหนึ่งสำหรับการอ้างอิงเท่านั้น สถานการณ์ต่างๆ มากมายสามารถทำให้เกิดการชำระบัญชีได้<1>อ่านเพิ่มเติมที่นี่</1> .</0>"
+
+#: components/AddressCard.tsx:66
+msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
+msgstr "<0>สถานะหนี้นี้เปิดใช้งาน Emode (โหมดประสิทธิภาพ) แต่ DeFi Simulator ยังไม่รองรับสถานะที่เปิดใช้งาน Emode เราหวังว่าจะเพิ่มการรองรับสำหรับ Emode ในเร็วๆ นี้</0> <1/>"
+
+#: components/AddAssetDialog.tsx:82
+#: components/AddAssetDialog.tsx:151
+msgid "Add {0} Asset"
+msgstr "เพิ่มเนื้อหา {0}"
+
+#: components/AddressCard.tsx:152
+msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
+msgstr "เพิ่ม ลบ และแก้ไขราคาสินทรัพย์และปริมาณด้านล่างเพื่อให้เห็นภาพการเปลี่ยนแปลงปัจจัยด้านสุขภาพและอำนาจการกู้ยืม"
+
+#: components/AddressInput.tsx:68
+msgid "Address copied to clipboard!"
+msgstr "คัดลอกที่อยู่ไปยังคลิปบอร์ดแล้ว!"
+
+#: components/AddressCard.tsx:508
+msgid "Apply"
+msgstr "นำมาใช้"
+
+#: components/AddressCard.tsx:188
+#: components/AddressCard.tsx:352
+msgid "Available to Borrow:"
+msgstr "มีให้ยืม:"
+
+#: components/AddressCard.tsx:664
+msgid "Borrowed Assets"
+msgstr "สินทรัพย์ที่ยืม"
+
+#: pages/index.tsx:89
+msgid "Build from Scratch"
+msgstr "สร้างจากศูนย์"
+
+#: pages/index.tsx:542
+msgid "Close alert"
+msgstr "ปิดการแจ้งเตือน"
+
+#: components/AddressInput.tsx:68
+#: components/AddressInput.tsx:70
+msgid "Copy address to clipboard"
+msgstr "คัดลอกที่อยู่ไปยังคลิปบอร์ด"
+
+#: pages/index.tsx:537
+msgid "Experimental!"
+msgstr "ทดลอง!"
+
+#: components/AddressCard.tsx:131
+msgid "Found"
+msgstr "พบ"
+
+#: components/AddressCard.tsx:198
+#: components/AddressCard.tsx:376
+msgid "Net Asset Value:"
+msgstr "มูลค่าทรัพย์สินสุทธิ:"
+
+#: components/AddressCard.tsx:145
+msgid "No Aave positions found."
+msgstr "ไม่พบตำแหน่ง Aave"
+
+#: components/AddressCard.tsx:409
+msgid "No Liquidation Scenario Available"
+msgstr "ไม่มีสถานการณ์การชำระบัญชี"
+
+#: pages/index.tsx:75
+msgid "OR"
+msgstr "หรือ"
+
+#: pages/index.tsx:64
+msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
+msgstr "วางที่อยู่ที่มีตำแหน่งหนี้ Aave ในช่องด้านบนเพื่อให้เห็นภาพว่าการเปลี่ยนแปลงในการยืม/จองสินทรัพย์ส่งผลต่อปัจจัยด้านสุขภาพของตำแหน่งและอำนาจการยืมอย่างไร"
+
+#: components/AddressCard.tsx:426
+msgid "Price Liquidation Scenario"
+msgstr "สถานการณ์การชำระราคา"
+
+#: components/Footer.tsx:125
+msgid "Questions or comments? Please <0>join the Discord!</0>"
+msgstr "คำถามหรือความคิดเห็น? โปรด <0>เข้าร่วม Discord!</0>"
+
+#: components/AddressCard.tsx:812
+msgid "Remove {assetSymbol}"
+msgstr "ลบ {assetSymbol}"
+
+#: components/AddressCard.tsx:193
+#: components/AddressCard.tsx:364
+msgid "Reserve Asset Value:"
+msgstr "มูลค่าสินทรัพย์สำรอง:"
+
+#: components/AddressCard.tsx:587
+msgid "Reserve Assets"
+msgstr "สินทรัพย์สำรอง"
+
+#: components/AddressCard.tsx:541
+msgid "Reset all simulated values"
+msgstr "รีเซ็ตค่าจำลองทั้งหมด"
+
+#: components/AddAssetDialog.tsx:94
+msgid "Reset search query"
+msgstr "รีเซ็ตคำค้นหา"
+
+#: components/AddressCard.tsx:972
+msgid "Reset to Original Value ({0})"
+msgstr "รีเซ็ตเป็นค่าดั้งเดิม ({0})"
+
+#: components/AddAssetDialog.tsx:86
+msgid "Search for {0} Assets"
+msgstr "ค้นหาเนื้อหา {0}"
+
+#: components/AddAssetDialog.tsx:118
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
+msgstr "เลือก {0} ({1}) {2} ด้านล่างเพื่อเพิ่มเป็นเนื้อหา {3} ใน CDP"
+
+#: components/AddressCard.tsx:239
+msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
+msgstr "มีบางอย่างเกิดขึ้น เราไม่สามารถโหลดข้อมูลตำแหน่งหนี้ที่อยู่ได้ในขณะนี้ ลองอีกครั้งในภายหลัง"
+
+#: components/AddAssetDialog.tsx:110
+msgid "There are no assets that match the search query. Reset the search query to select an asset."
+msgstr "ไม่มีเนื้อหาที่ตรงกับคำค้นหา รีเซ็ตคำค้นหาเพื่อเลือกเนื้อหา"
+
+#: components/AddressCard.tsx:671
+msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
+msgstr "ไม่มีสินทรัพย์ที่ยืมมาสำหรับ <0/>ในตลาด {0} เลือก \"เพิ่มสินทรัพย์ที่ยืม\" เพื่อจำลองสินทรัพย์ที่ยืมสำหรับที่อยู่นี้"
+
+#: components/AddressCard.tsx:594
+msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
+msgstr "ไม่มีสินทรัพย์สำรองสำหรับ <0/>ในตลาด {0} เลือก \"เพิ่มสินทรัพย์สำรอง\" เพื่อจำลองสินทรัพย์สำรองสำหรับที่อยู่นี้"
+
+#: pages/index.tsx:544
+msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
+msgstr "โปรแกรมจำลองหนี้ Aave นี้อยู่ระหว่างการทดลองและอยู่ระหว่างการพัฒนา อย่าตัดสินใจทางการเงินโดยพิจารณาจากผลลัพธ์ของแอปนี้เพียงอย่างเดียว"
+
+#: components/AddressCard.tsx:183
+#: components/AddressCard.tsx:340
+msgid "Total Borrowed:"
+msgstr "ยืมทั้งหมด:"
+
+#: components/AddressInput.tsx:62
+#: components/AddressInput.tsx:64
+#: pages/index.tsx:523
+msgid "Use Random Address"
+msgstr "ใช้ที่อยู่สุ่ม"
+
+#: components/AddressCard.tsx:883
+msgid "Use {assetSymbol} as collateral"
+msgstr "ใช้ {assetSymbol} เป็นหลักประกัน"
+
+#: components/AddressInput.tsx:73
+msgid "View address on Etherscan"
+msgstr "ดูที่อยู่ใน Etherscan"
+
+#: components/AddressInput.tsx:75
+msgid "Visit address details on Etherscan"
+msgstr "ดูรายละเอียดที่อยู่บน Etherscan"
+
+#: pages/index.tsx:79
+msgid "Want to go for a quick spin?"
+msgstr "ต้องการที่จะหมุนอย่างรวดเร็ว?"
+
+#: components/AddressCard.tsx:137
+msgid "in"
+msgstr "ใน"
+
+#: components/Footer.tsx:115
+msgid "is an unofficial, open source, community-built Aave debt simulator."
+msgstr "เป็นโปรแกรมจำลองหนี้ Aave แบบโอเพ่นซอร์สที่ไม่เป็นทางการและสร้างขึ้นโดยชุมชน"
+
+#: components/AddressCard.tsx:141
+msgid "{0, plural, one {market} other {markets}}"
+msgstr "{ 0, plural, other {ตลาด} }"
+
+#: components/AddressCard.tsx:135
+msgid "{0, plural, one {position} other {positions}}"
+msgstr "{ 0, plural, other {ตำแหน่ง} }"
+
+#: components/AddressCard.tsx:1047
+msgid "{assetSymbol} Price ({currencySymbol})"
+msgstr "{assetSymbol} ราคา ({currencySymbol})"
+
+#: components/AddressCard.tsx:943
+msgid "{assetSymbol} Quantity"
+msgstr "{assetSymbol} ปริมาณ"

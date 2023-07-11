@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: si\n"
+
+#: components/AddressCard.tsx:449
+msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
+msgstr "<0>මිල ඈවර කිරීමේ සිද්ධිය, ස්ථානය ඈවර කිරීමට යටත් විය හැකි ආසන්නතම ඉහළම සංචිත වත්කම් මිල නියෝජනය කරයි. ස්ථාවර වත්කම් මෙම අවස්ථාවට ඇතුළත් නොවන අතර ඒවායේ වර්තමාන වටිනාකම පවත්වා ගැනීමට උපකල්පනය කෙරේ. බොහෝ සාධක ඈවර කිරීමට බලපායි. මෙම දර්ශනය යොමු කිරීම සඳහා එක් උදාහරණයක් පමණි. බොහෝ වෙනස් අවස්ථා දියකර හැරීමට හේතු විය හැක.<1>තවත් මෙතැනින් කියවන්න</1> .</0>"
+
+#: components/AddressCard.tsx:66
+msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
+msgstr "<0>මෙම ණය තත්ත්වය Emode (කාර්යක්ෂම මාදිලිය) සක්‍රීය කර ඇත, නමුත් DeFi සිමියුලේටරය Emode සක්‍රීය කර ඇති ස්ථාන සඳහා තවමත් සහාය නොදක්වයි. අපි ඉක්මනින්ම Emod සඳහා සහය එක් කිරීමට බලාපොරොත්තු වෙමු.</0> <1/>"
+
+#: components/AddAssetDialog.tsx:82
+#: components/AddAssetDialog.tsx:151
+msgid "Add {0} Asset"
+msgstr "{0} වත්කම් එක් කරන්න"
+
+#: components/AddressCard.tsx:152
+msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
+msgstr "සෞඛ්‍ය සාධකයට සහ ණය ගැනීමේ බලයට සිදුවන වෙනස්කම් දෘශ්‍යමාන කිරීමට පහත වත්කම් මිල සහ ප්‍රමාණ එකතු කරන්න, ඉවත් කරන්න, සහ වෙනස් කරන්න."
+
+#: components/AddressInput.tsx:68
+msgid "Address copied to clipboard!"
+msgstr "ලිපිනය පසුරු පුවරුවට පිටපත් කරන ලදී!"
+
+#: components/AddressCard.tsx:508
+msgid "Apply"
+msgstr "අයදුම් කරන්න"
+
+#: components/AddressCard.tsx:188
+#: components/AddressCard.tsx:352
+msgid "Available to Borrow:"
+msgstr "ණයට ගැනීමට තිබේ:"
+
+#: components/AddressCard.tsx:664
+msgid "Borrowed Assets"
+msgstr "ණයට ගත් වත්කම්"
+
+#: pages/index.tsx:89
+msgid "Build from Scratch"
+msgstr "මුල සිට ගොඩනඟන්න"
+
+#: pages/index.tsx:542
+msgid "Close alert"
+msgstr "අනතුරු ඇඟවීම වසන්න"
+
+#: components/AddressInput.tsx:68
+#: components/AddressInput.tsx:70
+msgid "Copy address to clipboard"
+msgstr "ලිපිනය පසුරු පුවරුවට පිටපත් කරන්න"
+
+#: pages/index.tsx:537
+msgid "Experimental!"
+msgstr "පර්යේෂණාත්මක!"
+
+#: components/AddressCard.tsx:131
+msgid "Found"
+msgstr "හමු විය"
+
+#: components/AddressCard.tsx:198
+#: components/AddressCard.tsx:376
+msgid "Net Asset Value:"
+msgstr "ශුද්ධ වත්කම් අගය:"
+
+#: components/AddressCard.tsx:145
+msgid "No Aave positions found."
+msgstr "Aave ස්ථාන හමු නොවීය."
+
+#: components/AddressCard.tsx:409
+msgid "No Liquidation Scenario Available"
+msgstr "දියකර හැරීමේ අවස්ථාවක් නොමැත"
+
+#: pages/index.tsx:75
+msgid "OR"
+msgstr "හෝ"
+
+#: pages/index.tsx:64
+msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
+msgstr "ණය ගැනීමේ/සංචිත වත්කම්වල වෙනස්කම් තනතුරේ සෞඛ්‍ය සාධකයට සහ ණය ගැනීමේ බලයට බලපාන ආකාරය දෘශ්‍යමාන කිරීමට ඉහත කොටුවේ Aave ණය තත්ත්වය සහිත ලිපිනයක් අලවන්න."
+
+#: components/AddressCard.tsx:426
+msgid "Price Liquidation Scenario"
+msgstr "මිල දියකර හැරීමේ අවස්ථාව"
+
+#: components/Footer.tsx:125
+msgid "Questions or comments? Please <0>join the Discord!</0>"
+msgstr "ප්රශ්න හෝ අදහස්? කරුණාකර <0>විසංවාදයට එක්වන්න!</0>"
+
+#: components/AddressCard.tsx:812
+msgid "Remove {assetSymbol}"
+msgstr "{assetSymbol} ඉවත් කරන්න"
+
+#: components/AddressCard.tsx:193
+#: components/AddressCard.tsx:364
+msgid "Reserve Asset Value:"
+msgstr "සංචිත වත්කම් අගය:"
+
+#: components/AddressCard.tsx:587
+msgid "Reserve Assets"
+msgstr "සංචිත වත්කම්"
+
+#: components/AddressCard.tsx:541
+msgid "Reset all simulated values"
+msgstr "සියලු සමාකරණ අගයන් නැවත සකසන්න"
+
+#: components/AddAssetDialog.tsx:94
+msgid "Reset search query"
+msgstr "සෙවුම් විමසුම යළි පිහිටුවන්න"
+
+#: components/AddressCard.tsx:972
+msgid "Reset to Original Value ({0})"
+msgstr "මුල් අගයට යළි පිහිටුවන්න ({0})"
+
+#: components/AddAssetDialog.tsx:86
+msgid "Search for {0} Assets"
+msgstr "{0} වත්කම් සඳහා සොයන්න"
+
+#: components/AddAssetDialog.tsx:118
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
+msgstr "CDP වෙත {3} වත්කමක් ලෙස එක් කිරීමට පහතින් {0} ({1}) {2} තෝරන්න."
+
+#: components/AddressCard.tsx:239
+msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
+msgstr "යමක් සිදු විය, අපට දැන් ලිපින ණය ස්ථාන දත්ත පූරණය කළ නොහැක. පසුව නැවත උත්සාහ කරන්න."
+
+#: components/AddAssetDialog.tsx:110
+msgid "There are no assets that match the search query. Reset the search query to select an asset."
+msgstr "සෙවුම් විමසුමට ගැලපෙන වත්කම් නොමැත. වත්කමක් තේරීමට සෙවුම් විමසුම නැවත සකසන්න."
+
+#: components/AddressCard.tsx:671
+msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
+msgstr "{0} වෙළඳපොලේ <0/> සඳහා ණයට ගත් වත්කම් නොමැත. මෙම ලිපිනය සඳහා ණයට ගත් වත්කම් අනුකරණය කිරීමට \"ණය වත්කම් එක් කරන්න\" තෝරන්න."
+
+#: components/AddressCard.tsx:594
+msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
+msgstr "{0} වෙළඳපොලේ <0/> සඳහා සංචිත වත්කම් නොමැත. මෙම ලිපිනය සඳහා සංචිත වත්කම් අනුකරණය කිරීමට \"සංචිත වත්කම් එක් කරන්න\" තෝරන්න."
+
+#: pages/index.tsx:544
+msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
+msgstr "මෙම Aave ණය සිමියුලේටරය පර්යේෂණාත්මක සහ සක්‍රීය සංවර්ධනය යටතේ පවතී. මෙම යෙදුමේ ප්‍රතිඵල මත පමණක් මුල්‍ය තීරණ නොගන්න."
+
+#: components/AddressCard.tsx:183
+#: components/AddressCard.tsx:340
+msgid "Total Borrowed:"
+msgstr "මුළු ණයට ගත්:"
+
+#: components/AddressInput.tsx:62
+#: components/AddressInput.tsx:64
+#: pages/index.tsx:523
+msgid "Use Random Address"
+msgstr "අහඹු ලිපිනය භාවිතා කරන්න"
+
+#: components/AddressCard.tsx:883
+msgid "Use {assetSymbol} as collateral"
+msgstr "ඇපයක් ලෙස {assetSymbol} භාවිතා කරන්න"
+
+#: components/AddressInput.tsx:73
+msgid "View address on Etherscan"
+msgstr "Etherscan හි ලිපිනය බලන්න"
+
+#: components/AddressInput.tsx:75
+msgid "Visit address details on Etherscan"
+msgstr "Etherscan හි ලිපින විස්තර වෙත පිවිසෙන්න"
+
+#: pages/index.tsx:79
+msgid "Want to go for a quick spin?"
+msgstr "ඉක්මන් භ්‍රමණයකට යාමට අවශ්‍යද?"
+
+#: components/AddressCard.tsx:137
+msgid "in"
+msgstr "තුල"
+
+#: components/Footer.tsx:115
+msgid "is an unofficial, open source, community-built Aave debt simulator."
+msgstr "යනු නිල නොවන, විවෘත මූලාශ්‍ර, ප්‍රජාව විසින් ගොඩනඟන ලද Aave ණය සිමියුලේටරයකි."
+
+#: components/AddressCard.tsx:141
+msgid "{0, plural, one {market} other {markets}}"
+msgstr "{ 0, plural, one {වෙලඳපොල} other {වෙලඳපොලවල්} }"
+
+#: components/AddressCard.tsx:135
+msgid "{0, plural, one {position} other {positions}}"
+msgstr "{ 0, plural, one {තනතුර} other {තනතුරු} }"
+
+#: components/AddressCard.tsx:1047
+msgid "{assetSymbol} Price ({currencySymbol})"
+msgstr "{assetSymbol} මිල ({currencySymbol})"
+
+#: components/AddressCard.tsx:943
+msgid "{assetSymbol} Quantity"
+msgstr "{assetSymbol} ප්‍රමාණය"

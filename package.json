@@ -20,7 +20,9 @@
     "storybook": "start-storybook -p 7001",
     "storybook:build": "build-storybook",
     "extract": "lingui extract",
-    "compile": "lingui compile"
+    "compile": "lingui compile",
+    "sync": "lingui extract --overwrite && lingui compile",
+    "sync_and_purge": "lingui extract --overwrite --clean && lingui compile"
   },
   "dependencies": {
     "@aave/contract-helpers": "^1.17.4",

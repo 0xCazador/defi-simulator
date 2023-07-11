@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: mi\n"
+
+#: components/AddressCard.tsx:449
+msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
+msgstr "<0>Ko te tauari whakaheke utu e tohu ana i nga utu rawa rahui teitei ka taea te tuku i te tuunga ki te whakakorenga. Karekau nga rawa pumau i roto i tenei ahuatanga ka kiia ka mau tonu te uara o naianei. He maha nga mea e pa ana ki te whakakore. Ko tenei ahuatanga he tauira kotahi hei tohutoro. He maha nga ahuatanga rereke ka taea te whakakore.<1>Pnui atu i konei</1> .</0>"
+
+#: components/AddressCard.tsx:66
+msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
+msgstr "<0>Ko tenei turanga nama he Emode (Efficieny Aratau) kua whakahohea, engari kaore ano a DeFi Simulator e tautoko i nga tuunga me te Emode kua whakahohea. Ko te tumanako ka taapirihia he tautoko mo te Emode.</0> <1/>"
+
+#: components/AddAssetDialog.tsx:82
+#: components/AddAssetDialog.tsx:151
+msgid "Add {0} Asset"
+msgstr "Tāpiri {0} Rawa"
+
+#: components/AddressCard.tsx:152
+msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
+msgstr "Tāpiri, tango, whakarerekē i ngā utu rawa me ngā rahinga kei raro nei hei tiro i ngā huringa ki te take hauora me te mana nama."
+
+#: components/AddressInput.tsx:68
+msgid "Address copied to clipboard!"
+msgstr "Ko te wahitau i kape ki te papatopenga!"
+
+#: components/AddressCard.tsx:508
+msgid "Apply"
+msgstr "Tonoa"
+
+#: components/AddressCard.tsx:188
+#: components/AddressCard.tsx:352
+msgid "Available to Borrow:"
+msgstr "Wātea ki te Tārewa:"
+
+#: components/AddressCard.tsx:664
+msgid "Borrowed Assets"
+msgstr "Nga Rawa Kua Namaa"
+
+#: pages/index.tsx:89
+msgid "Build from Scratch"
+msgstr "Hanga mai i te Scratch"
+
+#: pages/index.tsx:542
+msgid "Close alert"
+msgstr "Katia mataara"
+
+#: components/AddressInput.tsx:68
+#: components/AddressInput.tsx:70
+msgid "Copy address to clipboard"
+msgstr "Tārua wāhitau ki te papatopenga"
+
+#: pages/index.tsx:537
+msgid "Experimental!"
+msgstr "Whakamatau!"
+
+#: components/AddressCard.tsx:131
+msgid "Found"
+msgstr "I kitea"
+
+#: components/AddressCard.tsx:198
+#: components/AddressCard.tsx:376
+msgid "Net Asset Value:"
+msgstr "Uara Rawa Kupenga:"
+
+#: components/AddressCard.tsx:145
+msgid "No Aave positions found."
+msgstr "Karekau he tuunga Aave i kitea."
+
+#: components/AddressCard.tsx:409
+msgid "No Liquidation Scenario Available"
+msgstr "Karekau he Ritenga Whakamutunga"
+
+#: pages/index.tsx:75
+msgid "OR"
+msgstr "RĀNEI"
+
+#: pages/index.tsx:64
+msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
+msgstr "Whakapirihia he wahitau me te tuunga nama Aave ki te pouaka i runga ake nei ki te whakaata i te paanga o nga huringa ki te nama/rahui rawa ki te take hauora me te mana nama nama."
+
+#: components/AddressCard.tsx:426
+msgid "Price Liquidation Scenario"
+msgstr "Utu Whakamutunga Tauari"
+
+#: components/Footer.tsx:125
+msgid "Questions or comments? Please <0>join the Discord!</0>"
+msgstr "He patai, he korero ranei? Tena koa <0> uru atu ki te Discord!</0>"
+
+#: components/AddressCard.tsx:812
+msgid "Remove {assetSymbol}"
+msgstr "Tango {assetSymbol}"
+
+#: components/AddressCard.tsx:193
+#: components/AddressCard.tsx:364
+msgid "Reserve Asset Value:"
+msgstr "Uara Rahui Rawa:"
+
+#: components/AddressCard.tsx:587
+msgid "Reserve Assets"
+msgstr "Rawa Rahui"
+
+#: components/AddressCard.tsx:541
+msgid "Reset all simulated values"
+msgstr "Tautuhi ano i nga uara whakatairite katoa"
+
+#: components/AddAssetDialog.tsx:94
+msgid "Reset search query"
+msgstr "Tautuhihia te uiui rapu"
+
+#: components/AddressCard.tsx:972
+msgid "Reset to Original Value ({0})"
+msgstr "Tautuhianu ki te Uara Taketake ({0})"
+
+#: components/AddAssetDialog.tsx:86
+msgid "Search for {0} Assets"
+msgstr "Rapua mo {0} Rawa"
+
+#: components/AddAssetDialog.tsx:118
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
+msgstr "Tīpakohia {0} ({1}) {2} ki raro hei taapiri hei taonga {3} ki te CDP."
+
+#: components/AddressCard.tsx:239
+msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
+msgstr "Kua tupu tetahi mea, kaore e taea e matou te uta i nga raraunga turanga nama nama i naianei. Ngana ano i muri mai."
+
+#: components/AddAssetDialog.tsx:110
+msgid "There are no assets that match the search query. Reset the search query to select an asset."
+msgstr "Karekau he rawa e taurite ana ki te patai rapu. Tautuhi ano i te patai rapu hei kowhiri i tetahi rawa."
+
+#: components/AddressCard.tsx:671
+msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
+msgstr "Karekau he rawa nama mo <0/>i te maakete {0}. Tīpakohia \"Tāpiri Rawa Taonga\" hei whakataurite i nga rawa nama mo tenei wahitau."
+
+#: components/AddressCard.tsx:594
+msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
+msgstr "Karekau he rawa rahui mo <0/>i te maakete {0}. Tīpakohia \"Tāpiri Rawa Rahui\" hei whakataurite i nga rawa rahui mo tenei wahitau."
+
+#: pages/index.tsx:544
+msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
+msgstr "Ko tenei simulator nama Aave he whakamatautau, kei te kaha te whakawhanaketanga. Kaua e whakatau moni i runga anake i nga hua o tenei taupānga."
+
+#: components/AddressCard.tsx:183
+#: components/AddressCard.tsx:340
+msgid "Total Borrowed:"
+msgstr "Katoa i nama:"
+
+#: components/AddressInput.tsx:62
+#: components/AddressInput.tsx:64
+#: pages/index.tsx:523
+msgid "Use Random Address"
+msgstr "Whakamahia te Wāhitau Matapōkere"
+
+#: components/AddressCard.tsx:883
+msgid "Use {assetSymbol} as collateral"
+msgstr "Whakamahia te {assetSymbol} hei taunaha"
+
+#: components/AddressInput.tsx:73
+msgid "View address on Etherscan"
+msgstr "Tirohia te wahi noho ki Etherscan"
+
+#: components/AddressInput.tsx:75
+msgid "Visit address details on Etherscan"
+msgstr "Tirohia nga korero mo te wahitau mo Etherscan"
+
+#: pages/index.tsx:79
+msgid "Want to go for a quick spin?"
+msgstr "Kei te hiahia koe ki te haere tere?"
+
+#: components/AddressCard.tsx:137
+msgid "in"
+msgstr "i roto"
+
+#: components/Footer.tsx:115
+msgid "is an unofficial, open source, community-built Aave debt simulator."
+msgstr "he puna kore mana, he puna tuwhera, he simulator nama Aave i hangaia e te hapori."
+
+#: components/AddressCard.tsx:141
+msgid "{0, plural, one {market} other {markets}}"
+msgstr "{ 0, plural, one {maakete} other {maakete} }"
+
+#: components/AddressCard.tsx:135
+msgid "{0, plural, one {position} other {positions}}"
+msgstr "{ 0, plural, one {tūnga} other {tūranga} }"
+
+#: components/AddressCard.tsx:1047
+msgid "{assetSymbol} Price ({currencySymbol})"
+msgstr "{assetSymbol} Utu ({currencySymbol})"
+
+#: components/AddressCard.tsx:943
+msgid "{assetSymbol} Quantity"
+msgstr "{assetSymbol} Rahi"

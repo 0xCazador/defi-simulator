@@ -9,14 +9,33 @@ import { Notifications } from '@mantine/notifications';
 
 import { i18n } from '@lingui/core'
 import { I18nProvider } from '@lingui/react'
-import { messages } from '../src/locales/en/messages'
+
 
 // Styles specific to noUI slider
 import 'nouislider/dist/nouislider.css';
 import "../css/slider.css";
+import { useEffect } from 'react';
 
-i18n.load('en', messages)
-i18n.activate('en')
+const defaultLocale = "en-US";
+const { messages } = await import(`../src/locales/${defaultLocale}/messages`);
+i18n.load(defaultLocale, messages);
+i18n.activate(defaultLocale);
+
+/*
+import langItems from "../src/languages/index.json";
+const langs = langItems.map(item => item.code)
+console.log({ langs })
+*/
+
+/**
+* We do a dynamic import of just the catalog that we need
+* @param locale any locale string
+*/
+export async function activateLocale(locale: string) {
+  const { messages } = await import(`../src/locales/${locale}/messages`);
+  i18n.load(locale, messages);
+  i18n.activate(locale);
+}
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;

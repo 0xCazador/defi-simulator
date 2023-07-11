@@ -1,7 +1,7 @@
 import { ReactElement, RefObject, memo, useEffect, useRef, useState } from 'react';
 import { formatNumber, formatMoney, unformat } from 'accounting';
 import noUiSlider from 'nouislider';
-import { Trans } from '@lingui/macro';
+import { Trans, Plural, t } from '@lingui/macro';
 
 import {
   Center,
@@ -63,7 +63,7 @@ const AddressCard = ({ }: Props) => {
       <HealthFactorAddressSummary addressData={addressData} />
       <div style={{ zIndex: '6', backgroundColor: "#1A1B1E" }}>
         {isEmode ? (
-          <>
+          <Trans>
             <Alert
               mb={15}
               mt={45}
@@ -75,7 +75,7 @@ const AddressCard = ({ }: Props) => {
               This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.
             </Alert>
             <HealthFactorSkeleton animate={false} />
-          </>
+          </Trans>
         ) : (
           <>
             {
@@ -127,19 +127,32 @@ export const HealthFactorAddressSummary = ({ addressData }: HealthFactorAddressS
         {count ? (
           <Text size="sm" style={{ display: 'inline-block' }}>
             <AbbreviatedEthereumAddress address={currentAddress} />
-            {`: Found Aave ${count === 1 ? 'position' : 'positions'} in ${count} ${count === 1 ? 'market' : 'markets'}.`}
+            {":  "}
+            <Trans>Found</Trans>
+            {" "}
+            Aave
+            {" "}
+            <Plural value={Number(count)} one="position" other="positions" />
+            {" "}
+            <Trans>in</Trans>
+            {" "}
+            {count}
+            {" "}
+            <Plural value={Number(count)} one="market" other="markets" />
           </Text>
         ) : (
           <Text size="sm" style={{ display: 'inline-block' }}>
-            <AbbreviatedEthereumAddress address={currentAddress} />: No Aave positions found.
+            <AbbreviatedEthereumAddress address={currentAddress} />{": "}<Trans>No Aave positions found.</Trans>
           </Text>
         )}
       </Center>
 
       <Center>
         <Text size="sm" ta="center" mt="md">
-          Add, remove, and modify asset prices/quantities below to visualize changes to health
-          factor and borrowing power.
+          <Trans>
+            Add, remove, and modify asset prices and quantities below to visualize changes to health
+            factor and borrowing power.
+          </Trans>
         </Text>
       </Center>
     </>
@@ -167,22 +180,22 @@ export const HealthFactorSkeleton = ({ animate }: HealthFactorSkeletonProps) => 
       <Grid>
         <Grid.Col lg={3} xs={6} style={{ textAlign: 'center' }}>
           <Paper>
-            <Text fz="xs">{'Total Borrowed: '}</Text>
+            <Text fz="xs"><Trans>{'Total Borrowed: '}</Trans></Text>
             <Skeleton height={45} mb="xl" animate={animate} />
           </Paper>
         </Grid.Col>
         <Grid.Col lg={3} xs={6} style={{ textAlign: 'center' }}>
-          <Text fz="xs">{'Available to Borrow: '}</Text>
+          <Text fz="xs"><Trans>{'Available to Borrow: '}</Trans></Text>
           <Skeleton height={45} mb="xl" animate={animate} />
         </Grid.Col>
         <Grid.Col lg={3} xs={6} style={{ textAlign: 'center' }}>
           <Paper>
-            <Text fz="xs">{'Reserve Asset Value: '}</Text>
+            <Text fz="xs"><Trans>{'Reserve Asset Value: '}</Trans></Text>
             <Skeleton height={45} mb="xl" animate={animate} />
           </Paper>
         </Grid.Col>
         <Grid.Col lg={3} xs={6} style={{ textAlign: 'center' }}>
-          <Text fz="xs">{'Net Asset Value: '}</Text>
+          <Text fz="xs"><Trans>{'Net Asset Value: '}</Trans></Text>
           <Skeleton height={45} mb="xl" animate={animate} />
         </Grid.Col>
       </Grid>
@@ -223,8 +236,10 @@ const HealthFactorSummary = ({ data, summaryRef }: HealthFactorSummaryProps) => 
     return (
       <Center mt={30}>
         <Text>
-          Something happened, we're not able to load the address CDP data right now. Try again
-          later.
+          <Trans>
+            Something happened, we're not able to load the address debt position data right now. Try again
+            later.
+          </Trans>
         </Text>
       </Center>
     );
@@ -299,7 +314,7 @@ const HealthFactorSummary = ({ data, summaryRef }: HealthFactorSummaryProps) => 
           labelPosition="center"
           label={
             <Title order={3}>
-              <Trans>{'Health Factor: '}</Trans>
+              {'Health Factor: '}
               {healthFactorDiffers && (
                 <>
                   <Text mr="4px" span c="dimmed">
@@ -322,7 +337,7 @@ const HealthFactorSummary = ({ data, summaryRef }: HealthFactorSummaryProps) => 
         <Grid>
           <Grid.Col lg={3} xs={6} style={{ textAlign: 'center', minHeight: '78px' }}>
             <Paper>
-              <Text fz="xs">{'Total Borrowed: '}</Text>
+              <Text fz="xs"><Trans>{'Total Borrowed: '}</Trans></Text>
               {totalBorrowsDiffers && (
                 <Text fz="xs" c="dimmed">
                   {originalTotalBorrowsUSD} ➔
@@ -334,7 +349,7 @@ const HealthFactorSummary = ({ data, summaryRef }: HealthFactorSummaryProps) => 
             </Paper>
           </Grid.Col>
           <Grid.Col lg={3} xs={6} style={{ textAlign: 'center' }}>
-            <Text fz="xs">{'Available to Borrow: '}</Text>
+            <Text fz="xs"><Trans>{'Available to Borrow: '}</Trans></Text>
             {availableBorrowsDiffers && (
               <Text fz="xs" c="dimmed">
                 {originalAvailableBorrowsUSD} ➔
@@ -346,7 +361,7 @@ const HealthFactorSummary = ({ data, summaryRef }: HealthFactorSummaryProps) => 
           </Grid.Col>
           <Grid.Col lg={3} xs={6} style={{ textAlign: 'center', minHeight: '78px' }}>
             <Paper>
-              <Text fz="xs">{'Reserve Asset Value: '}</Text>
+              <Text fz="xs"><Trans>{'Reserve Asset Value: '}</Trans></Text>
               {totalCollateralDiffers && (
                 <Text fz="xs" c="dimmed">
                   {originalTotalCollateralUSDFormatted} ➔
@@ -358,7 +373,7 @@ const HealthFactorSummary = ({ data, summaryRef }: HealthFactorSummaryProps) => 
             </Paper>
           </Grid.Col>
           <Grid.Col lg={3} xs={6} style={{ textAlign: 'center' }}>
-            <Text fz="xs">{'Net Asset Value: '}</Text>
+            <Text fz="xs"><Trans>{'Net Asset Value: '}</Trans></Text>
             {netValueUSDDiffers && (
               <Text fz="xs" c="dimmed">
                 {originalNetValueUSD} ➔
@@ -391,7 +406,9 @@ const LiquidationScenario = ({
     data?.workingData as AaveHealthFactorData,
     data?.marketReferenceCurrencyPriceInUSD);
 
-  if (!scenario?.length) return <Divider my="sm" variant="dashed" label="No Liquidation Scenario Available" labelPosition="center" />;
+  const noScenarioLabel = <Trans>No Liquidation Scenario Available</Trans>
+
+  if (!scenario?.length) return <Divider my="sm" variant="dashed" label={noScenarioLabel} labelPosition="center" />;
 
   return (
     <>
@@ -406,7 +423,7 @@ const LiquidationScenario = ({
               compact
               onClick={() => setShowLiquidation(!showLiquidation)}
               rightIcon={showLiquidation ? <BsChevronUp /> : <BsChevronDown />}>
-              Price Liquidation Scenario
+              <Trans>Price Liquidation Scenario</Trans>
             </Button>
           </>
         }
@@ -429,12 +446,14 @@ const LiquidationScenario = ({
                   </ActionIcon>
                 </Popover.Target>
                 <Popover.Dropdown>
-                  <Text size="sm">The liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.
-                    <a href="https://docs.aave.com/faq/liquidations" target="_blank" rel="noreferrer" style={{ color: "#e9ecef" }}>
-                      {" Read more here"}
-                    </a>
-                    {"."}
-                  </Text>
+                  <Trans>
+                    <Text size="sm">The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.
+                      <a href="https://docs.aave.com/faq/liquidations" target="_blank" rel="noreferrer" style={{ color: "#e9ecef" }}>
+                        {" Read more here"}
+                      </a>
+                      {"."}
+                    </Text>
+                  </Trans>
                 </Popover.Dropdown>
               </Popover>
               {
@@ -445,7 +464,6 @@ const LiquidationScenario = ({
                   const diff = currentAssetPrice - liqAsset.priceInUSD;
 
                   const change = Math.round((diff * 100) / currentAssetPrice) * -1;
-                  //console.log({ existingAsset: workingAsset, currentAssetPrice, change })
                   const avatarName = getIconNameFromAssetSymbol(liqAsset.symbol);
 
                   const avatar = (
@@ -487,7 +505,7 @@ const LiquidationScenario = ({
                 })
               }
               <Button variant="subtle" color="gray" compact onClick={applyLiquidationScenario}>
-                Apply
+                <Trans>Apply</Trans>
               </Button>
             </Flex>
           )
@@ -520,8 +538,10 @@ const ResetMarketButton = ({ }) => {
 
   if (!isAnyModified) return null;
 
+  const label = <Trans>Reset all simulated values</Trans>
+
   return (
-    <Tooltip label="Reset all simulated values" position="top-end" withArrow>
+    <Tooltip label={label} position="top-end" withArrow>
       <ActionIcon style={{ display: 'inline-block' }}>
         <RxReset size={18} onClick={resetCurrentMarketChanges} />
       </ActionIcon>
@@ -564,16 +584,18 @@ const UserReserveAssetList = ({ summaryOffset }: UserReserveAssetListProps) => {
         }}
       >
         <Title order={4} sx={{ marginBottom: '10px' }}>
-          Reserve Assets
+          <Trans>Reserve Assets</Trans>
         </Title>
         <AddAssetDialog assetType="RESERVE" />
       </Container>
       {items.length === 0 && (
         <Center>
           <Text fz="sm" m={25} align="center">
-            {'There are no reserve assets for '}
-            <AbbreviatedEthereumAddress address={currentAddress} />
-            {` in the ${market?.title} market. Select "Add Reserve Asset" to simulate reserve assets for this address.`}
+            <Trans>
+              {'There are no reserve assets for '}
+              <AbbreviatedEthereumAddress address={currentAddress} />
+              {` in the ${market?.title} market. Select "Add Reserve Asset" to simulate reserve assets for this address.`}
+            </Trans>
           </Text>
         </Center>
       )}
@@ -639,16 +661,18 @@ const UserBorrowedAssetList = ({ summaryOffset }: UserBorrowedAssetListProps) =>
         }}
       >
         <Title order={4} sx={{ marginBottom: '10px' }}>
-          Borrowed Assets
+          <Trans>Borrowed Assets</Trans>
         </Title>
         <AddAssetDialog assetType="BORROW" />
       </Container>
       {items.length === 0 && (
         <Center>
           <Text fz="sm" m={25} align="center">
-            {'There are no borrowed assets for '}
-            <AbbreviatedEthereumAddress address={currentAddress} />
-            {` in the ${market?.title} market. Select "Add Borrow Asset" to simulate borrowed assets for this address.`}
+            <Trans>
+              {'There are no borrowed assets for '}
+              <AbbreviatedEthereumAddress address={currentAddress} />
+              {` in the ${market?.title} market. Select "Add Borrow Asset" to simulate borrowed assets for this address.`}
+            </Trans>
           </Text>
         </Center>
       )}
@@ -785,7 +809,7 @@ const UserAssetItem = memo(
             originalPrice={originalPrice}
           />
           <Button compact variant="light" onClick={() => onRemoveAsset(assetSymbol, assetType)}>
-            {`Remove ${assetSymbol}`}
+            {t`Remove ${assetSymbol}`}
           </Button>
         </Container>
         {assetType === 'RESERVE' && (
@@ -821,6 +845,8 @@ const UserAssetItemQuantityPriceSummary = ({
   const valuedDiffers: boolean =
     originalValue > 0 && workingValue?.toFixed(2) !== originalValue?.toFixed(2);
 
+  const currencySymbol = "USD";
+
   return (
     <div>
       {valuedDiffers && (
@@ -829,7 +855,7 @@ const UserAssetItemQuantityPriceSummary = ({
         </Text>
       )}
       <Text mt={valuedDiffers ? 0 : 19} style={{ display: 'block' }}>
-        {`= ${formatMoney(workingValue)} (USD)`}
+        {`= ${formatMoney(workingValue)} (${currencySymbol})`}
       </Text>
     </div>
   );
@@ -854,12 +880,14 @@ const UserAssetUseAsCollateralToggle = ({
       : null;
   };
 
+  const label = <Trans>{`Use ${assetSymbol} as collateral`}</Trans>
+
   return (
     <Checkbox
       disabled={disableSetUseReserveAssetAsCollateral}
       size="sm"
       checked={usageAsCollateralEnabledOnUser}
-      label={`Use ${assetSymbol} as collateral`}
+      label={label}
       onChange={handleSetUseReserveAssetAsCollateral}
       mt={5}
       mb={12}
@@ -912,7 +940,7 @@ const UserAssetQuantityInput = ({
       <TextInput
         ref={inputRef}
         value={ensureTinyNumberFormatting(workingQuantity) || ''}
-        label={`${assetSymbol} Quantity`}
+        label={t`${assetSymbol} Quantity`}
         labelProps={{ size: 'sm' }}
         onChange={(e) => handleChange(Number(e.target.value))}
         size="md"
@@ -941,8 +969,9 @@ const ResetInputValueIcon = ({
 }: ResetInputValueIconProps) => {
   if (!originalValue || originalValue === workingValue) return null;
 
+  const label = <Trans>{`Reset to Original Value (${ensureTinyNumberFormatting(originalValue)})`}</Trans>
   return (
-    <Tooltip label={`Reset to Original Value (${ensureTinyNumberFormatting(originalValue)})`} position="top-end" withArrow>
+    <Tooltip label={label} position="top-end" withArrow>
       <ActionIcon>
         <RxReset size={18} style={{ display: 'block' }} onClick={onClick} />
       </ActionIcon>
@@ -964,6 +993,7 @@ const UserAssetPriceInput = ({
 }: UserAssetPriceInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [lastInputValue, setLastInputValue] = useState(workingPrice); // used to set slider to intuitive range
+  const currencySymbol = "USD";
 
   useEffect(() => {
     // the input is uncontrolled, but we need to support external "reset" functionality
@@ -1014,7 +1044,7 @@ const UserAssetPriceInput = ({
     <>
       <TextInput
         defaultValue={formatMoney(workingPrice, '')}
-        label={`${assetSymbol} Price (USD)`}
+        label={t`${assetSymbol} Price (${currencySymbol})`}
         labelProps={{ size: 'sm' }}
         onChange={(e) => handleChange(unformat(e.target.value))}
         onBlur={handleBlur}

@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: el\n"
+
+#: components/AddressCard.tsx:449
+msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
+msgstr "<0>Το σενάριο ρευστοποίησης τιμών αντιπροσωπεύει τις κατά προσέγγιση υψηλότερες τιμές των αποθεματικών στοιχείων ενεργητικού που θα μπορούσαν να οδηγήσουν τη θέση σε ρευστοποίηση. Τα σταθερά περιουσιακά στοιχεία δεν περιλαμβάνονται σε αυτό το σενάριο και θεωρείται ότι διατηρούν την παρούσα αξία τους. Πολλοί παράγοντες επηρεάζουν τη ρευστοποίηση. Αυτό το σενάριο είναι μόνο ένα παράδειγμα προς αναφορά. Πολλά διαφορετικά σενάρια μπορούν να προκαλέσουν ρευστοποίηση<1>.</1></0>"
+
+#: components/AddressCard.tsx:66
+msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
+msgstr "<0>Αυτή η θέση χρέους έχει ενεργοποιημένη τη λειτουργία Emode (Efficieny Mode), αλλά ο προσομοιωτής DeFi δεν υποστηρίζει ακόμη θέσεις με ενεργοποιημένη τη λειτουργία Emode. Ελπίζουμε να προσθέσουμε σύντομα υποστήριξη για Emode.</0><1/>"
+
+#: components/AddAssetDialog.tsx:82
+#: components/AddAssetDialog.tsx:151
+msgid "Add {0} Asset"
+msgstr "Προσθέστε {0} Περιουσιακό στοιχείο"
+
+#: components/AddressCard.tsx:152
+msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
+msgstr "Προσθέστε, αφαιρέστε και τροποποιήστε τις παρακάτω τιμές και ποσότητες περιουσιακών στοιχείων για να απεικονίσετε τις αλλαγές στον παράγοντα υγείας και τη δανειοληπτική ικανότητα."
+
+#: components/AddressInput.tsx:68
+msgid "Address copied to clipboard!"
+msgstr "Η διεύθυνση αντιγράφηκε στο πρόχειρο!"
+
+#: components/AddressCard.tsx:508
+msgid "Apply"
+msgstr "Εφαρμογή"
+
+#: components/AddressCard.tsx:188
+#: components/AddressCard.tsx:352
+msgid "Available to Borrow:"
+msgstr "Διαθέσιμο για δανεισμό:"
+
+#: components/AddressCard.tsx:664
+msgid "Borrowed Assets"
+msgstr "Δανειακά περιουσιακά στοιχεία"
+
+#: pages/index.tsx:89
+msgid "Build from Scratch"
+msgstr "Χτίστε από το μηδέν"
+
+#: pages/index.tsx:542
+msgid "Close alert"
+msgstr "Κλείσιμο συναγερμού"
+
+#: components/AddressInput.tsx:68
+#: components/AddressInput.tsx:70
+msgid "Copy address to clipboard"
+msgstr "Αντιγραφή διεύθυνσης στο πρόχειρο"
+
+#: pages/index.tsx:537
+msgid "Experimental!"
+msgstr "Πειραματικό!"
+
+#: components/AddressCard.tsx:131
+msgid "Found"
+msgstr "Βρέθηκε"
+
+#: components/AddressCard.tsx:198
+#: components/AddressCard.tsx:376
+msgid "Net Asset Value:"
+msgstr "Καθαρή αξία ενεργητικού:"
+
+#: components/AddressCard.tsx:145
+msgid "No Aave positions found."
+msgstr "Δεν βρέθηκαν θέσεις για την Aave."
+
+#: components/AddressCard.tsx:409
+msgid "No Liquidation Scenario Available"
+msgstr "Δεν υπάρχει διαθέσιμο σενάριο ρευστοποίησης"
+
+#: pages/index.tsx:75
+msgid "OR"
+msgstr "Ή"
+
+#: pages/index.tsx:64
+msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
+msgstr "Επικολλήστε μια διεύθυνση με μια θέση χρέους Aave στο παραπάνω πλαίσιο για να απεικονίσετε τον τρόπο με τον οποίο οι μεταβολές στα περιουσιακά στοιχεία που δανείζονται/διατηρούνται επηρεάζουν τον συντελεστή υγείας και τη δανειοληπτική ικανότητα της θέσης."
+
+#: components/AddressCard.tsx:426
+msgid "Price Liquidation Scenario"
+msgstr "Σενάριο ρευστοποίησης τιμών"
+
+#: components/Footer.tsx:125
+msgid "Questions or comments? Please <0>join the Discord!</0>"
+msgstr "Ερωτήσεις ή σχόλια Παρακαλούμε <0>μπείτε στο Discord!</0>"
+
+#: components/AddressCard.tsx:812
+msgid "Remove {assetSymbol}"
+msgstr "Αφαιρέστε {assetSymbol}"
+
+#: components/AddressCard.tsx:193
+#: components/AddressCard.tsx:364
+msgid "Reserve Asset Value:"
+msgstr "Αξία αποθεματικού περιουσιακού στοιχείου:"
+
+#: components/AddressCard.tsx:587
+msgid "Reserve Assets"
+msgstr "Αποθεματικό περιουσιακών στοιχείων"
+
+#: components/AddressCard.tsx:541
+msgid "Reset all simulated values"
+msgstr "Επαναφορά όλων των προσομοιωμένων τιμών"
+
+#: components/AddAssetDialog.tsx:94
+msgid "Reset search query"
+msgstr "Επαναφορά ερωτήματος αναζήτησης"
+
+#: components/AddressCard.tsx:972
+msgid "Reset to Original Value ({0})"
+msgstr "Επαναφορά στην αρχική τιμή ({0})"
+
+#: components/AddAssetDialog.tsx:86
+msgid "Search for {0} Assets"
+msgstr "Αναζήτηση για {0} Περιουσιακά στοιχεία"
+
+#: components/AddAssetDialog.tsx:118
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
+msgstr "Επιλέξτε {0} ({1}) {2} παρακάτω για να το προσθέσετε ως περιουσιακό στοιχείο {3} στο CDP."
+
+#: components/AddressCard.tsx:239
+msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
+msgstr "Κάτι συνέβη, δεν είμαστε σε θέση να φορτώσουμε τα δεδομένα θέσης χρέους διεύθυνσης αυτή τη στιγμή. Δοκιμάστε ξανά αργότερα."
+
+#: components/AddAssetDialog.tsx:110
+msgid "There are no assets that match the search query. Reset the search query to select an asset."
+msgstr "Δεν υπάρχουν στοιχεία που να ταιριάζουν με το ερώτημα αναζήτησης. Επαναφέρετε το ερώτημα αναζήτησης για να επιλέξετε ένα περιουσιακό στοιχείο."
+
+#: components/AddressCard.tsx:671
+msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
+msgstr "Δεν υπάρχουν δανεικά περιουσιακά στοιχεία για το <0/>στην αγορά {0}. Επιλέξτε \"Add Borrow Asset\" για να προσομοιώσετε δανεικά περιουσιακά στοιχεία για αυτή τη διεύθυνση."
+
+#: components/AddressCard.tsx:594
+msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
+msgstr "Στην αγορά {0} δεν υπάρχουν αποθεματικά στοιχεία ενεργητικού για το <0/>. Επιλέξτε \"Add Reserve Asset\" για να προσομοιώσετε αποθεματικά περιουσιακά στοιχεία για αυτή τη διεύθυνση."
+
+#: pages/index.tsx:544
+msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
+msgstr "Αυτός ο προσομοιωτής χρέους Aave είναι πειραματικός και βρίσκεται υπό ενεργή ανάπτυξη. Μην λαμβάνετε οικονομικές αποφάσεις με βάση μόνο τα αποτελέσματα αυτής της εφαρμογής."
+
+#: components/AddressCard.tsx:183
+#: components/AddressCard.tsx:340
+msgid "Total Borrowed:"
+msgstr "Σύνολο δανεισμού:"
+
+#: components/AddressInput.tsx:62
+#: components/AddressInput.tsx:64
+#: pages/index.tsx:523
+msgid "Use Random Address"
+msgstr "Χρήση τυχαίας διεύθυνσης"
+
+#: components/AddressCard.tsx:883
+msgid "Use {assetSymbol} as collateral"
+msgstr "Χρησιμοποιήστε το {assetSymbol} ως εγγύηση"
+
+#: components/AddressInput.tsx:73
+msgid "View address on Etherscan"
+msgstr "Προβολή διεύθυνσης στο Etherscan"
+
+#: components/AddressInput.tsx:75
+msgid "Visit address details on Etherscan"
+msgstr "Επισκεφθείτε τα στοιχεία της διεύθυνσης στο Etherscan"
+
+#: pages/index.tsx:79
+msgid "Want to go for a quick spin?"
+msgstr "Θέλετε να πάτε για μια γρήγορη βόλτα"
+
+#: components/AddressCard.tsx:137
+msgid "in"
+msgstr "στο"
+
+#: components/Footer.tsx:115
+msgid "is an unofficial, open source, community-built Aave debt simulator."
+msgstr "είναι ένας ανεπίσημος, ανοικτού κώδικα, προσομοιωτής χρέους Aave που δημιουργήθηκε από την κοινότητα."
+
+#: components/AddressCard.tsx:141
+msgid "{0, plural, one {market} other {markets}}"
+msgstr "{ 0, plural, one {αγορά} other {αγορές} }"
+
+#: components/AddressCard.tsx:135
+msgid "{0, plural, one {position} other {positions}}"
+msgstr "{ 0, plural, one {θέση} other {θέσεις} }"
+
+#: components/AddressCard.tsx:1047
+msgid "{assetSymbol} Price ({currencySymbol})"
+msgstr "{assetSymbol} Τιμή ({currencySymbol})"
+
+#: components/AddressCard.tsx:943
+msgid "{assetSymbol} Quantity"
+msgstr "{assetSymbol} Ποσότητα"

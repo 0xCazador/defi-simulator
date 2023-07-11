@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: zh-HK\n"
+
+#: components/AddressCard.tsx:449
+msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
+msgstr "<0>价格清算情景代表可能使头寸清算的大约最高储备资产价格。稳定的资产不包括在这一情景中，并被假设为保持其现值。许多因素影响清算。这种情况只是一个例子，供参考。许多不同的情况可以触发清算<1>。请在此阅读更多信息</1>。</0>"
+
+#: components/AddressCard.tsx:66
+msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
+msgstr "<0>这个债务岗位启用了Emode（高效模式），但DeFi模拟器还不支持启用Emode的岗位。我们希望能很快增加对Emode的支持。</0><1/>"
+
+#: components/AddAssetDialog.tsx:82
+#: components/AddAssetDialog.tsx:151
+msgid "Add {0} Asset"
+msgstr "添加{0}资产"
+
+#: components/AddressCard.tsx:152
+msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
+msgstr "在下面添加、删除和修改资产价格和数量，以可视化健康因素和借贷能力的变化。"
+
+#: components/AddressInput.tsx:68
+msgid "Address copied to clipboard!"
+msgstr "地址复制到剪贴板上了!"
+
+#: components/AddressCard.tsx:508
+msgid "Apply"
+msgstr "申请"
+
+#: components/AddressCard.tsx:188
+#: components/AddressCard.tsx:352
+msgid "Available to Borrow:"
+msgstr "可供借阅："
+
+#: components/AddressCard.tsx:664
+msgid "Borrowed Assets"
+msgstr "借用的资产"
+
+#: pages/index.tsx:89
+msgid "Build from Scratch"
+msgstr "从零开始构建"
+
+#: pages/index.tsx:542
+msgid "Close alert"
+msgstr "关闭警报"
+
+#: components/AddressInput.tsx:68
+#: components/AddressInput.tsx:70
+msgid "Copy address to clipboard"
+msgstr "复制地址到剪贴板"
+
+#: pages/index.tsx:537
+msgid "Experimental!"
+msgstr "实验性的!"
+
+#: components/AddressCard.tsx:131
+msgid "Found"
+msgstr "发现"
+
+#: components/AddressCard.tsx:198
+#: components/AddressCard.tsx:376
+msgid "Net Asset Value:"
+msgstr "净资产价值："
+
+#: components/AddressCard.tsx:145
+msgid "No Aave positions found."
+msgstr "没有发现Aave职位。"
+
+#: components/AddressCard.tsx:409
+msgid "No Liquidation Scenario Available"
+msgstr "没有清算方案可言"
+
+#: pages/index.tsx:75
+msgid "OR"
+msgstr "或"
+
+#: pages/index.tsx:64
+msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
+msgstr "将一个带有Aave债务头寸的地址粘贴在上面的方框中，以直观地看到借款/储备资产的变化如何影响该头寸的健康系数和借款能力。"
+
+#: components/AddressCard.tsx:426
+msgid "Price Liquidation Scenario"
+msgstr "价格清算情况"
+
+#: components/Footer.tsx:125
+msgid "Questions or comments? Please <0>join the Discord!</0>"
+msgstr "有问题或意见？请<0>加入讨论组!</0>"
+
+#: components/AddressCard.tsx:812
+msgid "Remove {assetSymbol}"
+msgstr "删除{assetSymbol}"
+
+#: components/AddressCard.tsx:193
+#: components/AddressCard.tsx:364
+msgid "Reserve Asset Value:"
+msgstr "储备资产价值："
+
+#: components/AddressCard.tsx:587
+msgid "Reserve Assets"
+msgstr "储备资产"
+
+#: components/AddressCard.tsx:541
+msgid "Reset all simulated values"
+msgstr "重置所有模拟值"
+
+#: components/AddAssetDialog.tsx:94
+msgid "Reset search query"
+msgstr "重置搜索查询"
+
+#: components/AddressCard.tsx:972
+msgid "Reset to Original Value ({0})"
+msgstr "重置为原始值（{0}）。"
+
+#: components/AddAssetDialog.tsx:86
+msgid "Search for {0} Assets"
+msgstr "搜索{0}资产"
+
+#: components/AddAssetDialog.tsx:118
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
+msgstr "选择下面的{0}（{1}）{2}，将其作为{3}资产加入CDP。"
+
+#: components/AddressCard.tsx:239
+msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
+msgstr "发生了一些事情，我们现在无法加载地址债务位置数据。请稍后再试。"
+
+#: components/AddAssetDialog.tsx:110
+msgid "There are no assets that match the search query. Reset the search query to select an asset."
+msgstr "没有符合搜索条件的资产。重置搜索查询，选择一项资产。"
+
+#: components/AddressCard.tsx:671
+msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
+msgstr "<0/>，在{0}市场上没有借贷资产。选择 \"添加借款资产 \"来模拟这个地址的借款资产。"
+
+#: components/AddressCard.tsx:594
+msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
+msgstr "在{0}市场上没有<0/>的储备资产。选择 \"添加储备资产 \"来模拟这个地址的储备资产。"
+
+#: pages/index.tsx:544
+msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
+msgstr "这个Aave债务模拟器是实验性的，正在积极开发中。不要只根据这个应用程序的结果来做出财务决定。"
+
+#: components/AddressCard.tsx:183
+#: components/AddressCard.tsx:340
+msgid "Total Borrowed:"
+msgstr "借款总额："
+
+#: components/AddressInput.tsx:62
+#: components/AddressInput.tsx:64
+#: pages/index.tsx:523
+msgid "Use Random Address"
+msgstr "使用随机地址"
+
+#: components/AddressCard.tsx:883
+msgid "Use {assetSymbol} as collateral"
+msgstr "使用{assetSymbol}作为抵押品"
+
+#: components/AddressInput.tsx:73
+msgid "View address on Etherscan"
+msgstr "在Etherscan上查看地址"
+
+#: components/AddressInput.tsx:75
+msgid "Visit address details on Etherscan"
+msgstr "在Etherscan上访问地址详情"
+
+#: pages/index.tsx:79
+msgid "Want to go for a quick spin?"
+msgstr "想去快速旋转吗？"
+
+#: components/AddressCard.tsx:137
+msgid "in"
+msgstr "在"
+
+#: components/Footer.tsx:115
+msgid "is an unofficial, open source, community-built Aave debt simulator."
+msgstr "是一个非官方的、开源的、社区建立的Aave债务模拟器。"
+
+#: components/AddressCard.tsx:141
+msgid "{0, plural, one {market} other {markets}}"
+msgstr "{ 0, plural, other {市场} }"
+
+#: components/AddressCard.tsx:135
+msgid "{0, plural, one {position} other {positions}}"
+msgstr "{ 0, plural, other {职位} }"
+
+#: components/AddressCard.tsx:1047
+msgid "{assetSymbol} Price ({currencySymbol})"
+msgstr "{assetSymbol} 价格（{currencySymbol}）。"
+
+#: components/AddressCard.tsx:943
+msgid "{assetSymbol} Quantity"
+msgstr "{assetSymbol} 数量"

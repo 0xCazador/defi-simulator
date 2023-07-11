@@ -11,11 +11,15 @@ import { FiAlertTriangle } from 'react-icons/fi';
 import { useEffect, useState, Children, cloneElement, ReactElement } from 'react';
 import { NextRouter, useRouter } from 'next/router';
 import { ethers } from 'ethers';
+import { Trans, t } from "@lingui/macro";
+
 import { useAaveData } from '../hooks/useAaveData';
 import AppBar from '../components/AppBar';
 import AddressInput, { isValidENSAddress } from '../components/AddressInput';
-import AddressCard, { HealthFactorSkeleton } from '../components/AddressCard';
+import AddressCard from '../components/AddressCard';
 import Footer from '../components/Footer';
+import { activateLocale } from './_app';
+import I18nInput from '../components/I18nInput';
 
 export default function HomePage() {
   const router: NextRouter = useRouter();
@@ -23,7 +27,9 @@ export default function HomePage() {
   const isValidAddress: boolean = ethers.utils.isAddress(address) || isValidENSAddress(address);
   const { currentAddress, setCurrentAddress } = useAaveData(isValidAddress ? address : '');
 
-  useEffect(() => {
+  const locale = router?.locale;
+
+  useEffect(() => { // ensure current address is correctly set from url
     if (!address && currentAddress) {
       setCurrentAddress('');
     }
@@ -34,6 +40,10 @@ export default function HomePage() {
     }
   }, [address]);
 
+  useEffect(() => { // ensure current locale is correctly set from url
+    if (locale) activateLocale(locale);
+  }, [locale]);
+
   return (
     <Container px="xs" style={{ contain: 'paint' }}>
       <AppBar />
@@ -41,6 +51,7 @@ export default function HomePage() {
       {currentAddress && <AddressCard />}
       {!currentAddress && <SplashSection />}
       <ExperimentalAlert />
+      <I18nInput />
       <Footer />
     </Container>
   );
@@ -52,8 +63,10 @@ const SplashSection = () => {
     <>
       <Center mt={15}>
         <Text fz="md" ta="center" span>
-          Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets
-          affect the position's health factor and borrowing power.
+          <Trans>
+            Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets
+            affect the position's health factor and borrowing power.
+          </Trans>
         </Text>
       </Center>
 
@@ -61,11 +74,11 @@ const SplashSection = () => {
         my="sm"
         variant="dashed"
         labelPosition="center"
-        label="OR"
+        label={t`OR`}
       />
 
       <Center mt={15}>
-        <Text fz="md" ta="center">Want to go for a quick spin?</Text>
+        <Text fz="md" ta="center"><Trans>Want to go for a quick spin?</Trans></Text>
       </Center>
 
       <Space h="md" />
@@ -75,7 +88,7 @@ const SplashSection = () => {
         <Space w="xl" />
         <Divider orientation="vertical" />
         <Space w="xl" />
-        <Button onClick={() => router.push("?address=sandbox.eth")}>Build from Scratch</Button>
+        <Button onClick={() => router.push("?address=sandbox.eth")}><Trans>Build from Scratch</Trans></Button>
       </Center>
     </>
 
@@ -509,7 +522,7 @@ export const RandomAddressButton = ({ children }: RandomAddressButtonProps) => {
   return children ? (
     <span>{renderChildren()}</span>
   ) : (
-    <Button onClick={() => router.push(`?address=${address}`)}>Use Random Address</Button>
+    <Button onClick={() => router.push(`?address=${address}`)}><Trans>Use Random Address</Trans></Button>
   );
 };
 
@@ -523,15 +536,17 @@ const ExperimentalAlert = () => {
       mb={15}
       mt={45}
       icon={<FiAlertTriangle size="1rem" />}
-      title="Experimental!"
+      title={t`Experimental!`}
       color="red"
       withCloseButton
       onClose={() => setShouldDisplay(false)}
       variant="outline"
-      closeButtonLabel="Close alert"
+      closeButtonLabel={t`Close alert`}
     >
-      This CDP simulator is experimental and under active development. Don't make financial
-      decisions based solely on the results of this app.
+      <Trans>
+        This Aave debt simulator is experimental and under active development. Don't make financial
+        decisions based solely on the results of this app.
+      </Trans>
     </Alert>
   );
 };

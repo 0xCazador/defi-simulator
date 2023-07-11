@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: mg\n"
+
+#: components/AddressCard.tsx:449
+msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
+msgstr "<0>Ny scenario famotehana ny vidiny dia maneho ny vidin'ny fananan'ny tahiry avo indrindra izay mety hampidi-doza ny toerana. Ny fananana tsy miovaova dia tsy tafiditra ao anatin'ity toe-javatra ity ary heverina fa mitazona ny sandany ankehitriny. Antony maro no misy fiantraikany amin'ny fanafoanana. Ity scenario ity dia ohatra iray ihany ho fanondroana. Toe-javatra maro samihafa no mety hiteraka fanafoanana. <1> Hamaky bebe kokoa eto</1> .</0>"
+
+#: components/AddressCard.tsx:66
+msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
+msgstr "<0>Ity toeran'ny trosa ity dia manana Emode (Modely Efficieny), saingy tsy mbola manohana ny toerana misy Emode ny DeFi Simulator. Manantena izahay fa hanampy ny Emode tsy ho ela.</0> <1/>"
+
+#: components/AddAssetDialog.tsx:82
+#: components/AddAssetDialog.tsx:151
+msgid "Add {0} Asset"
+msgstr "Ampio {0} fananana"
+
+#: components/AddressCard.tsx:152
+msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
+msgstr "Ampio, esory ary ovay ny vidin'ny fananana sy ny habetsahana eto ambany mba hijerena ny fiovan'ny toe-pahasalamana sy ny herin'ny fampindram-bola."
+
+#: components/AddressInput.tsx:68
+msgid "Address copied to clipboard!"
+msgstr "Adiresy voadika amin'ny solaitrabe!"
+
+#: components/AddressCard.tsx:508
+msgid "Apply"
+msgstr "AMPIHARO"
+
+#: components/AddressCard.tsx:188
+#: components/AddressCard.tsx:352
+msgid "Available to Borrow:"
+msgstr "Azo hindramina:"
+
+#: components/AddressCard.tsx:664
+msgid "Borrowed Assets"
+msgstr "Fananana nindramina"
+
+#: pages/index.tsx:89
+msgid "Build from Scratch"
+msgstr "Manangana avy amin'ny Scratch"
+
+#: pages/index.tsx:542
+msgid "Close alert"
+msgstr "Akatona fanairana"
+
+#: components/AddressInput.tsx:68
+#: components/AddressInput.tsx:70
+msgid "Copy address to clipboard"
+msgstr "Adikao amin'ny solaitrabe ny adiresy"
+
+#: pages/index.tsx:537
+msgid "Experimental!"
+msgstr "Fanandramana!"
+
+#: components/AddressCard.tsx:131
+msgid "Found"
+msgstr "HITA"
+
+#: components/AddressCard.tsx:198
+#: components/AddressCard.tsx:376
+msgid "Net Asset Value:"
+msgstr "Sandan'ny fananana harato:"
+
+#: components/AddressCard.tsx:145
+msgid "No Aave positions found."
+msgstr "Tsy misy toerana Aave hita."
+
+#: components/AddressCard.tsx:409
+msgid "No Liquidation Scenario Available"
+msgstr "Tsy misy Scenario fanafoanana azo"
+
+#: pages/index.tsx:75
+msgid "OR"
+msgstr "OR"
+
+#: pages/index.tsx:64
+msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
+msgstr "Apetaho eo amin'ny boaty etsy ambony ny adiresy misy ny toeran'ny trosa Aave mba hijerena ny fiantraikan'ny fiovana amin'ny fananan'ny findramam-bola/famatsiana amin'ny toe-pahasalaman'ny toerana sy ny herin'ny fampindramam-bola."
+
+#: components/AddressCard.tsx:426
+msgid "Price Liquidation Scenario"
+msgstr "Scenario fanafoanana ny vidiny"
+
+#: components/Footer.tsx:125
+msgid "Questions or comments? Please <0>join the Discord!</0>"
+msgstr "Fanontaniana na fanehoan-kevitra? Azafady <0> midira ao amin'ny Discord!</0>"
+
+#: components/AddressCard.tsx:812
+msgid "Remove {assetSymbol}"
+msgstr "Esory {assetSymbol}"
+
+#: components/AddressCard.tsx:193
+#: components/AddressCard.tsx:364
+msgid "Reserve Asset Value:"
+msgstr "Sandan'ny fananana tahiry:"
+
+#: components/AddressCard.tsx:587
+msgid "Reserve Assets"
+msgstr "Fananana tahiry"
+
+#: components/AddressCard.tsx:541
+msgid "Reset all simulated values"
+msgstr "Avereno ny soatoavina natao simulate rehetra"
+
+#: components/AddAssetDialog.tsx:94
+msgid "Reset search query"
+msgstr "Avereno ny fangatahana fikarohana"
+
+#: components/AddressCard.tsx:972
+msgid "Reset to Original Value ({0})"
+msgstr "Avereno amin'ny sanda voalohany ({0})"
+
+#: components/AddAssetDialog.tsx:86
+msgid "Search for {0} Assets"
+msgstr "Mitadiava fananana {0}."
+
+#: components/AddAssetDialog.tsx:118
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
+msgstr "Safidio {0} ({1}) {2} etsy ambany mba hanampiana azy ho fananana {3} amin'ny CDP."
+
+#: components/AddressCard.tsx:239
+msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
+msgstr "Nisy zavatra nitranga, tsy afaka mampiditra ny angon-drakitra momba ny toeran'ny trosa izahay amin'izao fotoana izao. Andramo indray rehefa afaka kelikely."
+
+#: components/AddAssetDialog.tsx:110
+msgid "There are no assets that match the search query. Reset the search query to select an asset."
+msgstr "Tsy misy fananana mifanaraka amin'ny fangatahana fikarohana. Avereno ny fangatahana fikarohana mba hisafidianana fananana."
+
+#: components/AddressCard.tsx:671
+msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
+msgstr "Tsy misy fananana nindramina ho an'ny <0/>amin'ny tsena {0}. Safidio ny \"Add Borrow Asset\" hanahaka ny fananana nindramina ho an'ity adiresy ity."
+
+#: components/AddressCard.tsx:594
+msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
+msgstr "Tsy misy fananana tahiry ho an'ny <0/>amin'ny tsena {0}. Safidio ny \"Ampio ny fananan'ny tahirim-bola\" hanaraha-maso ny fananana voatokana ho an'ity adiresy ity."
+
+#: pages/index.tsx:544
+msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
+msgstr "Ity simulator trosa Aave ity dia andrana ary eo amin'ny fampandrosoana mavitrika. Aza mandray fanapahan-kevitra ara-bola mifototra amin'ny valin'ity app ity fotsiny."
+
+#: components/AddressCard.tsx:183
+#: components/AddressCard.tsx:340
+msgid "Total Borrowed:"
+msgstr "Total nindramina:"
+
+#: components/AddressInput.tsx:62
+#: components/AddressInput.tsx:64
+#: pages/index.tsx:523
+msgid "Use Random Address"
+msgstr "Mampiasà adiresy kisendrasendra"
+
+#: components/AddressCard.tsx:883
+msgid "Use {assetSymbol} as collateral"
+msgstr "Ampiasao {assetSymbol} ho antoka"
+
+#: components/AddressInput.tsx:73
+msgid "View address on Etherscan"
+msgstr "Jereo ny adiresy ao amin'ny Etherscan"
+
+#: components/AddressInput.tsx:75
+msgid "Visit address details on Etherscan"
+msgstr "Tsidiho ny antsipirian'ny adiresy ao amin'ny Etherscan"
+
+#: pages/index.tsx:79
+msgid "Want to go for a quick spin?"
+msgstr "Te handeha hanao fihodinana haingana?"
+
+#: components/AddressCard.tsx:137
+msgid "in"
+msgstr "in"
+
+#: components/Footer.tsx:115
+msgid "is an unofficial, open source, community-built Aave debt simulator."
+msgstr "dia loharano tsy ofisialy, loharano misokatra, simulator trosa Aave namboarin'ny vondrom-piarahamonina."
+
+#: components/AddressCard.tsx:141
+msgid "{0, plural, one {market} other {markets}}"
+msgstr "{ 0, plural, one {tsena} other {tsena} }"
+
+#: components/AddressCard.tsx:135
+msgid "{0, plural, one {position} other {positions}}"
+msgstr "{ 0, plural, one {toerana} other {toerana} }"
+
+#: components/AddressCard.tsx:1047
+msgid "{assetSymbol} Price ({currencySymbol})"
+msgstr "{assetSymbol} Vidiny ({currencySymbol})"
+
+#: components/AddressCard.tsx:943
+msgid "{assetSymbol} Quantity"
+msgstr "{assetSymbol} Habe"

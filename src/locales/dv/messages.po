@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: dv\n"
+
+#: components/AddressCard.tsx:449
+msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
+msgstr "<0>އަގު އުވާލުމުގެ މަންޒަރަކީ އެ މަގާމު އުވާލުމުގެ ހާލަތަށް ހުށަހެޅިދާނެ ގާތްގަނޑަކަށް އެންމެ މަތީ ރިޒާވް އެސެޓްގެ އަގުތަކެވެ. މި މަންޒަރުގައި ސްޓޭބަލް އެސެޓްތައް ހިމަނާފައި ނުވާއިރު، އެ އެސެޓްތަކުގެ މިހާރުގެ އަގު ދެމެހެއްޓޭނެ ކަމަށް ބެލެވެއެވެ. ލިކުއިޑޭޝަނަށް ގިނަ ކަންތައްތަކެއް އަސަރުކުރެއެވެ. މި މަންޒަރަކީ ރިފަރެންސް އަށް އެންމެ މިސާލެކެވެ. ތަފާތު އެތައް މަންޒަރުތަކެއްގެ ސަބަބުން ލިކުއިޑޭޝަން އުފެދިދާނެ އެވެ.<1>އިތުރަށް މިތަނުން ކިޔައިލައްވާށެވެ</1> .</0>"
+
+#: components/AddressCard.tsx:66
+msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
+msgstr "<0>މި ދަރަނީގެ ޕޮޒިޝަންގައި އިމޯޑް (އެފިޝަންސީ މޯޑް) އެނެބަލްކޮށްފައިވީނަމަވެސް ޑީފައި ސިމިއުލޭޓަރ އިން އަދި އިމޯޑް އެނެބަލްކޮށްފައިވާ ޕޮޒިޝަންތަކަށް ސަޕޯޓް ނުކުރެއެވެ. އަޅުގަނޑުމެން އުންމީދު ކުރަނީ ވަރަށް އަވަހަށް އިމޯޑަށް ސަޕޯޓް އިތުރު ކުރެވޭނެ ކަމަށް.</0> <1/> އެވެ"
+
+#: components/AddAssetDialog.tsx:82
+#: components/AddAssetDialog.tsx:151
+msgid "Add {0} Asset"
+msgstr "{0} އެސެޓް އިތުރުކުރުން"
+
+#: components/AddressCard.tsx:152
+msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
+msgstr "ހެލްތު ފެކްޓަރ އާއި ލޯނު ނެގުމުގެ ބާރަށް އަންނަ ބަދަލުތައް ސިފަކުރުމަށްޓަކައި ތިރީގައިވާ އެސެޓްތަކުގެ އަގުތަކާއި އަދަދުތައް އިތުރުކޮށް، ނައްތާލައި، ބަދަލުކުރުން."
+
+#: components/AddressInput.tsx:68
+msgid "Address copied to clipboard!"
+msgstr "އެޑްރެސް ކްލިޕްބޯޑަށް ކޮޕީކޮށްފި!"
+
+#: components/AddressCard.tsx:508
+msgid "Apply"
+msgstr "އެޕްލައި"
+
+#: components/AddressCard.tsx:188
+#: components/AddressCard.tsx:352
+msgid "Available to Borrow:"
+msgstr "ލޯނު ނަގަން ލިބޭނެ:"
+
+#: components/AddressCard.tsx:664
+msgid "Borrowed Assets"
+msgstr "ލޯނު ނަގާފައިވާ އެސެޓްތަކެވެ"
+
+#: pages/index.tsx:89
+msgid "Build from Scratch"
+msgstr "ބިލްޑް ފްރޮމް ސްކްރެޗް"
+
+#: pages/index.tsx:542
+msgid "Close alert"
+msgstr "ކްލޯޒް އެލާޓް"
+
+#: components/AddressInput.tsx:68
+#: components/AddressInput.tsx:70
+msgid "Copy address to clipboard"
+msgstr "އެޑްރެސް ކްލިޕްބޯޑަށް ކޮޕީކުރުން"
+
+#: pages/index.tsx:537
+msgid "Experimental!"
+msgstr "އެކްސްޕެރިމެންޓަލް!"
+
+#: components/AddressCard.tsx:131
+msgid "Found"
+msgstr "ފެނިއްޖެ"
+
+#: components/AddressCard.tsx:198
+#: components/AddressCard.tsx:376
+msgid "Net Asset Value:"
+msgstr "ސާފު އެސެޓް ވެލިއު:"
+
+#: components/AddressCard.tsx:145
+msgid "No Aave positions found."
+msgstr "އަވޭ މަގާމެއް ނުފެނެ އެވެ."
+
+#: components/AddressCard.tsx:409
+msgid "No Liquidation Scenario Available"
+msgstr "ލިކުއިޑޭޝަން ސިނަރިއޯއެއް ނެތެވެ"
+
+#: pages/index.tsx:75
+msgid "OR"
+msgstr "ނުވަތަ"
+
+#: pages/index.tsx:64
+msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
+msgstr "މަތީގައިވާ ފޮށީގައި އަވޭ ދަރަނީގެ މަގާމެއް ލިޔެފައިވާ އެޑްރެހެއް ޕޭސްޓްކޮށް، ލޯނު/ރިޒާވް އެސެޓްތަކަށް އަންނަ ބަދަލުތަކުގެ ސަބަބުން މަގާމުގެ ސިއްހީ ކަންތައްތަކާއި ލޯނު ނެގުމުގެ ބާރަށް އަސަރުކުރާ ގޮތް ތަޞައްވުރު ކުރުން."
+
+#: components/AddressCard.tsx:426
+msgid "Price Liquidation Scenario"
+msgstr "އަގު އުވާލުމުގެ މަންޒަރު"
+
+#: components/Footer.tsx:125
+msgid "Questions or comments? Please <0>join the Discord!</0>"
+msgstr "ސުވާލުތަކެއް ނުވަތަ ކޮމެންޓްތަކެއް ހެއްޔެވެ؟ ޕްލީޒް <0>ޑިސްކޯޑް އާއި ގުޅިވަޑައިގަންނަވާ!</0>"
+
+#: components/AddressCard.tsx:812
+msgid "Remove {assetSymbol}"
+msgstr "{assetSymbol} ނައްތާލާށެވެ."
+
+#: components/AddressCard.tsx:193
+#: components/AddressCard.tsx:364
+msgid "Reserve Asset Value:"
+msgstr "ރިޒާވް އެސެޓް ވެލިއު:"
+
+#: components/AddressCard.tsx:587
+msgid "Reserve Assets"
+msgstr "ރިޒާވް އެސެޓްސް"
+
+#: components/AddressCard.tsx:541
+msgid "Reset all simulated values"
+msgstr "ހުރިހާ ސިމިއުލެޓެޑް ވެލިއުތަކެއް ރީސެޓްކުރުން"
+
+#: components/AddAssetDialog.tsx:94
+msgid "Reset search query"
+msgstr "ސަރޗް ކިއުއަރީ ރީސެޓްކުރުން"
+
+#: components/AddressCard.tsx:972
+msgid "Reset to Original Value ({0})"
+msgstr "އަސްލު އަގަށް ރީސެޓްކުރުން ({0})"
+
+#: components/AddAssetDialog.tsx:86
+msgid "Search for {0} Assets"
+msgstr "{0} އެސެޓްތައް ހޯދުން"
+
+#: components/AddAssetDialog.tsx:118
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
+msgstr "ސީޑީޕީއަށް {3} އެސެޓެއްގެ ގޮތުގައި އިތުރުކުރުމަށްޓަކައި ތިރީގައިވާ {0} ({1}) {2} ހޮވާށެވެ."
+
+#: components/AddressCard.tsx:239
+msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
+msgstr "ކޮންމެވެސް ކަމެއް ދިމާވީ، އަޅުގަނޑުމެންނަށް މިވަގުތު އެޑްރެސް ޑެޓް ޕޮޒިޝަން ޑޭޓާ ލޯޑް ނުކުރެވޭ. ފަހުން އަނެއްކާވެސް މަސައްކަތް ކުރާށެވެ."
+
+#: components/AddAssetDialog.tsx:110
+msgid "There are no assets that match the search query. Reset the search query to select an asset."
+msgstr "ސަރޗް ކިއުއަރީއާ އެއްގޮތްވާ އެއްވެސް އެސެޓެއް ނެތެވެ. އެސެޓެއް ހޮވަން ސަރޗް ކިއުއަރީ ރީސެޓް ކުރާށެވެ."
+
+#: components/AddressCard.tsx:671
+msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
+msgstr "{0} މާކެޓުގައި <0/> އަށް ލޯނު ނަގާފައިވާ އެސެޓްތަކެއް ނެތެވެ. މި އެޑްރެހަށް ލޯނު ނަގާފައިވާ އެސެޓްތައް ސިމިއުލޭޓް ކުރުމަށް \"އެޑް ލޯނު އެސެޓް\" ހޮވާށެވެ."
+
+#: components/AddressCard.tsx:594
+msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
+msgstr "{0} މާކެޓުގައި <0/> އަށް ރިޒާވް އެސެޓްތަކެއް ނެތެވެ. މި އެޑްރެހަށް ރިޒާވް އެސެޓްތައް ސިމިއުލޭޓް ކުރުމަށް \"އެޑް ރިޒާވް އެސެޓް\" ހޮވާށެވެ."
+
+#: pages/index.tsx:544
+msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
+msgstr "މި އަވޭ ޑެޓް ސިމިއުލޭޓަރަކީ ތަޖުރިބާގެ ގޮތުން ކުރިއަށްދާ އަދި ހީވާގިކަމާއެކު ތަރައްގީ ކުރަމުންދާ ސިމިއުލޭޓަރެކެވެ. ހަމައެކަނި މި އެޕްގެ ނަތީޖާއަށް ބަލައިގެން މާލީ ނިންމުންތައް ނުނިންމާށެވެ."
+
+#: components/AddressCard.tsx:183
+#: components/AddressCard.tsx:340
+msgid "Total Borrowed:"
+msgstr "ޖުމްލަ ލޯނު ނަގާފައިވަނީ:"
+
+#: components/AddressInput.tsx:62
+#: components/AddressInput.tsx:64
+#: pages/index.tsx:523
+msgid "Use Random Address"
+msgstr "ރެންޑަމް އެޑްރެސް ބޭނުން ކުރާށެވެ"
+
+#: components/AddressCard.tsx:883
+msgid "Use {assetSymbol} as collateral"
+msgstr "ކޮލެޓަރަލްގެ ގޮތުގައި {assetSymbol} ބޭނުންކުރުން"
+
+#: components/AddressInput.tsx:73
+msgid "View address on Etherscan"
+msgstr "އީތަރސްކޭން އިން އެޑްރެސް ބަލާށެވެ"
+
+#: components/AddressInput.tsx:75
+msgid "Visit address details on Etherscan"
+msgstr "އީތަރސްކޭން އިން އެޑްރެސްގެ ތަފްސީލަށް ޒިޔާރަތް ކުރައްވާ"
+
+#: pages/index.tsx:79
+msgid "Want to go for a quick spin?"
+msgstr "އަވަސް ސްޕިން އަކަށް ދާން ބޭނުން ހެއްޔެވެ؟"
+
+#: components/AddressCard.tsx:137
+msgid "in"
+msgstr "އެތެރެ"
+
+#: components/Footer.tsx:115
+msgid "is an unofficial, open source, community-built Aave debt simulator."
+msgstr "އަކީ ނުރަސްމީ، އޮޕަން ސޯސް، ކޮމިއުނިޓީ ބިލްޑް އަވޭ ޑެޓް ސިމިއުލޭޓަރެކެވެ."
+
+#: components/AddressCard.tsx:141
+msgid "{0, plural, one {market} other {markets}}"
+msgstr "{ 0, plural, one {މާރުކޭޓު} other {މާކެޓްތަކެވެ} }"
+
+#: components/AddressCard.tsx:135
+msgid "{0, plural, one {position} other {positions}}"
+msgstr "{ 0, plural, one {މަޤާމު} other {މަގާމުތަކެވެ} }"
+
+#: components/AddressCard.tsx:1047
+msgid "{assetSymbol} Price ({currencySymbol})"
+msgstr "{assetSymbol} އަގު ({currencySymbol})"
+
+#: components/AddressCard.tsx:943
+msgid "{assetSymbol} Quantity"
+msgstr "{assetSymbol} ޢަދަދު"
