@@ -16,15 +16,16 @@ import 'nouislider/dist/nouislider.css';
 import "../css/slider.css";
 import { useEffect } from 'react';
 
-const defaultLocale = "en-US";
+const defaultLocale = "en";
 const { messages } = await import(`../src/locales/${defaultLocale}/messages`);
 i18n.load(defaultLocale, messages);
 i18n.activate(defaultLocale);
 
-
+/*
 import langItems from "../src/languages/index.json";
 const langs = langItems.map(item => item.code)
 console.log({ langs })
+*/
 
 
 /**

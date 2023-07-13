@@ -438,7 +438,7 @@ export function useAaveData(address: string) {
     healthFactorItem.workingData.set(updatedWorkingData);
   };
 
-  console.log({ data })
+  //console.log({ data })
 
   return {
     isFetching: isLoadingAny,
