@@ -2,6 +2,7 @@ import { ReactElement, RefObject, memo, useEffect, useRef, useState } from 'reac
 import { formatNumber, formatMoney, unformat } from 'accounting';
 import noUiSlider from 'nouislider';
 import { Trans, Plural, t } from '@lingui/macro';
+import { i18n } from "@lingui/core";
 
 import {
   Center,
@@ -48,6 +49,9 @@ import {
 import { BsChevronDown, BsChevronUp } from 'react-icons/bs';
 import { AaveHealthFactorData } from '../hooks/useAaveData';
 import { FiAlertTriangle } from 'react-icons/fi';
+import LocalizedFiatDisplay from './LocalizedFiatDisplay';
+import { useFiatRates } from '../hooks/useFiatData';
+import { useRouter } from 'next/router';
 
 type Props = {};
 
@@ -265,17 +269,17 @@ const HealthFactorSummary = ({ data, summaryRef }: HealthFactorSummaryProps) => 
   const healthFactorDiffers: boolean = addressHasPosition &&
     (data.workingData?.healthFactor?.toFixed(2) !== data.fetchedData?.healthFactor?.toFixed(2));
 
-  const originalTotalBorrowsUSD: string = formatMoney(data.fetchedData?.totalBorrowsUSD ?? 0);
-  const totalBorrowsUSD: string = formatMoney(data.workingData?.totalBorrowsUSD ?? 0);
+  const originalTotalBorrowsUSD: number = data.fetchedData?.totalBorrowsUSD ?? 0;
+  const totalBorrowsUSD: number = data.workingData?.totalBorrowsUSD ?? 0;
   const totalBorrowsDiffers: boolean = addressHasPosition &&
     (data.fetchedData?.totalBorrowsUSD?.toFixed(2) !== data.workingData?.totalBorrowsUSD?.toFixed(2));
 
-  const originalAvailableBorrowsUSD: string = formatMoney(
-    Math.max(data.fetchedData?.availableBorrowsUSD ?? 0, 0)
-  );
-  const availableBorrowsUSD: string = formatMoney(
-    Math.max(data.workingData?.availableBorrowsUSD ?? 0, 0)
-  );
+  const originalAvailableBorrowsUSD: number =
+    Math.max(data.fetchedData?.availableBorrowsUSD ?? 0, 0);
+
+  const availableBorrowsUSD: number =
+    Math.max(data.workingData?.availableBorrowsUSD ?? 0, 0);
+
   const availableBorrowsDiffers: boolean = addressHasPosition &&
     (data.fetchedData?.availableBorrowsUSD?.toFixed(2) !==
       data.workingData?.availableBorrowsUSD?.toFixed(2));
@@ -290,17 +294,16 @@ const HealthFactorSummary = ({ data, summaryRef }: HealthFactorSummaryProps) => 
       (acc, item) => (acc += item.underlyingBalanceUSD),
       0
     ) ?? 0;
-  const originalTotalCollateralUSDFormatted: string = formatMoney(originalTotalCollateralUSD);
-  const totalCollateralUSDFormatted: string = formatMoney(totalCollateralUSD);
+
   const totalCollateralDiffers: boolean = addressHasPosition &&
     (originalTotalCollateralUSD?.toFixed(2) !== totalCollateralUSD?.toFixed(2));
 
-  const originalNetValueUSD: string = formatMoney(
-    originalTotalCollateralUSD - (data.fetchedData?.totalBorrowsUSD ?? 0)
-  );
-  const netValueUSD: string = formatMoney(
-    totalCollateralUSD - (data.workingData?.totalBorrowsUSD ?? 0)
-  );
+  const originalNetValueUSD: number =
+    originalTotalCollateralUSD - (data.fetchedData?.totalBorrowsUSD ?? 0);
+
+  const netValueUSD: number =
+    totalCollateralUSD - (data.workingData?.totalBorrowsUSD ?? 0);
+
   const netValueUSDDiffers: boolean = addressHasPosition &&
     ((originalTotalCollateralUSD - (data.fetchedData?.totalBorrowsUSD ?? 0)).toFixed(2) !==
       (totalCollateralUSD - (data.workingData?.totalBorrowsUSD ?? 0)).toFixed(2));
@@ -340,11 +343,11 @@ const HealthFactorSummary = ({ data, summaryRef }: HealthFactorSummaryProps) => 
               <Text fz="xs"><Trans>{'Total Borrowed: '}</Trans></Text>
               {totalBorrowsDiffers && (
                 <Text fz="xs" c="dimmed">
-                  {originalTotalBorrowsUSD} ➔
+                  <LocalizedFiatDisplay valueUSD={originalTotalBorrowsUSD} /> ➔
                 </Text>
               )}
               <Text span fw={700} fz="md" mb={20}>
-                {totalBorrowsUSD}
+                <LocalizedFiatDisplay valueUSD={totalBorrowsUSD} />
               </Text>
             </Paper>
           </Grid.Col>
@@ -352,11 +355,11 @@ const HealthFactorSummary = ({ data, summaryRef }: HealthFactorSummaryProps) => 
             <Text fz="xs"><Trans>{'Available to Borrow: '}</Trans></Text>
             {availableBorrowsDiffers && (
               <Text fz="xs" c="dimmed">
-                {originalAvailableBorrowsUSD} ➔
+                <LocalizedFiatDisplay valueUSD={originalAvailableBorrowsUSD} /> ➔
               </Text>
             )}
             <Text span fw={700} fz="md">
-              {availableBorrowsUSD}
+              <LocalizedFiatDisplay valueUSD={availableBorrowsUSD} />
             </Text>
           </Grid.Col>
           <Grid.Col lg={3} xs={6} style={{ textAlign: 'center', minHeight: '78px' }}>
@@ -364,11 +367,11 @@ const HealthFactorSummary = ({ data, summaryRef }: HealthFactorSummaryProps) => 
               <Text fz="xs"><Trans>{'Reserve Asset Value: '}</Trans></Text>
               {totalCollateralDiffers && (
                 <Text fz="xs" c="dimmed">
-                  {originalTotalCollateralUSDFormatted} ➔
+                  <LocalizedFiatDisplay valueUSD={originalTotalCollateralUSD} /> ➔
                 </Text>
               )}
               <Text span fw={700} fz="md">
-                {totalCollateralUSDFormatted}
+                <LocalizedFiatDisplay valueUSD={totalCollateralUSD} />
               </Text>
             </Paper>
           </Grid.Col>
@@ -376,11 +379,11 @@ const HealthFactorSummary = ({ data, summaryRef }: HealthFactorSummaryProps) => 
             <Text fz="xs"><Trans>{'Net Asset Value: '}</Trans></Text>
             {netValueUSDDiffers && (
               <Text fz="xs" c="dimmed">
-                {originalNetValueUSD} ➔
+                <LocalizedFiatDisplay valueUSD={originalNetValueUSD} /> ➔
               </Text>
             )}
             <Text span fw={700} fz="md">
-              {netValueUSD}
+              <LocalizedFiatDisplay valueUSD={netValueUSD} />
             </Text>
           </Grid.Col>
         </Grid>
@@ -485,10 +488,7 @@ const LiquidationScenario = ({
                       mr="sm"
                       c="dimmed"
                       leftSection={avatar}>
-                      <Text span>
-                        {`${liqAsset.symbol}: `}
-                        {`${formatMoney(liqAsset.priceInUSD)}`}
-                      </Text>
+                      <LocalizedFiatDisplay valueUSD={liqAsset.priceInUSD} />
                       {/** 
                       {change !== 0 && currentAssetPrice !== 0 &&
                         <Text span size="xs" c="dimmed">
@@ -845,17 +845,15 @@ const UserAssetItemQuantityPriceSummary = ({
   const valuedDiffers: boolean =
     originalValue > 0 && workingValue?.toFixed(2) !== originalValue?.toFixed(2);
 
-  const currencySymbol = "USD";
-
   return (
     <div>
       {valuedDiffers && (
         <Text fz="xs" c="dimmed" style={{ display: 'block' }}>
-          {`= ${formatMoney(originalValue)} ➔`}
+          = <LocalizedFiatDisplay valueUSD={originalValue} /> ➔
         </Text>
       )}
       <Text mt={valuedDiffers ? 0 : 19} style={{ display: 'block' }}>
-        {`= ${formatMoney(workingValue)} (${currencySymbol})`}
+        <LocalizedFiatDisplay valueUSD={workingValue} includeCurrencyCode />
       </Text>
     </div>
   );
@@ -992,50 +990,69 @@ const UserAssetPriceInput = ({
   setAssetPriceInUSD,
 }: UserAssetPriceInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [lastInputValue, setLastInputValue] = useState(workingPrice); // used to set slider to intuitive range
-  const currencySymbol = "USD";
+
+  const { selectedCurrency, currentRate } = useFiatRates(false);
+  const router = useRouter();
+
+  const workingConvertedPrice = workingPrice * currentRate;
+  const originalConvertedPrice = originalPrice * currentRate;
+
+  //const [lastInputValue, setLastInputValue] = useState(workingConvertedPrice); // used to set slider to intuitive range
+
+  const formatPrice = (value: number) => {
+    i18n.activate(router.locale || "en");
+    return i18n.number(value, { style: "currency", currency: selectedCurrency });
+  }
+
+  const formattedWorkingPrice: string = formatPrice(workingConvertedPrice);
 
   useEffect(() => {
     // the input is uncontrolled, but we need to support external "reset" functionality
+    // and selected fiat currency changes
     if (
       inputRef.current &&
-      inputRef.current.value !== formatMoney(workingPrice, '') &&
+      inputRef.current.value !== formattedWorkingPrice &&
       inputRef.current !== document.activeElement // if input is focused, don't apply formatting
     ) {
-      inputRef.current.value = formatMoney(workingPrice, '');
+      inputRef.current.value = formattedWorkingPrice;
     }
-  }, [workingPrice]);
+  }, [formattedWorkingPrice]);
+
+  const convertValueToUSDAndSet = (assetSymbol: string, value: number) => {
+    const updatedValue = value / currentRate;
+    setAssetPriceInUSD(assetSymbol, updatedValue);
+  }
 
   const handleReset = () => {
     const inputNode = inputRef.current as any;
-    inputNode.value = formatMoney(originalPrice, '');
-    handleChange(originalPrice);
+    inputNode.value = formatPrice(originalConvertedPrice);
+    handleChange(originalConvertedPrice);
   };
 
   const handleChange = (value: number) => {
     if (value && value < 0) return;
-    if (value === workingPrice) return;
-    setLastInputValue(value);
-    setAssetPriceInUSD(assetSymbol, value);
+    if (value === workingConvertedPrice) return;
+    //setLastInputValue(value);
+    convertValueToUSDAndSet(assetSymbol, value);
   };
 
   const handleSliderChange = (value: number) => {
     if (value && value < 0) return;
-    if (value === workingPrice) return;
-    setAssetPriceInUSD(assetSymbol, value);
+    if (value === workingConvertedPrice) return;
+    convertValueToUSDAndSet(assetSymbol, value);
     const inputNode = inputRef.current as any;
-    inputNode.value = formatMoney(value, '');
+    inputNode.value = formatPrice(value);
   };
 
   const handleBlur = () => {
     const inputNode = inputRef.current as any;
-    inputNode.value = formatMoney(workingPrice, '');
+    inputNode.value = formatPrice(workingConvertedPrice);
   };
 
   const resetIcon = (
     <ResetInputValueIcon
-      originalValue={originalPrice}
-      workingValue={workingPrice}
+      originalValue={originalConvertedPrice}
+      workingValue={workingConvertedPrice}
       onClick={handleReset}
     />
   );
@@ -1043,8 +1060,8 @@ const UserAssetPriceInput = ({
   return (
     <>
       <TextInput
-        defaultValue={formatMoney(workingPrice, '')}
-        label={t`${assetSymbol} Price (${currencySymbol})`}
+        defaultValue={formattedWorkingPrice}
+        label={t`${assetSymbol} Price (${selectedCurrency})`}
         labelProps={{ size: 'sm' }}
         onChange={(e) => handleChange(unformat(e.target.value))}
         onBlur={handleBlur}
@@ -1052,10 +1069,9 @@ const UserAssetPriceInput = ({
         ref={inputRef}
         inputWrapperOrder={['label', 'error', 'input', 'description']}
         rightSection={resetIcon}
-        icon={<IoLogoUsd />}
       />
       <Slider
-        defaultValue={workingPrice}
+        defaultValue={workingConvertedPrice}
         onChange={handleSliderChange}
       />
     </>
@@ -1071,6 +1087,7 @@ const Slider = ({
   defaultValue,
   onChange
 }: SliderProps) => {
+  const [isDragging, setIsDragging] = useState(false);
   const [value, setValue] = useState(defaultValue);
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -1080,10 +1097,10 @@ const Slider = ({
   }, []);
 
   useEffect(() => { // handle external reset or change
-    if (value != null && defaultValue != null && defaultValue !== value) {
+    if (!isDragging && value != null && defaultValue != null && defaultValue !== value) {
       createSlider()
     }
-  }, [defaultValue, value]);
+  }, [defaultValue, value, isDragging]);
 
   const createSlider = () => {
     const node = divRef.current;
@@ -1102,6 +1119,9 @@ const Slider = ({
         'max': [Math.max(defaultValue * 20, 20)]
       }
     }).on('slide', handleChange);
+
+    node?.noUiSlider.on('start', () => setIsDragging(true));
+    node?.noUiSlider.on('end', () => setIsDragging(false));
   }
 
   const handleChange = (val: number[]) => {

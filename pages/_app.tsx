@@ -21,11 +21,11 @@ const { messages } = await import(`../src/locales/${defaultLocale}/messages`);
 i18n.load(defaultLocale, messages);
 i18n.activate(defaultLocale);
 
-/*
+
 import langItems from "../src/languages/index.json";
 const langs = langItems.map(item => item.code)
 console.log({ langs })
-*/
+
 
 /**
 * We do a dynamic import of just the catalog that we need

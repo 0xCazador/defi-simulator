@@ -20,12 +20,14 @@ import AddressCard from '../components/AddressCard';
 import Footer from '../components/Footer';
 import { activateLocale } from './_app';
 import I18nInput from '../components/I18nInput';
+import { useFiatRates } from '../hooks/useFiatData';
 
 export default function HomePage() {
   const router: NextRouter = useRouter();
   const address = router?.query?.address as string;
   const isValidAddress: boolean = ethers.utils.isAddress(address) || isValidENSAddress(address);
   const { currentAddress, setCurrentAddress } = useAaveData(isValidAddress ? address : '');
+  const { currentRate } = useFiatRates(true);
 
   const locale = router?.locale;
 
