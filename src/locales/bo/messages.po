@@ -1,26 +1,30 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"POT-Creation-Date: 2023-07-13 14:32-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: bo\n"
 
-#: components/AddressCard.tsx:449
+#: components/AddressCard.tsx:452
 msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
 msgstr ""
 
-#: components/AddressCard.tsx:66
+#: components/AddressCard.tsx:70
 msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
 msgstr ""
+
+#: components/AppBar.tsx:125
+msgid "Aave Markets"
+msgstr "ཨེབ་མེར་ཀེཊིས་"
 
 #: components/AddAssetDialog.tsx:82
 #: components/AddAssetDialog.tsx:151
 msgid "Add {0} Asset"
 msgstr ""
 
-#: components/AddressCard.tsx:152
+#: components/AddressCard.tsx:156
 msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
 msgstr ""
 
@@ -32,8 +36,8 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
-#: components/AddressCard.tsx:188
-#: components/AddressCard.tsx:352
+#: components/AddressCard.tsx:192
+#: components/AddressCard.tsx:355
 msgid "Available to Borrow:"
 msgstr ""
 
@@ -41,11 +45,19 @@ msgstr ""
 msgid "Borrowed Assets"
 msgstr ""
 
-#: pages/index.tsx:89
+#: pages/index.tsx:93
 msgid "Build from Scratch"
 msgstr ""
 
-#: pages/index.tsx:542
+#: components/I18nInput.tsx:119
+msgid "Choose Currency"
+msgstr "དང་པོའི་དངོས་གྲུབ་འབྲེལ་བར་འབད་བས།"
+
+#: components/I18nInput.tsx:64
+msgid "Choose Language"
+msgstr "སྐད་རིགས་འགྲེལ་བཤད་འབད་བས།"
+
+#: pages/index.tsx:546
 msgid "Close alert"
 msgstr ""
 
@@ -54,36 +66,49 @@ msgstr ""
 msgid "Copy address to clipboard"
 msgstr ""
 
-#: pages/index.tsx:537
+#: pages/index.tsx:541
 msgid "Experimental!"
 msgstr ""
 
-#: components/AddressCard.tsx:131
+#: components/AddressCard.tsx:135
 msgid "Found"
 msgstr ""
 
-#: components/AddressCard.tsx:198
-#: components/AddressCard.tsx:376
+#: components/AppBar.tsx:113
+msgid "Markets for"
+msgstr "དང་པོའི་དངོས་གྲུབ་འབྲེལ་བར་འབད་བས།"
+
+#: components/AddressCard.tsx:202
+#: components/AddressCard.tsx:379
 msgid "Net Asset Value:"
 msgstr ""
 
-#: components/AddressCard.tsx:145
+#: components/AddressCard.tsx:149
 msgid "No Aave positions found."
 msgstr ""
 
-#: components/AddressCard.tsx:409
+#: components/AddressCard.tsx:412
 msgid "No Liquidation Scenario Available"
 msgstr ""
 
-#: pages/index.tsx:75
+#: components/AppBar.tsx:119
+msgid "No address found"
+msgstr "ཁ་བྱེད་མིན་འདུག"
+
+#: components/I18nInput.tsx:71
+#: components/I18nInput.tsx:126
+msgid "No matches"
+msgstr "འགོ་བཙུགས་མིན་འདུག"
+
+#: pages/index.tsx:79
 msgid "OR"
 msgstr ""
 
-#: pages/index.tsx:64
+#: pages/index.tsx:68
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr ""
 
-#: components/AddressCard.tsx:426
+#: components/AddressCard.tsx:429
 msgid "Price Liquidation Scenario"
 msgstr ""
 
@@ -95,8 +120,8 @@ msgstr ""
 msgid "Remove {assetSymbol}"
 msgstr ""
 
-#: components/AddressCard.tsx:193
-#: components/AddressCard.tsx:364
+#: components/AddressCard.tsx:197
+#: components/AddressCard.tsx:367
 msgid "Reserve Asset Value:"
 msgstr ""
 
@@ -112,7 +137,7 @@ msgstr ""
 msgid "Reset search query"
 msgstr ""
 
-#: components/AddressCard.tsx:972
+#: components/AddressCard.tsx:970
 msgid "Reset to Original Value ({0})"
 msgstr ""
 
@@ -124,7 +149,7 @@ msgstr ""
 msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
 msgstr ""
 
-#: components/AddressCard.tsx:239
+#: components/AddressCard.tsx:243
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
 msgstr ""
 
@@ -140,22 +165,22 @@ msgstr ""
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr ""
 
-#: pages/index.tsx:544
+#: pages/index.tsx:548
 msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
 msgstr ""
 
-#: components/AddressCard.tsx:183
-#: components/AddressCard.tsx:340
+#: components/AddressCard.tsx:187
+#: components/AddressCard.tsx:343
 msgid "Total Borrowed:"
 msgstr ""
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:523
+#: pages/index.tsx:527
 msgid "Use Random Address"
 msgstr ""
 
-#: components/AddressCard.tsx:883
+#: components/AddressCard.tsx:881
 msgid "Use {assetSymbol} as collateral"
 msgstr ""
 
@@ -167,11 +192,11 @@ msgstr ""
 msgid "Visit address details on Etherscan"
 msgstr ""
 
-#: pages/index.tsx:79
+#: pages/index.tsx:83
 msgid "Want to go for a quick spin?"
 msgstr ""
 
-#: components/AddressCard.tsx:137
+#: components/AddressCard.tsx:141
 msgid "in"
 msgstr ""
 
@@ -179,18 +204,22 @@ msgstr ""
 msgid "is an unofficial, open source, community-built Aave debt simulator."
 msgstr ""
 
-#: components/AddressCard.tsx:141
+#: components/AddressCard.tsx:145
 msgid "{0, plural, one {market} other {markets}}"
 msgstr ""
 
-#: components/AddressCard.tsx:135
+#: components/AddressCard.tsx:139
 msgid "{0, plural, one {position} other {positions}}"
 msgstr ""
 
-#: components/AddressCard.tsx:1047
-msgid "{assetSymbol} Price ({currencySymbol})"
-msgstr ""
+#: components/AddressCard.tsx:1064
+msgid "{assetSymbol} Price ({selectedCurrency})"
+msgstr "{assetSymbol} རིང་བཞིན་ ({selectedCurrency})"
 
-#: components/AddressCard.tsx:943
+#: components/AddressCard.tsx:941
 msgid "{assetSymbol} Quantity"
 msgstr ""
+
+#: components/I18nInput.tsx:36
+msgid "{subLabel}"
+msgstr "{subLabel}"

@@ -1,26 +1,30 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"POT-Creation-Date: 2023-07-13 14:32-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: sl\n"
 
-#: components/AddressCard.tsx:449
+#: components/AddressCard.tsx:452
 msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
 msgstr "<0>Scenarij cenovne likvidacije predstavlja približno najvišje cene rezervnih sredstev, ki bi lahko povzročile likvidacijo pozicije. Stabilna sredstva niso vključena v ta scenarij in se predpostavlja, da ohranjajo svojo sedanjo vrednost. Na likvidacijo vpliva veliko dejavnikov. Ta scenarij je le en primer za referenco. Veliko različnih scenarijev lahko sproži likvidacijo<1>.</1></0>"
 
-#: components/AddressCard.tsx:66
+#: components/AddressCard.tsx:70
 msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
 msgstr "<0>Ta položaj dolga ima omogočen način Emode (Efficieny Mode), vendar DeFi Simulator še ne podpira položajev z omogočenim načinom Emode. Upamo, da bomo kmalu dodali podporo za Emode.</0><1/>"
+
+#: components/AppBar.tsx:125
+msgid "Aave Markets"
+msgstr "Trgi Aave"
 
 #: components/AddAssetDialog.tsx:82
 #: components/AddAssetDialog.tsx:151
 msgid "Add {0} Asset"
 msgstr "Dodaj premoženje {0}"
 
-#: components/AddressCard.tsx:152
+#: components/AddressCard.tsx:156
 msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
 msgstr "Dodajte, odstranite in spremenite spodnje cene in količine sredstev, da prikažete spremembe dejavnika zdravja in posojilne moči."
 
@@ -32,8 +36,8 @@ msgstr "Naslov kopiran v odložišče!"
 msgid "Apply"
 msgstr "Uporabi"
 
-#: components/AddressCard.tsx:188
-#: components/AddressCard.tsx:352
+#: components/AddressCard.tsx:192
+#: components/AddressCard.tsx:355
 msgid "Available to Borrow:"
 msgstr "Na voljo za izposojo:"
 
@@ -41,11 +45,19 @@ msgstr "Na voljo za izposojo:"
 msgid "Borrowed Assets"
 msgstr "Izposojena sredstva"
 
-#: pages/index.tsx:89
+#: pages/index.tsx:93
 msgid "Build from Scratch"
 msgstr "Gradnja iz nič"
 
-#: pages/index.tsx:542
+#: components/I18nInput.tsx:119
+msgid "Choose Currency"
+msgstr "Izberite valuto"
+
+#: components/I18nInput.tsx:64
+msgid "Choose Language"
+msgstr "Izberite jezik"
+
+#: pages/index.tsx:546
 msgid "Close alert"
 msgstr "Zapri opozorilo"
 
@@ -54,36 +66,49 @@ msgstr "Zapri opozorilo"
 msgid "Copy address to clipboard"
 msgstr "Kopiranje naslova v odložišče"
 
-#: pages/index.tsx:537
+#: pages/index.tsx:541
 msgid "Experimental!"
 msgstr "Eksperimentalno!"
 
-#: components/AddressCard.tsx:131
+#: components/AddressCard.tsx:135
 msgid "Found"
 msgstr "Najdeno na spletnem mestu"
 
-#: components/AddressCard.tsx:198
-#: components/AddressCard.tsx:376
+#: components/AppBar.tsx:113
+msgid "Markets for"
+msgstr "Trgi za"
+
+#: components/AddressCard.tsx:202
+#: components/AddressCard.tsx:379
 msgid "Net Asset Value:"
 msgstr "Čista vrednost sredstev:"
 
-#: components/AddressCard.tsx:145
+#: components/AddressCard.tsx:149
 msgid "No Aave positions found."
 msgstr "Ni bilo najdenih delovnih mest za Aave."
 
-#: components/AddressCard.tsx:409
+#: components/AddressCard.tsx:412
 msgid "No Liquidation Scenario Available"
 msgstr "Scenarij likvidacije ni na voljo"
 
-#: pages/index.tsx:75
+#: components/AppBar.tsx:119
+msgid "No address found"
+msgstr "Ni najdenega naslova"
+
+#: components/I18nInput.tsx:71
+#: components/I18nInput.tsx:126
+msgid "No matches"
+msgstr "Ni zadetkov"
+
+#: pages/index.tsx:79
 msgid "OR"
 msgstr "ALI"
 
-#: pages/index.tsx:64
+#: pages/index.tsx:68
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "V zgornje polje vstavite naslov z dolžniško pozicijo Aave, da bi prikazali, kako spremembe izposojenih/rezervacijskih sredstev vplivajo na faktor zdravja pozicije in njeno posojilno moč."
 
-#: components/AddressCard.tsx:426
+#: components/AddressCard.tsx:429
 msgid "Price Liquidation Scenario"
 msgstr "Scenarij likvidacije cen"
 
@@ -95,8 +120,8 @@ msgstr "Vprašanja ali komentarji? <0>Pridružite se Discordu</0>!"
 msgid "Remove {assetSymbol}"
 msgstr "Odstrani {assetSymbol}"
 
-#: components/AddressCard.tsx:193
-#: components/AddressCard.tsx:364
+#: components/AddressCard.tsx:197
+#: components/AddressCard.tsx:367
 msgid "Reserve Asset Value:"
 msgstr "Vrednost rezervnih sredstev:"
 
@@ -112,7 +137,7 @@ msgstr "Ponastavitev vseh simuliranih vrednosti"
 msgid "Reset search query"
 msgstr "Ponastavitev iskalne poizvedbe"
 
-#: components/AddressCard.tsx:972
+#: components/AddressCard.tsx:970
 msgid "Reset to Original Value ({0})"
 msgstr "Ponastavitev na prvotno vrednost ({0})"
 
@@ -124,7 +149,7 @@ msgstr "Iskanje {0} Sredstva"
 msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
 msgstr "Izberite {0} ({1}) {2} spodaj, da ga dodate kot sredstvo {3} v CDP."
 
-#: components/AddressCard.tsx:239
+#: components/AddressCard.tsx:243
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
 msgstr "Nekaj se je zgodilo, trenutno ne moremo naložiti podatkov o položaju dolga naslova. Poskusite pozneje."
 
@@ -140,22 +165,22 @@ msgstr "Na trgu {0} ni izposojenih sredstev za <0/>. Izberite \"Add Borrow Asset
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "Na trgu {0} ni rezervnih sredstev za <0/>. Za simulacijo rezervnih sredstev za ta naslov izberite \"Dodaj rezervno sredstvo\"."
 
-#: pages/index.tsx:544
+#: pages/index.tsx:548
 msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
 msgstr "Ta simulator dolga Aave je eksperimentalen in se aktivno razvija. Ne sprejemajte finančnih odločitev samo na podlagi rezultatov te aplikacije."
 
-#: components/AddressCard.tsx:183
-#: components/AddressCard.tsx:340
+#: components/AddressCard.tsx:187
+#: components/AddressCard.tsx:343
 msgid "Total Borrowed:"
 msgstr "Skupaj izposojeno:"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:523
+#: pages/index.tsx:527
 msgid "Use Random Address"
 msgstr "Uporaba naključnega naslova"
 
-#: components/AddressCard.tsx:883
+#: components/AddressCard.tsx:881
 msgid "Use {assetSymbol} as collateral"
 msgstr "Uporabite {assetSymbol} kot zavarovanje"
 
@@ -167,11 +192,11 @@ msgstr "Oglejte si naslov na Etherscan"
 msgid "Visit address details on Etherscan"
 msgstr "Obiščite podrobnosti o naslovu na Etherscan"
 
-#: pages/index.tsx:79
+#: pages/index.tsx:83
 msgid "Want to go for a quick spin?"
 msgstr "Želite se na hitro zavrteti?"
 
-#: components/AddressCard.tsx:137
+#: components/AddressCard.tsx:141
 msgid "in"
 msgstr "na spletnem mestu"
 
@@ -179,18 +204,22 @@ msgstr "na spletnem mestu"
 msgid "is an unofficial, open source, community-built Aave debt simulator."
 msgstr "je neuradni odprtokodni simulator dolga Aave, ki ga je izdelala skupnost."
 
-#: components/AddressCard.tsx:141
+#: components/AddressCard.tsx:145
 msgid "{0, plural, one {market} other {markets}}"
 msgstr "{ 0, plural, one {trg} two {trgi} few {trgi} other {trgi} }"
 
-#: components/AddressCard.tsx:135
+#: components/AddressCard.tsx:139
 msgid "{0, plural, one {position} other {positions}}"
 msgstr "{ 0, plural, one {položaj} two {pozicije} few {pozicije} other {pozicije} }"
 
-#: components/AddressCard.tsx:1047
-msgid "{assetSymbol} Price ({currencySymbol})"
-msgstr "{assetSymbol} Cena ({currencySymbol})"
+#: components/AddressCard.tsx:1064
+msgid "{assetSymbol} Price ({selectedCurrency})"
+msgstr "{assetSymbol} Cena ({selectedCurrency})"
 
-#: components/AddressCard.tsx:943
+#: components/AddressCard.tsx:941
 msgid "{assetSymbol} Quantity"
 msgstr "{assetSymbol} Količina"
+
+#: components/I18nInput.tsx:36
+msgid "{subLabel}"
+msgstr "{subLabel}"

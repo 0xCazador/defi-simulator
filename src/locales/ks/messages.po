@@ -1,26 +1,30 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"POT-Creation-Date: 2023-07-13 14:32-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: ks\n"
 
-#: components/AddressCard.tsx:449
+#: components/AddressCard.tsx:452
 msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
 msgstr "<0>दाम लिक्विडेशन स्थिति वापरणी अस्तित्वातील उच्चतम रिझर्व असेट दामांची प्राथमिक अंदाज आहे ज्यामुळे स्थिती वापरण्याच्या जागेवर विक्री केली जाऊ शकते. स्थिर असेट्स हे स्थितीत असलेले आपले मूल्य ठेवण्यात आले जाते. लिक्विडेशनवर काही तत्वे प्रभावित होतात. हे स्थिती केवळ संदर्भासाठी एक उदाहरण आहे. लिक्विडेशनच्या वेगवेगळ्या उदाहरणांनी लिक्विडेशन सुरू करू शकतात.<1>अधिक माहिती येथे</1>।</0>"
 
-#: components/AddressCard.tsx:66
+#: components/AddressCard.tsx:70
 msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
 msgstr "<0>हा कर्ज स्थितीत Emode (दक्षता मोड) सक्षम केला आहे, परंतु DeFi सिम्युलेटरला अद्याप ते समर्थन करत नाही. आम्ही लवकरच Emode समर्थन जोडण्याची आशा आहे.</0><1/>"
+
+#: components/AppBar.tsx:125
+msgid "Aave Markets"
+msgstr "Aave Markets"
 
 #: components/AddAssetDialog.tsx:82
 #: components/AddAssetDialog.tsx:151
 msgid "Add {0} Asset"
 msgstr "{0} असेट जोडा"
 
-#: components/AddressCard.tsx:152
+#: components/AddressCard.tsx:156
 msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
 msgstr "हेल्थ फैक्टर और कर्ज़ शक्ति में परिवर्तन को दृश्यीकरण करने के लिए नीचे संपत्ति के दाम और मात्रा में जोड़ें, हटाएँ और संशोधित करें।"
 
@@ -32,8 +36,8 @@ msgstr "पत्ता क्लिपबोर्डवर कॉपी के
 msgid "Apply"
 msgstr "लागू करें"
 
-#: components/AddressCard.tsx:188
-#: components/AddressCard.tsx:352
+#: components/AddressCard.tsx:192
+#: components/AddressCard.tsx:355
 msgid "Available to Borrow:"
 msgstr "उधार घेण्यासाठी उपलब्ध:"
 
@@ -41,11 +45,19 @@ msgstr "उधार घेण्यासाठी उपलब्ध:"
 msgid "Borrowed Assets"
 msgstr "उधारी आस्तां"
 
-#: pages/index.tsx:89
+#: pages/index.tsx:93
 msgid "Build from Scratch"
 msgstr "खाली से बनाएँ"
 
-#: pages/index.tsx:542
+#: components/I18nInput.tsx:119
+msgid "Choose Currency"
+msgstr "چنو کرنسی"
+
+#: components/I18nInput.tsx:64
+msgid "Choose Language"
+msgstr "چنو زبان"
+
+#: pages/index.tsx:546
 msgid "Close alert"
 msgstr "चेतावनी बंद करें"
 
@@ -54,36 +66,49 @@ msgstr "चेतावनी बंद करें"
 msgid "Copy address to clipboard"
 msgstr "पत्ता क्लिपबोर्डवर कॉपी करा"
 
-#: pages/index.tsx:537
+#: pages/index.tsx:541
 msgid "Experimental!"
 msgstr "प्रायोगिक!"
 
-#: components/AddressCard.tsx:131
+#: components/AddressCard.tsx:135
 msgid "Found"
 msgstr "وجود"
 
-#: components/AddressCard.tsx:198
-#: components/AddressCard.tsx:376
+#: components/AppBar.tsx:113
+msgid "Markets for"
+msgstr "مارکیٹس برائے"
+
+#: components/AddressCard.tsx:202
+#: components/AddressCard.tsx:379
 msgid "Net Asset Value:"
 msgstr "शुद्ध असेट मूल्य:"
 
-#: components/AddressCard.tsx:145
+#: components/AddressCard.tsx:149
 msgid "No Aave positions found."
 msgstr "कोणतेही Aave स्थिती सापडली नाहीत."
 
-#: components/AddressCard.tsx:409
+#: components/AddressCard.tsx:412
 msgid "No Liquidation Scenario Available"
 msgstr "نہیں لیکویڈیشن سیناریو دستیاب"
 
-#: pages/index.tsx:75
+#: components/AppBar.tsx:119
+msgid "No address found"
+msgstr "کوئی پتہ نہیں ملا"
+
+#: components/I18nInput.tsx:71
+#: components/I18nInput.tsx:126
+msgid "No matches"
+msgstr "کوئی مماثلت نہیں"
+
+#: pages/index.tsx:79
 msgid "OR"
 msgstr "या"
 
-#: pages/index.tsx:64
+#: pages/index.tsx:68
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "ووٹھ بوکس اوپر یک آدریس پیسٹ کرن تے دیکھو کیفیت تے قرضے دے اثرات تے قرضے دے قابلیت تے تبدیلیاں دکھائوندیاں جاندیاں ہندیاں."
 
-#: components/AddressCard.tsx:426
+#: components/AddressCard.tsx:429
 msgid "Price Liquidation Scenario"
 msgstr "قیمت لیکویڈیشن سیناریو"
 
@@ -95,8 +120,8 @@ msgstr "سوالات یا تبصرے؟ براہ کرم <0>ڈسکورڈ میں ش
 msgid "Remove {assetSymbol}"
 msgstr "{assetSymbol} ہٹاؤ"
 
-#: components/AddressCard.tsx:193
-#: components/AddressCard.tsx:364
+#: components/AddressCard.tsx:197
+#: components/AddressCard.tsx:367
 msgid "Reserve Asset Value:"
 msgstr "ریزرو ایسٹ ویلیو:"
 
@@ -112,7 +137,7 @@ msgstr "سب سمیولیٹڈ قیمتوں کو ری سیٹ کریں"
 msgid "Reset search query"
 msgstr "تلاش کوئری کو ری سیٹ کریں"
 
-#: components/AddressCard.tsx:972
+#: components/AddressCard.tsx:970
 msgid "Reset to Original Value ({0})"
 msgstr "اصل قیمت ({0}) پر ری سیٹ کریں"
 
@@ -124,7 +149,7 @@ msgstr "{0} ایسٹس تلاش کریں"
 msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
 msgstr "{3} ایسٹ کے طور پر شامل کرنے کے لئے نیچے {0} ({1}) {2} کو منتخب کریں."
 
-#: components/AddressCard.tsx:239
+#: components/AddressCard.tsx:243
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
 msgstr "کوئ چیز ہوئی، ہم اس وقت پتہ قرضہ کی حالت کے ڈیٹا لوڈ نہیں کر سکتے ہیں۔ بعد میں دوبارہ کوشش کریں۔"
 
@@ -140,22 +165,22 @@ msgstr "{0} बाजार विच <0/> उधारी आस्तां �
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "{0} बाजार विच <0/> आदाय आस्तां नाईं आस. इस पते विच आदाय आस्तां नकल करण्यासाठी \"आदाय आस्तां जोडणे\" निवडा."
 
-#: pages/index.tsx:544
+#: pages/index.tsx:548
 msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
 msgstr "اےو دیونٹ سمیولیٹر تجرباتی اے تے تیزی نال ترقی کر رہی اے. اس ایپ دے نتائج تے بنیادی طور اتھے مدیانی تصمیمات نہیں لیو."
 
-#: components/AddressCard.tsx:183
-#: components/AddressCard.tsx:340
+#: components/AddressCard.tsx:187
+#: components/AddressCard.tsx:343
 msgid "Total Borrowed:"
 msgstr "کل قرضہ لیا گیا:"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:523
+#: pages/index.tsx:527
 msgid "Use Random Address"
 msgstr "رینڈم پتہ استعمال کریں"
 
-#: components/AddressCard.tsx:883
+#: components/AddressCard.tsx:881
 msgid "Use {assetSymbol} as collateral"
 msgstr "کالیٹرل کے طور پر {assetSymbol} استعمال کریں"
 
@@ -167,11 +192,11 @@ msgstr "ایتھرسکین پر پتہ دیکھیں"
 msgid "Visit address details on Etherscan"
 msgstr "ایتھرسکین پر پتہ کی تفصیلات دیکھیں"
 
-#: pages/index.tsx:79
+#: pages/index.tsx:83
 msgid "Want to go for a quick spin?"
 msgstr "تہیں تیزی نال چلنا چاہو؟"
 
-#: components/AddressCard.tsx:137
+#: components/AddressCard.tsx:141
 msgid "in"
 msgstr "چون"
 
@@ -179,18 +204,22 @@ msgstr "چون"
 msgid "is an unofficial, open source, community-built Aave debt simulator."
 msgstr "Aave ڈیٹ سمیولیٹر ایک غیر آفیشل، کھلے سورس، کمیونٹی کا تعمیر کردہ ہے۔"
 
-#: components/AddressCard.tsx:141
+#: components/AddressCard.tsx:145
 msgid "{0, plural, one {market} other {markets}}"
 msgstr "{ 0, plural, one {بازار} other {بازارات} }"
 
-#: components/AddressCard.tsx:135
+#: components/AddressCard.tsx:139
 msgid "{0, plural, one {position} other {positions}}"
 msgstr "{ 0, plural, one {ثقافت} other {ثقافتون} }"
 
-#: components/AddressCard.tsx:1047
-msgid "{assetSymbol} Price ({currencySymbol})"
-msgstr "{assetSymbol} दाम ({currencySymbol})"
+#: components/AddressCard.tsx:1064
+msgid "{assetSymbol} Price ({selectedCurrency})"
+msgstr "{assetSymbol} दाम ({selectedCurrency})"
 
-#: components/AddressCard.tsx:943
+#: components/AddressCard.tsx:941
 msgid "{assetSymbol} Quantity"
 msgstr "{assetSymbol} मात्रा"
+
+#: components/I18nInput.tsx:36
+msgid "{subLabel}"
+msgstr "{subLabel}"

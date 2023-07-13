@@ -1,28 +1,32 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"POT-Creation-Date: 2023-07-13 14:32-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: sc\n"
 
-#: components/AddressCard.tsx:449
+#: components/AddressCard.tsx:452
 msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
 msgstr ""
 "<0>Sa situatzione de preziu de liquidatzione rapresentat su scenario de preziu de riserva massimu chi podet ponner in liquidatzione sa positzione. Asset istabiles non sunt inclusos in custu scenario e si presuponet chi mantengan su valore presente. Diferentes factores ant influentzia in sa liquidatzione. Custu scenario est unu esempiu pro referèntzia. Podent esser diferentis scenaris chi podent trigare sa liquidatzione.</0>\n"
 "<1>Lègi prus inue</1>."
 
-#: components/AddressCard.tsx:66
+#: components/AddressCard.tsx:70
 msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
 msgstr "<0>Custu postu de debitu tenet Emode (Efficieny Mode) abilitadu, ma DeFi Simulator non tenet ancora suportu pro postos cun Emode abilitadu. Speramus de agiungere suportu pro Emode prontu.</0><1/>"
+
+#: components/AppBar.tsx:125
+msgid "Aave Markets"
+msgstr "Aave Markets"
 
 #: components/AddAssetDialog.tsx:82
 #: components/AddAssetDialog.tsx:151
 msgid "Add {0} Asset"
 msgstr "Agiunghe Asset {0}"
 
-#: components/AddressCard.tsx:152
+#: components/AddressCard.tsx:156
 msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
 msgstr "Agiungi, rimuovi e modifica preziu e quantidades de su beni in bassu pro bideri cambiamentos a su fattore de salude e a sa capacidade de prestitziu."
 
@@ -34,8 +38,8 @@ msgstr "Indiritzu copiadu in su clipboard!"
 msgid "Apply"
 msgstr "Applica"
 
-#: components/AddressCard.tsx:188
-#: components/AddressCard.tsx:352
+#: components/AddressCard.tsx:192
+#: components/AddressCard.tsx:355
 msgid "Available to Borrow:"
 msgstr "Diponìbile pro Prendere in Prestitu:"
 
@@ -43,11 +47,19 @@ msgstr "Diponìbile pro Prendere in Prestitu:"
 msgid "Borrowed Assets"
 msgstr "Benes prestatos"
 
-#: pages/index.tsx:89
+#: pages/index.tsx:93
 msgid "Build from Scratch"
 msgstr "Crea da zero"
 
-#: pages/index.tsx:542
+#: components/I18nInput.tsx:119
+msgid "Choose Currency"
+msgstr "Sèbera Moneta"
+
+#: components/I18nInput.tsx:64
+msgid "Choose Language"
+msgstr "Sèbera Limba"
+
+#: pages/index.tsx:546
 msgid "Close alert"
 msgstr "Serra avvisu"
 
@@ -56,36 +68,49 @@ msgstr "Serra avvisu"
 msgid "Copy address to clipboard"
 msgstr "Copiadu indiritzu in su clipboard"
 
-#: pages/index.tsx:537
+#: pages/index.tsx:541
 msgid "Experimental!"
 msgstr "Sperimentale!"
 
-#: components/AddressCard.tsx:131
+#: components/AddressCard.tsx:135
 msgid "Found"
 msgstr "Trovadu"
 
-#: components/AddressCard.tsx:198
-#: components/AddressCard.tsx:376
+#: components/AppBar.tsx:113
+msgid "Markets for"
+msgstr "Mercaus po"
+
+#: components/AddressCard.tsx:202
+#: components/AddressCard.tsx:379
 msgid "Net Asset Value:"
 msgstr "Valore Netu de su Asset:"
 
-#: components/AddressCard.tsx:145
+#: components/AddressCard.tsx:149
 msgid "No Aave positions found."
 msgstr "Nessuna positzione de Aave trovada."
 
-#: components/AddressCard.tsx:409
+#: components/AddressCard.tsx:412
 msgid "No Liquidation Scenario Available"
 msgstr "Nessun scenario de liquidatzione disponìbile"
 
-#: pages/index.tsx:75
+#: components/AppBar.tsx:119
+msgid "No address found"
+msgstr "Nessuna indiritzada agata"
+
+#: components/I18nInput.tsx:71
+#: components/I18nInput.tsx:126
+msgid "No matches"
+msgstr "Nessuna cumparada"
+
+#: pages/index.tsx:79
 msgid "OR"
 msgstr "O"
 
-#: pages/index.tsx:64
+#: pages/index.tsx:68
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "Incolla un'indiritzu cun una positzione de debitu in Aave in su casu supra pro bideri comente is cambiamentos a is asset de prestitu/reserva influentzant su fattore de salude e sa capacidade de prestitu de sa positzione."
 
-#: components/AddressCard.tsx:426
+#: components/AddressCard.tsx:429
 msgid "Price Liquidation Scenario"
 msgstr "Scenario de liquidatzione de prezzu"
 
@@ -97,8 +122,8 @@ msgstr "Domandas o comentos? Agradu s'iscrìberi a su Discord!"
 msgid "Remove {assetSymbol}"
 msgstr "Boga {assetSymbol}"
 
-#: components/AddressCard.tsx:193
-#: components/AddressCard.tsx:364
+#: components/AddressCard.tsx:197
+#: components/AddressCard.tsx:367
 msgid "Reserve Asset Value:"
 msgstr "Valore de risèrva de asset:"
 
@@ -114,7 +139,7 @@ msgstr "Resètta totu is valorus simulados"
 msgid "Reset search query"
 msgstr "Resètta sa chistione de cherka"
 
-#: components/AddressCard.tsx:972
+#: components/AddressCard.tsx:970
 msgid "Reset to Original Value ({0})"
 msgstr "Resètta a su valori orìgine ({0})"
 
@@ -126,7 +151,7 @@ msgstr "Cherka pro asset {0}"
 msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
 msgstr "Seleziona {0} ({1}) {2} in bassu pro agiùngerlu comente asset {3} a su CDP."
 
-#: components/AddressCard.tsx:239
+#: components/AddressCard.tsx:243
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
 msgstr "S'at acantit, no si podet carrigare sas datus de sa positzione de su debitu de s'indiritzu in custione. Torra a tentare pustis."
 
@@ -142,22 +167,22 @@ msgstr "No sunt benes prestatos pro <0/>in su mercadu {0}. Seletziona \"Agiunghe
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "No sunt benes de riserva pro <0/>in su mercadu {0}. Seletziona \"Agiunghe benes de riserva\" pro simulare benes de riserva pro custu indiritzu."
 
-#: pages/index.tsx:544
+#: pages/index.tsx:548
 msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
 msgstr "Custu simuladore de debitu in Aave est sperimentale e in dezervitzu ativu. No faghis decitziones finantziales basadas isceti in su risultadu de custa aplicatzione."
 
-#: components/AddressCard.tsx:183
-#: components/AddressCard.tsx:340
+#: components/AddressCard.tsx:187
+#: components/AddressCard.tsx:343
 msgid "Total Borrowed:"
 msgstr "Totale Imprèstitu:"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:523
+#: pages/index.tsx:527
 msgid "Use Random Address"
 msgstr "Usa un'indiritzu a casu"
 
-#: components/AddressCard.tsx:883
+#: components/AddressCard.tsx:881
 msgid "Use {assetSymbol} as collateral"
 msgstr "Usa {assetSymbol} comente garantia"
 
@@ -169,11 +194,11 @@ msgstr "Bide s'indiritzu in Etherscan"
 msgid "Visit address details on Etherscan"
 msgstr "Bide detallus de s'indiritzu in Etherscan"
 
-#: pages/index.tsx:79
+#: pages/index.tsx:83
 msgid "Want to go for a quick spin?"
 msgstr "Bolis andare pro una girada rapida?"
 
-#: components/AddressCard.tsx:137
+#: components/AddressCard.tsx:141
 msgid "in"
 msgstr "in"
 
@@ -181,18 +206,22 @@ msgstr "in"
 msgid "is an unofficial, open source, community-built Aave debt simulator."
 msgstr "Est unu simuladore de debitu Aave non ufitziale, a còdighe abertu e construitu dae sa cumunitade."
 
-#: components/AddressCard.tsx:141
+#: components/AddressCard.tsx:145
 msgid "{0, plural, one {market} other {markets}}"
 msgstr "{ 0, plural, one {mercatu} other {mercatos} }"
 
-#: components/AddressCard.tsx:135
+#: components/AddressCard.tsx:139
 msgid "{0, plural, one {position} other {positions}}"
 msgstr "{ 0, plural, one {positzione} other {positziones} }"
 
-#: components/AddressCard.tsx:1047
-msgid "{assetSymbol} Price ({currencySymbol})"
-msgstr "{assetSymbol} Preziu ({currencySymbol})"
+#: components/AddressCard.tsx:1064
+msgid "{assetSymbol} Price ({selectedCurrency})"
+msgstr "{assetSymbol} Preziu ({selectedCurrency})"
 
-#: components/AddressCard.tsx:943
+#: components/AddressCard.tsx:941
 msgid "{assetSymbol} Quantity"
 msgstr "{assetSymbol} Quantidade"
+
+#: components/I18nInput.tsx:36
+msgid "{subLabel}"
+msgstr "{subLabel}"

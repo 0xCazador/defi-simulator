@@ -1,26 +1,30 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"POT-Creation-Date: 2023-07-13 14:32-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: fr\n"
 
-#: components/AddressCard.tsx:449
+#: components/AddressCard.tsx:452
 msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
 msgstr "<0>Le scénario de liquidation des prix représente les prix approximativement les plus élevés des actifs de réserve qui pourraient entraîner la liquidation de la position. Les actifs stables ne sont pas inclus dans ce scénario et sont supposés conserver leur valeur actuelle. De nombreux facteurs influencent la liquidation. Ce scénario n'est qu'un exemple à titre de référence. De nombreux scénarios différents peuvent déclencher une liquidation<1>.</1></0>"
 
-#: components/AddressCard.tsx:66
+#: components/AddressCard.tsx:70
 msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
 msgstr "<0>Ce poste de débiteur a activé l'Emode (mode d'efficacité), mais DeFi Simulator ne prend pas encore en charge les postes avec l'Emode activé. Nous espérons ajouter le support pour Emode bientôt.</0><1/>"
+
+#: components/AppBar.tsx:125
+msgid "Aave Markets"
+msgstr "Marchés Aave"
 
 #: components/AddAssetDialog.tsx:82
 #: components/AddAssetDialog.tsx:151
 msgid "Add {0} Asset"
 msgstr "Ajouter {0} Actif"
 
-#: components/AddressCard.tsx:152
+#: components/AddressCard.tsx:156
 msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
 msgstr "Ajoutez, supprimez et modifiez les prix des actifs et les quantités ci-dessous pour visualiser les changements du facteur santé et du pouvoir d'emprunt."
 
@@ -32,8 +36,8 @@ msgstr "Adresse copiée dans le presse-papiers !"
 msgid "Apply"
 msgstr "Appliquer"
 
-#: components/AddressCard.tsx:188
-#: components/AddressCard.tsx:352
+#: components/AddressCard.tsx:192
+#: components/AddressCard.tsx:355
 msgid "Available to Borrow:"
 msgstr "Disponible à l'emprunt :"
 
@@ -41,11 +45,19 @@ msgstr "Disponible à l'emprunt :"
 msgid "Borrowed Assets"
 msgstr "Actifs empruntés"
 
-#: pages/index.tsx:89
+#: pages/index.tsx:93
 msgid "Build from Scratch"
 msgstr "Construire à partir de zéro"
 
-#: pages/index.tsx:542
+#: components/I18nInput.tsx:119
+msgid "Choose Currency"
+msgstr "Choisir la devise"
+
+#: components/I18nInput.tsx:64
+msgid "Choose Language"
+msgstr "Choisir la langue"
+
+#: pages/index.tsx:546
 msgid "Close alert"
 msgstr "Fermer l'alerte"
 
@@ -54,36 +66,49 @@ msgstr "Fermer l'alerte"
 msgid "Copy address to clipboard"
 msgstr "Copier l'adresse dans le presse-papiers"
 
-#: pages/index.tsx:537
+#: pages/index.tsx:541
 msgid "Experimental!"
 msgstr "Expérimental !"
 
-#: components/AddressCard.tsx:131
+#: components/AddressCard.tsx:135
 msgid "Found"
 msgstr "Trouvé"
 
-#: components/AddressCard.tsx:198
-#: components/AddressCard.tsx:376
+#: components/AppBar.tsx:113
+msgid "Markets for"
+msgstr "Marchés pour"
+
+#: components/AddressCard.tsx:202
+#: components/AddressCard.tsx:379
 msgid "Net Asset Value:"
 msgstr "Valeur nette d'inventaire :"
 
-#: components/AddressCard.tsx:145
+#: components/AddressCard.tsx:149
 msgid "No Aave positions found."
 msgstr "Aucun poste Aave n'a été trouvé."
 
-#: components/AddressCard.tsx:409
+#: components/AddressCard.tsx:412
 msgid "No Liquidation Scenario Available"
 msgstr "Pas de scénario de liquidation disponible"
 
-#: pages/index.tsx:75
+#: components/AppBar.tsx:119
+msgid "No address found"
+msgstr "Aucune adresse trouvée"
+
+#: components/I18nInput.tsx:71
+#: components/I18nInput.tsx:126
+msgid "No matches"
+msgstr "Aucune correspondance"
+
+#: pages/index.tsx:79
 msgid "OR"
 msgstr "OU"
 
-#: pages/index.tsx:64
+#: pages/index.tsx:68
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "Collez une adresse avec une position de dette Aave dans la boîte ci-dessus pour visualiser comment les changements d'actifs empruntés/réservés affectent le facteur de santé et le pouvoir d'emprunt de la position."
 
-#: components/AddressCard.tsx:426
+#: components/AddressCard.tsx:429
 msgid "Price Liquidation Scenario"
 msgstr "Scénario de liquidation des prix"
 
@@ -95,8 +120,8 @@ msgstr "Questions ou commentaires ? <0>Rejoignez le Discord !</0>"
 msgid "Remove {assetSymbol}"
 msgstr "Supprimer {assetSymbol}"
 
-#: components/AddressCard.tsx:193
-#: components/AddressCard.tsx:364
+#: components/AddressCard.tsx:197
+#: components/AddressCard.tsx:367
 msgid "Reserve Asset Value:"
 msgstr "Valeur de l'actif de réserve :"
 
@@ -112,7 +137,7 @@ msgstr "Réinitialisation de toutes les valeurs simulées"
 msgid "Reset search query"
 msgstr "Réinitialiser la recherche"
 
-#: components/AddressCard.tsx:972
+#: components/AddressCard.tsx:970
 msgid "Reset to Original Value ({0})"
 msgstr "Remise à la valeur d'origine ({0})"
 
@@ -124,7 +149,7 @@ msgstr "Recherche de {0} Actifs"
 msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
 msgstr "Sélectionnez {0} ({1}) {2} ci-dessous pour l'ajouter en tant qu'actif {3} au CDP."
 
-#: components/AddressCard.tsx:239
+#: components/AddressCard.tsx:243
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
 msgstr "Il s'est passé quelque chose, nous ne sommes pas en mesure de charger les données relatives à la position de la dette de l'adresse pour le moment. Réessayez plus tard."
 
@@ -140,22 +165,22 @@ msgstr "Il n'y a pas d'actif emprunté pour <0/>sur le marché {0}. Sélectionne
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "Il n'y a pas d'avoirs de réserve pour <0/>sur le marché {0}. Sélectionnez \"Ajouter un actif de réserve\" pour simuler des actifs de réserve pour cette adresse."
 
-#: pages/index.tsx:544
+#: pages/index.tsx:548
 msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
 msgstr "Ce simulateur de dette Aave est expérimental et en cours de développement. Ne prenez pas de décisions financières en vous basant uniquement sur les résultats de cette application."
 
-#: components/AddressCard.tsx:183
-#: components/AddressCard.tsx:340
+#: components/AddressCard.tsx:187
+#: components/AddressCard.tsx:343
 msgid "Total Borrowed:"
 msgstr "Total emprunté :"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:523
+#: pages/index.tsx:527
 msgid "Use Random Address"
 msgstr "Utiliser une adresse aléatoire"
 
-#: components/AddressCard.tsx:883
+#: components/AddressCard.tsx:881
 msgid "Use {assetSymbol} as collateral"
 msgstr "Utiliser {assetSymbol} comme garantie"
 
@@ -167,11 +192,11 @@ msgstr "Voir l'adresse sur Etherscan"
 msgid "Visit address details on Etherscan"
 msgstr "Visitez les détails de l'adresse sur Etherscan"
 
-#: pages/index.tsx:79
+#: pages/index.tsx:83
 msgid "Want to go for a quick spin?"
 msgstr "Envie de faire un petit tour ?"
 
-#: components/AddressCard.tsx:137
+#: components/AddressCard.tsx:141
 msgid "in"
 msgstr "sur"
 
@@ -179,18 +204,22 @@ msgstr "sur"
 msgid "is an unofficial, open source, community-built Aave debt simulator."
 msgstr "est un simulateur de dette Aave non officiel, à code source ouvert et construit par la communauté."
 
-#: components/AddressCard.tsx:141
+#: components/AddressCard.tsx:145
 msgid "{0, plural, one {market} other {markets}}"
 msgstr "{ 0, plural, one {marché} other {marchés} }"
 
-#: components/AddressCard.tsx:135
+#: components/AddressCard.tsx:139
 msgid "{0, plural, one {position} other {positions}}"
 msgstr "{ 0, plural, one {position} other {positions} }"
 
-#: components/AddressCard.tsx:1047
-msgid "{assetSymbol} Price ({currencySymbol})"
-msgstr "{assetSymbol} Prix ({currencySymbol})"
+#: components/AddressCard.tsx:1064
+msgid "{assetSymbol} Price ({selectedCurrency})"
+msgstr "{assetSymbol} Prix ({selectedCurrency})"
 
-#: components/AddressCard.tsx:943
+#: components/AddressCard.tsx:941
 msgid "{assetSymbol} Quantity"
 msgstr "{assetSymbol} Quantité"
+
+#: components/I18nInput.tsx:36
+msgid "{subLabel}"
+msgstr "{subLabel}"

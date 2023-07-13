@@ -1,26 +1,30 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"POT-Creation-Date: 2023-07-13 14:32-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: tr\n"
 
-#: components/AddressCard.tsx:449
+#: components/AddressCard.tsx:452
 msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
 msgstr "<0>Fiyat tasfiyesi senaryosu, pozisyonu tasfiyeye tabi tutabilecek yaklaşık en yüksek rezerv varlık fiyatlarını temsil etmektedir. İstikrarlı varlıklar bu senaryoya dahil edilmemiş ve bugünkü değerlerini korudukları varsayılmıştır. Likidasyonu etkileyen birçok faktör vardır. Bu senaryo referans için yalnızca bir örnektir. Birçok farklı senaryo likidasyonu tetikleyebilir.</0>"
 
-#: components/AddressCard.tsx:66
+#: components/AddressCard.tsx:70
 msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
 msgstr "<0>Bu borç pozisyonunda Emode (Verimlilik Modu) etkindir, ancak DeFi Simulator henüz Emode'un etkin olduğu pozisyonları desteklememektedir. Yakında Emode için destek eklemeyi umuyoruz.</0><1/>"
+
+#: components/AppBar.tsx:125
+msgid "Aave Markets"
+msgstr "Aave Marketleri"
 
 #: components/AddAssetDialog.tsx:82
 #: components/AddAssetDialog.tsx:151
 msgid "Add {0} Asset"
 msgstr "{0}] Varlık Ekle"
 
-#: components/AddressCard.tsx:152
+#: components/AddressCard.tsx:156
 msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
 msgstr "Sağlık faktörü ve borçlanma gücündeki değişiklikleri görselleştirmek için aşağıdaki varlık fiyatlarını ve miktarlarını ekleyin, çıkarın ve değiştirin."
 
@@ -32,8 +36,8 @@ msgstr "Adres panoya kopyalandı!"
 msgid "Apply"
 msgstr "Başvurmak"
 
-#: components/AddressCard.tsx:188
-#: components/AddressCard.tsx:352
+#: components/AddressCard.tsx:192
+#: components/AddressCard.tsx:355
 msgid "Available to Borrow:"
 msgstr "Ödünç alınabilir:"
 
@@ -41,11 +45,19 @@ msgstr "Ödünç alınabilir:"
 msgid "Borrowed Assets"
 msgstr "Ödünç Alınan Varlıklar"
 
-#: pages/index.tsx:89
+#: pages/index.tsx:93
 msgid "Build from Scratch"
 msgstr "Sıfırdan İnşa Edin"
 
-#: pages/index.tsx:542
+#: components/I18nInput.tsx:119
+msgid "Choose Currency"
+msgstr "Para Birimi Seçin"
+
+#: components/I18nInput.tsx:64
+msgid "Choose Language"
+msgstr "Dil Seçiniz"
+
+#: pages/index.tsx:546
 msgid "Close alert"
 msgstr "Yakın uyarı"
 
@@ -54,36 +66,49 @@ msgstr "Yakın uyarı"
 msgid "Copy address to clipboard"
 msgstr "Adresi panoya kopyala"
 
-#: pages/index.tsx:537
+#: pages/index.tsx:541
 msgid "Experimental!"
 msgstr "Deneysel!"
 
-#: components/AddressCard.tsx:131
+#: components/AddressCard.tsx:135
 msgid "Found"
 msgstr "Bulundu"
 
-#: components/AddressCard.tsx:198
-#: components/AddressCard.tsx:376
+#: components/AppBar.tsx:113
+msgid "Markets for"
+msgstr "Piyasalar için"
+
+#: components/AddressCard.tsx:202
+#: components/AddressCard.tsx:379
 msgid "Net Asset Value:"
 msgstr "Net Varlık Değeri:"
 
-#: components/AddressCard.tsx:145
+#: components/AddressCard.tsx:149
 msgid "No Aave positions found."
 msgstr "Aave pozisyonu bulunamadı."
 
-#: components/AddressCard.tsx:409
+#: components/AddressCard.tsx:412
 msgid "No Liquidation Scenario Available"
 msgstr "Tasfiye Senaryosu Mevcut Değil"
 
-#: pages/index.tsx:75
+#: components/AppBar.tsx:119
+msgid "No address found"
+msgstr "Adres bulunamadı"
+
+#: components/I18nInput.tsx:71
+#: components/I18nInput.tsx:126
+msgid "No matches"
+msgstr "Eşleşme yok"
+
+#: pages/index.tsx:79
 msgid "OR"
 msgstr "VEYA"
 
-#: pages/index.tsx:64
+#: pages/index.tsx:68
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "Borçlanma/rezerv varlıklarındaki değişikliklerin pozisyonun sağlık faktörünü ve borçlanma gücünü nasıl etkilediğini görselleştirmek için yukarıdaki kutuya Aave borç pozisyonu olan bir adres yapıştırın."
 
-#: components/AddressCard.tsx:426
+#: components/AddressCard.tsx:429
 msgid "Price Liquidation Scenario"
 msgstr "Fiyat Tasfiyesi Senaryosu"
 
@@ -95,8 +120,8 @@ msgstr "Sorularınız veya yorumlarınız mı var? Lütfen <0>Discord'a katılı
 msgid "Remove {assetSymbol}"
 msgstr "Kaldır {assetSymbol}"
 
-#: components/AddressCard.tsx:193
-#: components/AddressCard.tsx:364
+#: components/AddressCard.tsx:197
+#: components/AddressCard.tsx:367
 msgid "Reserve Asset Value:"
 msgstr "Yedek Varlık Değeri:"
 
@@ -112,7 +137,7 @@ msgstr "Simüle edilen tüm değerleri sıfırla"
 msgid "Reset search query"
 msgstr "Arama sorgusunu sıfırla"
 
-#: components/AddressCard.tsx:972
+#: components/AddressCard.tsx:970
 msgid "Reset to Original Value ({0})"
 msgstr "Orijinal Değere Sıfırla ({0})"
 
@@ -124,7 +149,7 @@ msgstr "{0}] Varlıklarını arayın"
 msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
 msgstr "CDP'ye {3} varlığı olarak eklemek için aşağıdaki {0} ({1}) {2} öğesini seçin."
 
-#: components/AddressCard.tsx:239
+#: components/AddressCard.tsx:243
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
 msgstr "Bir şey oldu, şu anda adres borcu pozisyon verilerini yükleyemiyoruz. Daha sonra tekrar deneyin."
 
@@ -140,22 +165,22 @@ msgstr "{0}] piyasasında <0/>için ödünç alınmış varlık bulunmamaktadır
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "{0}] piyasasında <0/>için rezerv varlık bulunmamaktadır. Bu adres için rezerv varlıkları simüle etmek için \"Rezerv Varlık Ekle \"yi seçin."
 
-#: pages/index.tsx:544
+#: pages/index.tsx:548
 msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
 msgstr "Bu Aave borç simülatörü deneyseldir ve aktif geliştirme aşamasındadır. Yalnızca bu uygulamanın sonuçlarına dayanarak finansal kararlar vermeyin."
 
-#: components/AddressCard.tsx:183
-#: components/AddressCard.tsx:340
+#: components/AddressCard.tsx:187
+#: components/AddressCard.tsx:343
 msgid "Total Borrowed:"
 msgstr "Toplam Borçlanma:"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:523
+#: pages/index.tsx:527
 msgid "Use Random Address"
 msgstr "Rastgele Adres Kullan"
 
-#: components/AddressCard.tsx:883
+#: components/AddressCard.tsx:881
 msgid "Use {assetSymbol} as collateral"
 msgstr "Teminat olarak {assetSymbol} kullanın"
 
@@ -167,11 +192,11 @@ msgstr "Etherscan'da adresi görüntüle"
 msgid "Visit address details on Etherscan"
 msgstr "Etherscan'daki adres bilgilerini ziyaret edin"
 
-#: pages/index.tsx:79
+#: pages/index.tsx:83
 msgid "Want to go for a quick spin?"
 msgstr "Hızlı bir tur atmak ister misin?"
 
-#: components/AddressCard.tsx:137
+#: components/AddressCard.tsx:141
 msgid "in"
 msgstr "içinde"
 
@@ -179,18 +204,22 @@ msgstr "içinde"
 msgid "is an unofficial, open source, community-built Aave debt simulator."
 msgstr "resmi olmayan, açık kaynaklı, topluluk tarafından oluşturulmuş bir Aave borç simülatörüdür."
 
-#: components/AddressCard.tsx:141
+#: components/AddressCard.tsx:145
 msgid "{0, plural, one {market} other {markets}}"
 msgstr "{ 0, plural, one {pazar} other {pazarlar} }"
 
-#: components/AddressCard.tsx:135
+#: components/AddressCard.tsx:139
 msgid "{0, plural, one {position} other {positions}}"
 msgstr "{ 0, plural, one {pozisyon} other {pozisyonlar} }"
 
-#: components/AddressCard.tsx:1047
-msgid "{assetSymbol} Price ({currencySymbol})"
-msgstr "{assetSymbol} Fiyat ({currencySymbol})"
+#: components/AddressCard.tsx:1064
+msgid "{assetSymbol} Price ({selectedCurrency})"
+msgstr "{assetSymbol} Fiyat ({selectedCurrency})"
 
-#: components/AddressCard.tsx:943
+#: components/AddressCard.tsx:941
 msgid "{assetSymbol} Quantity"
 msgstr "{assetSymbol} Miktar"
+
+#: components/I18nInput.tsx:36
+msgid "{subLabel}"
+msgstr "{subLabel}"

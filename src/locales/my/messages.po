@@ -1,26 +1,30 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-10 15:27-0700\n"
+"POT-Creation-Date: 2023-07-13 14:32-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: my\n"
 
-#: components/AddressCard.tsx:449
+#: components/AddressCard.tsx:452
 msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
 msgstr "<0>စျေးနှုန်းဖျက်သိမ်းမှုအခြေအနေသည် ဖျက်သိမ်းခြင်းဆိုင်ရာ အနေအထားကို ထိခိုက်စေနိုင်သည့် အနီးစပ်ဆုံး အမြင့်ဆုံးသော အရန်ပိုင်ဆိုင်မှုစျေးနှုန်းများကို ကိုယ်စားပြုသည်။ တည်ငြိမ်သော ပိုင်ဆိုင်မှုများကို ဤအခြေအနေတွင် မပါဝင်ဘဲ ၎င်းတို့၏ ပစ္စုပ္ပန်တန်ဖိုးကို ဆက်လက်ထိန်းသိမ်းထားရန် ယူဆပါသည်။ အကြောင်းရင်းများစွာသည် ဖျက်သိမ်းမှုကို ထိခိုက်စေပါသည်။ ဤအခြေအနေသည် ကိုးကားရန်အတွက် ဥပမာတစ်ခုသာဖြစ်သည်။ မတူညီသော အခြေအနေများစွာသည် ဖျက်သိမ်းမှုကို ဖြစ်ပေါ်စေနိုင်သည်။<1>ဤနေရာတွင် ပိုမိုဖတ်ရှုပါ။</1> .</0>"
 
-#: components/AddressCard.tsx:66
+#: components/AddressCard.tsx:70
 msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
 msgstr "<0>ဤကြွေးမြီအနေအထားတွင် Emode (Efficieny Mode) ကို ဖွင့်ထားသော်လည်း DeFi Simulator သည် Emode ဖွင့်ထားသည့် ရာထူးများကို မပံ့ပိုးနိုင်သေးပါ။ မကြာမီ Emode အတွက် ပံ့ပိုးမှု ထပ်ထည့်ရန် မျှော်လင့်ပါသည်။</0> <1/}"
+
+#: components/AppBar.tsx:125
+msgid "Aave Markets"
+msgstr "Aave စျေးကွက်များ"
 
 #: components/AddAssetDialog.tsx:82
 #: components/AddAssetDialog.tsx:151
 msgid "Add {0} Asset"
 msgstr "{0} ပိုင်ဆိုင်မှုကို ထည့်ပါ။"
 
-#: components/AddressCard.tsx:152
+#: components/AddressCard.tsx:156
 msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
 msgstr "ကျန်းမာရေးအချက်နှင့် ငွေချေးခြင်းဆိုင်ရာ အပြောင်းအလဲများကို မြင်သာစေရန် အောက်ဖော်ပြပါ ပိုင်ဆိုင်မှုစျေးနှုန်းများနှင့် ပမာဏများကို ပေါင်းထည့်၊ ဖယ်ရှားပြီး ပြင်ဆင်ပါ။"
 
@@ -32,8 +36,8 @@ msgstr "လိပ်စာကို ကလစ်ဘုတ်သို့ ကူ�
 msgid "Apply"
 msgstr "လျှောက်ထားပါ။"
 
-#: components/AddressCard.tsx:188
-#: components/AddressCard.tsx:352
+#: components/AddressCard.tsx:192
+#: components/AddressCard.tsx:355
 msgid "Available to Borrow:"
 msgstr "ချေးယူနိုင်သည်-"
 
@@ -41,11 +45,19 @@ msgstr "ချေးယူနိုင်သည်-"
 msgid "Borrowed Assets"
 msgstr "ချေးယူထားသော ပိုင်ဆိုင်မှုများ"
 
-#: pages/index.tsx:89
+#: pages/index.tsx:93
 msgid "Build from Scratch"
 msgstr "Scratch မှတည်ဆောက်ပါ။"
 
-#: pages/index.tsx:542
+#: components/I18nInput.tsx:119
+msgid "Choose Currency"
+msgstr "ငွေကြေးကိုရွေးချယ်ပါ။"
+
+#: components/I18nInput.tsx:64
+msgid "Choose Language"
+msgstr "ဘာသာစကားကို ရွေးပါ။"
+
+#: pages/index.tsx:546
 msgid "Close alert"
 msgstr "သတိပေးချက်ကို ပိတ်ပါ။"
 
@@ -54,36 +66,49 @@ msgstr "သတိပေးချက်ကို ပိတ်ပါ။"
 msgid "Copy address to clipboard"
 msgstr "လိပ်စာကို ကလစ်ဘုတ်သို့ ကူးယူပါ။"
 
-#: pages/index.tsx:537
+#: pages/index.tsx:541
 msgid "Experimental!"
 msgstr "သမ္ဘာ၊"
 
-#: components/AddressCard.tsx:131
+#: components/AddressCard.tsx:135
 msgid "Found"
 msgstr "တွေ့တယ်။"
 
-#: components/AddressCard.tsx:198
-#: components/AddressCard.tsx:376
+#: components/AppBar.tsx:113
+msgid "Markets for"
+msgstr "စျေးကွက်များ"
+
+#: components/AddressCard.tsx:202
+#: components/AddressCard.tsx:379
 msgid "Net Asset Value:"
 msgstr "အသားတင်ပိုင်ဆိုင်မှုတန်ဖိုး-"
 
-#: components/AddressCard.tsx:145
+#: components/AddressCard.tsx:149
 msgid "No Aave positions found."
 msgstr "Aave ရာထူး မတွေ့ပါ။"
 
-#: components/AddressCard.tsx:409
+#: components/AddressCard.tsx:412
 msgid "No Liquidation Scenario Available"
 msgstr "ဖျက်သိမ်းမှုအခြေအနေ မရနိုင်ပါ။"
 
-#: pages/index.tsx:75
+#: components/AppBar.tsx:119
+msgid "No address found"
+msgstr "လိပ်စာမတွေ့ပါ။"
+
+#: components/I18nInput.tsx:71
+#: components/I18nInput.tsx:126
+msgid "No matches"
+msgstr "ကိုက်ညီမှုမရှိပါ။"
+
+#: pages/index.tsx:79
 msgid "OR"
 msgstr "သို့မဟုတ်"
 
-#: pages/index.tsx:64
+#: pages/index.tsx:68
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "ပိုင်ဆိုင်မှုများ ချေးယူခြင်း/အရန်ငွေ အပြောင်းအလဲများသည် ရာထူး၏ ကျန်းမာရေးအချက်နှင့် ချေးငွေအာဏာအပေါ် မည်ကဲ့သို့ အကျိုးသက်ရောက်သည်ကို မြင်သာစေရန် အထက်အကွက်တွင် Aave ကြွေးမြီအနေအထားဖြင့် လိပ်စာကို ကူးထည့်ပါ။"
 
-#: components/AddressCard.tsx:426
+#: components/AddressCard.tsx:429
 msgid "Price Liquidation Scenario"
 msgstr "စျေးနှုန်းဖျက်သိမ်းမှု ဇာတ်လမ်း"
 
@@ -95,8 +120,8 @@ msgstr "မေးခွန်းများ သို့မဟုတ် မှ�
 msgid "Remove {assetSymbol}"
 msgstr "{assetSymbol} ကို ဖယ်ရှားရန်"
 
-#: components/AddressCard.tsx:193
-#: components/AddressCard.tsx:364
+#: components/AddressCard.tsx:197
+#: components/AddressCard.tsx:367
 msgid "Reserve Asset Value:"
 msgstr "ပိုင်ဆိုင်မှုတန်ဖိုး-"
 
@@ -112,7 +137,7 @@ msgstr "ပုံတူတန်ဖိုးများအားလုံးက
 msgid "Reset search query"
 msgstr "ရှာဖွေမှုမေးခွန်းကို ပြန်လည်သတ်မှတ်ပါ။"
 
-#: components/AddressCard.tsx:972
+#: components/AddressCard.tsx:970
 msgid "Reset to Original Value ({0})"
 msgstr "မူရင်းတန်ဖိုး ({0}) သို့ ပြန်လည်သတ်မှတ်ပါ"
 
@@ -124,7 +149,7 @@ msgstr "{0} ပိုင်ဆိုင်မှုများကို ရှ�
 msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
 msgstr "{0} ({1}) {3} ကို CDP တွင် ပိုင်ဆိုင်မှုအဖြစ် ထည့်ရန် အောက်ပါ {2} ကို ရွေးပါ။"
 
-#: components/AddressCard.tsx:239
+#: components/AddressCard.tsx:243
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
 msgstr "တစ်ခုခုဖြစ်ခဲ့သည်၊ ကျွန်ုပ်တို့သည် လိပ်စာကြွေးမြီအနေအထားဒေတာကို ယခုတင်၍မရနိုင်ပါ။ နောက်မှ ထပ်စမ်းကြည့်ပါ။"
 
@@ -140,22 +165,22 @@ msgstr "{0} စျေးကွက်တွင် <0/} အတွက် ချေ�
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "{0} စျေးကွက်တွင် <0/} အတွက် အရန်ပိုင်ဆိုင်မှုများ မရှိပါ။ ဤလိပ်စာအတွက် အရန်ပိုင်ဆိုင်မှုများကို အတုယူရန် \"အပ်ငွေထည့်ရန် ပိုင်ဆိုင်မှု\" ကို ရွေးပါ။"
 
-#: pages/index.tsx:544
+#: pages/index.tsx:548
 msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
 msgstr "ဤ Aave ကြွေးမြီ simulator သည် စမ်းသပ်ဆဲဖြစ်ပြီး အသက်ဝင်သော ဖွံ့ဖြိုးတိုးတက်မှုအောက်တွင်ရှိသည်။ ဤအက်ပ်၏ရလဒ်များပေါ်တွင်မူတည်ပြီး ဘဏ္ဍာရေးဆိုင်ရာ ဆုံးဖြတ်ချက်များ မပြုလုပ်ပါနှင့်။"
 
-#: components/AddressCard.tsx:183
-#: components/AddressCard.tsx:340
+#: components/AddressCard.tsx:187
+#: components/AddressCard.tsx:343
 msgid "Total Borrowed:"
 msgstr "စုစုပေါင်း ချေးယူထားသည်-"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:523
+#: pages/index.tsx:527
 msgid "Use Random Address"
 msgstr "ကျပန်းလိပ်စာကိုသုံးပါ။"
 
-#: components/AddressCard.tsx:883
+#: components/AddressCard.tsx:881
 msgid "Use {assetSymbol} as collateral"
 msgstr "{assetSymbol} ကို အပေါင်ပစ္စည်းအဖြစ် အသုံးပြုပါ။"
 
@@ -167,11 +192,11 @@ msgstr "Etherscan တွင်လိပ်စာကိုကြည့်ပါ�
 msgid "Visit address details on Etherscan"
 msgstr "Etherscan ရှိ လိပ်စာအသေးစိတ်အချက်အလက်များကို ဝင်ရောက်ကြည့်ရှုပါ။"
 
-#: pages/index.tsx:79
+#: pages/index.tsx:83
 msgid "Want to go for a quick spin?"
 msgstr "အမြန်လှည့်သွားချင်ပါသလား။"
 
-#: components/AddressCard.tsx:137
+#: components/AddressCard.tsx:141
 msgid "in"
 msgstr "၌"
 
@@ -179,18 +204,22 @@ msgstr "၌"
 msgid "is an unofficial, open source, community-built Aave debt simulator."
 msgstr "တရားဝင်မဟုတ်သော၊ ပွင့်လင်းသောအရင်းအမြစ်၊ ရပ်ရွာတည်ဆောက်ထားသော Aave ကြွေးမြီ simulator တစ်ခုဖြစ်သည်။"
 
-#: components/AddressCard.tsx:141
+#: components/AddressCard.tsx:145
 msgid "{0, plural, one {market} other {markets}}"
 msgstr "{ 0, plural, other {စျေးကွက်များ} }"
 
-#: components/AddressCard.tsx:135
+#: components/AddressCard.tsx:139
 msgid "{0, plural, one {position} other {positions}}"
 msgstr "{ 0, plural, other {ရာထူးများ} }"
 
-#: components/AddressCard.tsx:1047
-msgid "{assetSymbol} Price ({currencySymbol})"
-msgstr "{assetSymbol} ဈေးနှုန်း ({currencySymbol})"
+#: components/AddressCard.tsx:1064
+msgid "{assetSymbol} Price ({selectedCurrency})"
+msgstr "{assetSymbol} ဈေးနှုန်း ({selectedCurrency})"
 
-#: components/AddressCard.tsx:943
+#: components/AddressCard.tsx:941
 msgid "{assetSymbol} Quantity"
 msgstr "{assetSymbol} အရေအတွက်"
+
+#: components/I18nInput.tsx:36
+msgid "{subLabel}"
+msgstr "{subLabel}"
