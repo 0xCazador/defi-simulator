@@ -15,7 +15,6 @@ import currencies from '../src/currencies/index.json';
     setSelectedCurrency }
  */
 export function useFiatRates(shouldFetch: boolean = false) {
-    //const [isFetching, setIsFetching] = useState(false);
     const store = useHookstate(FiatRatesDataStore);
     const state = store.get({ noproxy: true });
     const { selectedCurrency, lastFetched, isFetching, isError, currencyData } = state;
@@ -36,7 +35,6 @@ export function useFiatRates(shouldFetch: boolean = false) {
                 store.currencyData.set(cleanedRateData);
                 store.lastFetched.set(Date.now());
                 store.isFetching.set(false);
-                console.log({ responseData })
             };
             fetchData();
         }
