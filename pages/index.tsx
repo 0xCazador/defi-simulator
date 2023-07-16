@@ -21,6 +21,8 @@ import Footer from '../components/Footer';
 import { activateLocale } from './_app';
 import I18nInput from '../components/I18nInput';
 import { useFiatRates } from '../hooks/useFiatData';
+import SelectLanguageDialog from '../components/SelectLanguageDialog';
+import SelectCurrencyDialog from '../components/SelectCurrencyDialog';
 
 export default function HomePage() {
   const router: NextRouter = useRouter();
@@ -53,7 +55,8 @@ export default function HomePage() {
       {currentAddress && <AddressCard />}
       {!currentAddress && <SplashSection />}
       <ExperimentalAlert />
-      <I18nInput />
+      <SelectLanguageDialog />
+      <SelectCurrencyDialog />
       <Footer />
     </Container>
   );
