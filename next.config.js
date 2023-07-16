@@ -86,4 +86,7 @@ module.exports = withBundleAnalyzer({
     config.experiments.topLevelAwait = true 
     return config;
   },
+  optimization: {
+    minimize: false,
+  },
 });
