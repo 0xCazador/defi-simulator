@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-13 14:32-0700\n"
+"POT-Creation-Date: 2023-07-15 19:38-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,7 +45,7 @@ msgstr "കടമെടുക്കാൻ ലഭ്യമാണ്:"
 msgid "Borrowed Assets"
 msgstr "കടമെടുത്ത ആസ്തികൾ"
 
-#: pages/index.tsx:93
+#: pages/index.tsx:96
 msgid "Build from Scratch"
 msgstr "സ്ക്രാച്ചിൽ നിന്ന് നിർമ്മിക്കുക"
 
@@ -57,7 +57,7 @@ msgstr "കറൻസി തിരഞ്ഞെടുക്കുക"
 msgid "Choose Language"
 msgstr "ഭാഷ തിരഞ്ഞെടുക്കുക"
 
-#: pages/index.tsx:546
+#: pages/index.tsx:549
 msgid "Close alert"
 msgstr "അലേർട്ട് അടയ്ക്കുക"
 
@@ -66,7 +66,7 @@ msgstr "അലേർട്ട് അടയ്ക്കുക"
 msgid "Copy address to clipboard"
 msgstr "വിലാസം ക്ലിപ്പ്ബോർഡിലേക്ക് പകർത്തുക"
 
-#: pages/index.tsx:541
+#: pages/index.tsx:544
 msgid "Experimental!"
 msgstr "പരീക്ഷണാത്മകം!"
 
@@ -100,11 +100,11 @@ msgstr "വിലാസമൊന്നും കണ്ടെത്തിയി�
 msgid "No matches"
 msgstr "പൊരുത്തങ്ങളൊന്നുമില്ല"
 
-#: pages/index.tsx:79
+#: pages/index.tsx:82
 msgid "OR"
 msgstr "അഥവാ"
 
-#: pages/index.tsx:68
+#: pages/index.tsx:71
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "കടം വാങ്ങുന്ന/റിസർവ് ആസ്തികളിലെ മാറ്റങ്ങൾ ആ സ്ഥാനത്തിന്റെ ആരോഗ്യ ഘടകത്തെയും കടമെടുക്കൽ ശക്തിയെയും എങ്ങനെ ബാധിക്കുമെന്ന് ദൃശ്യവൽക്കരിക്കാൻ മുകളിലെ ബോക്‌സിൽ Aave ഡെറ്റ് പൊസിഷനോടുകൂടിയ ഒരു വിലാസം ഒട്ടിക്കുക."
 
@@ -134,6 +134,8 @@ msgid "Reset all simulated values"
 msgstr "എല്ലാ സിമുലേറ്റഡ് മൂല്യങ്ങളും പുനഃസജ്ജമാക്കുക"
 
 #: components/AddAssetDialog.tsx:94
+#: components/SelectCurrencyDialog.tsx:81
+#: components/SelectLanguageDialog.tsx:81
 msgid "Reset search query"
 msgstr "തിരയൽ അന്വേഷണം പുനഃസജ്ജമാക്കുക"
 
@@ -141,13 +143,39 @@ msgstr "തിരയൽ അന്വേഷണം പുനഃസജ്ജമാ�
 msgid "Reset to Original Value ({0})"
 msgstr "യഥാർത്ഥ മൂല്യത്തിലേക്ക് പുനഃസജ്ജമാക്കുക ({0})"
 
+#: components/SelectCurrencyDialog.tsx:73
+msgid "Search for available currencies"
+msgstr "ലഭ്യമായ കറൻസികൾക്കായി തിരയുക"
+
+#: components/SelectLanguageDialog.tsx:73
+msgid "Search for available languages"
+msgstr "ലഭ്യമായ ഭാഷകൾക്കായി തിരയുക"
+
 #: components/AddAssetDialog.tsx:86
 msgid "Search for {0} Assets"
 msgstr "{0} അസറ്റുകൾക്കായി തിരയുക"
 
+#: components/SelectCurrencyDialog.tsx:69
+#: components/SelectCurrencyDialog.tsx:128
+msgid "Select Currency"
+msgstr "കറൻസി തിരഞ്ഞെടുക്കുക"
+
+#: components/SelectLanguageDialog.tsx:69
+#: components/SelectLanguageDialog.tsx:127
+msgid "Select Language"
+msgstr "ഭാഷ തിരഞ്ഞെടുക്കുക"
+
 #: components/AddAssetDialog.tsx:118
 msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
 msgstr "CDP-യിലേക്ക് ഒരു {3} അസറ്റായി ചേർക്കുന്നതിന് താഴെയുള്ള {0} ({1}) {2} തിരഞ്ഞെടുക്കുക."
+
+#: components/SelectLanguageDialog.tsx:104
+msgid "Select {0} ({1}) {2} below to translate the app."
+msgstr "ആപ്പ് വിവർത്തനം ചെയ്യാൻ താഴെയുള്ള {0} ({1}) {2} തിരഞ്ഞെടുക്കുക."
+
+#: components/SelectCurrencyDialog.tsx:104
+msgid "Select {0} ({1}) {2} below."
+msgstr "താഴെയുള്ള {0} ({1}) {2} തിരഞ്ഞെടുക്കുക."
 
 #: components/AddressCard.tsx:243
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -161,11 +189,19 @@ msgstr "തിരയൽ അന്വേഷണവുമായി പൊരുത�
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "{0} മാർക്കറ്റിൽ <0/> എന്നതിന് കടമെടുത്ത അസറ്റുകളൊന്നുമില്ല. ഈ വിലാസത്തിനായി കടമെടുത്ത അസറ്റുകൾ അനുകരിക്കാൻ \"കടം വാങ്ങുന്ന അസറ്റ് ചേർക്കുക\" തിരഞ്ഞെടുക്കുക."
 
+#: components/SelectCurrencyDialog.tsx:97
+msgid "There are no currencies available that match the search query. Reset the search query to select a currency."
+msgstr "തിരയൽ അന്വേഷണവുമായി പൊരുത്തപ്പെടുന്ന കറൻസികളൊന്നും ലഭ്യമല്ല. ഒരു കറൻസി തിരഞ്ഞെടുക്കാൻ തിരയൽ അന്വേഷണം പുനഃസജ്ജമാക്കുക."
+
+#: components/SelectLanguageDialog.tsx:97
+msgid "There are no languages available that match the search query. Reset the search query to select a language."
+msgstr "തിരയൽ അന്വേഷണവുമായി പൊരുത്തപ്പെടുന്ന ഭാഷകളൊന്നും ലഭ്യമല്ല. ഒരു ഭാഷ തിരഞ്ഞെടുക്കാൻ തിരയൽ അന്വേഷണം പുനഃസജ്ജമാക്കുക."
+
 #: components/AddressCard.tsx:594
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "{0} മാർക്കറ്റിൽ <0/>ന് കരുതൽ ആസ്തികളൊന്നുമില്ല. ഈ വിലാസത്തിനായുള്ള കരുതൽ അസറ്റുകൾ അനുകരിക്കാൻ \"റിസർവ് അസറ്റ് ചേർക്കുക\" തിരഞ്ഞെടുക്കുക."
 
-#: pages/index.tsx:548
+#: pages/index.tsx:551
 msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
 msgstr "ഈ Aave കടം സിമുലേറ്റർ പരീക്ഷണാത്മകവും സജീവമായ വികസനത്തിലാണ്. ഈ ആപ്പിന്റെ ഫലങ്ങളെ മാത്രം അടിസ്ഥാനമാക്കി സാമ്പത്തിക തീരുമാനങ്ങൾ എടുക്കരുത്."
 
@@ -176,7 +212,7 @@ msgstr "ആകെ കടമെടുത്തത്:"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:527
+#: pages/index.tsx:530
 msgid "Use Random Address"
 msgstr "ക്രമരഹിതമായ വിലാസം ഉപയോഗിക്കുക"
 
@@ -192,7 +228,7 @@ msgstr "Etherscan-ൽ വിലാസം കാണുക"
 msgid "Visit address details on Etherscan"
 msgstr "Etherscan-ൽ വിലാസ വിശദാംശങ്ങൾ സന്ദർശിക്കുക"
 
-#: pages/index.tsx:83
+#: pages/index.tsx:86
 msgid "Want to go for a quick spin?"
 msgstr "പെട്ടെന്ന് കറങ്ങാൻ പോകണോ?"
 

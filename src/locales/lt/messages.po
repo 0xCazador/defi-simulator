@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-13 14:32-0700\n"
+"POT-Creation-Date: 2023-07-15 19:38-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,7 +45,7 @@ msgstr "Galima pasiskolinti:"
 msgid "Borrowed Assets"
 msgstr "Skolintas turtas"
 
-#: pages/index.tsx:93
+#: pages/index.tsx:96
 msgid "Build from Scratch"
 msgstr "Sukurti nuo nulio"
 
@@ -57,7 +57,7 @@ msgstr "Pasirinkite valiutą"
 msgid "Choose Language"
 msgstr "Pasirinkite kalbą"
 
-#: pages/index.tsx:546
+#: pages/index.tsx:549
 msgid "Close alert"
 msgstr "Uždaryti įspėjimą"
 
@@ -66,7 +66,7 @@ msgstr "Uždaryti įspėjimą"
 msgid "Copy address to clipboard"
 msgstr "Adreso kopijavimas į iškarpinę"
 
-#: pages/index.tsx:541
+#: pages/index.tsx:544
 msgid "Experimental!"
 msgstr "Eksperimentinis!"
 
@@ -100,11 +100,11 @@ msgstr "Adresas nerastas"
 msgid "No matches"
 msgstr "Nėra atitikmenų"
 
-#: pages/index.tsx:79
+#: pages/index.tsx:82
 msgid "OR"
 msgstr "ARBA"
 
-#: pages/index.tsx:68
+#: pages/index.tsx:71
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "Į viršuje esantį langelį įklijuokite adresą su Aave skolos pozicija, kad pamatytumėte, kaip skolinto / rezervuoto turto pokyčiai veikia pozicijos sveikumo koeficientą ir skolinimosi galią."
 
@@ -134,6 +134,8 @@ msgid "Reset all simulated values"
 msgstr "Iš naujo nustatyti visas imituojamas vertes"
 
 #: components/AddAssetDialog.tsx:94
+#: components/SelectCurrencyDialog.tsx:81
+#: components/SelectLanguageDialog.tsx:81
 msgid "Reset search query"
 msgstr "Iš naujo nustatyti paieškos užklausą"
 
@@ -141,13 +143,39 @@ msgstr "Iš naujo nustatyti paieškos užklausą"
 msgid "Reset to Original Value ({0})"
 msgstr "Iš naujo nustatyta pradinė vertė ({0})"
 
+#: components/SelectCurrencyDialog.tsx:73
+msgid "Search for available currencies"
+msgstr "Galimų valiutų paieška"
+
+#: components/SelectLanguageDialog.tsx:73
+msgid "Search for available languages"
+msgstr "Galimų kalbų paieška"
+
 #: components/AddAssetDialog.tsx:86
 msgid "Search for {0} Assets"
 msgstr "Ieškoti {0} turto"
 
+#: components/SelectCurrencyDialog.tsx:69
+#: components/SelectCurrencyDialog.tsx:128
+msgid "Select Currency"
+msgstr "Pasirinkite valiutą"
+
+#: components/SelectLanguageDialog.tsx:69
+#: components/SelectLanguageDialog.tsx:127
+msgid "Select Language"
+msgstr "Pasirinkite kalbą"
+
 #: components/AddAssetDialog.tsx:118
 msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
 msgstr "Pasirinkite {0} ({1}) {2} toliau, kad pridėtumėte jį kaip {3} turtą prie CDP."
+
+#: components/SelectLanguageDialog.tsx:104
+msgid "Select {0} ({1}) {2} below to translate the app."
+msgstr "Pasirinkite {0} ({1}) {2} toliau, kad išverstumėte programą."
+
+#: components/SelectCurrencyDialog.tsx:104
+msgid "Select {0} ({1}) {2} below."
+msgstr "Pasirinkite {0} ({1}) {2} toliau."
 
 #: components/AddressCard.tsx:243
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -161,11 +189,19 @@ msgstr "Paieškos užklausą atitinkančio turto nėra. Iš naujo nustatykite pa
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "Rinkoje {0} nėra skolinto turto <0/>. Pasirinkite \"Add Borrow Asset\" (pridėti skolintą turtą), kad imituotumėte šio adreso skolintą turtą."
 
+#: components/SelectCurrencyDialog.tsx:97
+msgid "There are no currencies available that match the search query. Reset the search query to select a currency."
+msgstr "Nėra valiutų, atitinkančių paieškos užklausą. Iš naujo nustatykite paieškos užklausą ir pasirinkite valiutą."
+
+#: components/SelectLanguageDialog.tsx:97
+msgid "There are no languages available that match the search query. Reset the search query to select a language."
+msgstr "Paieškos užklausą atitinkančių kalbų nėra. Iš naujo nustatykite paieškos užklausą ir pasirinkite kalbą."
+
 #: components/AddressCard.tsx:594
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "<0/>rinkoje {0} atsargų nėra. Pasirinkite \"Add Reserve Asset\" (pridėti atsargų turtą), kad imituotumėte šio adreso atsargų turtą."
 
-#: pages/index.tsx:548
+#: pages/index.tsx:551
 msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
 msgstr "Šis \"Aave\" skolos simuliatorius yra eksperimentinis ir aktyviai tobulinamas. Nepriimkite finansinių sprendimų remdamiesi tik šios programėlės rezultatais."
 
@@ -176,7 +212,7 @@ msgstr "Iš viso pasiskolinta:"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:527
+#: pages/index.tsx:530
 msgid "Use Random Address"
 msgstr "Naudoti atsitiktinį adresą"
 
@@ -192,7 +228,7 @@ msgstr "Peržiūrėti adresą \"Etherscan"
 msgid "Visit address details on Etherscan"
 msgstr "Apsilankykite adresu \"Etherscan"
 
-#: pages/index.tsx:83
+#: pages/index.tsx:86
 msgid "Want to go for a quick spin?"
 msgstr "Norite greitai pasivažinėti?"
 

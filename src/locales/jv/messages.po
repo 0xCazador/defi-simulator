@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-13 14:32-0700\n"
+"POT-Creation-Date: 2023-07-15 19:38-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,7 +45,7 @@ msgstr "Kasedhiya kanggo Pinjaman:"
 msgid "Borrowed Assets"
 msgstr "Aset sing dipinjam"
 
-#: pages/index.tsx:93
+#: pages/index.tsx:96
 msgid "Build from Scratch"
 msgstr "Mbangun saka Scratch"
 
@@ -57,7 +57,7 @@ msgstr "Pilih Currency"
 msgid "Choose Language"
 msgstr "Pilih Basa"
 
-#: pages/index.tsx:546
+#: pages/index.tsx:549
 msgid "Close alert"
 msgstr "Tutup tandha"
 
@@ -66,7 +66,7 @@ msgstr "Tutup tandha"
 msgid "Copy address to clipboard"
 msgstr "Salin alamat menyang clipboard"
 
-#: pages/index.tsx:541
+#: pages/index.tsx:544
 msgid "Experimental!"
 msgstr "Eksperimen!"
 
@@ -100,11 +100,11 @@ msgstr "Ora ana alamat sing ditemokake"
 msgid "No matches"
 msgstr "Ora cocog"
 
-#: pages/index.tsx:79
+#: pages/index.tsx:82
 msgid "OR"
 msgstr "UTAWA"
 
-#: pages/index.tsx:68
+#: pages/index.tsx:71
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "Tempel alamat karo posisi utang Aave ing kothak ndhuwur kanggo nggambarake carane owah-owahan kanggo utang / aset cadangan mengaruhi faktor kesehatan posisi lan daya utang."
 
@@ -134,6 +134,8 @@ msgid "Reset all simulated values"
 msgstr "Reset kabeh nilai simulasi"
 
 #: components/AddAssetDialog.tsx:94
+#: components/SelectCurrencyDialog.tsx:81
+#: components/SelectLanguageDialog.tsx:81
 msgid "Reset search query"
 msgstr "Reset pitakon panelusuran"
 
@@ -141,13 +143,39 @@ msgstr "Reset pitakon panelusuran"
 msgid "Reset to Original Value ({0})"
 msgstr "Reset menyang Nilai Asli ({0})"
 
+#: components/SelectCurrencyDialog.tsx:73
+msgid "Search for available currencies"
+msgstr "Telusuri mata uang sing kasedhiya"
+
+#: components/SelectLanguageDialog.tsx:73
+msgid "Search for available languages"
+msgstr "Telusuri basa sing kasedhiya"
+
 #: components/AddAssetDialog.tsx:86
 msgid "Search for {0} Assets"
 msgstr "Telusuri {0} Aset"
 
+#: components/SelectCurrencyDialog.tsx:69
+#: components/SelectCurrencyDialog.tsx:128
+msgid "Select Currency"
+msgstr "Pilih Currency"
+
+#: components/SelectLanguageDialog.tsx:69
+#: components/SelectLanguageDialog.tsx:127
+msgid "Select Language"
+msgstr "Pilih Basa"
+
 #: components/AddAssetDialog.tsx:118
 msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
 msgstr "Pilih {0} ({1}) {2} ing ngisor iki kanggo nambah minangka aset {3} menyang CDP."
+
+#: components/SelectLanguageDialog.tsx:104
+msgid "Select {0} ({1}) {2} below to translate the app."
+msgstr "Pilih {0} ({1}) {2} ing ngisor iki kanggo nerjemahake app."
+
+#: components/SelectCurrencyDialog.tsx:104
+msgid "Select {0} ({1}) {2} below."
+msgstr "Pilih {0} ({1}) {2} ing ngisor iki."
 
 #: components/AddressCard.tsx:243
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -161,11 +189,19 @@ msgstr "Ora ana aset sing cocog karo pitakon telusuran. Reset pitakon telusuran 
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "Ora ana aset sing dipinjam kanggo <0/>ing pasar {0}. Pilih \"Tambah Borrow Asset\" kanggo simulasi aset sing dipinjam kanggo alamat iki."
 
+#: components/SelectCurrencyDialog.tsx:97
+msgid "There are no currencies available that match the search query. Reset the search query to select a currency."
+msgstr "Ora ana mata uang sing kasedhiya sing cocog karo pitakon telusuran. Reset pitakon telusuran kanggo milih mata uang."
+
+#: components/SelectLanguageDialog.tsx:97
+msgid "There are no languages available that match the search query. Reset the search query to select a language."
+msgstr "Ora ana basa sing kasedhiya sing cocog karo pitakon panelusuran. Reset pitakon telusuran kanggo milih basa."
+
 #: components/AddressCard.tsx:594
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "Ora ana aset cadangan kanggo <0/>ing pasar {0}. Pilih \"Tambah Aset Cadangan\" kanggo simulasi aset cadangan kanggo alamat iki."
 
-#: pages/index.tsx:548
+#: pages/index.tsx:551
 msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
 msgstr "Simulator utang Aave iki eksperimental lan ing pembangunan aktif. Aja nggawe keputusan finansial mung adhedhasar asil aplikasi iki."
 
@@ -176,7 +212,7 @@ msgstr "Total utangan:"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:527
+#: pages/index.tsx:530
 msgid "Use Random Address"
 msgstr "Gunakake Alamat Random"
 
@@ -192,7 +228,7 @@ msgstr "Deleng alamat ing Etherscan"
 msgid "Visit address details on Etherscan"
 msgstr "Dolan maring rincian alamat ing Etherscan"
 
-#: pages/index.tsx:83
+#: pages/index.tsx:86
 msgid "Want to go for a quick spin?"
 msgstr "Pengin pindhah kanggo muter cepet?"
 

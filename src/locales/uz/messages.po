@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-13 14:32-0700\n"
+"POT-Creation-Date: 2023-07-15 19:38-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,7 +45,7 @@ msgstr "Qarz olish mumkin:"
 msgid "Borrowed Assets"
 msgstr "Qarzga olingan aktivlar"
 
-#: pages/index.tsx:93
+#: pages/index.tsx:96
 msgid "Build from Scratch"
 msgstr "Noldan qurish"
 
@@ -57,7 +57,7 @@ msgstr "Valyutani tanlang"
 msgid "Choose Language"
 msgstr "Tilni tanlang"
 
-#: pages/index.tsx:546
+#: pages/index.tsx:549
 msgid "Close alert"
 msgstr "Ogohlantirishni yopish"
 
@@ -66,7 +66,7 @@ msgstr "Ogohlantirishni yopish"
 msgid "Copy address to clipboard"
 msgstr "Manzilni vaqtinchalik xotiraga nusxalash"
 
-#: pages/index.tsx:541
+#: pages/index.tsx:544
 msgid "Experimental!"
 msgstr "Eksperimental!"
 
@@ -100,11 +100,11 @@ msgstr "Hech qanday manzil topilmadi"
 msgid "No matches"
 msgstr "Mos kelmaydi"
 
-#: pages/index.tsx:79
+#: pages/index.tsx:82
 msgid "OR"
 msgstr "YOKI"
 
-#: pages/index.tsx:68
+#: pages/index.tsx:71
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "Qarz/zaxira aktivlaridagi oʻzgarishlar pozitsiyaning sogʻliq omili va qarz olish qobiliyatiga qanday taʼsir qilishini tasavvur qilish uchun yuqoridagi katakchaga Aave qarz pozitsiyasi bilan manzilni kiriting."
 
@@ -134,6 +134,8 @@ msgid "Reset all simulated values"
 msgstr "Barcha simulyatsiya qilingan qiymatlarni qayta o'rnating"
 
 #: components/AddAssetDialog.tsx:94
+#: components/SelectCurrencyDialog.tsx:81
+#: components/SelectLanguageDialog.tsx:81
 msgid "Reset search query"
 msgstr "Qidiruv so'rovini tiklash"
 
@@ -141,13 +143,39 @@ msgstr "Qidiruv so'rovini tiklash"
 msgid "Reset to Original Value ({0})"
 msgstr "Asl qiymatiga qaytarish ({0})"
 
+#: components/SelectCurrencyDialog.tsx:73
+msgid "Search for available currencies"
+msgstr "Mavjud valyutalarni qidiring"
+
+#: components/SelectLanguageDialog.tsx:73
+msgid "Search for available languages"
+msgstr "Mavjud tillarni qidiring"
+
 #: components/AddAssetDialog.tsx:86
 msgid "Search for {0} Assets"
 msgstr "{0} aktivlarini qidiring"
 
+#: components/SelectCurrencyDialog.tsx:69
+#: components/SelectCurrencyDialog.tsx:128
+msgid "Select Currency"
+msgstr "Valyutani tanlang"
+
+#: components/SelectLanguageDialog.tsx:69
+#: components/SelectLanguageDialog.tsx:127
+msgid "Select Language"
+msgstr "Tilni tanlang"
+
 #: components/AddAssetDialog.tsx:118
 msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
 msgstr "Uni CDP ga {3} aktivi sifatida qo‘shish uchun pastdan {0} ({1}) {2} ni tanlang."
+
+#: components/SelectLanguageDialog.tsx:104
+msgid "Select {0} ({1}) {2} below to translate the app."
+msgstr "Ilovani tarjima qilish uchun quyida {0} ({1}) {2} ni tanlang."
+
+#: components/SelectCurrencyDialog.tsx:104
+msgid "Select {0} ({1}) {2} below."
+msgstr "Quyida {0} ({1}) {2} ni tanlang."
 
 #: components/AddressCard.tsx:243
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -161,11 +189,19 @@ msgstr "Qidiruv soʻroviga mos keladigan aktivlar yoʻq. Obyektni tanlash uchun 
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "{0} bozorida <0/> uchun qarzga olingan aktivlar mavjud emas. Ushbu manzil uchun qarzga olingan aktivlarni taqlid qilish uchun “Qarz qilingan aktivlarni qo‘shish” bandini tanlang."
 
+#: components/SelectCurrencyDialog.tsx:97
+msgid "There are no currencies available that match the search query. Reset the search query to select a currency."
+msgstr "Qidiruv so'roviga mos keladigan valyutalar mavjud emas. Valyutani tanlash uchun qidiruv so'rovini qayta o'rnating."
+
+#: components/SelectLanguageDialog.tsx:97
+msgid "There are no languages available that match the search query. Reset the search query to select a language."
+msgstr "Qidiruv so'roviga mos keladigan tillar mavjud emas. Til tanlash uchun qidiruv so'rovini qayta o'rnating."
+
 #: components/AddressCard.tsx:594
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "{0} bozorida <0/> uchun zaxira aktivlar mavjud emas. Ushbu manzil uchun zaxira aktivlarini taqlid qilish uchun “Zaxira aktivlarini qo‘shish” bandini tanlang."
 
-#: pages/index.tsx:548
+#: pages/index.tsx:551
 msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
 msgstr "Ushbu Aave qarz simulyatori eksperimental va faol ishlab chiqilmoqda. Faqatgina ushbu ilova natijalari asosida moliyaviy qarorlar qabul qilmang."
 
@@ -176,7 +212,7 @@ msgstr "Jami qarz:"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:527
+#: pages/index.tsx:530
 msgid "Use Random Address"
 msgstr "Tasodifiy manzildan foydalaning"
 
@@ -192,7 +228,7 @@ msgstr "Etherscan-da manzilni ko'rish"
 msgid "Visit address details on Etherscan"
 msgstr "Etherscan-da manzil ma'lumotlariga tashrif buyuring"
 
-#: pages/index.tsx:83
+#: pages/index.tsx:86
 msgid "Want to go for a quick spin?"
 msgstr "Tez aylanishni xohlaysizmi?"
 

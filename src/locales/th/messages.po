@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-13 14:32-0700\n"
+"POT-Creation-Date: 2023-07-15 19:38-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,7 +45,7 @@ msgstr "มีให้ยืม:"
 msgid "Borrowed Assets"
 msgstr "สินทรัพย์ที่ยืม"
 
-#: pages/index.tsx:93
+#: pages/index.tsx:96
 msgid "Build from Scratch"
 msgstr "สร้างจากศูนย์"
 
@@ -57,7 +57,7 @@ msgstr "เลือกสกุลเงิน"
 msgid "Choose Language"
 msgstr "เลือกภาษา"
 
-#: pages/index.tsx:546
+#: pages/index.tsx:549
 msgid "Close alert"
 msgstr "ปิดการแจ้งเตือน"
 
@@ -66,7 +66,7 @@ msgstr "ปิดการแจ้งเตือน"
 msgid "Copy address to clipboard"
 msgstr "คัดลอกที่อยู่ไปยังคลิปบอร์ด"
 
-#: pages/index.tsx:541
+#: pages/index.tsx:544
 msgid "Experimental!"
 msgstr "ทดลอง!"
 
@@ -100,11 +100,11 @@ msgstr "ไม่พบที่อยู่"
 msgid "No matches"
 msgstr "ไม่ตรงกัน"
 
-#: pages/index.tsx:79
+#: pages/index.tsx:82
 msgid "OR"
 msgstr "หรือ"
 
-#: pages/index.tsx:68
+#: pages/index.tsx:71
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "วางที่อยู่ที่มีตำแหน่งหนี้ Aave ในช่องด้านบนเพื่อให้เห็นภาพว่าการเปลี่ยนแปลงในการยืม/จองสินทรัพย์ส่งผลต่อปัจจัยด้านสุขภาพของตำแหน่งและอำนาจการยืมอย่างไร"
 
@@ -134,6 +134,8 @@ msgid "Reset all simulated values"
 msgstr "รีเซ็ตค่าจำลองทั้งหมด"
 
 #: components/AddAssetDialog.tsx:94
+#: components/SelectCurrencyDialog.tsx:81
+#: components/SelectLanguageDialog.tsx:81
 msgid "Reset search query"
 msgstr "รีเซ็ตคำค้นหา"
 
@@ -141,13 +143,39 @@ msgstr "รีเซ็ตคำค้นหา"
 msgid "Reset to Original Value ({0})"
 msgstr "รีเซ็ตเป็นค่าดั้งเดิม ({0})"
 
+#: components/SelectCurrencyDialog.tsx:73
+msgid "Search for available currencies"
+msgstr "ค้นหาสกุลเงินที่มีอยู่"
+
+#: components/SelectLanguageDialog.tsx:73
+msgid "Search for available languages"
+msgstr "ค้นหาภาษาที่ใช้ได้"
+
 #: components/AddAssetDialog.tsx:86
 msgid "Search for {0} Assets"
 msgstr "ค้นหาเนื้อหา {0}"
 
+#: components/SelectCurrencyDialog.tsx:69
+#: components/SelectCurrencyDialog.tsx:128
+msgid "Select Currency"
+msgstr "เลือกสกุลเงิน"
+
+#: components/SelectLanguageDialog.tsx:69
+#: components/SelectLanguageDialog.tsx:127
+msgid "Select Language"
+msgstr "เลือกภาษา"
+
 #: components/AddAssetDialog.tsx:118
 msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
 msgstr "เลือก {0} ({1}) {2} ด้านล่างเพื่อเพิ่มเป็นเนื้อหา {3} ใน CDP"
+
+#: components/SelectLanguageDialog.tsx:104
+msgid "Select {0} ({1}) {2} below to translate the app."
+msgstr "เลือก {0} ({1}) {2} ด้านล่างเพื่อแปลแอป"
+
+#: components/SelectCurrencyDialog.tsx:104
+msgid "Select {0} ({1}) {2} below."
+msgstr "เลือก {0} ({1}) {2} ด้านล่าง"
 
 #: components/AddressCard.tsx:243
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -161,11 +189,19 @@ msgstr "ไม่มีเนื้อหาที่ตรงกับคำค
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "ไม่มีสินทรัพย์ที่ยืมมาสำหรับ <0/>ในตลาด {0} เลือก \"เพิ่มสินทรัพย์ที่ยืม\" เพื่อจำลองสินทรัพย์ที่ยืมสำหรับที่อยู่นี้"
 
+#: components/SelectCurrencyDialog.tsx:97
+msgid "There are no currencies available that match the search query. Reset the search query to select a currency."
+msgstr "ไม่มีสกุลเงินที่ตรงกับคำค้นหา รีเซ็ตคำค้นหาเพื่อเลือกสกุลเงิน"
+
+#: components/SelectLanguageDialog.tsx:97
+msgid "There are no languages available that match the search query. Reset the search query to select a language."
+msgstr "ไม่มีภาษาที่ตรงกับคำค้นหา รีเซ็ตคำค้นหาเพื่อเลือกภาษา"
+
 #: components/AddressCard.tsx:594
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "ไม่มีสินทรัพย์สำรองสำหรับ <0/>ในตลาด {0} เลือก \"เพิ่มสินทรัพย์สำรอง\" เพื่อจำลองสินทรัพย์สำรองสำหรับที่อยู่นี้"
 
-#: pages/index.tsx:548
+#: pages/index.tsx:551
 msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
 msgstr "โปรแกรมจำลองหนี้ Aave นี้อยู่ระหว่างการทดลองและอยู่ระหว่างการพัฒนา อย่าตัดสินใจทางการเงินโดยพิจารณาจากผลลัพธ์ของแอปนี้เพียงอย่างเดียว"
 
@@ -176,7 +212,7 @@ msgstr "ยืมทั้งหมด:"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:527
+#: pages/index.tsx:530
 msgid "Use Random Address"
 msgstr "ใช้ที่อยู่สุ่ม"
 
@@ -192,7 +228,7 @@ msgstr "ดูที่อยู่ใน Etherscan"
 msgid "Visit address details on Etherscan"
 msgstr "ดูรายละเอียดที่อยู่บน Etherscan"
 
-#: pages/index.tsx:83
+#: pages/index.tsx:86
 msgid "Want to go for a quick spin?"
 msgstr "ต้องการที่จะหมุนอย่างรวดเร็ว?"
 

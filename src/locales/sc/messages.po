@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-13 14:32-0700\n"
+"POT-Creation-Date: 2023-07-15 19:38-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -47,7 +47,7 @@ msgstr "Diponìbile pro Prendere in Prestitu:"
 msgid "Borrowed Assets"
 msgstr "Benes prestatos"
 
-#: pages/index.tsx:93
+#: pages/index.tsx:96
 msgid "Build from Scratch"
 msgstr "Crea da zero"
 
@@ -59,7 +59,7 @@ msgstr "Sèbera Moneta"
 msgid "Choose Language"
 msgstr "Sèbera Limba"
 
-#: pages/index.tsx:546
+#: pages/index.tsx:549
 msgid "Close alert"
 msgstr "Serra avvisu"
 
@@ -68,7 +68,7 @@ msgstr "Serra avvisu"
 msgid "Copy address to clipboard"
 msgstr "Copiadu indiritzu in su clipboard"
 
-#: pages/index.tsx:541
+#: pages/index.tsx:544
 msgid "Experimental!"
 msgstr "Sperimentale!"
 
@@ -102,11 +102,11 @@ msgstr "Nessuna indiritzada agata"
 msgid "No matches"
 msgstr "Nessuna cumparada"
 
-#: pages/index.tsx:79
+#: pages/index.tsx:82
 msgid "OR"
 msgstr "O"
 
-#: pages/index.tsx:68
+#: pages/index.tsx:71
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "Incolla un'indiritzu cun una positzione de debitu in Aave in su casu supra pro bideri comente is cambiamentos a is asset de prestitu/reserva influentzant su fattore de salude e sa capacidade de prestitu de sa positzione."
 
@@ -136,6 +136,8 @@ msgid "Reset all simulated values"
 msgstr "Resètta totu is valorus simulados"
 
 #: components/AddAssetDialog.tsx:94
+#: components/SelectCurrencyDialog.tsx:81
+#: components/SelectLanguageDialog.tsx:81
 msgid "Reset search query"
 msgstr "Resètta sa chistione de cherka"
 
@@ -143,13 +145,39 @@ msgstr "Resètta sa chistione de cherka"
 msgid "Reset to Original Value ({0})"
 msgstr "Resètta a su valori orìgine ({0})"
 
+#: components/SelectCurrencyDialog.tsx:73
+msgid "Search for available currencies"
+msgstr "Cerca monedas disponìbiles"
+
+#: components/SelectLanguageDialog.tsx:73
+msgid "Search for available languages"
+msgstr "Cerca limbas disponìbiles"
+
 #: components/AddAssetDialog.tsx:86
 msgid "Search for {0} Assets"
 msgstr "Cherka pro asset {0}"
 
+#: components/SelectCurrencyDialog.tsx:69
+#: components/SelectCurrencyDialog.tsx:128
+msgid "Select Currency"
+msgstr "Seletziona Moneda"
+
+#: components/SelectLanguageDialog.tsx:69
+#: components/SelectLanguageDialog.tsx:127
+msgid "Select Language"
+msgstr "Seletziona Limba"
+
 #: components/AddAssetDialog.tsx:118
 msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
 msgstr "Seleziona {0} ({1}) {2} in bassu pro agiùngerlu comente asset {3} a su CDP."
+
+#: components/SelectLanguageDialog.tsx:104
+msgid "Select {0} ({1}) {2} below to translate the app."
+msgstr "Seletziona {0} ({1}) {2} in bassu pro tradùere s'aplicatzione."
+
+#: components/SelectCurrencyDialog.tsx:104
+msgid "Select {0} ({1}) {2} below."
+msgstr "Seletziona {0} ({1}) {2} in bassu."
 
 #: components/AddressCard.tsx:243
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -163,11 +191,19 @@ msgstr "No sunt assets chi fiant cumpatibles cun sa chistione de ricerca. Resett
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "No sunt benes prestatos pro <0/>in su mercadu {0}. Seletziona \"Agiunghe benes prestatos\" pro simulare benes prestatos pro custu indiritzu."
 
+#: components/SelectCurrencyDialog.tsx:97
+msgid "There are no currencies available that match the search query. Reset the search query to select a currency."
+msgstr "No est a disponibiles monedas chi corrispondent a sa cèrca. Resetta sa cèrca pro seletzionare una moneda."
+
+#: components/SelectLanguageDialog.tsx:97
+msgid "There are no languages available that match the search query. Reset the search query to select a language."
+msgstr "No est a disponibiles limbas chi corrispondent a sa cèrca. Resetta sa cèrca pro seletzionare una limba."
+
 #: components/AddressCard.tsx:594
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "No sunt benes de riserva pro <0/>in su mercadu {0}. Seletziona \"Agiunghe benes de riserva\" pro simulare benes de riserva pro custu indiritzu."
 
-#: pages/index.tsx:548
+#: pages/index.tsx:551
 msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
 msgstr "Custu simuladore de debitu in Aave est sperimentale e in dezervitzu ativu. No faghis decitziones finantziales basadas isceti in su risultadu de custa aplicatzione."
 
@@ -178,7 +214,7 @@ msgstr "Totale Imprèstitu:"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:527
+#: pages/index.tsx:530
 msgid "Use Random Address"
 msgstr "Usa un'indiritzu a casu"
 
@@ -194,7 +230,7 @@ msgstr "Bide s'indiritzu in Etherscan"
 msgid "Visit address details on Etherscan"
 msgstr "Bide detallus de s'indiritzu in Etherscan"
 
-#: pages/index.tsx:83
+#: pages/index.tsx:86
 msgid "Want to go for a quick spin?"
 msgstr "Bolis andare pro una girada rapida?"
 

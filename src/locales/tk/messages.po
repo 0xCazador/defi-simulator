@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-13 14:32-0700\n"
+"POT-Creation-Date: 2023-07-15 19:38-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,7 +45,7 @@ msgstr "Karz alyp bilersiňiz:"
 msgid "Borrowed Assets"
 msgstr "Karz alnan aktiwler"
 
-#: pages/index.tsx:93
+#: pages/index.tsx:96
 msgid "Build from Scratch"
 msgstr "Noldan başlaň"
 
@@ -57,7 +57,7 @@ msgstr "Walýuta saýlaň"
 msgid "Choose Language"
 msgstr "Dil saýlaň"
 
-#: pages/index.tsx:546
+#: pages/index.tsx:549
 msgid "Close alert"
 msgstr "Duýduryşy ýapyň"
 
@@ -66,7 +66,7 @@ msgstr "Duýduryşy ýapyň"
 msgid "Copy address to clipboard"
 msgstr "Salgyny bufere göçüriň"
 
-#: pages/index.tsx:541
+#: pages/index.tsx:544
 msgid "Experimental!"
 msgstr "Synag!"
 
@@ -100,11 +100,11 @@ msgstr "Salgy tapylmady"
 msgid "No matches"
 msgstr "Gabat gelenok"
 
-#: pages/index.tsx:79
+#: pages/index.tsx:82
 msgid "OR"
 msgstr "ORA-DA"
 
-#: pages/index.tsx:68
+#: pages/index.tsx:71
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "Karz / ätiýaçlyk aktiwlerine bolan üýtgeşmeleriň ýagdaýyň saglyk faktoryna we karz güýjüne nähili täsir edýändigini göz öňüne getirmek üçin ýokardaky gutujyga “Aave” karzy ýagdaýy bilen bir salgy goýuň."
 
@@ -134,6 +134,8 @@ msgid "Reset all simulated values"
 msgstr "Simhli simulirlenen bahalary täzeden düzüň"
 
 #: components/AddAssetDialog.tsx:94
+#: components/SelectCurrencyDialog.tsx:81
+#: components/SelectLanguageDialog.tsx:81
 msgid "Reset search query"
 msgstr "Gözleg talaplaryny täzeden düzüň"
 
@@ -141,13 +143,39 @@ msgstr "Gözleg talaplaryny täzeden düzüň"
 msgid "Reset to Original Value ({0})"
 msgstr "Asyl bahasyna gaýtaryň ({0})"
 
+#: components/SelectCurrencyDialog.tsx:73
+msgid "Search for available currencies"
+msgstr "Bar bolan walýutalary gözläň"
+
+#: components/SelectLanguageDialog.tsx:73
+msgid "Search for available languages"
+msgstr "Elýeterli dilleri gözläň"
+
 #: components/AddAssetDialog.tsx:86
 msgid "Search for {0} Assets"
 msgstr "{0} Aktiwleri gözläň"
 
+#: components/SelectCurrencyDialog.tsx:69
+#: components/SelectCurrencyDialog.tsx:128
+msgid "Select Currency"
+msgstr "Walýuta saýlaň"
+
+#: components/SelectLanguageDialog.tsx:69
+#: components/SelectLanguageDialog.tsx:127
+msgid "Select Language"
+msgstr "Dil saýlaň"
+
 #: components/AddAssetDialog.tsx:118
 msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
 msgstr "CDP-ä {3} aktiw hökmünde goşmak üçin aşakda {0} ({1}) {2} saýlaň."
+
+#: components/SelectLanguageDialog.tsx:104
+msgid "Select {0} ({1}) {2} below to translate the app."
+msgstr "Programmany terjime etmek üçin aşakda {0} ({1}) {2} saýlaň."
+
+#: components/SelectCurrencyDialog.tsx:104
+msgid "Select {0} ({1}) {2} below."
+msgstr "Aşakda {0} ({1}) {2} saýlaň."
 
 #: components/AddressCard.tsx:243
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -161,11 +189,19 @@ msgstr "Gözleg gözlegine gabat gelýän hiç hili emläk ýok. Aktiw saýlamak
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "{0} bazarynda <0 /> üçin karz alnan aktiwler ýok. Bu salgy üçin karz alnan emläkleri simulirlemek üçin \"Karz aktiwini goş\" saýlaň."
 
+#: components/SelectCurrencyDialog.tsx:97
+msgid "There are no currencies available that match the search query. Reset the search query to select a currency."
+msgstr "Gözleg talaplaryna gabat gelýän walýuta ýok. Walýuta saýlamak üçin gözleg talaplaryny täzeden düzüň."
+
+#: components/SelectLanguageDialog.tsx:97
+msgid "There are no languages available that match the search query. Reset the search query to select a language."
+msgstr "Gözleg talaplaryna gabat gelýän diller ýok. Dil saýlamak üçin gözleg talaplaryny täzeden düzüň."
+
 #: components/AddressCard.tsx:594
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "{0} bazarynda <0 /> ätiýaçlyk serişdeleri ýok. Bu salgy üçin ätiýaçlyk aktiwlerini simulirlemek üçin \"ervetiýaçlyk aktiwini goş\" saýlaň."
 
-#: pages/index.tsx:548
+#: pages/index.tsx:551
 msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
 msgstr "Bu “Aave” karz simulyatory eksperimental we işjeň işlenip düzülýär. Diňe şu programmanyň netijelerine esaslanyp maliýe karar bermäň."
 
@@ -176,7 +212,7 @@ msgstr "Karz alnanlaryň jemi:"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:527
+#: pages/index.tsx:530
 msgid "Use Random Address"
 msgstr "Tötänleýin salgy ulanyň"
 
@@ -192,7 +228,7 @@ msgstr "Etherskanda salgy görüň"
 msgid "Visit address details on Etherscan"
 msgstr "Etherskanda salgy salgysyny görüň"
 
-#: pages/index.tsx:83
+#: pages/index.tsx:86
 msgid "Want to go for a quick spin?"
 msgstr "Çalt aýlanmak isleýärsiňizmi?"
 

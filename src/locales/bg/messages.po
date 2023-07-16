@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-13 14:32-0700\n"
+"POT-Creation-Date: 2023-07-15 19:38-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,7 +45,7 @@ msgstr "На разположение за заемане:"
 msgid "Borrowed Assets"
 msgstr "Заемни активи"
 
-#: pages/index.tsx:93
+#: pages/index.tsx:96
 msgid "Build from Scratch"
 msgstr "Изграждане от нулата"
 
@@ -57,7 +57,7 @@ msgstr "Избор на валута"
 msgid "Choose Language"
 msgstr "Изберете език"
 
-#: pages/index.tsx:546
+#: pages/index.tsx:549
 msgid "Close alert"
 msgstr "Затваряне на сигнал"
 
@@ -66,7 +66,7 @@ msgstr "Затваряне на сигнал"
 msgid "Copy address to clipboard"
 msgstr "Копиране на адреса в клипборда"
 
-#: pages/index.tsx:541
+#: pages/index.tsx:544
 msgid "Experimental!"
 msgstr "Експериментално!"
 
@@ -100,11 +100,11 @@ msgstr "Не е намерен адрес"
 msgid "No matches"
 msgstr "Няма съвпадения"
 
-#: pages/index.tsx:79
+#: pages/index.tsx:82
 msgid "OR"
 msgstr "ИЛИ"
 
-#: pages/index.tsx:68
+#: pages/index.tsx:71
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "Поставете адрес с дългова позиция на Aave в полето по-горе, за да визуализирате как промените в заетите/резервираните активи се отразяват върху фактора на състоянието на позицията и нейната кредитна сила."
 
@@ -134,6 +134,8 @@ msgid "Reset all simulated values"
 msgstr "Нулиране на всички симулирани стойности"
 
 #: components/AddAssetDialog.tsx:94
+#: components/SelectCurrencyDialog.tsx:81
+#: components/SelectLanguageDialog.tsx:81
 msgid "Reset search query"
 msgstr "Нулиране на заявката за търсене"
 
@@ -141,13 +143,39 @@ msgstr "Нулиране на заявката за търсене"
 msgid "Reset to Original Value ({0})"
 msgstr "Нулиране на първоначалната стойност ({0})"
 
+#: components/SelectCurrencyDialog.tsx:73
+msgid "Search for available currencies"
+msgstr "Търсене на налични валути"
+
+#: components/SelectLanguageDialog.tsx:73
+msgid "Search for available languages"
+msgstr "Търсене на налични езици"
+
 #: components/AddAssetDialog.tsx:86
 msgid "Search for {0} Assets"
 msgstr "Търсене на активи {0}"
 
+#: components/SelectCurrencyDialog.tsx:69
+#: components/SelectCurrencyDialog.tsx:128
+msgid "Select Currency"
+msgstr "Изберете валута"
+
+#: components/SelectLanguageDialog.tsx:69
+#: components/SelectLanguageDialog.tsx:127
+msgid "Select Language"
+msgstr "Избор на език"
+
 #: components/AddAssetDialog.tsx:118
 msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
 msgstr "Изберете {0} ({1}) {2} по-долу, за да го добавите като актив {3} към CDP."
+
+#: components/SelectLanguageDialog.tsx:104
+msgid "Select {0} ({1}) {2} below to translate the app."
+msgstr "Изберете {0} ({1}) {2} по-долу, за да преведете приложението."
+
+#: components/SelectCurrencyDialog.tsx:104
+msgid "Select {0} ({1}) {2} below."
+msgstr "Изберете {0} ({1}) {2} по-долу."
 
 #: components/AddressCard.tsx:243
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -161,11 +189,19 @@ msgstr "Няма активи, които да отговарят на заяв�
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "На пазара {0} няма заети активи за <0/>. Изберете \"Add Borrow Asset\" (Добавяне на актив назаем), за да симулирате активи назаем за този адрес."
 
+#: components/SelectCurrencyDialog.tsx:97
+msgid "There are no currencies available that match the search query. Reset the search query to select a currency."
+msgstr "Няма налични валути, които да отговарят на заявката за търсене. Нулирайте заявката за търсене, за да изберете валута."
+
+#: components/SelectLanguageDialog.tsx:97
+msgid "There are no languages available that match the search query. Reset the search query to select a language."
+msgstr "Няма налични езици, които да отговарят на заявката за търсене. Възстановете заявката за търсене, за да изберете език."
+
 #: components/AddressCard.tsx:594
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "Няма резервни активи за <0/>на пазара {0}. Изберете \"Add Reserve Asset\" (Добавяне на резервен актив), за да симулирате резервни активи за този адрес."
 
-#: pages/index.tsx:548
+#: pages/index.tsx:551
 msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
 msgstr "Този симулатор на дълг на Aave е експериментален и е в процес на активна разработка. Не вземайте финансови решения само въз основа на резултатите от това приложение."
 
@@ -176,7 +212,7 @@ msgstr "Общо взети назаем:"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:527
+#: pages/index.tsx:530
 msgid "Use Random Address"
 msgstr "Използване на случаен адрес"
 
@@ -192,7 +228,7 @@ msgstr "Преглед на адреса в Etherscan"
 msgid "Visit address details on Etherscan"
 msgstr "Посетете подробности за адреса в Etherscan"
 
-#: pages/index.tsx:83
+#: pages/index.tsx:86
 msgid "Want to go for a quick spin?"
 msgstr "Искате да направите бърза обиколка?"
 

@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-13 14:32-0700\n"
+"POT-Creation-Date: 2023-07-15 19:38-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,7 +45,7 @@ msgstr "可供借阅："
 msgid "Borrowed Assets"
 msgstr "借用的资产"
 
-#: pages/index.tsx:93
+#: pages/index.tsx:96
 msgid "Build from Scratch"
 msgstr "从零开始构建"
 
@@ -57,7 +57,7 @@ msgstr "选择货币"
 msgid "Choose Language"
 msgstr "选择语言"
 
-#: pages/index.tsx:546
+#: pages/index.tsx:549
 msgid "Close alert"
 msgstr "关闭警报"
 
@@ -66,7 +66,7 @@ msgstr "关闭警报"
 msgid "Copy address to clipboard"
 msgstr "复制地址到剪贴板"
 
-#: pages/index.tsx:541
+#: pages/index.tsx:544
 msgid "Experimental!"
 msgstr "实验性的!"
 
@@ -100,11 +100,11 @@ msgstr "未找到地址"
 msgid "No matches"
 msgstr "无匹配"
 
-#: pages/index.tsx:79
+#: pages/index.tsx:82
 msgid "OR"
 msgstr "或"
 
-#: pages/index.tsx:68
+#: pages/index.tsx:71
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "将一个带有Aave债务头寸的地址粘贴在上面的方框中，以直观地看到借款/储备资产的变化如何影响该头寸的健康系数和借款能力。"
 
@@ -134,6 +134,8 @@ msgid "Reset all simulated values"
 msgstr "重置所有模拟值"
 
 #: components/AddAssetDialog.tsx:94
+#: components/SelectCurrencyDialog.tsx:81
+#: components/SelectLanguageDialog.tsx:81
 msgid "Reset search query"
 msgstr "重置搜索查询"
 
@@ -141,13 +143,39 @@ msgstr "重置搜索查询"
 msgid "Reset to Original Value ({0})"
 msgstr "重置为原始值（{0}）。"
 
+#: components/SelectCurrencyDialog.tsx:73
+msgid "Search for available currencies"
+msgstr "搜索可用货币"
+
+#: components/SelectLanguageDialog.tsx:73
+msgid "Search for available languages"
+msgstr "搜索可用语言"
+
 #: components/AddAssetDialog.tsx:86
 msgid "Search for {0} Assets"
 msgstr "搜索{0}资产"
 
+#: components/SelectCurrencyDialog.tsx:69
+#: components/SelectCurrencyDialog.tsx:128
+msgid "Select Currency"
+msgstr "选择货币"
+
+#: components/SelectLanguageDialog.tsx:69
+#: components/SelectLanguageDialog.tsx:127
+msgid "Select Language"
+msgstr "选择语言"
+
 #: components/AddAssetDialog.tsx:118
 msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
 msgstr "选择下面的{0}（{1}）{2}，将其作为{3}资产加入CDP。"
+
+#: components/SelectLanguageDialog.tsx:104
+msgid "Select {0} ({1}) {2} below to translate the app."
+msgstr "选择下面的{0}（{1}）{2}来翻译应用程序。"
+
+#: components/SelectCurrencyDialog.tsx:104
+msgid "Select {0} ({1}) {2} below."
+msgstr "选择下面的{0}（{1}）{2}。"
 
 #: components/AddressCard.tsx:243
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -161,11 +189,19 @@ msgstr "没有符合搜索条件的资产。重置搜索查询，选择一项资
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "<0/>，在{0}市场上没有借贷资产。选择 \"添加借款资产 \"来模拟这个地址的借款资产。"
 
+#: components/SelectCurrencyDialog.tsx:97
+msgid "There are no currencies available that match the search query. Reset the search query to select a currency."
+msgstr "没有符合搜索条件的货币。重置搜索查询以选择货币。"
+
+#: components/SelectLanguageDialog.tsx:97
+msgid "There are no languages available that match the search query. Reset the search query to select a language."
+msgstr "没有符合搜索条件的语言。重置搜索查询以选择语言。"
+
 #: components/AddressCard.tsx:594
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "在{0}市场上没有<0/>的储备资产。选择 \"添加储备资产 \"来模拟这个地址的储备资产。"
 
-#: pages/index.tsx:548
+#: pages/index.tsx:551
 msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
 msgstr "这个Aave债务模拟器是实验性的，正在积极开发中。不要只根据这个应用程序的结果来做出财务决定。"
 
@@ -176,7 +212,7 @@ msgstr "借款总额："
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:527
+#: pages/index.tsx:530
 msgid "Use Random Address"
 msgstr "使用随机地址"
 
@@ -192,7 +228,7 @@ msgstr "在Etherscan上查看地址"
 msgid "Visit address details on Etherscan"
 msgstr "在Etherscan上访问地址详情"
 
-#: pages/index.tsx:83
+#: pages/index.tsx:86
 msgid "Want to go for a quick spin?"
 msgstr "想去快速旋转吗？"
 

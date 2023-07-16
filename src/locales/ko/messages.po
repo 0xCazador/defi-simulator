@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-13 14:32-0700\n"
+"POT-Creation-Date: 2023-07-15 19:38-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,7 +45,7 @@ msgstr "빌릴 수 있습니다:"
 msgid "Borrowed Assets"
 msgstr "차입 자산"
 
-#: pages/index.tsx:93
+#: pages/index.tsx:96
 msgid "Build from Scratch"
 msgstr "처음부터 빌드"
 
@@ -57,7 +57,7 @@ msgstr "통화 선택"
 msgid "Choose Language"
 msgstr "언어 선택"
 
-#: pages/index.tsx:546
+#: pages/index.tsx:549
 msgid "Close alert"
 msgstr "알림 닫기"
 
@@ -66,7 +66,7 @@ msgstr "알림 닫기"
 msgid "Copy address to clipboard"
 msgstr "클립보드에 주소 복사"
 
-#: pages/index.tsx:541
+#: pages/index.tsx:544
 msgid "Experimental!"
 msgstr "실험적!"
 
@@ -100,11 +100,11 @@ msgstr "주소를 찾을 수 없습니다"
 msgid "No matches"
 msgstr "일치하는 항목 없음"
 
-#: pages/index.tsx:79
+#: pages/index.tsx:82
 msgid "OR"
 msgstr "또는"
 
-#: pages/index.tsx:68
+#: pages/index.tsx:71
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "위 상자에 Aave 부채 포지션이 있는 주소를 붙여넣으면 자산 차입/예비자산 변경이 포지션의 건전성 비율과 차입력에 어떤 영향을 미치는지 시각화할 수 있습니다."
 
@@ -134,6 +134,8 @@ msgid "Reset all simulated values"
 msgstr "모든 시뮬레이션 값 초기화"
 
 #: components/AddAssetDialog.tsx:94
+#: components/SelectCurrencyDialog.tsx:81
+#: components/SelectLanguageDialog.tsx:81
 msgid "Reset search query"
 msgstr "검색어 재설정"
 
@@ -141,13 +143,39 @@ msgstr "검색어 재설정"
 msgid "Reset to Original Value ({0})"
 msgstr "원래 값으로 재설정({0})"
 
+#: components/SelectCurrencyDialog.tsx:73
+msgid "Search for available currencies"
+msgstr "사용 가능한 통화 검색"
+
+#: components/SelectLanguageDialog.tsx:73
+msgid "Search for available languages"
+msgstr "사용 가능한 언어 검색"
+
 #: components/AddAssetDialog.tsx:86
 msgid "Search for {0} Assets"
 msgstr "{0}] 에셋 검색"
 
+#: components/SelectCurrencyDialog.tsx:69
+#: components/SelectCurrencyDialog.tsx:128
+msgid "Select Currency"
+msgstr "통화 선택"
+
+#: components/SelectLanguageDialog.tsx:69
+#: components/SelectLanguageDialog.tsx:127
+msgid "Select Language"
+msgstr "언어 선택"
+
 #: components/AddAssetDialog.tsx:118
 msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
 msgstr "아래에서 {0} ({1}) {2}를 선택하여 CDP에 {3} 자산으로 추가합니다."
+
+#: components/SelectLanguageDialog.tsx:104
+msgid "Select {0} ({1}) {2} below to translate the app."
+msgstr "아래에서 {0} ({1}) {2}를 선택하여 앱을 번역합니다."
+
+#: components/SelectCurrencyDialog.tsx:104
+msgid "Select {0} ({1}) {2} below."
+msgstr "아래에서 {0} ({1}) {2}를 선택합니다."
 
 #: components/AddressCard.tsx:243
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -161,11 +189,19 @@ msgstr "검색어와 일치하는 자산이 없습니다. 검색 쿼리를 재�
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "{0}] 마켓에 <0/>에 대한 차입 자산이 없습니다. \"자산 차입 추가\"를 선택하여 이 주소에 대한 차입 자산을 시뮬레이션합니다."
 
+#: components/SelectCurrencyDialog.tsx:97
+msgid "There are no currencies available that match the search query. Reset the search query to select a currency."
+msgstr "검색어와 일치하는 통화가 없습니다. 검색어를 재설정하여 통화를 선택하세요."
+
+#: components/SelectLanguageDialog.tsx:97
+msgid "There are no languages available that match the search query. Reset the search query to select a language."
+msgstr "검색어와 일치하는 언어가 없습니다. 검색 쿼리를 재설정하여 언어를 선택하세요."
+
 #: components/AddressCard.tsx:594
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "{0}] 마켓에 <0/>에 대한 예약 자산이 없습니다. \"예탁 자산 추가\"를 선택하면 이 주소에 대한 예탁 자산을 시뮬레이션할 수 있습니다."
 
-#: pages/index.tsx:548
+#: pages/index.tsx:551
 msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
 msgstr "이 Aave 부채 시뮬레이터는 실험적이며 현재 개발 중입니다. 이 앱의 결과에만 의존하여 재무 결정을 내리지 마세요."
 
@@ -176,7 +212,7 @@ msgstr "총 차입금:"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:527
+#: pages/index.tsx:530
 msgid "Use Random Address"
 msgstr "임의 주소 사용"
 
@@ -192,7 +228,7 @@ msgstr "이더스캔에서 주소 보기"
 msgid "Visit address details on Etherscan"
 msgstr "이더스캔의 주소 상세 정보 방문하기"
 
-#: pages/index.tsx:83
+#: pages/index.tsx:86
 msgid "Want to go for a quick spin?"
 msgstr "빠르게 한 바퀴 돌고 싶으신가요?"
 

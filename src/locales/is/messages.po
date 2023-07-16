@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-13 14:32-0700\n"
+"POT-Creation-Date: 2023-07-15 19:38-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,7 +45,7 @@ msgstr "Hægt að lána:"
 msgid "Borrowed Assets"
 msgstr "Lánareignir"
 
-#: pages/index.tsx:93
+#: pages/index.tsx:96
 msgid "Build from Scratch"
 msgstr "Byggja frá grunni"
 
@@ -57,7 +57,7 @@ msgstr "Veldu Gjaldmiðill"
 msgid "Choose Language"
 msgstr "Veldu Tungumál"
 
-#: pages/index.tsx:546
+#: pages/index.tsx:549
 msgid "Close alert"
 msgstr "Lokaðu viðvörun"
 
@@ -66,7 +66,7 @@ msgstr "Lokaðu viðvörun"
 msgid "Copy address to clipboard"
 msgstr "Afritaðu heimilisfang á klemmuspjald"
 
-#: pages/index.tsx:541
+#: pages/index.tsx:544
 msgid "Experimental!"
 msgstr "Tilraunakennt!"
 
@@ -100,11 +100,11 @@ msgstr "Ekkert heimilisfang fannst"
 msgid "No matches"
 msgstr "Engar samsvörun"
 
-#: pages/index.tsx:79
+#: pages/index.tsx:82
 msgid "OR"
 msgstr "EÐA"
 
-#: pages/index.tsx:68
+#: pages/index.tsx:71
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "Límdu heimilisfang með Aave skuldastöðu í reitinn hér að ofan til að sjá hvernig breytingar á lántökum/varasjóðseignum hafa áhrif á heilsuþátt stöðunnar og lántökugetu."
 
@@ -134,6 +134,8 @@ msgid "Reset all simulated values"
 msgstr "Endurstilla öll hermgildi"
 
 #: components/AddAssetDialog.tsx:94
+#: components/SelectCurrencyDialog.tsx:81
+#: components/SelectLanguageDialog.tsx:81
 msgid "Reset search query"
 msgstr "Endurstilla leitarfyrirspurn"
 
@@ -141,13 +143,39 @@ msgstr "Endurstilla leitarfyrirspurn"
 msgid "Reset to Original Value ({0})"
 msgstr "Endurstillt í upprunalegt gildi ({0})"
 
+#: components/SelectCurrencyDialog.tsx:73
+msgid "Search for available currencies"
+msgstr "Leitaðu að tiltækum gjaldmiðlum"
+
+#: components/SelectLanguageDialog.tsx:73
+msgid "Search for available languages"
+msgstr "Leitaðu að tiltækum tungumálum"
+
 #: components/AddAssetDialog.tsx:86
 msgid "Search for {0} Assets"
 msgstr "Leitaðu að {0} eignum"
 
+#: components/SelectCurrencyDialog.tsx:69
+#: components/SelectCurrencyDialog.tsx:128
+msgid "Select Currency"
+msgstr "Veldu Gjaldmiðill"
+
+#: components/SelectLanguageDialog.tsx:69
+#: components/SelectLanguageDialog.tsx:127
+msgid "Select Language"
+msgstr "Veldu tungumál"
+
 #: components/AddAssetDialog.tsx:118
 msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
 msgstr "Veldu {0} ({1}) {2} fyrir neðan til að bæta því sem {3} eign við CDP."
+
+#: components/SelectLanguageDialog.tsx:104
+msgid "Select {0} ({1}) {2} below to translate the app."
+msgstr "Veldu {0} ({1}) {2} fyrir neðan til að þýða appið."
+
+#: components/SelectCurrencyDialog.tsx:104
+msgid "Select {0} ({1}) {2} below."
+msgstr "Veldu {0} ({1}) {2} fyrir neðan."
 
 #: components/AddressCard.tsx:243
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -161,11 +189,19 @@ msgstr "Það eru engar eignir sem passa við leitarfyrirspurnina. Endurstilltu 
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "Það eru engar lánaðar eignir fyrir <0/>á {0} markaðnum. Veldu „Bæta við lánaeign“ til að líkja eftir lánuðum eignum fyrir þetta heimilisfang."
 
+#: components/SelectCurrencyDialog.tsx:97
+msgid "There are no currencies available that match the search query. Reset the search query to select a currency."
+msgstr "Engir gjaldmiðlar eru í boði sem passa við leitarfyrirspurnina. Endurstilltu leitarfyrirspurnina til að velja gjaldmiðil."
+
+#: components/SelectLanguageDialog.tsx:97
+msgid "There are no languages available that match the search query. Reset the search query to select a language."
+msgstr "Það eru engin tungumál tiltæk sem passa við leitarfyrirspurnina. Endurstilltu leitarfyrirspurnina til að velja tungumál."
+
 #: components/AddressCard.tsx:594
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "Engar varaeignir eru fyrir <0/>á {0} markaðnum. Veldu „Bæta við varaeign“ til að líkja eftir varaeignum fyrir þetta heimilisfang."
 
-#: pages/index.tsx:548
+#: pages/index.tsx:551
 msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
 msgstr "Þessi Aave skuldahermir er tilraunaverkefni og í virkri þróun. Ekki taka fjárhagslegar ákvarðanir eingöngu byggðar á niðurstöðum þessa apps."
 
@@ -176,7 +212,7 @@ msgstr "Heildarlán:"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:527
+#: pages/index.tsx:530
 msgid "Use Random Address"
 msgstr "Notaðu Random Address"
 
@@ -192,7 +228,7 @@ msgstr "Skoðaðu heimilisfang á Etherscan"
 msgid "Visit address details on Etherscan"
 msgstr "Skoðaðu upplýsingar um heimilisfang á Etherscan"
 
-#: pages/index.tsx:83
+#: pages/index.tsx:86
 msgid "Want to go for a quick spin?"
 msgstr "Langar þig að fara í snöggan snúning?"
 

@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-13 14:32-0700\n"
+"POT-Creation-Date: 2023-07-15 19:38-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,7 +45,7 @@ msgstr "ხელმისაწვდომია სესხება:"
 msgid "Borrowed Assets"
 msgstr "ნასესხები აქტივები"
 
-#: pages/index.tsx:93
+#: pages/index.tsx:96
 msgid "Build from Scratch"
 msgstr "აშენება ნულიდან"
 
@@ -57,7 +57,7 @@ msgstr "აირჩიეთ ვალუტა"
 msgid "Choose Language"
 msgstr "აირჩიეთ ენა"
 
-#: pages/index.tsx:546
+#: pages/index.tsx:549
 msgid "Close alert"
 msgstr "დახურვის გაფრთხილება"
 
@@ -66,7 +66,7 @@ msgstr "დახურვის გაფრთხილება"
 msgid "Copy address to clipboard"
 msgstr "დააკოპირეთ მისამართი ბუფერში"
 
-#: pages/index.tsx:541
+#: pages/index.tsx:544
 msgid "Experimental!"
 msgstr "ექსპერიმენტული!"
 
@@ -100,11 +100,11 @@ msgstr "მისამართი ვერ მოიძებნა"
 msgid "No matches"
 msgstr "არანაირი მატჩი"
 
-#: pages/index.tsx:79
+#: pages/index.tsx:82
 msgid "OR"
 msgstr "ან"
 
-#: pages/index.tsx:68
+#: pages/index.tsx:71
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "ჩასვით მისამართი Aave ვალის პოზიციით ზემოთ ველში, რათა წარმოიდგინოთ, როგორ მოქმედებს სესხის აღება/რეზერვის ცვლილებები პოზიციის ჯანმრთელობის ფაქტორზე და სესხის აღების ძალაზე."
 
@@ -134,6 +134,8 @@ msgid "Reset all simulated values"
 msgstr "ყველა სიმულირებული მნიშვნელობის გადატვირთვა"
 
 #: components/AddAssetDialog.tsx:94
+#: components/SelectCurrencyDialog.tsx:81
+#: components/SelectLanguageDialog.tsx:81
 msgid "Reset search query"
 msgstr "საძიებო მოთხოვნის გადატვირთვა"
 
@@ -141,13 +143,39 @@ msgstr "საძიებო მოთხოვნის გადატვი�
 msgid "Reset to Original Value ({0})"
 msgstr "თავდაპირველ მნიშვნელობაზე დაბრუნება ({0})"
 
+#: components/SelectCurrencyDialog.tsx:73
+msgid "Search for available currencies"
+msgstr "მოძებნეთ ხელმისაწვდომი ვალუტები"
+
+#: components/SelectLanguageDialog.tsx:73
+msgid "Search for available languages"
+msgstr "მოძებნეთ ხელმისაწვდომი ენები"
+
 #: components/AddAssetDialog.tsx:86
 msgid "Search for {0} Assets"
 msgstr "მოძებნეთ {0} აქტივები"
 
+#: components/SelectCurrencyDialog.tsx:69
+#: components/SelectCurrencyDialog.tsx:128
+msgid "Select Currency"
+msgstr "აირჩიეთ ვალუტა"
+
+#: components/SelectLanguageDialog.tsx:69
+#: components/SelectLanguageDialog.tsx:127
+msgid "Select Language"
+msgstr "Აირჩიეთ ენა"
+
 #: components/AddAssetDialog.tsx:118
 msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
 msgstr "აირჩიეთ {0} ({1}) {2} ქვემოთ, რომ დაამატოთ ის, როგორც {3} აქტივი CDP-ში."
+
+#: components/SelectLanguageDialog.tsx:104
+msgid "Select {0} ({1}) {2} below to translate the app."
+msgstr "აირჩიეთ {0} ({1}) {2} ქვემოთ აპის თარგმნისთვის."
+
+#: components/SelectCurrencyDialog.tsx:104
+msgid "Select {0} ({1}) {2} below."
+msgstr "აირჩიეთ {0} ({1}) {2} ქვემოთ."
 
 #: components/AddressCard.tsx:243
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -161,11 +189,19 @@ msgstr "არ არსებობს აქტივები, რომლ�
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "არ არის ნასესხები აქტივები <0/>-ისთვის {0} ბაზარზე. აირჩიეთ „სესხების აქტივის დამატება“ ამ მისამართისთვის ნასესხები აქტივების სიმულაციისთვის."
 
+#: components/SelectCurrencyDialog.tsx:97
+msgid "There are no currencies available that match the search query. Reset the search query to select a currency."
+msgstr "არ არის ხელმისაწვდომი ვალუტა, რომელიც ემთხვევა საძიებო მოთხოვნას. გადააყენეთ საძიებო მოთხოვნა ვალუტის ასარჩევად."
+
+#: components/SelectLanguageDialog.tsx:97
+msgid "There are no languages available that match the search query. Reset the search query to select a language."
+msgstr "არ არის ხელმისაწვდომი ენები, რომლებიც ემთხვევა საძიებო მოთხოვნას. გადააყენეთ საძიებო მოთხოვნა ენის ასარჩევად."
+
 #: components/AddressCard.tsx:594
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "არ არსებობს სარეზერვო აქტივები <0/>-ისთვის {0} ბაზარზე. ამ მისამართისთვის სარეზერვო აქტივების სიმულაციისთვის აირჩიეთ „სარეზერვო აქტივის დამატება“."
 
-#: pages/index.tsx:548
+#: pages/index.tsx:551
 msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
 msgstr "ეს Aave ვალის სიმულატორი ექსპერიმენტულია და აქტიური განვითარების პროცესშია. ნუ მიიღებთ ფინანსურ გადაწყვეტილებებს მხოლოდ ამ აპლიკაციის შედეგებზე დაყრდნობით."
 
@@ -176,7 +212,7 @@ msgstr "სულ ნასესხები:"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:527
+#: pages/index.tsx:530
 msgid "Use Random Address"
 msgstr "გამოიყენეთ შემთხვევითი მისამართი"
 
@@ -192,7 +228,7 @@ msgstr "იხილეთ მისამართი Etherscan-ზე"
 msgid "Visit address details on Etherscan"
 msgstr "ეწვიეთ მისამართის დეტალებს Etherscan-ზე"
 
-#: pages/index.tsx:83
+#: pages/index.tsx:86
 msgid "Want to go for a quick spin?"
 msgstr "გსურთ სწრაფად დატრიალდეთ?"
 

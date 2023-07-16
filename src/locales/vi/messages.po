@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-13 14:32-0700\n"
+"POT-Creation-Date: 2023-07-15 19:38-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,7 +45,7 @@ msgstr "Sẵn có để vay:"
 msgid "Borrowed Assets"
 msgstr "tài sản vay"
 
-#: pages/index.tsx:93
+#: pages/index.tsx:96
 msgid "Build from Scratch"
 msgstr "Xây dựng từ đầu"
 
@@ -57,7 +57,7 @@ msgstr "Chọn tiền tệ"
 msgid "Choose Language"
 msgstr "Chọn ngôn ngữ"
 
-#: pages/index.tsx:546
+#: pages/index.tsx:549
 msgid "Close alert"
 msgstr "Đóng cảnh báo"
 
@@ -66,7 +66,7 @@ msgstr "Đóng cảnh báo"
 msgid "Copy address to clipboard"
 msgstr "Sao chép địa chỉ vào khay nhớ tạm"
 
-#: pages/index.tsx:541
+#: pages/index.tsx:544
 msgid "Experimental!"
 msgstr "Thực nghiệm!"
 
@@ -100,11 +100,11 @@ msgstr "Không tìm thấy địa chỉ"
 msgid "No matches"
 msgstr "Không có trận đấu"
 
-#: pages/index.tsx:79
+#: pages/index.tsx:82
 msgid "OR"
 msgstr "HOẶC"
 
-#: pages/index.tsx:68
+#: pages/index.tsx:71
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "Dán một địa chỉ có vị thế nợ Aave vào hộp ở trên để hình dung những thay đổi đối với tài sản vay/dự trữ ảnh hưởng như thế nào đến yếu tố sức khỏe và khả năng vay mượn của vị thế."
 
@@ -134,6 +134,8 @@ msgid "Reset all simulated values"
 msgstr "Đặt lại tất cả các giá trị mô phỏng"
 
 #: components/AddAssetDialog.tsx:94
+#: components/SelectCurrencyDialog.tsx:81
+#: components/SelectLanguageDialog.tsx:81
 msgid "Reset search query"
 msgstr "Đặt lại truy vấn tìm kiếm"
 
@@ -141,13 +143,39 @@ msgstr "Đặt lại truy vấn tìm kiếm"
 msgid "Reset to Original Value ({0})"
 msgstr "Đặt lại về Giá trị gốc ({0})"
 
+#: components/SelectCurrencyDialog.tsx:73
+msgid "Search for available currencies"
+msgstr "Tìm kiếm các loại tiền tệ có sẵn"
+
+#: components/SelectLanguageDialog.tsx:73
+msgid "Search for available languages"
+msgstr "Tìm kiếm các ngôn ngữ có sẵn"
+
 #: components/AddAssetDialog.tsx:86
 msgid "Search for {0} Assets"
 msgstr "Tìm kiếm nội dung {0}"
 
+#: components/SelectCurrencyDialog.tsx:69
+#: components/SelectCurrencyDialog.tsx:128
+msgid "Select Currency"
+msgstr "Chọn tiền tệ"
+
+#: components/SelectLanguageDialog.tsx:69
+#: components/SelectLanguageDialog.tsx:127
+msgid "Select Language"
+msgstr "Chọn ngôn ngữ"
+
 #: components/AddAssetDialog.tsx:118
 msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
 msgstr "Chọn {0} ({1}) {2} bên dưới để thêm nó dưới dạng nội dung {3} vào CDP."
+
+#: components/SelectLanguageDialog.tsx:104
+msgid "Select {0} ({1}) {2} below to translate the app."
+msgstr "Chọn {0} ({1}) {2} bên dưới để dịch ứng dụng."
+
+#: components/SelectCurrencyDialog.tsx:104
+msgid "Select {0} ({1}) {2} below."
+msgstr "Chọn {0} ({1}) {2} bên dưới."
 
 #: components/AddressCard.tsx:243
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -161,11 +189,19 @@ msgstr "Không có nội dung phù hợp với truy vấn tìm kiếm. Đặt l�
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "Không có tài sản vay cho <0/>trong thị trường {0}. Chọn \"Thêm tài sản mượn\" để mô phỏng tài sản mượn cho địa chỉ này."
 
+#: components/SelectCurrencyDialog.tsx:97
+msgid "There are no currencies available that match the search query. Reset the search query to select a currency."
+msgstr "Không có loại tiền tệ nào phù hợp với truy vấn tìm kiếm. Đặt lại truy vấn tìm kiếm để chọn một loại tiền tệ."
+
+#: components/SelectLanguageDialog.tsx:97
+msgid "There are no languages available that match the search query. Reset the search query to select a language."
+msgstr "Không có ngôn ngữ nào phù hợp với truy vấn tìm kiếm. Đặt lại truy vấn tìm kiếm để chọn ngôn ngữ."
+
 #: components/AddressCard.tsx:594
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "Không có tài sản dự trữ cho <0/>trong thị trường {0}. Chọn \"Thêm tài sản dự trữ\" để mô phỏng tài sản dự trữ cho địa chỉ này."
 
-#: pages/index.tsx:548
+#: pages/index.tsx:551
 msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
 msgstr "Trình mô phỏng nợ Aave này đang được thử nghiệm và đang được phát triển tích cực. Đừng đưa ra quyết định tài chính chỉ dựa trên kết quả của ứng dụng này."
 
@@ -176,7 +212,7 @@ msgstr "Tổng số đã vay:"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:527
+#: pages/index.tsx:530
 msgid "Use Random Address"
 msgstr "Sử dụng địa chỉ ngẫu nhiên"
 
@@ -192,7 +228,7 @@ msgstr "Xem địa chỉ trên Etherscan"
 msgid "Visit address details on Etherscan"
 msgstr "Truy cập chi tiết địa chỉ trên Etherscan"
 
-#: pages/index.tsx:83
+#: pages/index.tsx:86
 msgid "Want to go for a quick spin?"
 msgstr "Bạn muốn quay nhanh?"
 

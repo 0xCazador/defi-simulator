@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-13 14:32-0700\n"
+"POT-Creation-Date: 2023-07-15 19:38-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,7 +45,7 @@ msgstr "Verfügbar zum Ausleihen:"
 msgid "Borrowed Assets"
 msgstr "Geliehene Vermögenswerte"
 
-#: pages/index.tsx:93
+#: pages/index.tsx:96
 msgid "Build from Scratch"
 msgstr "Von Grund auf neu bauen"
 
@@ -57,7 +57,7 @@ msgstr "Währung wählen"
 msgid "Choose Language"
 msgstr "Sprache wählen"
 
-#: pages/index.tsx:546
+#: pages/index.tsx:549
 msgid "Close alert"
 msgstr "Alarm schließen"
 
@@ -66,7 +66,7 @@ msgstr "Alarm schließen"
 msgid "Copy address to clipboard"
 msgstr "Adresse in die Zwischenablage kopieren"
 
-#: pages/index.tsx:541
+#: pages/index.tsx:544
 msgid "Experimental!"
 msgstr "Experimentell!"
 
@@ -100,11 +100,11 @@ msgstr "Keine Adresse gefunden"
 msgid "No matches"
 msgstr "Keine Treffer"
 
-#: pages/index.tsx:79
+#: pages/index.tsx:82
 msgid "OR"
 msgstr "OR"
 
-#: pages/index.tsx:68
+#: pages/index.tsx:71
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "Fügen Sie eine Adresse mit einer Aave-Schuldenposition in das obige Feld ein, um zu veranschaulichen, wie sich Änderungen bei den Krediten/Rücklagen auf den Gesundheitsfaktor und die Kreditfähigkeit der Position auswirken."
 
@@ -134,6 +134,8 @@ msgid "Reset all simulated values"
 msgstr "Alle simulierten Werte zurücksetzen"
 
 #: components/AddAssetDialog.tsx:94
+#: components/SelectCurrencyDialog.tsx:81
+#: components/SelectLanguageDialog.tsx:81
 msgid "Reset search query"
 msgstr "Suchanfrage zurücksetzen"
 
@@ -141,13 +143,39 @@ msgstr "Suchanfrage zurücksetzen"
 msgid "Reset to Original Value ({0})"
 msgstr "Zurücksetzen auf den ursprünglichen Wert ({0})"
 
+#: components/SelectCurrencyDialog.tsx:73
+msgid "Search for available currencies"
+msgstr "Suche nach verfügbaren Währungen"
+
+#: components/SelectLanguageDialog.tsx:73
+msgid "Search for available languages"
+msgstr "Suche nach verfügbaren Sprachen"
+
 #: components/AddAssetDialog.tsx:86
 msgid "Search for {0} Assets"
 msgstr "Suche nach {0} Vermögenswerten"
 
+#: components/SelectCurrencyDialog.tsx:69
+#: components/SelectCurrencyDialog.tsx:128
+msgid "Select Currency"
+msgstr "Währung auswählen"
+
+#: components/SelectLanguageDialog.tsx:69
+#: components/SelectLanguageDialog.tsx:127
+msgid "Select Language"
+msgstr "Sprache auswählen"
+
 #: components/AddAssetDialog.tsx:118
 msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
 msgstr "Wählen Sie {0} ({1}) {2} unten, um es als {3}-Kapitalanlage zum CDP hinzuzufügen."
+
+#: components/SelectLanguageDialog.tsx:104
+msgid "Select {0} ({1}) {2} below to translate the app."
+msgstr "Wählen Sie unten {0} ({1}) {2}, um die Anwendung zu übersetzen."
+
+#: components/SelectCurrencyDialog.tsx:104
+msgid "Select {0} ({1}) {2} below."
+msgstr "Wählen Sie unten {0} ({1}) {2}."
 
 #: components/AddressCard.tsx:243
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -161,11 +189,19 @@ msgstr "Es gibt keine Assets, die der Suchanfrage entsprechen. Setzen Sie die Su
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "Es gibt keine geliehenen Vermögenswerte für <0/>im Markt {0}. Wählen Sie \"Leihgabe hinzufügen\", um Leihgaben für diese Adresse zu simulieren."
 
+#: components/SelectCurrencyDialog.tsx:97
+msgid "There are no currencies available that match the search query. Reset the search query to select a currency."
+msgstr "Es sind keine Währungen verfügbar, die der Suchanfrage entsprechen. Setzen Sie die Suchabfrage zurück, um eine Währung auszuwählen."
+
+#: components/SelectLanguageDialog.tsx:97
+msgid "There are no languages available that match the search query. Reset the search query to select a language."
+msgstr "Es sind keine Sprachen verfügbar, die der Suchanfrage entsprechen. Setzen Sie die Suchabfrage zurück, um eine Sprache auszuwählen."
+
 #: components/AddressCard.tsx:594
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "Es gibt keine Reserveaktiva für <0/>im Markt {0}. Wählen Sie \"Reserveaktivum hinzufügen\", um Reserveaktiva für diese Adresse zu simulieren."
 
-#: pages/index.tsx:548
+#: pages/index.tsx:551
 msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
 msgstr "Dieser Aave-Schuldensimulator ist experimentell und befindet sich in aktiver Entwicklung. Treffen Sie keine finanziellen Entscheidungen, die ausschließlich auf den Ergebnissen dieser App basieren."
 
@@ -176,7 +212,7 @@ msgstr "Insgesamt geliehen:"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:527
+#: pages/index.tsx:530
 msgid "Use Random Address"
 msgstr "Zufällige Adresse verwenden"
 
@@ -192,7 +228,7 @@ msgstr "Adresse auf Etherscan anzeigen"
 msgid "Visit address details on Etherscan"
 msgstr "Besuchen Sie die Adressdaten auf Etherscan"
 
-#: pages/index.tsx:83
+#: pages/index.tsx:86
 msgid "Want to go for a quick spin?"
 msgstr "Lust auf eine schnelle Spritztour?"
 

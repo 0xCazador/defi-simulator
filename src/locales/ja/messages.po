@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-13 14:32-0700\n"
+"POT-Creation-Date: 2023-07-15 19:38-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,7 +45,7 @@ msgstr "貸し出し可能："
 msgid "Borrowed Assets"
 msgstr "借入資産"
 
-#: pages/index.tsx:93
+#: pages/index.tsx:96
 msgid "Build from Scratch"
 msgstr "ゼロから作る"
 
@@ -57,7 +57,7 @@ msgstr "通貨の選択"
 msgid "Choose Language"
 msgstr "言語を選択"
 
-#: pages/index.tsx:546
+#: pages/index.tsx:549
 msgid "Close alert"
 msgstr "クローズアラート"
 
@@ -66,7 +66,7 @@ msgstr "クローズアラート"
 msgid "Copy address to clipboard"
 msgstr "アドレスをクリップボードにコピー"
 
-#: pages/index.tsx:541
+#: pages/index.tsx:544
 msgid "Experimental!"
 msgstr "実験的だ！"
 
@@ -100,11 +100,11 @@ msgstr "アドレスが見つかりません"
 msgid "No matches"
 msgstr "該当なし"
 
-#: pages/index.tsx:79
+#: pages/index.tsx:82
 msgid "OR"
 msgstr "または"
 
-#: pages/index.tsx:68
+#: pages/index.tsx:71
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "エイベの負債ポジションを持つ住所を上のボックスに貼り付けると、借入／準備資産の変更がポジションの健全性係数と借入余力にどのように影響するかを視覚化することができる。"
 
@@ -134,6 +134,8 @@ msgid "Reset all simulated values"
 msgstr "すべてのシミュレーション値をリセット"
 
 #: components/AddAssetDialog.tsx:94
+#: components/SelectCurrencyDialog.tsx:81
+#: components/SelectLanguageDialog.tsx:81
 msgid "Reset search query"
 msgstr "検索クエリをリセット"
 
@@ -141,13 +143,39 @@ msgstr "検索クエリをリセット"
 msgid "Reset to Original Value ({0})"
 msgstr "元の値にリセット（[{0}）"
 
+#: components/SelectCurrencyDialog.tsx:73
+msgid "Search for available currencies"
+msgstr "利用可能な通貨の検索"
+
+#: components/SelectLanguageDialog.tsx:73
+msgid "Search for available languages"
+msgstr "使用可能な言語の検索"
+
 #: components/AddAssetDialog.tsx:86
 msgid "Search for {0} Assets"
 msgstr "{0}]資産を検索する"
 
+#: components/SelectCurrencyDialog.tsx:69
+#: components/SelectCurrencyDialog.tsx:128
+msgid "Select Currency"
+msgstr "通貨を選択"
+
+#: components/SelectLanguageDialog.tsx:69
+#: components/SelectLanguageDialog.tsx:127
+msgid "Select Language"
+msgstr "言語選択"
+
 #: components/AddAssetDialog.tsx:118
 msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
 msgstr "以下の{0}({1}){2}を選択すると、{3}のアセットとしてCDPに追加されます。"
+
+#: components/SelectLanguageDialog.tsx:104
+msgid "Select {0} ({1}) {2} below to translate the app."
+msgstr "以下の{0}({1}){2}を選択するとアプリが翻訳されます。"
+
+#: components/SelectCurrencyDialog.tsx:104
+msgid "Select {0} ({1}) {2} below."
+msgstr "以下の{0}({1}) {2}を選択します。"
 
 #: components/AddressCard.tsx:243
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -161,11 +189,19 @@ msgstr "検索条件に一致するアセットがありません。検索クエ
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "{0}]市場には、<0/>の借入資産はありません。Add Borrow Asset]を選択して、このアドレスの借り入れ資産をシミュレートしてください。"
 
+#: components/SelectCurrencyDialog.tsx:97
+msgid "There are no currencies available that match the search query. Reset the search query to select a currency."
+msgstr "検索条件に一致する通貨がありません。検索クエリをリセットして通貨を選択してください。"
+
+#: components/SelectLanguageDialog.tsx:97
+msgid "There are no languages available that match the search query. Reset the search query to select a language."
+msgstr "検索条件に一致する言語がありません。検索クエリをリセットして言語を選択してください。"
+
 #: components/AddressCard.tsx:594
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "{0}] マーケットには<0/>の予備資産はありません。リザーブ資産を追加] を選択して、このアドレスのリザーブ資産をシミュレートしてください。"
 
-#: pages/index.tsx:548
+#: pages/index.tsx:551
 msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
 msgstr "このAave負債シミュレーターは実験的なものであり、現在開発中です。このアプリの結果のみに基づいて財務上の決定を下さないでください。"
 
@@ -176,7 +212,7 @@ msgstr "借入総額"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:527
+#: pages/index.tsx:530
 msgid "Use Random Address"
 msgstr "ランダムアドレスを使用"
 
@@ -192,7 +228,7 @@ msgstr "Etherscanのアドレスを表示"
 msgid "Visit address details on Etherscan"
 msgstr "Etherscanの住所詳細を見る"
 
-#: pages/index.tsx:83
+#: pages/index.tsx:86
 msgid "Want to go for a quick spin?"
 msgstr "ちょっと走ってみる？"
 

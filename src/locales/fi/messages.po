@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-13 14:32-0700\n"
+"POT-Creation-Date: 2023-07-15 19:38-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,7 +45,7 @@ msgstr "Lainattavissa:"
 msgid "Borrowed Assets"
 msgstr "Lainatut varat"
 
-#: pages/index.tsx:93
+#: pages/index.tsx:96
 msgid "Build from Scratch"
 msgstr "Rakenna tyhjästä"
 
@@ -57,7 +57,7 @@ msgstr "Valitse valuutta"
 msgid "Choose Language"
 msgstr "Valitse kieli"
 
-#: pages/index.tsx:546
+#: pages/index.tsx:549
 msgid "Close alert"
 msgstr "Sulje hälytys"
 
@@ -66,7 +66,7 @@ msgstr "Sulje hälytys"
 msgid "Copy address to clipboard"
 msgstr "Kopioi osoite leikepöydälle"
 
-#: pages/index.tsx:541
+#: pages/index.tsx:544
 msgid "Experimental!"
 msgstr "Kokeellinen!"
 
@@ -100,11 +100,11 @@ msgstr "Osoitetta ei löytynyt"
 msgid "No matches"
 msgstr "Ei osumia"
 
-#: pages/index.tsx:79
+#: pages/index.tsx:82
 msgid "OR"
 msgstr "TAI"
 
-#: pages/index.tsx:68
+#: pages/index.tsx:71
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "Liitä osoite, jossa on Aave-velkapositio, yllä olevaan laatikkoon, jotta voit havainnollistaa, miten lainanotto-/varausvarojen muutokset vaikuttavat position terveystekijään ja lainanottokykyyn."
 
@@ -134,6 +134,8 @@ msgid "Reset all simulated values"
 msgstr "Nollaa kaikki simuloidut arvot"
 
 #: components/AddAssetDialog.tsx:94
+#: components/SelectCurrencyDialog.tsx:81
+#: components/SelectLanguageDialog.tsx:81
 msgid "Reset search query"
 msgstr "Nollaa hakukysely"
 
@@ -141,13 +143,39 @@ msgstr "Nollaa hakukysely"
 msgid "Reset to Original Value ({0})"
 msgstr "Nollaus alkuperäiseen arvoon ({0})"
 
+#: components/SelectCurrencyDialog.tsx:73
+msgid "Search for available currencies"
+msgstr "Etsi käytettävissä olevia valuuttoja"
+
+#: components/SelectLanguageDialog.tsx:73
+msgid "Search for available languages"
+msgstr "Etsi käytettävissä olevia kieliä"
+
 #: components/AddAssetDialog.tsx:86
 msgid "Search for {0} Assets"
 msgstr "Etsi {0} omaisuuserät"
 
+#: components/SelectCurrencyDialog.tsx:69
+#: components/SelectCurrencyDialog.tsx:128
+msgid "Select Currency"
+msgstr "Valitse valuutta"
+
+#: components/SelectLanguageDialog.tsx:69
+#: components/SelectLanguageDialog.tsx:127
+msgid "Select Language"
+msgstr "Valitse kieli"
+
 #: components/AddAssetDialog.tsx:118
 msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
 msgstr "Valitse {0} ({1}) {2} alla lisätäksesi sen {3}-omaisuudeksi CDP:hen."
+
+#: components/SelectLanguageDialog.tsx:104
+msgid "Select {0} ({1}) {2} below to translate the app."
+msgstr "Valitse {0} ({1}) {2} alla kääntääksesi sovelluksen."
+
+#: components/SelectCurrencyDialog.tsx:104
+msgid "Select {0} ({1}) {2} below."
+msgstr "Valitse {0} ({1}) {2} alla."
 
 #: components/AddressCard.tsx:243
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -161,11 +189,19 @@ msgstr "Hakukyselyä vastaavia kohteita ei ole. Nollaa hakukysely valitaksesi om
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "Markkinoilla {0} ei ole lainattuja varoja osoitteessa <0/>. Valitse \"Add Borrow Asset\" (Lisää lainattu omaisuuserä) simuloidaksesi lainattuja omaisuuseriä tälle osoitteelle."
 
+#: components/SelectCurrencyDialog.tsx:97
+msgid "There are no currencies available that match the search query. Reset the search query to select a currency."
+msgstr "Hakukyselyä vastaavia valuuttoja ei ole saatavilla. Nollaa hakukysely valitaksesi valuutan."
+
+#: components/SelectLanguageDialog.tsx:97
+msgid "There are no languages available that match the search query. Reset the search query to select a language."
+msgstr "Saatavilla ei ole kieliä, jotka vastaisivat hakukyselyä. Nollaa hakukysely valitaksesi kielen."
+
 #: components/AddressCard.tsx:594
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "Markkinoilla {0} ei ole varantosaamisia osoitteessa <0/>. Valitse \"Add Reserve Asset\" simuloidaksesi tämän osoitteen varantovarat."
 
-#: pages/index.tsx:548
+#: pages/index.tsx:551
 msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
 msgstr "Tämä Aave-velkasimulaattori on kokeiluluonteinen ja sitä kehitetään aktiivisesti. Älä tee taloudellisia päätöksiä pelkästään tämän sovelluksen tulosten perusteella."
 
@@ -176,7 +212,7 @@ msgstr "Lainattu yhteensä:"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:527
+#: pages/index.tsx:530
 msgid "Use Random Address"
 msgstr "Käytä satunnaista osoitetta"
 
@@ -192,7 +228,7 @@ msgstr "Näytä osoite Etherscanissa"
 msgid "Visit address details on Etherscan"
 msgstr "Käy osoitteessa Etherscan"
 
-#: pages/index.tsx:83
+#: pages/index.tsx:86
 msgid "Want to go for a quick spin?"
 msgstr "Haluatko lähteä nopealle kierrokselle?"
 

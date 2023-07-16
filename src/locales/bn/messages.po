@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-13 14:32-0700\n"
+"POT-Creation-Date: 2023-07-15 19:38-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,7 +45,7 @@ msgstr "ধার পাওয়া যায়:"
 msgid "Borrowed Assets"
 msgstr "ধার করা সম্পদ"
 
-#: pages/index.tsx:93
+#: pages/index.tsx:96
 msgid "Build from Scratch"
 msgstr "স্ক্র্যাচ থেকে বিল্ড"
 
@@ -57,7 +57,7 @@ msgstr "মুদ্রা পছন্দ করুন"
 msgid "Choose Language"
 msgstr "ভাষা নির্বাচন করুন"
 
-#: pages/index.tsx:546
+#: pages/index.tsx:549
 msgid "Close alert"
 msgstr "সতর্কতা বন্ধ করুন"
 
@@ -66,7 +66,7 @@ msgstr "সতর্কতা বন্ধ করুন"
 msgid "Copy address to clipboard"
 msgstr "ক্লিপবোর্ডে ঠিকানা কপি করুন"
 
-#: pages/index.tsx:541
+#: pages/index.tsx:544
 msgid "Experimental!"
 msgstr "পরীক্ষামূলক !"
 
@@ -100,11 +100,11 @@ msgstr "কোনো ঠিকানা পাওয়া যায়নি"
 msgid "No matches"
 msgstr "মিল নেই"
 
-#: pages/index.tsx:79
+#: pages/index.tsx:82
 msgid "OR"
 msgstr "বা"
 
-#: pages/index.tsx:68
+#: pages/index.tsx:71
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "উপরের বাক্সে Aave ঋণের অবস্থান সহ একটি ঠিকানা পেস্ট করুন কিভাবে ধার/সংরক্ষিত সম্পদের পরিবর্তনগুলি অবস্থানের স্বাস্থ্য ফ্যাক্টর এবং ধার নেওয়ার ক্ষমতাকে প্রভাবিত করে।"
 
@@ -134,6 +134,8 @@ msgid "Reset all simulated values"
 msgstr "সমস্ত সিমুলেটেড মান পুনরায় সেট করুন"
 
 #: components/AddAssetDialog.tsx:94
+#: components/SelectCurrencyDialog.tsx:81
+#: components/SelectLanguageDialog.tsx:81
 msgid "Reset search query"
 msgstr "অনুসন্ধান ক্যোয়ারী রিসেট করুন"
 
@@ -141,13 +143,39 @@ msgstr "অনুসন্ধান ক্যোয়ারী রিসেট 
 msgid "Reset to Original Value ({0})"
 msgstr "আসল মান ({0}) এ রিসেট করুন"
 
+#: components/SelectCurrencyDialog.tsx:73
+msgid "Search for available currencies"
+msgstr "উপলব্ধ মুদ্রার জন্য অনুসন্ধান করুন"
+
+#: components/SelectLanguageDialog.tsx:73
+msgid "Search for available languages"
+msgstr "উপলব্ধ ভাষার জন্য অনুসন্ধান করুন"
+
 #: components/AddAssetDialog.tsx:86
 msgid "Search for {0} Assets"
 msgstr "{0} সম্পদ অনুসন্ধান করুন"
 
+#: components/SelectCurrencyDialog.tsx:69
+#: components/SelectCurrencyDialog.tsx:128
+msgid "Select Currency"
+msgstr "কারেন্সি নির্বাচন করুন"
+
+#: components/SelectLanguageDialog.tsx:69
+#: components/SelectLanguageDialog.tsx:127
+msgid "Select Language"
+msgstr "ভাষা নির্বাচন কর"
+
 #: components/AddAssetDialog.tsx:118
 msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
 msgstr "CDP-তে {3} সম্পদ হিসেবে যোগ করতে নিচে {0} ({1}) {2} নির্বাচন করুন।"
+
+#: components/SelectLanguageDialog.tsx:104
+msgid "Select {0} ({1}) {2} below to translate the app."
+msgstr "অ্যাপটি অনুবাদ করতে নিচে {0} ({1}) {2} নির্বাচন করুন।"
+
+#: components/SelectCurrencyDialog.tsx:104
+msgid "Select {0} ({1}) {2} below."
+msgstr "নীচে {0} ({1}) {2} নির্বাচন করুন।"
 
 #: components/AddressCard.tsx:243
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -161,11 +189,19 @@ msgstr "সার্চ কোয়েরির সাথে মেলে এ�
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "{0} বাজারে <0/>এর জন্য কোনো ধার করা সম্পদ নেই। এই ঠিকানার জন্য ধার করা সম্পদ অনুকরণ করতে \"ধার করা সম্পদ যোগ করুন\" নির্বাচন করুন।"
 
+#: components/SelectCurrencyDialog.tsx:97
+msgid "There are no currencies available that match the search query. Reset the search query to select a currency."
+msgstr "সার্চ কোয়েরির সাথে মেলে এমন কোন মুদ্রা পাওয়া যায় না। একটি মুদ্রা নির্বাচন করতে অনুসন্ধান ক্যোয়ারী রিসেট করুন।"
+
+#: components/SelectLanguageDialog.tsx:97
+msgid "There are no languages available that match the search query. Reset the search query to select a language."
+msgstr "সার্চ কোয়েরির সাথে মেলে এমন কোনো ভাষা নেই। একটি ভাষা নির্বাচন করতে অনুসন্ধান ক্যোয়ারী রিসেট করুন।"
+
 #: components/AddressCard.tsx:594
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "{0} বাজারে <0/>এর জন্য কোনো রিজার্ভ সম্পদ নেই। এই ঠিকানার জন্য রিজার্ভ সম্পদ অনুকরণ করতে \"সংরক্ষিত সম্পদ যোগ করুন\" নির্বাচন করুন।"
 
-#: pages/index.tsx:548
+#: pages/index.tsx:551
 msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
 msgstr "এই Aave ঋণ সিমুলেটর পরীক্ষামূলক এবং সক্রিয় উন্নয়ন অধীনে. শুধুমাত্র এই অ্যাপের ফলাফলের উপর ভিত্তি করে আর্থিক সিদ্ধান্ত নেবেন না।"
 
@@ -176,7 +212,7 @@ msgstr "মোট ধার করা:"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:527
+#: pages/index.tsx:530
 msgid "Use Random Address"
 msgstr "এলোমেলো ঠিকানা ব্যবহার করুন"
 
@@ -192,7 +228,7 @@ msgstr "ইথারস্ক্যানে ঠিকানা দেখুন"
 msgid "Visit address details on Etherscan"
 msgstr "ইথারস্ক্যানে ঠিকানার বিবরণ দেখুন"
 
-#: pages/index.tsx:83
+#: pages/index.tsx:86
 msgid "Want to go for a quick spin?"
 msgstr "একটি দ্রুত স্পিন জন্য যেতে চান?"
 

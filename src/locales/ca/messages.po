@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-13 14:32-0700\n"
+"POT-Creation-Date: 2023-07-15 19:38-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,7 +45,7 @@ msgstr "Disponible per en préstec:"
 msgid "Borrowed Assets"
 msgstr "Actius prestats"
 
-#: pages/index.tsx:93
+#: pages/index.tsx:96
 msgid "Build from Scratch"
 msgstr "Construeix des de zero"
 
@@ -57,7 +57,7 @@ msgstr "Trieu Moneda"
 msgid "Choose Language"
 msgstr "Trieu Idioma"
 
-#: pages/index.tsx:546
+#: pages/index.tsx:549
 msgid "Close alert"
 msgstr "Alerta de tancament"
 
@@ -66,7 +66,7 @@ msgstr "Alerta de tancament"
 msgid "Copy address to clipboard"
 msgstr "Copia l'adreça al porta-retalls"
 
-#: pages/index.tsx:541
+#: pages/index.tsx:544
 msgid "Experimental!"
 msgstr "Experimental!"
 
@@ -100,11 +100,11 @@ msgstr "No s'ha trobat cap adreça"
 msgid "No matches"
 msgstr "Sense coincidències"
 
-#: pages/index.tsx:79
+#: pages/index.tsx:82
 msgid "OR"
 msgstr "O"
 
-#: pages/index.tsx:68
+#: pages/index.tsx:71
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "Enganxeu una adreça amb una posició de deute d'Aave al quadre de dalt per visualitzar com els canvis als actius de préstec/reserva afecten el factor de salut i el poder d'endeutament de la posició."
 
@@ -134,6 +134,8 @@ msgid "Reset all simulated values"
 msgstr "Restableix tots els valors simulats"
 
 #: components/AddAssetDialog.tsx:94
+#: components/SelectCurrencyDialog.tsx:81
+#: components/SelectLanguageDialog.tsx:81
 msgid "Reset search query"
 msgstr "Restableix la consulta de cerca"
 
@@ -141,13 +143,39 @@ msgstr "Restableix la consulta de cerca"
 msgid "Reset to Original Value ({0})"
 msgstr "Restableix el valor original ({0})"
 
+#: components/SelectCurrencyDialog.tsx:73
+msgid "Search for available currencies"
+msgstr "Cerca les monedes disponibles"
+
+#: components/SelectLanguageDialog.tsx:73
+msgid "Search for available languages"
+msgstr "Cerca els idiomes disponibles"
+
 #: components/AddAssetDialog.tsx:86
 msgid "Search for {0} Assets"
 msgstr "Cerqueu recursos {0}."
 
+#: components/SelectCurrencyDialog.tsx:69
+#: components/SelectCurrencyDialog.tsx:128
+msgid "Select Currency"
+msgstr "Seleccioneu Moneda"
+
+#: components/SelectLanguageDialog.tsx:69
+#: components/SelectLanguageDialog.tsx:127
+msgid "Select Language"
+msgstr "Escolliu l'idioma"
+
 #: components/AddAssetDialog.tsx:118
 msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
 msgstr "Seleccioneu {0} ({1}) {2} a continuació per afegir-lo com a actiu {3} al CDP."
+
+#: components/SelectLanguageDialog.tsx:104
+msgid "Select {0} ({1}) {2} below to translate the app."
+msgstr "Seleccioneu {0} ({1}) {2} a continuació per traduir l'aplicació."
+
+#: components/SelectCurrencyDialog.tsx:104
+msgid "Select {0} ({1}) {2} below."
+msgstr "Seleccioneu {0} ({1}) {2} a continuació."
 
 #: components/AddressCard.tsx:243
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -161,11 +189,19 @@ msgstr "No hi ha cap actiu que coincideixi amb la consulta de cerca. Restableix 
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "No hi ha cap actiu prestat per a <0/>al mercat {0}. Seleccioneu \"Afegeix un actiu en préstec\" per simular els actius prestats per a aquesta adreça."
 
+#: components/SelectCurrencyDialog.tsx:97
+msgid "There are no currencies available that match the search query. Reset the search query to select a currency."
+msgstr "No hi ha monedes disponibles que coincideixin amb la consulta de cerca. Restableix la consulta de cerca per seleccionar una moneda."
+
+#: components/SelectLanguageDialog.tsx:97
+msgid "There are no languages available that match the search query. Reset the search query to select a language."
+msgstr "No hi ha idiomes disponibles que coincideixin amb la consulta de cerca. Restableix la consulta de cerca per seleccionar un idioma."
+
 #: components/AddressCard.tsx:594
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "No hi ha actius de reserva per a <0/>al mercat {0}. Seleccioneu \"Afegeix actiu de reserva\" per simular actius de reserva per a aquesta adreça."
 
-#: pages/index.tsx:548
+#: pages/index.tsx:551
 msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
 msgstr "Aquest simulador de deute Aave és experimental i en desenvolupament actiu. No prenguis decisions financeres basades únicament en els resultats d'aquesta aplicació."
 
@@ -176,7 +212,7 @@ msgstr "Total prestat:"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:527
+#: pages/index.tsx:530
 msgid "Use Random Address"
 msgstr "Utilitzeu una adreça aleatòria"
 
@@ -192,7 +228,7 @@ msgstr "Veure l'adreça a Etherscan"
 msgid "Visit address details on Etherscan"
 msgstr "Visiteu els detalls de l'adreça a Etherscan"
 
-#: pages/index.tsx:83
+#: pages/index.tsx:86
 msgid "Want to go for a quick spin?"
 msgstr "Vols anar a fer una volta ràpida?"
 

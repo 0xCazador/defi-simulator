@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-13 14:32-0700\n"
+"POT-Creation-Date: 2023-07-15 19:38-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,7 +45,7 @@ msgstr "Magagamit para Hiram:"
 msgid "Borrowed Assets"
 msgstr "Mga Hiram na Asset"
 
-#: pages/index.tsx:93
+#: pages/index.tsx:96
 msgid "Build from Scratch"
 msgstr "Bumuo mula sa scratch"
 
@@ -57,7 +57,7 @@ msgstr "Pumili ng Salapi"
 msgid "Choose Language"
 msgstr "Piliin ang Wika"
 
-#: pages/index.tsx:546
+#: pages/index.tsx:549
 msgid "Close alert"
 msgstr "Isara ang alerto"
 
@@ -66,7 +66,7 @@ msgstr "Isara ang alerto"
 msgid "Copy address to clipboard"
 msgstr "Kopyahin ang address sa clipboard"
 
-#: pages/index.tsx:541
+#: pages/index.tsx:544
 msgid "Experimental!"
 msgstr "Eksperimental!"
 
@@ -100,11 +100,11 @@ msgstr "Walang nakitang address"
 msgid "No matches"
 msgstr "Walang tugma"
 
-#: pages/index.tsx:79
+#: pages/index.tsx:82
 msgid "OR"
 msgstr "O"
 
-#: pages/index.tsx:68
+#: pages/index.tsx:71
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "Mag-paste ng isang address na may posisyon sa utang ng Aave sa kahon sa itaas upang mailarawan kung paano nakakaapekto ang mga pagbabago sa paghiram/pagreserba ng mga asset sa kadahilanang pangkalusugan at kapangyarihan ng paghiram ng posisyon."
 
@@ -134,6 +134,8 @@ msgid "Reset all simulated values"
 msgstr "I-reset ang lahat ng simulate na halaga"
 
 #: components/AddAssetDialog.tsx:94
+#: components/SelectCurrencyDialog.tsx:81
+#: components/SelectLanguageDialog.tsx:81
 msgid "Reset search query"
 msgstr "I-reset ang query sa paghahanap"
 
@@ -141,13 +143,39 @@ msgstr "I-reset ang query sa paghahanap"
 msgid "Reset to Original Value ({0})"
 msgstr "I-reset sa Orihinal na Halaga ({0})"
 
+#: components/SelectCurrencyDialog.tsx:73
+msgid "Search for available currencies"
+msgstr "Maghanap ng mga magagamit na pera"
+
+#: components/SelectLanguageDialog.tsx:73
+msgid "Search for available languages"
+msgstr "Maghanap ng mga magagamit na wika"
+
 #: components/AddAssetDialog.tsx:86
 msgid "Search for {0} Assets"
 msgstr "Maghanap ng {0} Assets"
 
+#: components/SelectCurrencyDialog.tsx:69
+#: components/SelectCurrencyDialog.tsx:128
+msgid "Select Currency"
+msgstr "Piliin ang Pera"
+
+#: components/SelectLanguageDialog.tsx:69
+#: components/SelectLanguageDialog.tsx:127
+msgid "Select Language"
+msgstr "Piliin ang Wika"
+
 #: components/AddAssetDialog.tsx:118
 msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
 msgstr "Piliin ang {0} ({1}) {2} sa ibaba para idagdag ito bilang {3} asset sa CDP."
+
+#: components/SelectLanguageDialog.tsx:104
+msgid "Select {0} ({1}) {2} below to translate the app."
+msgstr "Piliin ang {0} ({1}) {2} sa ibaba para i-translate ang app."
+
+#: components/SelectCurrencyDialog.tsx:104
+msgid "Select {0} ({1}) {2} below."
+msgstr "Piliin ang {0} ({1}) {2} sa ibaba."
 
 #: components/AddressCard.tsx:243
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -161,11 +189,19 @@ msgstr "Walang mga asset na tumutugma sa query sa paghahanap. I-reset ang query 
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "Walang mga hiniram na asset para sa <0/>sa {0} market. Piliin ang \"Magdagdag ng Borrow Asset\" para gayahin ang mga hiniram na asset para sa address na ito."
 
+#: components/SelectCurrencyDialog.tsx:97
+msgid "There are no currencies available that match the search query. Reset the search query to select a currency."
+msgstr "Walang magagamit na mga pera na tumutugma sa query sa paghahanap. I-reset ang query sa paghahanap para pumili ng currency."
+
+#: components/SelectLanguageDialog.tsx:97
+msgid "There are no languages available that match the search query. Reset the search query to select a language."
+msgstr "Walang magagamit na mga wika na tumutugma sa query sa paghahanap. I-reset ang query sa paghahanap para pumili ng wika."
+
 #: components/AddressCard.tsx:594
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "Walang reserbang asset para sa <0/>sa {0} market. Piliin ang \"Magdagdag ng Reserve Asset\" para gayahin ang reserbang asset para sa address na ito."
 
-#: pages/index.tsx:548
+#: pages/index.tsx:551
 msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
 msgstr "Ang Aave debt simulator na ito ay eksperimental at nasa ilalim ng aktibong pag-unlad. Huwag gumawa ng mga pasya sa pananalapi batay lamang sa mga resulta ng app na ito."
 
@@ -176,7 +212,7 @@ msgstr "Kabuuang Hiniram:"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:527
+#: pages/index.tsx:530
 msgid "Use Random Address"
 msgstr "Gumamit ng Random na Address"
 
@@ -192,7 +228,7 @@ msgstr "Tingnan ang address sa Etherscan"
 msgid "Visit address details on Etherscan"
 msgstr "Bisitahin ang mga detalye ng address sa Etherscan"
 
-#: pages/index.tsx:83
+#: pages/index.tsx:86
 msgid "Want to go for a quick spin?"
 msgstr "Gusto mong pumunta para sa isang mabilis na pag-ikot?"
 

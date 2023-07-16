@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-13 14:32-0700\n"
+"POT-Creation-Date: 2023-07-15 19:38-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,7 +45,7 @@ msgstr "Διαθέσιμο για δανεισμό:"
 msgid "Borrowed Assets"
 msgstr "Δανειακά περιουσιακά στοιχεία"
 
-#: pages/index.tsx:93
+#: pages/index.tsx:96
 msgid "Build from Scratch"
 msgstr "Χτίστε από το μηδέν"
 
@@ -57,7 +57,7 @@ msgstr "Επιλέξτε νόμισμα"
 msgid "Choose Language"
 msgstr "Επιλέξτε Γλώσσα"
 
-#: pages/index.tsx:546
+#: pages/index.tsx:549
 msgid "Close alert"
 msgstr "Κλείσιμο συναγερμού"
 
@@ -66,7 +66,7 @@ msgstr "Κλείσιμο συναγερμού"
 msgid "Copy address to clipboard"
 msgstr "Αντιγραφή διεύθυνσης στο πρόχειρο"
 
-#: pages/index.tsx:541
+#: pages/index.tsx:544
 msgid "Experimental!"
 msgstr "Πειραματικό!"
 
@@ -100,11 +100,11 @@ msgstr "Δεν βρέθηκε διεύθυνση"
 msgid "No matches"
 msgstr "Δεν υπάρχουν αντιστοιχίες"
 
-#: pages/index.tsx:79
+#: pages/index.tsx:82
 msgid "OR"
 msgstr "Ή"
 
-#: pages/index.tsx:68
+#: pages/index.tsx:71
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "Επικολλήστε μια διεύθυνση με μια θέση χρέους Aave στο παραπάνω πλαίσιο για να απεικονίσετε τον τρόπο με τον οποίο οι μεταβολές στα περιουσιακά στοιχεία που δανείζονται/διατηρούνται επηρεάζουν τον συντελεστή υγείας και τη δανειοληπτική ικανότητα της θέσης."
 
@@ -134,6 +134,8 @@ msgid "Reset all simulated values"
 msgstr "Επαναφορά όλων των προσομοιωμένων τιμών"
 
 #: components/AddAssetDialog.tsx:94
+#: components/SelectCurrencyDialog.tsx:81
+#: components/SelectLanguageDialog.tsx:81
 msgid "Reset search query"
 msgstr "Επαναφορά ερωτήματος αναζήτησης"
 
@@ -141,13 +143,39 @@ msgstr "Επαναφορά ερωτήματος αναζήτησης"
 msgid "Reset to Original Value ({0})"
 msgstr "Επαναφορά στην αρχική τιμή ({0})"
 
+#: components/SelectCurrencyDialog.tsx:73
+msgid "Search for available currencies"
+msgstr "Αναζήτηση για διαθέσιμα νομίσματα"
+
+#: components/SelectLanguageDialog.tsx:73
+msgid "Search for available languages"
+msgstr "Αναζήτηση για διαθέσιμες γλώσσες"
+
 #: components/AddAssetDialog.tsx:86
 msgid "Search for {0} Assets"
 msgstr "Αναζήτηση για {0} Περιουσιακά στοιχεία"
 
+#: components/SelectCurrencyDialog.tsx:69
+#: components/SelectCurrencyDialog.tsx:128
+msgid "Select Currency"
+msgstr "Επιλέξτε νόμισμα"
+
+#: components/SelectLanguageDialog.tsx:69
+#: components/SelectLanguageDialog.tsx:127
+msgid "Select Language"
+msgstr "Επιλέξτε γλώσσα"
+
 #: components/AddAssetDialog.tsx:118
 msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
 msgstr "Επιλέξτε {0} ({1}) {2} παρακάτω για να το προσθέσετε ως περιουσιακό στοιχείο {3} στο CDP."
+
+#: components/SelectLanguageDialog.tsx:104
+msgid "Select {0} ({1}) {2} below to translate the app."
+msgstr "Επιλέξτε {0} ({1}) {2} παρακάτω για να μεταφράσετε την εφαρμογή."
+
+#: components/SelectCurrencyDialog.tsx:104
+msgid "Select {0} ({1}) {2} below."
+msgstr "Επιλέξτε {0} ({1}) {2} παρακάτω."
 
 #: components/AddressCard.tsx:243
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -161,11 +189,19 @@ msgstr "Δεν υπάρχουν στοιχεία που να ταιριάζου�
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "Δεν υπάρχουν δανεικά περιουσιακά στοιχεία για το <0/>στην αγορά {0}. Επιλέξτε \"Add Borrow Asset\" για να προσομοιώσετε δανεικά περιουσιακά στοιχεία για αυτή τη διεύθυνση."
 
+#: components/SelectCurrencyDialog.tsx:97
+msgid "There are no currencies available that match the search query. Reset the search query to select a currency."
+msgstr "Δεν υπάρχουν διαθέσιμα νομίσματα που να ταιριάζουν με το ερώτημα αναζήτησης. Επαναφέρετε το ερώτημα αναζήτησης για να επιλέξετε ένα νόμισμα."
+
+#: components/SelectLanguageDialog.tsx:97
+msgid "There are no languages available that match the search query. Reset the search query to select a language."
+msgstr "Δεν υπάρχουν διαθέσιμες γλώσσες που να ταιριάζουν με το ερώτημα αναζήτησης. Επαναφέρετε το ερώτημα αναζήτησης για να επιλέξετε μια γλώσσα."
+
 #: components/AddressCard.tsx:594
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "Στην αγορά {0} δεν υπάρχουν αποθεματικά στοιχεία ενεργητικού για το <0/>. Επιλέξτε \"Add Reserve Asset\" για να προσομοιώσετε αποθεματικά περιουσιακά στοιχεία για αυτή τη διεύθυνση."
 
-#: pages/index.tsx:548
+#: pages/index.tsx:551
 msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
 msgstr "Αυτός ο προσομοιωτής χρέους Aave είναι πειραματικός και βρίσκεται υπό ενεργή ανάπτυξη. Μην λαμβάνετε οικονομικές αποφάσεις με βάση μόνο τα αποτελέσματα αυτής της εφαρμογής."
 
@@ -176,7 +212,7 @@ msgstr "Σύνολο δανεισμού:"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:527
+#: pages/index.tsx:530
 msgid "Use Random Address"
 msgstr "Χρήση τυχαίας διεύθυνσης"
 
@@ -192,7 +228,7 @@ msgstr "Προβολή διεύθυνσης στο Etherscan"
 msgid "Visit address details on Etherscan"
 msgstr "Επισκεφθείτε τα στοιχεία της διεύθυνσης στο Etherscan"
 
-#: pages/index.tsx:83
+#: pages/index.tsx:86
 msgid "Want to go for a quick spin?"
 msgstr "Θέλετε να πάτε για μια γρήγορη βόλτα"
 

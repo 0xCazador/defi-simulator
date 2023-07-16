@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-13 14:32-0700\n"
+"POT-Creation-Date: 2023-07-15 19:38-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,7 +45,7 @@ msgstr "उधार लेने के लिए उपलब्ध:"
 msgid "Borrowed Assets"
 msgstr "उधार ली गई संपत्ति"
 
-#: pages/index.tsx:93
+#: pages/index.tsx:96
 msgid "Build from Scratch"
 msgstr "स्क्रैच से निर्माण करें"
 
@@ -57,7 +57,7 @@ msgstr "मुद्रा चुनिये"
 msgid "Choose Language"
 msgstr "भाषा चुनें"
 
-#: pages/index.tsx:546
+#: pages/index.tsx:549
 msgid "Close alert"
 msgstr "चेतावनी बंद करें"
 
@@ -66,7 +66,7 @@ msgstr "चेतावनी बंद करें"
 msgid "Copy address to clipboard"
 msgstr "पते को क्लिपबोर्ड पर कॉपी करें"
 
-#: pages/index.tsx:541
+#: pages/index.tsx:544
 msgid "Experimental!"
 msgstr "प्रायोगिक!"
 
@@ -100,11 +100,11 @@ msgstr "कोई पता नहीं मिला"
 msgid "No matches"
 msgstr "कोई मेल नहीं"
 
-#: pages/index.tsx:79
+#: pages/index.tsx:82
 msgid "OR"
 msgstr "या"
 
-#: pages/index.tsx:68
+#: pages/index.tsx:71
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "यह देखने के लिए कि उधार/आरक्षित परिसंपत्तियों में परिवर्तन स्थिति के स्वास्थ्य कारक और उधार लेने की शक्ति को कैसे प्रभावित करते हैं, उपरोक्त बॉक्स में एवे ऋण स्थिति के साथ एक पता चिपकाएँ।"
 
@@ -134,6 +134,8 @@ msgid "Reset all simulated values"
 msgstr "सभी सिम्युलेटेड मान रीसेट करें"
 
 #: components/AddAssetDialog.tsx:94
+#: components/SelectCurrencyDialog.tsx:81
+#: components/SelectLanguageDialog.tsx:81
 msgid "Reset search query"
 msgstr "खोज क्वेरी रीसेट करें"
 
@@ -141,13 +143,39 @@ msgstr "खोज क्वेरी रीसेट करें"
 msgid "Reset to Original Value ({0})"
 msgstr "मूल मान पर रीसेट करें ({0})"
 
+#: components/SelectCurrencyDialog.tsx:73
+msgid "Search for available currencies"
+msgstr "उपलब्ध मुद्राएँ खोजें"
+
+#: components/SelectLanguageDialog.tsx:73
+msgid "Search for available languages"
+msgstr "उपलब्ध भाषाओं को खोजें"
+
 #: components/AddAssetDialog.tsx:86
 msgid "Search for {0} Assets"
 msgstr "{0} संपत्ति खोजें"
 
+#: components/SelectCurrencyDialog.tsx:69
+#: components/SelectCurrencyDialog.tsx:128
+msgid "Select Currency"
+msgstr "मुद्रा चुनें"
+
+#: components/SelectLanguageDialog.tsx:69
+#: components/SelectLanguageDialog.tsx:127
+msgid "Select Language"
+msgstr "भाषा चुने"
+
 #: components/AddAssetDialog.tsx:118
 msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
 msgstr "इसे CDP में {3} परिसंपत्ति के रूप में जोड़ने के लिए नीचे {0} ({1}) {2} चुनें।"
+
+#: components/SelectLanguageDialog.tsx:104
+msgid "Select {0} ({1}) {2} below to translate the app."
+msgstr "ऐप का अनुवाद करने के लिए नीचे {0} ({1}) {2} चुनें।"
+
+#: components/SelectCurrencyDialog.tsx:104
+msgid "Select {0} ({1}) {2} below."
+msgstr "नीचे {0} ({1}) {2} चुनें।"
 
 #: components/AddressCard.tsx:243
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -161,11 +189,19 @@ msgstr "ऐसी कोई संपत्ति नहीं है जो ख
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "{0} बाजार में <0/> के लिए कोई उधार ली गई संपत्ति नहीं है। इस पते के लिए उधार ली गई संपत्ति का अनुकरण करने के लिए \"उधार संपत्ति जोड़ें\" चुनें।"
 
+#: components/SelectCurrencyDialog.tsx:97
+msgid "There are no currencies available that match the search query. Reset the search query to select a currency."
+msgstr "ऐसी कोई मुद्रा उपलब्ध नहीं है जो खोज क्वेरी से मेल खाती हो। मुद्रा चुनने के लिए खोज क्वेरी रीसेट करें।"
+
+#: components/SelectLanguageDialog.tsx:97
+msgid "There are no languages available that match the search query. Reset the search query to select a language."
+msgstr "ऐसी कोई भाषा उपलब्ध नहीं है जो खोज क्वेरी से मेल खाती हो। किसी भाषा का चयन करने के लिए खोज क्वेरी को रीसेट करें।"
+
 #: components/AddressCard.tsx:594
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "{0} बाजार में <0/> के लिए कोई आरक्षित संपत्ति नहीं है। इस पते के लिए आरक्षित संपत्तियों का अनुकरण करने के लिए \"रिजर्व संपत्ति जोड़ें\" चुनें।"
 
-#: pages/index.tsx:548
+#: pages/index.tsx:551
 msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
 msgstr "यह एवे ऋण सिम्युलेटर प्रयोगात्मक है और सक्रिय विकास के अधीन है। केवल इस ऐप के परिणामों के आधार पर वित्तीय निर्णय न लें।"
 
@@ -176,7 +212,7 @@ msgstr "कुल उधार:"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:527
+#: pages/index.tsx:530
 msgid "Use Random Address"
 msgstr "यादृच्छिक पते का प्रयोग करें"
 
@@ -192,7 +228,7 @@ msgstr "इथरस्कैन पर पता देखें"
 msgid "Visit address details on Etherscan"
 msgstr "इथरस्कैन पर पते का विवरण देखें"
 
-#: pages/index.tsx:83
+#: pages/index.tsx:86
 msgid "Want to go for a quick spin?"
 msgstr "क्या आप जल्दी घूमना चाहते हैं?"
 
