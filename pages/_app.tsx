@@ -18,6 +18,8 @@ import "../css/slider.css";
 
 const defaultLocale = "en";
 const { messages } = await import(`../src/locales/${defaultLocale}/messages`);
+import languages from "../src/languages/index.json";
+
 i18n.load(defaultLocale, messages);
 i18n.activate(defaultLocale);
 
@@ -53,6 +55,9 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
           data-cf-beacon='{"token": "42f927fda7404332a3720866ad63795f"}'
         />
         <link rel="shortcut icon" href="/favicon.ico" />
+        {languages.map(language => {
+          return <link rel="alternate" hrefLang={language.code} href={`/${language.code}`} />
+        })}
       </Head>
       <I18nProvider i18n={i18n}>
         <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
