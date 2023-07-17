@@ -3,7 +3,6 @@ import { t, Trans } from "@lingui/macro";
 
 import {
     Button,
-    Group,
     Modal,
     List,
     TextInput,
@@ -30,10 +29,12 @@ type SelectCurrencyDialogProps = {
 };
 
 export default function SelectCurrencyDialog({ }: SelectCurrencyDialogProps) {
-    const { isFetching, currencyData, isError, selectedCurrency, setSelectedCurrency } = useFiatRates(false);
+    const { isFetching, currencyData, isError, selectedCurrency, setSelectedCurrency } = useFiatRates(true);
     const [open, setOpen] = React.useState(false);
     const [searchText, setSearchText] = React.useState('');
     const router: NextRouter = useRouter();
+    const selectedCurrencyData = currencyItems.find(curr => curr.code === selectedCurrency);
+    const selectedFlag = flags[selectedCurrency];
 
     const handleClose = () => {
         setSearchText('');
@@ -46,12 +47,16 @@ export default function SelectCurrencyDialog({ }: SelectCurrencyDialogProps) {
         handleClose();
     };
 
-    const currencies: Currency[] = open
-        ? new Array(...currencyItems)
-            .filter((currency: Currency) => {
+    let currencies: Currency[] = isFetching
+        ? []
+        : currencyItems.filter(item => currencyData[item.code])
+
+    currencies = open
+        ? new Array(...currencies)
+            .filter((currency) => {
                 // filter currency by search text, if there is any
                 if (!searchText.length) return true;
-                const { code, description } = currency;
+                const { code, description } = currency as Currency;
                 const token = `${code}-${description};`
                 if (token.toUpperCase().includes(searchText.toUpperCase())) return true;
                 return false;
@@ -61,6 +66,7 @@ export default function SelectCurrencyDialog({ }: SelectCurrencyDialogProps) {
     return (
         <>
             <Modal
+                size="lg"
                 opened={open}
                 onClose={() => {
                     setSearchText('');
@@ -106,28 +112,27 @@ export default function SelectCurrencyDialog({ }: SelectCurrencyDialogProps) {
                     </Text>
                 )}
 
-                <List>
+                <List listStyleType="none">
                     {currencies.map((currency: Currency) => {
                         const flag = flags[currency.code];
+
                         return (
                             <List.Item
                                 key={currency.code}
                                 onClick={() => handleSelectCurrency(currency.code)}
-                                style={{ cursor: 'pointer ' }}
+                                style={{ cursor: 'pointer' }}
                                 m={5}
                             >
-                                {`${currency.description}  ${flag}`}
+                                {`${currency.code.toLocaleUpperCase(router.locale)} - ${currency.description.toLocaleUpperCase(router.locale)}  ${flag ?? ""}`}
                             </List.Item>
                         );
                     })}
                 </List>
             </Modal>
 
-            <Group position="center">
-                <Button variant="outline" onClick={() => setOpen(true)}>
-                    {t`Select Currency`}
-                </Button>
-            </Group>
+            <Button compact variant="light" onClick={() => setOpen(true)}>
+                {`${selectedCurrencyData?.code.toLocaleUpperCase(router.locale)}  ${selectedFlag ?? ""}`}
+            </Button>
         </>
     );
 }

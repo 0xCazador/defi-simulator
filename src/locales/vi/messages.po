@@ -1,17 +1,17 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-15 19:38-0700\n"
+"POT-Creation-Date: 2023-07-17 16:04-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: vi\n"
 
-#: components/AddressCard.tsx:452
+#: components/AddressCard.tsx:451
 msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
 msgstr "<0>Kịch bản thanh lý giá thể hiện giá tài sản dự trữ cao nhất gần đúng có thể khiến vị thế bị thanh lý. Tài sản ổn định không được bao gồm trong kịch bản này và được giả định để duy trì giá trị hiện tại của chúng. Nhiều yếu tố ảnh hưởng đến việc thanh lý. Kịch bản này chỉ là một ví dụ để tham khảo. Nhiều tình huống khác nhau có thể kích hoạt thanh lý.<1>Đọc thêm tại đây</1> .</0>"
 
-#: components/AddressCard.tsx:70
+#: components/AddressCard.tsx:69
 msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
 msgstr "<0>Vị thế nợ này đã bật Emode (Chế độ hiệu quả), nhưng DeFi Simulator chưa hỗ trợ các vị thế có bật Emode. Chúng tôi hy vọng sẽ sớm thêm hỗ trợ cho Emode.</0> <1/>"
 
@@ -24,7 +24,7 @@ msgstr "Chợ Aave"
 msgid "Add {0} Asset"
 msgstr "Thêm nội dung {0}"
 
-#: components/AddressCard.tsx:156
+#: components/AddressCard.tsx:155
 msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
 msgstr "Thêm, xóa và sửa đổi giá và số lượng tài sản bên dưới để trực quan hóa các thay đổi đối với hệ số sức khỏe và khả năng vay mượn."
 
@@ -32,20 +32,20 @@ msgstr "Thêm, xóa và sửa đổi giá và số lượng tài sản bên dư�
 msgid "Address copied to clipboard!"
 msgstr "Đã sao chép địa chỉ vào khay nhớ tạm!"
 
-#: components/AddressCard.tsx:508
+#: components/AddressCard.tsx:507
 msgid "Apply"
 msgstr "Áp dụng"
 
-#: components/AddressCard.tsx:192
-#: components/AddressCard.tsx:355
+#: components/AddressCard.tsx:191
+#: components/AddressCard.tsx:354
 msgid "Available to Borrow:"
 msgstr "Sẵn có để vay:"
 
-#: components/AddressCard.tsx:664
+#: components/AddressCard.tsx:666
 msgid "Borrowed Assets"
 msgstr "tài sản vay"
 
-#: pages/index.tsx:96
+#: pages/index.tsx:97
 msgid "Build from Scratch"
 msgstr "Xây dựng từ đầu"
 
@@ -57,7 +57,7 @@ msgstr "Chọn tiền tệ"
 msgid "Choose Language"
 msgstr "Chọn ngôn ngữ"
 
-#: pages/index.tsx:549
+#: pages/index.tsx:550
 msgid "Close alert"
 msgstr "Đóng cảnh báo"
 
@@ -66,11 +66,15 @@ msgstr "Đóng cảnh báo"
 msgid "Copy address to clipboard"
 msgstr "Sao chép địa chỉ vào khay nhớ tạm"
 
-#: pages/index.tsx:544
+#: pages/_app.tsx:49
+msgid "DeFi Simulator is an unofficial, open source, community-built Aave debt simulator."
+msgstr "DeFi Simulator là trình mô phỏng nợ Aave không chính thức, mã nguồn mở, do cộng đồng xây dựng."
+
+#: pages/index.tsx:545
 msgid "Experimental!"
 msgstr "Thực nghiệm!"
 
-#: components/AddressCard.tsx:135
+#: components/AddressCard.tsx:134
 msgid "Found"
 msgstr "Thành lập"
 
@@ -78,16 +82,16 @@ msgstr "Thành lập"
 msgid "Markets for"
 msgstr "thị trường cho"
 
-#: components/AddressCard.tsx:202
-#: components/AddressCard.tsx:379
+#: components/AddressCard.tsx:201
+#: components/AddressCard.tsx:378
 msgid "Net Asset Value:"
 msgstr "Giá trị tài sản ròng:"
 
-#: components/AddressCard.tsx:149
+#: components/AddressCard.tsx:148
 msgid "No Aave positions found."
 msgstr "Không tìm thấy vị trí Aave nào."
 
-#: components/AddressCard.tsx:412
+#: components/AddressCard.tsx:411
 msgid "No Liquidation Scenario Available"
 msgstr "Không có kịch bản thanh lý nào khả dụng"
 
@@ -100,15 +104,15 @@ msgstr "Không tìm thấy địa chỉ"
 msgid "No matches"
 msgstr "Không có trận đấu"
 
-#: pages/index.tsx:82
+#: pages/index.tsx:83
 msgid "OR"
 msgstr "HOẶC"
 
-#: pages/index.tsx:71
+#: pages/index.tsx:72
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "Dán một địa chỉ có vị thế nợ Aave vào hộp ở trên để hình dung những thay đổi đối với tài sản vay/dự trữ ảnh hưởng như thế nào đến yếu tố sức khỏe và khả năng vay mượn của vị thế."
 
-#: components/AddressCard.tsx:429
+#: components/AddressCard.tsx:428
 msgid "Price Liquidation Scenario"
 msgstr "Kịch bản thanh lý giá"
 
@@ -116,12 +120,12 @@ msgstr "Kịch bản thanh lý giá"
 msgid "Questions or comments? Please <0>join the Discord!</0>"
 msgstr "Những câu hỏi hoặc những bình luận? Vui lòng <0>tham gia Discord!</0>"
 
-#: components/AddressCard.tsx:812
+#: components/AddressCard.tsx:817
 msgid "Remove {assetSymbol}"
 msgstr "Xóa {assetSymbol}"
 
-#: components/AddressCard.tsx:197
-#: components/AddressCard.tsx:367
+#: components/AddressCard.tsx:196
+#: components/AddressCard.tsx:366
 msgid "Reserve Asset Value:"
 msgstr "Giá trị tài sản dự trữ:"
 
@@ -129,21 +133,21 @@ msgstr "Giá trị tài sản dự trữ:"
 msgid "Reserve Assets"
 msgstr "Tài sản dự trữ"
 
-#: components/AddressCard.tsx:541
+#: components/AddressCard.tsx:540
 msgid "Reset all simulated values"
 msgstr "Đặt lại tất cả các giá trị mô phỏng"
 
 #: components/AddAssetDialog.tsx:94
-#: components/SelectCurrencyDialog.tsx:81
+#: components/SelectCurrencyDialog.tsx:87
 #: components/SelectLanguageDialog.tsx:81
 msgid "Reset search query"
 msgstr "Đặt lại truy vấn tìm kiếm"
 
-#: components/AddressCard.tsx:970
+#: components/AddressCard.tsx:975
 msgid "Reset to Original Value ({0})"
 msgstr "Đặt lại về Giá trị gốc ({0})"
 
-#: components/SelectCurrencyDialog.tsx:73
+#: components/SelectCurrencyDialog.tsx:79
 msgid "Search for available currencies"
 msgstr "Tìm kiếm các loại tiền tệ có sẵn"
 
@@ -155,13 +159,11 @@ msgstr "Tìm kiếm các ngôn ngữ có sẵn"
 msgid "Search for {0} Assets"
 msgstr "Tìm kiếm nội dung {0}"
 
-#: components/SelectCurrencyDialog.tsx:69
-#: components/SelectCurrencyDialog.tsx:128
+#: components/SelectCurrencyDialog.tsx:75
 msgid "Select Currency"
 msgstr "Chọn tiền tệ"
 
 #: components/SelectLanguageDialog.tsx:69
-#: components/SelectLanguageDialog.tsx:127
 msgid "Select Language"
 msgstr "Chọn ngôn ngữ"
 
@@ -173,11 +175,11 @@ msgstr "Chọn {0} ({1}) {2} bên dưới để thêm nó dưới dạng nội d
 msgid "Select {0} ({1}) {2} below to translate the app."
 msgstr "Chọn {0} ({1}) {2} bên dưới để dịch ứng dụng."
 
-#: components/SelectCurrencyDialog.tsx:104
+#: components/SelectCurrencyDialog.tsx:110
 msgid "Select {0} ({1}) {2} below."
 msgstr "Chọn {0} ({1}) {2} bên dưới."
 
-#: components/AddressCard.tsx:243
+#: components/AddressCard.tsx:242
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
 msgstr "Đã xảy ra lỗi, chúng tôi không thể tải dữ liệu vị trí khoản nợ địa chỉ ngay bây giờ. Thử lại sau."
 
@@ -185,11 +187,11 @@ msgstr "Đã xảy ra lỗi, chúng tôi không thể tải dữ liệu vị tr�
 msgid "There are no assets that match the search query. Reset the search query to select an asset."
 msgstr "Không có nội dung phù hợp với truy vấn tìm kiếm. Đặt lại truy vấn tìm kiếm để chọn nội dung."
 
-#: components/AddressCard.tsx:671
+#: components/AddressCard.tsx:673
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "Không có tài sản vay cho <0/>trong thị trường {0}. Chọn \"Thêm tài sản mượn\" để mô phỏng tài sản mượn cho địa chỉ này."
 
-#: components/SelectCurrencyDialog.tsx:97
+#: components/SelectCurrencyDialog.tsx:103
 msgid "There are no currencies available that match the search query. Reset the search query to select a currency."
 msgstr "Không có loại tiền tệ nào phù hợp với truy vấn tìm kiếm. Đặt lại truy vấn tìm kiếm để chọn một loại tiền tệ."
 
@@ -201,22 +203,22 @@ msgstr "Không có ngôn ngữ nào phù hợp với truy vấn tìm kiếm. Đ�
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "Không có tài sản dự trữ cho <0/>trong thị trường {0}. Chọn \"Thêm tài sản dự trữ\" để mô phỏng tài sản dự trữ cho địa chỉ này."
 
-#: pages/index.tsx:551
-msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
-msgstr "Trình mô phỏng nợ Aave này đang được thử nghiệm và đang được phát triển tích cực. Đừng đưa ra quyết định tài chính chỉ dựa trên kết quả của ứng dụng này."
+#: pages/index.tsx:552
+msgid "This Aave debt simulator is experimental. Don't make financial decisions based solely on the results of this app."
+msgstr "Trình mô phỏng nợ Aave này đang thử nghiệm. Đừng đưa ra quyết định tài chính chỉ dựa trên kết quả của ứng dụng này."
 
-#: components/AddressCard.tsx:187
-#: components/AddressCard.tsx:343
+#: components/AddressCard.tsx:186
+#: components/AddressCard.tsx:342
 msgid "Total Borrowed:"
 msgstr "Tổng số đã vay:"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:530
+#: pages/index.tsx:531
 msgid "Use Random Address"
 msgstr "Sử dụng địa chỉ ngẫu nhiên"
 
-#: components/AddressCard.tsx:881
+#: components/AddressCard.tsx:886
 msgid "Use {assetSymbol} as collateral"
 msgstr "Sử dụng {assetSymbol} làm tài sản thế chấp"
 
@@ -228,11 +230,11 @@ msgstr "Xem địa chỉ trên Etherscan"
 msgid "Visit address details on Etherscan"
 msgstr "Truy cập chi tiết địa chỉ trên Etherscan"
 
-#: pages/index.tsx:86
+#: pages/index.tsx:87
 msgid "Want to go for a quick spin?"
 msgstr "Bạn muốn quay nhanh?"
 
-#: components/AddressCard.tsx:141
+#: components/AddressCard.tsx:140
 msgid "in"
 msgstr "TRONG"
 
@@ -240,19 +242,19 @@ msgstr "TRONG"
 msgid "is an unofficial, open source, community-built Aave debt simulator."
 msgstr "là một công cụ mô phỏng nợ Aave không chính thức, mã nguồn mở, do cộng đồng xây dựng."
 
-#: components/AddressCard.tsx:145
+#: components/AddressCard.tsx:144
 msgid "{0, plural, one {market} other {markets}}"
 msgstr "{ 0, plural, other {thị trường} }"
 
-#: components/AddressCard.tsx:139
+#: components/AddressCard.tsx:138
 msgid "{0, plural, one {position} other {positions}}"
 msgstr "{ 0, plural, other {vị trí} }"
 
-#: components/AddressCard.tsx:1064
+#: components/AddressCard.tsx:1068
 msgid "{assetSymbol} Price ({selectedCurrency})"
 msgstr "{assetSymbol} Giá ({selectedCurrency})"
 
-#: components/AddressCard.tsx:941
+#: components/AddressCard.tsx:946
 msgid "{assetSymbol} Quantity"
 msgstr "{assetSymbol} Số lượng"
 

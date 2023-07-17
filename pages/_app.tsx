@@ -9,12 +9,12 @@ import { Notifications } from '@mantine/notifications';
 
 import { i18n } from '@lingui/core'
 import { I18nProvider } from '@lingui/react'
+import { t } from "@lingui/macro";
 
 
 // Styles specific to noUI slider
 import 'nouislider/dist/nouislider.css';
 import "../css/slider.css";
-import { useEffect } from 'react';
 
 const defaultLocale = "en";
 const { messages } = await import(`../src/locales/${defaultLocale}/messages`);
@@ -46,7 +46,7 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
       <Head>
         <title>DeFi Simulator</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
-        <meta name="description" content="DeFi Simulator is an unofficial, open source, community-built Aave debt simulator." />
+        <meta name="description" content={t`DeFi Simulator is an unofficial, open source, community-built Aave debt simulator.`} />
         <script
           defer
           src="https://static.cloudflareinsights.com/beacon.min.js"

@@ -3,16 +3,16 @@ import { t, Trans } from "@lingui/macro";
 
 import {
     Button,
-    Group,
     Modal,
     List,
     TextInput,
     Tooltip,
     ActionIcon,
     Text,
-    Center,
+    Center
 } from '@mantine/core';
 import { RxReset } from 'react-icons/rx';
+import { MdLanguage } from "react-icons/md";
 
 import languages from '../src/languages/index.json';
 import { NextRouter, useRouter } from 'next/router';
@@ -32,12 +32,12 @@ export default function SelectLanguageDialog({ }: SelectLanguageDialogProps) {
     const [open, setOpen] = React.useState(false);
     const [searchText, setSearchText] = React.useState('');
     const router: NextRouter = useRouter();
+    const activeLanguage = languages.find(lang => lang.code === router.locale);
 
     const handleClose = () => {
         setSearchText('');
         setOpen(false);
     };
-
 
     const handleSelectLanguage = (code: string) => {
         if (code !== router.locale) {
@@ -106,7 +106,7 @@ export default function SelectLanguageDialog({ }: SelectLanguageDialogProps) {
                     </Text>
                 )}
 
-                <List>
+                <List listStyleType="none">
                     {langs.map((language: Language) => {
                         return (
                             <List.Item
@@ -115,18 +115,17 @@ export default function SelectLanguageDialog({ }: SelectLanguageDialogProps) {
                                 style={{ cursor: 'pointer ' }}
                                 m={5}
                             >
-                                {`${language.native}`}
+                                {`${language.native.toLocaleUpperCase(router.locale)}`}
                             </List.Item>
                         );
                     })}
                 </List>
             </Modal>
 
-            <Group position="center">
-                <Button variant="outline" onClick={() => setOpen(true)}>
-                    {t`Select Language`}
-                </Button>
-            </Group>
+            <Button compact variant="light" onClick={() => setOpen(true)} mr="sm">
+                <MdLanguage style={{ marginRight: "5px" }} />
+                {activeLanguage?.native.toLocaleUpperCase(router.locale)}
+            </Button>
         </>
     );
 }

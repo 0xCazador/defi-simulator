@@ -1,5 +1,45 @@
 [
   {
+    "code":"USD",
+    "description":"United States Dollar"
+  },
+  {
+    "code":"EUR",
+    "description":"Euro"
+  },
+  {
+    "code":"JPY",
+    "description":"Japanese Yen"
+  },
+  {
+    "code":"GBP",
+    "description":"British Pound"
+  },
+  {
+    "code":"AUD",
+    "description":"Australian Dollar"
+  },
+  {
+    "code":"CAD",
+    "description":"Canadian Dollar"
+  },
+  {
+    "code":"CHF",
+    "description":"Swiss Franc"
+  },
+  {
+    "code":"CNY",
+    "description":"Chinese Renminbi Yuan"
+  },
+  {
+    "code":"HKD",
+    "description":"Hong Kong Dollar"
+  },
+  {
+    "code":"NZD",
+    "description":"New Zealand Dollar"
+  },
+  {
     "code":"AED",
     "description":"United Arab Emirates Dirham"
   },
@@ -26,10 +66,6 @@
   {
     "code":"ARS",
     "description":"Argentine Peso"
-  },
-  {
-    "code":"AUD",
-    "description":"Australian Dollar"
   },
   {
     "code":"AWG",
@@ -88,24 +124,12 @@
     "description":"Belize Dollar"
   },
   {
-    "code":"CAD",
-    "description":"Canadian Dollar"
-  },
-  {
     "code":"CDF",
     "description":"Congolese Franc"
   },
   {
-    "code":"CHF",
-    "description":"Swiss Franc"
-  },
-  {
     "code":"CLP",
     "description":"Chilean Peso"
-  },
-  {
-    "code":"CNY",
-    "description":"Chinese Renminbi Yuan"
   },
   {
     "code":"COP",
@@ -148,20 +172,12 @@
     "description":"Ethiopian Birr"
   },
   {
-    "code":"EUR",
-    "description":"Euro"
-  },
-  {
     "code":"FJD",
     "description":"Fijian Dollar"
   },
   {
     "code":"FKP",
     "description":"Falkland Islands Pound"
-  },
-  {
-    "code":"GBP",
-    "description":"British Pound"
   },
   {
     "code":"GEL",
@@ -186,10 +202,6 @@
   {
     "code":"GYD",
     "description":"Guyanese Dollar"
-  },
-  {
-    "code":"HKD",
-    "description":"Hong Kong Dollar"
   },
   {
     "code":"HNL",
@@ -226,10 +238,6 @@
   {
     "code":"JMD",
     "description":"Jamaican Dollar"
-  },
-  {
-    "code":"JPY",
-    "description":"Japanese Yen"
   },
   {
     "code":"KES",
@@ -350,10 +358,6 @@
   {
     "code":"NPR",
     "description":"Nepalese Rupee"
-  },
-  {
-    "code":"NZD",
-    "description":"New Zealand Dollar"
   },
   {
     "code":"PAB",
@@ -486,10 +490,6 @@
   {
     "code":"UGX",
     "description":"Ugandan Shilling"
-  },
-  {
-    "code":"USD",
-    "description":"United States Dollar"
   },
   {
     "code":"UYU",

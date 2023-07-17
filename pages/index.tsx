@@ -29,7 +29,6 @@ export default function HomePage() {
   const address = router?.query?.address as string;
   const isValidAddress: boolean = ethers.utils.isAddress(address) || isValidENSAddress(address);
   const { currentAddress, setCurrentAddress } = useAaveData(isValidAddress ? address : '');
-  const { currentRate } = useFiatRates(true);
 
   const locale = router?.locale;
 
@@ -55,8 +54,10 @@ export default function HomePage() {
       {currentAddress && <AddressCard />}
       {!currentAddress && <SplashSection />}
       <ExperimentalAlert />
-      <SelectLanguageDialog />
-      <SelectCurrencyDialog />
+      <Center>
+        <SelectLanguageDialog />
+        <SelectCurrencyDialog />
+      </Center>
       <Footer />
     </Container>
   );
@@ -541,7 +542,7 @@ const ExperimentalAlert = () => {
       mb={15}
       mt={45}
       icon={<FiAlertTriangle size="1rem" />}
-      title={t`Experimental!`}
+      title={<Trans>Experimental!</Trans>}
       color="red"
       withCloseButton
       onClose={() => setShouldDisplay(false)}
@@ -549,7 +550,7 @@ const ExperimentalAlert = () => {
       closeButtonLabel={t`Close alert`}
     >
       <Trans>
-        This Aave debt simulator is experimental and under active development. Don't make financial
+        This Aave debt simulator is experimental. Don't make financial
         decisions based solely on the results of this app.
       </Trans>
     </Alert>

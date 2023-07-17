@@ -1,17 +1,17 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-15 19:38-0700\n"
+"POT-Creation-Date: 2023-07-17 16:04-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: pa\n"
 
-#: components/AddressCard.tsx:452
+#: components/AddressCard.tsx:451
 msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
 msgstr "<0>ਕੀਮਤ ਲਿਕਵੀਡੇਸ਼ਨ ਦ੍ਰਿਸ਼ ਲਗਭਗ ਸਭ ਤੋਂ ਉੱਚੀ ਰਿਜ਼ਰਵ ਸੰਪਤੀ ਕੀਮਤਾਂ ਨੂੰ ਦਰਸਾਉਂਦਾ ਹੈ ਜੋ ਸਥਿਤੀ ਨੂੰ ਤਰਲਤਾ ਦੇ ਅਧੀਨ ਕਰ ਸਕਦਾ ਹੈ। ਸਥਿਰ ਸੰਪਤੀਆਂ ਨੂੰ ਇਸ ਦ੍ਰਿਸ਼ ਵਿੱਚ ਸ਼ਾਮਲ ਨਹੀਂ ਕੀਤਾ ਗਿਆ ਹੈ ਅਤੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮੁੱਲ ਨੂੰ ਬਰਕਰਾਰ ਰੱਖਣ ਲਈ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ। ਬਹੁਤ ਸਾਰੇ ਕਾਰਕ ਤਰਲ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰਦੇ ਹਨ। ਇਹ ਦ੍ਰਿਸ਼ ਸੰਦਰਭ ਲਈ ਕੇਵਲ ਇੱਕ ਉਦਾਹਰਣ ਹੈ। ਬਹੁਤ ਸਾਰੇ ਵੱਖੋ-ਵੱਖਰੇ ਹਾਲਾਤ ਤਰਲਤਾ ਨੂੰ ਚਾਲੂ ਕਰ ਸਕਦੇ ਹਨ।<1>ਇੱਥੇ ਹੋਰ ਪੜ੍ਹੋ</1> .</0>"
 
-#: components/AddressCard.tsx:70
+#: components/AddressCard.tsx:69
 msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
 msgstr "<0>ਇਸ ਕਰਜ਼ੇ ਦੀ ਸਥਿਤੀ ਵਿੱਚ ਇਮੋਡ (ਕੁਸ਼ਲਤਾ ਮੋਡ) ਸਮਰਥਿਤ ਹੈ, ਪਰ DeFi ਸਿਮੂਲੇਟਰ ਅਜੇ ਵੀ ਇਮੋਡ ਸਮਰਥਿਤ ਸਥਿਤੀਆਂ ਦਾ ਸਮਰਥਨ ਨਹੀਂ ਕਰਦਾ ਹੈ। ਅਸੀਂ ਜਲਦੀ ਹੀ ਇਮੋਡ ਲਈ ਸਮਰਥਨ ਜੋੜਨ ਦੀ ਉਮੀਦ ਕਰਦੇ ਹਾਂ।</0> <1/>"
 
@@ -24,7 +24,7 @@ msgstr "Aave ਬਾਜ਼ਾਰ"
 msgid "Add {0} Asset"
 msgstr "{0} ਸੰਪਤੀ ਸ਼ਾਮਲ ਕਰੋ"
 
-#: components/AddressCard.tsx:156
+#: components/AddressCard.tsx:155
 msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
 msgstr "ਸਿਹਤ ਕਾਰਕ ਅਤੇ ਉਧਾਰ ਸ਼ਕਤੀ ਵਿੱਚ ਤਬਦੀਲੀਆਂ ਦੀ ਕਲਪਨਾ ਕਰਨ ਲਈ ਹੇਠਾਂ ਸੰਪੱਤੀ ਦੀਆਂ ਕੀਮਤਾਂ ਅਤੇ ਮਾਤਰਾਵਾਂ ਨੂੰ ਸ਼ਾਮਲ ਕਰੋ, ਹਟਾਓ ਅਤੇ ਸੰਸ਼ੋਧਿਤ ਕਰੋ।"
 
@@ -32,20 +32,20 @@ msgstr "ਸਿਹਤ ਕਾਰਕ ਅਤੇ ਉਧਾਰ ਸ਼ਕਤੀ ਵਿ�
 msgid "Address copied to clipboard!"
 msgstr "ਪਤਾ ਕਲਿੱਪਬੋਰਡ 'ਤੇ ਕਾਪੀ ਕੀਤਾ ਗਿਆ!"
 
-#: components/AddressCard.tsx:508
+#: components/AddressCard.tsx:507
 msgid "Apply"
 msgstr "ਲਾਗੂ ਕਰੋ"
 
-#: components/AddressCard.tsx:192
-#: components/AddressCard.tsx:355
+#: components/AddressCard.tsx:191
+#: components/AddressCard.tsx:354
 msgid "Available to Borrow:"
 msgstr "ਉਧਾਰ ਲੈਣ ਲਈ ਉਪਲਬਧ:"
 
-#: components/AddressCard.tsx:664
+#: components/AddressCard.tsx:666
 msgid "Borrowed Assets"
 msgstr "ਉਧਾਰ ਸੰਪਤੀਆਂ"
 
-#: pages/index.tsx:96
+#: pages/index.tsx:97
 msgid "Build from Scratch"
 msgstr "ਸਕ੍ਰੈਚ ਤੋਂ ਬਣਾਓ"
 
@@ -57,7 +57,7 @@ msgstr "ਮੁਦਰਾ ਚੁਣੋ"
 msgid "Choose Language"
 msgstr "ਭਾਸ਼ਾ ਚੁਣੋ"
 
-#: pages/index.tsx:549
+#: pages/index.tsx:550
 msgid "Close alert"
 msgstr "ਚੇਤਾਵਨੀ ਬੰਦ ਕਰੋ"
 
@@ -66,11 +66,15 @@ msgstr "ਚੇਤਾਵਨੀ ਬੰਦ ਕਰੋ"
 msgid "Copy address to clipboard"
 msgstr "ਪਤੇ ਨੂੰ ਕਲਿੱਪਬੋਰਡ ਵਿੱਚ ਕਾਪੀ ਕਰੋ"
 
-#: pages/index.tsx:544
+#: pages/_app.tsx:49
+msgid "DeFi Simulator is an unofficial, open source, community-built Aave debt simulator."
+msgstr "DeFi ਸਿਮੂਲੇਟਰ ਇੱਕ ਅਣਅਧਿਕਾਰਤ, ਓਪਨ ਸੋਰਸ, ਕਮਿਊਨਿਟੀ ਦੁਆਰਾ ਬਣਾਇਆ Aave ਕਰਜ਼ਾ ਸਿਮੂਲੇਟਰ ਹੈ।"
+
+#: pages/index.tsx:545
 msgid "Experimental!"
 msgstr "ਪ੍ਰਯੋਗਾਤਮਕ!"
 
-#: components/AddressCard.tsx:135
+#: components/AddressCard.tsx:134
 msgid "Found"
 msgstr "ਮਿਲਿਆ"
 
@@ -78,16 +82,16 @@ msgstr "ਮਿਲਿਆ"
 msgid "Markets for"
 msgstr "ਲਈ ਬਾਜ਼ਾਰ"
 
-#: components/AddressCard.tsx:202
-#: components/AddressCard.tsx:379
+#: components/AddressCard.tsx:201
+#: components/AddressCard.tsx:378
 msgid "Net Asset Value:"
 msgstr "ਕੁੱਲ ਸੰਪਤੀ ਮੁੱਲ:"
 
-#: components/AddressCard.tsx:149
+#: components/AddressCard.tsx:148
 msgid "No Aave positions found."
 msgstr "ਕੋਈ Aave ਅਹੁਦੇ ਨਹੀਂ ਮਿਲੇ।"
 
-#: components/AddressCard.tsx:412
+#: components/AddressCard.tsx:411
 msgid "No Liquidation Scenario Available"
 msgstr "ਕੋਈ ਲਿਕਵੀਡੇਸ਼ਨ ਦ੍ਰਿਸ਼ ਉਪਲਬਧ ਨਹੀਂ ਹੈ"
 
@@ -100,15 +104,15 @@ msgstr "ਕੋਈ ਪਤਾ ਨਹੀਂ ਮਿਲਿਆ"
 msgid "No matches"
 msgstr "ਕੋਈ ਮੇਲ ਨਹੀਂ"
 
-#: pages/index.tsx:82
+#: pages/index.tsx:83
 msgid "OR"
 msgstr "ਜਾਂ"
 
-#: pages/index.tsx:71
+#: pages/index.tsx:72
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "ਉਧਾਰ/ਰਿਜ਼ਰਵ ਸੰਪਤੀਆਂ ਵਿੱਚ ਤਬਦੀਲੀਆਂ ਸਥਿਤੀ ਦੇ ਸਿਹਤ ਕਾਰਕ ਅਤੇ ਉਧਾਰ ਲੈਣ ਦੀ ਸ਼ਕਤੀ ਨੂੰ ਕਿਵੇਂ ਪ੍ਰਭਾਵਤ ਕਰਦੀਆਂ ਹਨ, ਇਹ ਦੇਖਣ ਲਈ ਉੱਪਰ ਦਿੱਤੇ ਬਕਸੇ ਵਿੱਚ Aave ਕਰਜ਼ੇ ਦੀ ਸਥਿਤੀ ਵਾਲਾ ਇੱਕ ਪਤਾ ਚਿਪਕਾਓ।"
 
-#: components/AddressCard.tsx:429
+#: components/AddressCard.tsx:428
 msgid "Price Liquidation Scenario"
 msgstr "ਕੀਮਤ ਲਿਕਵਿਡੇਸ਼ਨ ਦ੍ਰਿਸ਼"
 
@@ -116,12 +120,12 @@ msgstr "ਕੀਮਤ ਲਿਕਵਿਡੇਸ਼ਨ ਦ੍ਰਿਸ਼"
 msgid "Questions or comments? Please <0>join the Discord!</0>"
 msgstr "ਸਵਾਲ ਜਾਂ ਟਿੱਪਣੀਆਂ? ਕਿਰਪਾ ਕਰਕੇ <0>ਵਿਵਾਦ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ!</0>"
 
-#: components/AddressCard.tsx:812
+#: components/AddressCard.tsx:817
 msgid "Remove {assetSymbol}"
 msgstr "{assetSymbol} ਹਟਾਓ"
 
-#: components/AddressCard.tsx:197
-#: components/AddressCard.tsx:367
+#: components/AddressCard.tsx:196
+#: components/AddressCard.tsx:366
 msgid "Reserve Asset Value:"
 msgstr "ਰਿਜ਼ਰਵ ਸੰਪਤੀ ਮੁੱਲ:"
 
@@ -129,21 +133,21 @@ msgstr "ਰਿਜ਼ਰਵ ਸੰਪਤੀ ਮੁੱਲ:"
 msgid "Reserve Assets"
 msgstr "ਰਿਜ਼ਰਵ ਸੰਪਤੀਆਂ"
 
-#: components/AddressCard.tsx:541
+#: components/AddressCard.tsx:540
 msgid "Reset all simulated values"
 msgstr "ਸਾਰੇ ਸਿਮੂਲੇਟ ਕੀਤੇ ਮੁੱਲ ਰੀਸੈਟ ਕਰੋ"
 
 #: components/AddAssetDialog.tsx:94
-#: components/SelectCurrencyDialog.tsx:81
+#: components/SelectCurrencyDialog.tsx:87
 #: components/SelectLanguageDialog.tsx:81
 msgid "Reset search query"
 msgstr "ਖੋਜ ਪੁੱਛਗਿੱਛ ਰੀਸੈਟ ਕਰੋ"
 
-#: components/AddressCard.tsx:970
+#: components/AddressCard.tsx:975
 msgid "Reset to Original Value ({0})"
 msgstr "ਮੂਲ ਮੁੱਲ ({0}) 'ਤੇ ਰੀਸੈਟ ਕਰੋ"
 
-#: components/SelectCurrencyDialog.tsx:73
+#: components/SelectCurrencyDialog.tsx:79
 msgid "Search for available currencies"
 msgstr "ਉਪਲਬਧ ਮੁਦਰਾਵਾਂ ਦੀ ਖੋਜ ਕਰੋ"
 
@@ -155,13 +159,11 @@ msgstr "ਉਪਲਬਧ ਭਾਸ਼ਾਵਾਂ ਦੀ ਖੋਜ ਕਰੋ"
 msgid "Search for {0} Assets"
 msgstr "{0} ਸੰਪਤੀਆਂ ਦੀ ਖੋਜ ਕਰੋ"
 
-#: components/SelectCurrencyDialog.tsx:69
-#: components/SelectCurrencyDialog.tsx:128
+#: components/SelectCurrencyDialog.tsx:75
 msgid "Select Currency"
 msgstr "ਮੁਦਰਾ ਚੁਣੋ"
 
 #: components/SelectLanguageDialog.tsx:69
-#: components/SelectLanguageDialog.tsx:127
 msgid "Select Language"
 msgstr "ਭਾਸ਼ਾ ਚੁਣੋ"
 
@@ -173,11 +175,11 @@ msgstr "ਇਸ ਨੂੰ CDP ਵਿੱਚ {3} ਸੰਪਤੀ ਵਜੋਂ ਜ�
 msgid "Select {0} ({1}) {2} below to translate the app."
 msgstr "ਐਪ ਦਾ ਅਨੁਵਾਦ ਕਰਨ ਲਈ ਹੇਠਾਂ {0} ({1}) {2} ਨੂੰ ਚੁਣੋ।"
 
-#: components/SelectCurrencyDialog.tsx:104
+#: components/SelectCurrencyDialog.tsx:110
 msgid "Select {0} ({1}) {2} below."
 msgstr "ਹੇਠਾਂ {0} ({1}) {2} ਨੂੰ ਚੁਣੋ।"
 
-#: components/AddressCard.tsx:243
+#: components/AddressCard.tsx:242
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
 msgstr "ਕੁਝ ਹੋਇਆ, ਅਸੀਂ ਇਸ ਸਮੇਂ ਪਤੇ ਦੇ ਕਰਜ਼ੇ ਦੀ ਸਥਿਤੀ ਡੇਟਾ ਨੂੰ ਲੋਡ ਕਰਨ ਦੇ ਯੋਗ ਨਹੀਂ ਹਾਂ। ਬਾਅਦ ਵਿੱਚ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
 
@@ -185,11 +187,11 @@ msgstr "ਕੁਝ ਹੋਇਆ, ਅਸੀਂ ਇਸ ਸਮੇਂ ਪਤੇ ਦ�
 msgid "There are no assets that match the search query. Reset the search query to select an asset."
 msgstr "ਖੋਜ ਪੁੱਛਗਿੱਛ ਨਾਲ ਮੇਲ ਖਾਂਦੀਆਂ ਕੋਈ ਸੰਪਤੀਆਂ ਨਹੀਂ ਹਨ। ਕਿਸੇ ਸੰਪਤੀ ਨੂੰ ਚੁਣਨ ਲਈ ਖੋਜ ਪੁੱਛਗਿੱਛ ਨੂੰ ਰੀਸੈਟ ਕਰੋ।"
 
-#: components/AddressCard.tsx:671
+#: components/AddressCard.tsx:673
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "{0} ਬਜ਼ਾਰ ਵਿੱਚ <0/> ਲਈ ਕੋਈ ਉਧਾਰ ਸੰਪਤੀਆਂ ਨਹੀਂ ਹਨ। ਇਸ ਪਤੇ ਲਈ ਉਧਾਰ ਲਈਆਂ ਸੰਪਤੀਆਂ ਦੀ ਨਕਲ ਕਰਨ ਲਈ \"ਉਧਾਰ ਸੰਪਤੀ ਸ਼ਾਮਲ ਕਰੋ\" ਨੂੰ ਚੁਣੋ।"
 
-#: components/SelectCurrencyDialog.tsx:97
+#: components/SelectCurrencyDialog.tsx:103
 msgid "There are no currencies available that match the search query. Reset the search query to select a currency."
 msgstr "ਖੋਜ ਪੁੱਛਗਿੱਛ ਨਾਲ ਮੇਲ ਖਾਂਦੀਆਂ ਕੋਈ ਮੁਦਰਾਵਾਂ ਉਪਲਬਧ ਨਹੀਂ ਹਨ। ਇੱਕ ਮੁਦਰਾ ਚੁਣਨ ਲਈ ਖੋਜ ਪੁੱਛਗਿੱਛ ਨੂੰ ਰੀਸੈਟ ਕਰੋ।"
 
@@ -201,22 +203,22 @@ msgstr "ਖੋਜ ਪੁੱਛਗਿੱਛ ਨਾਲ ਮੇਲ ਖਾਂਦੀ�
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "{0} ਮਾਰਕੀਟ ਵਿੱਚ <0/> ਲਈ ਕੋਈ ਰਾਖਵੀਂ ਸੰਪਤੀ ਨਹੀਂ ਹੈ। ਇਸ ਪਤੇ ਲਈ ਰਿਜ਼ਰਵ ਸੰਪਤੀਆਂ ਦੀ ਨਕਲ ਕਰਨ ਲਈ \"ਰਿਜ਼ਰਵ ਸੰਪਤੀ ਸ਼ਾਮਲ ਕਰੋ\" ਨੂੰ ਚੁਣੋ।"
 
-#: pages/index.tsx:551
-msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
-msgstr "ਇਹ Aave ਕਰਜ਼ਾ ਸਿਮੂਲੇਟਰ ਪ੍ਰਯੋਗਾਤਮਕ ਅਤੇ ਕਿਰਿਆਸ਼ੀਲ ਵਿਕਾਸ ਅਧੀਨ ਹੈ। ਸਿਰਫ਼ ਇਸ ਐਪ ਦੇ ਨਤੀਜਿਆਂ ਦੇ ਆਧਾਰ 'ਤੇ ਵਿੱਤੀ ਫੈਸਲੇ ਨਾ ਲਓ।"
+#: pages/index.tsx:552
+msgid "This Aave debt simulator is experimental. Don't make financial decisions based solely on the results of this app."
+msgstr "ਇਹ Aave ਕਰਜ਼ਾ ਸਿਮੂਲੇਟਰ ਪ੍ਰਯੋਗਾਤਮਕ ਹੈ। ਸਿਰਫ਼ ਇਸ ਐਪ ਦੇ ਨਤੀਜਿਆਂ ਦੇ ਆਧਾਰ 'ਤੇ ਵਿੱਤੀ ਫੈਸਲੇ ਨਾ ਲਓ।"
 
-#: components/AddressCard.tsx:187
-#: components/AddressCard.tsx:343
+#: components/AddressCard.tsx:186
+#: components/AddressCard.tsx:342
 msgid "Total Borrowed:"
 msgstr "ਕੁੱਲ ਉਧਾਰ:"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:530
+#: pages/index.tsx:531
 msgid "Use Random Address"
 msgstr "ਰੈਂਡਮ ਐਡਰੈੱਸ ਦੀ ਵਰਤੋਂ ਕਰੋ"
 
-#: components/AddressCard.tsx:881
+#: components/AddressCard.tsx:886
 msgid "Use {assetSymbol} as collateral"
 msgstr "ਜਮਾਂਦਰੂ ਵਜੋਂ {assetSymbol} ਦੀ ਵਰਤੋਂ ਕਰੋ"
 
@@ -228,11 +230,11 @@ msgstr "ਈਥਰਸਕੈਨ 'ਤੇ ਪਤਾ ਦੇਖੋ"
 msgid "Visit address details on Etherscan"
 msgstr "ਈਥਰਸਕੈਨ 'ਤੇ ਪਤੇ ਦੇ ਵੇਰਵਿਆਂ 'ਤੇ ਜਾਓ"
 
-#: pages/index.tsx:86
+#: pages/index.tsx:87
 msgid "Want to go for a quick spin?"
 msgstr "ਇੱਕ ਤੇਜ਼ ਸਪਿਨ ਲਈ ਜਾਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: components/AddressCard.tsx:141
+#: components/AddressCard.tsx:140
 msgid "in"
 msgstr "ਵਿੱਚ"
 
@@ -240,19 +242,19 @@ msgstr "ਵਿੱਚ"
 msgid "is an unofficial, open source, community-built Aave debt simulator."
 msgstr "ਇੱਕ ਅਣਅਧਿਕਾਰਤ, ਓਪਨ ਸੋਰਸ, ਕਮਿਊਨਿਟੀ ਦੁਆਰਾ ਬਣਾਇਆ Aave ਕਰਜ਼ਾ ਸਿਮੂਲੇਟਰ ਹੈ।"
 
-#: components/AddressCard.tsx:145
+#: components/AddressCard.tsx:144
 msgid "{0, plural, one {market} other {markets}}"
 msgstr "{ 0, plural, one {ਬਾਜ਼ਾਰ} other {ਬਾਜ਼ਾਰ} }"
 
-#: components/AddressCard.tsx:139
+#: components/AddressCard.tsx:138
 msgid "{0, plural, one {position} other {positions}}"
 msgstr "{ 0, plural, one {ਸਥਿਤੀ} other {ਅਹੁਦੇ} }"
 
-#: components/AddressCard.tsx:1064
+#: components/AddressCard.tsx:1068
 msgid "{assetSymbol} Price ({selectedCurrency})"
 msgstr "{assetSymbol} ਕੀਮਤ ({selectedCurrency})"
 
-#: components/AddressCard.tsx:941
+#: components/AddressCard.tsx:946
 msgid "{assetSymbol} Quantity"
 msgstr "{assetSymbol} ਮਾਤਰਾ"
 

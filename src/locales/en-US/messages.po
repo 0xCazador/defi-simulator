@@ -1,11 +1,31 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-17 13:46-0700\n"
+"POT-Creation-Date: 2023-07-17 13:37-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
-"Language: bo\n"
+"Language: en-US\n"
+
+#: components/AddressCard.tsx:145
+msgid "{0, plural, one {market} other {markets}}"
+msgstr ""
+
+#: components/AddressCard.tsx:139
+msgid "{0, plural, one {position} other {positions}}"
+msgstr ""
+
+#: components/AddressCard.tsx:1069
+msgid "{assetSymbol} Price ({selectedCurrency})"
+msgstr ""
+
+#: components/AddressCard.tsx:947
+msgid "{assetSymbol} Quantity"
+msgstr ""
+
+#: components/I18nInput.tsx:36
+msgid "{subLabel}"
+msgstr ""
 
 #: components/AddressCard.tsx:452
 msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
@@ -17,7 +37,7 @@ msgstr ""
 
 #: components/AppBar.tsx:125
 msgid "Aave Markets"
-msgstr "ཨེབ་མེར་ཀེཊིས་"
+msgstr ""
 
 #: components/AddAssetDialog.tsx:83
 #: components/AddAssetDialog.tsx:152
@@ -51,11 +71,11 @@ msgstr ""
 
 #: components/I18nInput.tsx:119
 msgid "Choose Currency"
-msgstr "དང་པོའི་དངོས་གྲུབ་འབྲེལ་བར་འབད་བས།"
+msgstr ""
 
 #: components/I18nInput.tsx:64
 msgid "Choose Language"
-msgstr "སྐད་རིགས་འགྲེལ་བཤད་འབད་བས།"
+msgstr ""
 
 #: pages/index.tsx:550
 msgid "Close alert"
@@ -78,9 +98,17 @@ msgstr ""
 msgid "Found"
 msgstr ""
 
+#: components/AddressCard.tsx:141
+msgid "in"
+msgstr ""
+
+#: components/Footer.tsx:115
+msgid "is an unofficial, open source, community-built Aave debt simulator."
+msgstr ""
+
 #: components/AppBar.tsx:113
 msgid "Markets for"
-msgstr "དང་པོའི་དངོས་གྲུབ་འབྲེལ་བར་འབད་བས།"
+msgstr ""
 
 #: components/AddressCard.tsx:202
 #: components/AddressCard.tsx:379
@@ -91,18 +119,18 @@ msgstr ""
 msgid "No Aave positions found."
 msgstr ""
 
+#: components/AppBar.tsx:119
+msgid "No address found"
+msgstr ""
+
 #: components/AddressCard.tsx:412
 msgid "No Liquidation Scenario Available"
 msgstr ""
 
-#: components/AppBar.tsx:119
-msgid "No address found"
-msgstr "ཁ་བྱེད་མིན་འདུག"
-
 #: components/I18nInput.tsx:71
 #: components/I18nInput.tsx:126
 msgid "No matches"
-msgstr "འགོ་བཙུགས་མིན་འདུག"
+msgstr ""
 
 #: pages/index.tsx:83
 msgid "OR"
@@ -147,24 +175,16 @@ msgstr ""
 msgid "Reset to Original Value ({0})"
 msgstr ""
 
+#: components/AddAssetDialog.tsx:87
+msgid "Search for {0} Assets"
+msgstr ""
+
 #: components/SelectCurrencyDialog.tsx:80
 msgid "Search for available currencies"
 msgstr ""
 
 #: components/SelectLanguageDialog.tsx:75
 msgid "Search for available languages"
-msgstr ""
-
-#: components/AddAssetDialog.tsx:87
-msgid "Search for {0} Assets"
-msgstr ""
-
-#: components/SelectCurrencyDialog.tsx:76
-msgid "Select Currency"
-msgstr ""
-
-#: components/SelectLanguageDialog.tsx:71
-msgid "Select Language"
 msgstr ""
 
 #: components/AddAssetDialog.tsx:119
@@ -177,6 +197,14 @@ msgstr ""
 
 #: components/SelectCurrencyDialog.tsx:111
 msgid "Select {0} ({1}) {2} below."
+msgstr ""
+
+#: components/SelectCurrencyDialog.tsx:76
+msgid "Select Currency"
+msgstr ""
+
+#: components/SelectLanguageDialog.tsx:71
+msgid "Select Language"
 msgstr ""
 
 #: components/AddressCard.tsx:243
@@ -212,14 +240,14 @@ msgstr ""
 msgid "Total Borrowed:"
 msgstr ""
 
+#: components/AddressCard.tsx:887
+msgid "Use {assetSymbol} as collateral"
+msgstr ""
+
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
 #: pages/index.tsx:531
 msgid "Use Random Address"
-msgstr ""
-
-#: components/AddressCard.tsx:887
-msgid "Use {assetSymbol} as collateral"
 msgstr ""
 
 #: components/AddressInput.tsx:73
@@ -233,31 +261,3 @@ msgstr ""
 #: pages/index.tsx:87
 msgid "Want to go for a quick spin?"
 msgstr ""
-
-#: components/AddressCard.tsx:141
-msgid "in"
-msgstr ""
-
-#: components/Footer.tsx:115
-msgid "is an unofficial, open source, community-built Aave debt simulator."
-msgstr ""
-
-#: components/AddressCard.tsx:145
-msgid "{0, plural, one {market} other {markets}}"
-msgstr ""
-
-#: components/AddressCard.tsx:139
-msgid "{0, plural, one {position} other {positions}}"
-msgstr ""
-
-#: components/AddressCard.tsx:1070
-msgid "{assetSymbol} Price ({selectedCurrency})"
-msgstr "{assetSymbol} རིང་བཞིན་ ({selectedCurrency})"
-
-#: components/AddressCard.tsx:947
-msgid "{assetSymbol} Quantity"
-msgstr ""
-
-#: components/I18nInput.tsx:36
-msgid "{subLabel}"
-msgstr "{subLabel}"

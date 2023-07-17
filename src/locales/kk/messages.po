@@ -1,17 +1,17 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-15 19:38-0700\n"
+"POT-Creation-Date: 2023-07-17 16:04-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: kk\n"
 
-#: components/AddressCard.tsx:452
+#: components/AddressCard.tsx:451
 msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
 msgstr "<0>Бағаны жою сценарийі позицияны жоюға ұшырауы мүмкін резервтік активтердің шамамен ең жоғары бағасын білдіреді. Тұрақты активтер бұл сценарийге қосылмайды және олардың ағымдағы құнын сақтайды деп болжанады. Жоюға көптеген факторлар әсер етеді. Бұл сценарий анықтама үшін бір ғана мысал. Көптеген әртүрлі сценарийлер жоюды бастауы мүмкін.<1>Толығырақ осы жерден оқыңыз</1> .</0>"
 
-#: components/AddressCard.tsx:70
+#: components/AddressCard.tsx:69
 msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
 msgstr "<0>Бұл қарыз позициясында Emode (тиімділік режимі) қосылған, бірақ DeFi Simulator Emode қосылған күйлерді әлі қолдамайды. Жақында Emode қолдауын қосамыз деп үміттенеміз.</0> <1/>"
 
@@ -24,7 +24,7 @@ msgstr "Aave нарықтары"
 msgid "Add {0} Asset"
 msgstr "{0} активін қосыңыз"
 
-#: components/AddressCard.tsx:156
+#: components/AddressCard.tsx:155
 msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
 msgstr "Денсаулық факторы мен қарыз алу қабілетінің өзгерістерін визуализациялау үшін төмендегі актив бағасы мен санын қосыңыз, жойыңыз және өзгертіңіз."
 
@@ -32,20 +32,20 @@ msgstr "Денсаулық факторы мен қарыз алу қабіле�
 msgid "Address copied to clipboard!"
 msgstr "Мекенжай алмасу буферіне көшірілді!"
 
-#: components/AddressCard.tsx:508
+#: components/AddressCard.tsx:507
 msgid "Apply"
 msgstr "Қолдану"
 
-#: components/AddressCard.tsx:192
-#: components/AddressCard.tsx:355
+#: components/AddressCard.tsx:191
+#: components/AddressCard.tsx:354
 msgid "Available to Borrow:"
 msgstr "Қарызға қол жетімді:"
 
-#: components/AddressCard.tsx:664
+#: components/AddressCard.tsx:666
 msgid "Borrowed Assets"
 msgstr "Қарызға алынған активтер"
 
-#: pages/index.tsx:96
+#: pages/index.tsx:97
 msgid "Build from Scratch"
 msgstr "Нөлден құрастыру"
 
@@ -57,7 +57,7 @@ msgstr "Валюта таңдаңыз"
 msgid "Choose Language"
 msgstr "Тілді таңдаңыз"
 
-#: pages/index.tsx:549
+#: pages/index.tsx:550
 msgid "Close alert"
 msgstr "Ескертуді жабу"
 
@@ -66,11 +66,15 @@ msgstr "Ескертуді жабу"
 msgid "Copy address to clipboard"
 msgstr "Мекенжайды алмасу буферіне көшіріңіз"
 
-#: pages/index.tsx:544
+#: pages/_app.tsx:49
+msgid "DeFi Simulator is an unofficial, open source, community-built Aave debt simulator."
+msgstr "DeFi Simulator - бұл бейресми, ашық бастапқы коды, қоғамдастық жасаған Aave қарыз тренажеры."
+
+#: pages/index.tsx:545
 msgid "Experimental!"
 msgstr "Эксперименттік!"
 
-#: components/AddressCard.tsx:135
+#: components/AddressCard.tsx:134
 msgid "Found"
 msgstr "Табылды"
 
@@ -78,16 +82,16 @@ msgstr "Табылды"
 msgid "Markets for"
 msgstr "үшін нарықтар"
 
-#: components/AddressCard.tsx:202
-#: components/AddressCard.tsx:379
+#: components/AddressCard.tsx:201
+#: components/AddressCard.tsx:378
 msgid "Net Asset Value:"
 msgstr "Активтердің таза құны:"
 
-#: components/AddressCard.tsx:149
+#: components/AddressCard.tsx:148
 msgid "No Aave positions found."
 msgstr "Aave орындары табылмады."
 
-#: components/AddressCard.tsx:412
+#: components/AddressCard.tsx:411
 msgid "No Liquidation Scenario Available"
 msgstr "Жою сценарийі жоқ"
 
@@ -100,15 +104,15 @@ msgstr "Мекенжай табылмады"
 msgid "No matches"
 msgstr "Сәйкестік жоқ"
 
-#: pages/index.tsx:82
+#: pages/index.tsx:83
 msgid "OR"
 msgstr "НЕМЕСЕ"
 
-#: pages/index.tsx:71
+#: pages/index.tsx:72
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "Қарыз/резервтік активтердегі өзгерістер позицияның денсаулық факторы мен қарыз алу қабілетіне қалай әсер ететінін көру үшін жоғарыдағы ұяшыққа Aave борыш позициясы бар мекенжайды қойыңыз."
 
-#: components/AddressCard.tsx:429
+#: components/AddressCard.tsx:428
 msgid "Price Liquidation Scenario"
 msgstr "Бағаны жою сценарийі"
 
@@ -116,12 +120,12 @@ msgstr "Бағаны жою сценарийі"
 msgid "Questions or comments? Please <0>join the Discord!</0>"
 msgstr "Сұрақтар немесе пікірлер? <0>дискордқа қосылыңыз!</0>"
 
-#: components/AddressCard.tsx:812
+#: components/AddressCard.tsx:817
 msgid "Remove {assetSymbol}"
 msgstr "{assetSymbol} жою"
 
-#: components/AddressCard.tsx:197
-#: components/AddressCard.tsx:367
+#: components/AddressCard.tsx:196
+#: components/AddressCard.tsx:366
 msgid "Reserve Asset Value:"
 msgstr "Резервтік актив құны:"
 
@@ -129,21 +133,21 @@ msgstr "Резервтік актив құны:"
 msgid "Reserve Assets"
 msgstr "Резервтік активтер"
 
-#: components/AddressCard.tsx:541
+#: components/AddressCard.tsx:540
 msgid "Reset all simulated values"
 msgstr "Барлық симуляцияланған мәндерді қалпына келтіріңіз"
 
 #: components/AddAssetDialog.tsx:94
-#: components/SelectCurrencyDialog.tsx:81
+#: components/SelectCurrencyDialog.tsx:87
 #: components/SelectLanguageDialog.tsx:81
 msgid "Reset search query"
 msgstr "Іздеу сұрауын қалпына келтіру"
 
-#: components/AddressCard.tsx:970
+#: components/AddressCard.tsx:975
 msgid "Reset to Original Value ({0})"
 msgstr "Бастапқы мәнге қайтару ({0})"
 
-#: components/SelectCurrencyDialog.tsx:73
+#: components/SelectCurrencyDialog.tsx:79
 msgid "Search for available currencies"
 msgstr "Қол жетімді валюталарды іздеңіз"
 
@@ -155,13 +159,11 @@ msgstr "Қол жетімді тілдерді іздеңіз"
 msgid "Search for {0} Assets"
 msgstr "{0} активтерін іздеңіз"
 
-#: components/SelectCurrencyDialog.tsx:69
-#: components/SelectCurrencyDialog.tsx:128
+#: components/SelectCurrencyDialog.tsx:75
 msgid "Select Currency"
 msgstr "Валюта таңдаңыз"
 
 #: components/SelectLanguageDialog.tsx:69
-#: components/SelectLanguageDialog.tsx:127
 msgid "Select Language"
 msgstr "Тіл таңдаңыз"
 
@@ -173,11 +175,11 @@ msgstr "Оны CDP-ге {3} активі ретінде қосу үшін төм
 msgid "Select {0} ({1}) {2} below to translate the app."
 msgstr "Қолданбаны аудару үшін төмендегі {0} ({1}) {2} таңдаңыз."
 
-#: components/SelectCurrencyDialog.tsx:104
+#: components/SelectCurrencyDialog.tsx:110
 msgid "Select {0} ({1}) {2} below."
 msgstr "Төменде {0} ({1}) {2} таңдаңыз."
 
-#: components/AddressCard.tsx:243
+#: components/AddressCard.tsx:242
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
 msgstr "Бірдеңе болды, біз дәл қазір мекенжай бойынша қарыз позициясының деректерін жүктей алмаймыз. Әрекетті кейінірек қайталаңыз."
 
@@ -185,11 +187,11 @@ msgstr "Бірдеңе болды, біз дәл қазір мекенжай б�
 msgid "There are no assets that match the search query. Reset the search query to select an asset."
 msgstr "Іздеу сұрауына сәйкес келетін активтер жоқ. Актив таңдау үшін іздеу сұрауын қалпына келтіріңіз."
 
-#: components/AddressCard.tsx:671
+#: components/AddressCard.tsx:673
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "{0} нарығында <0/> үшін қарызға алынған активтер жоқ. Осы мекенжай үшін қарыз активтерін имитациялау үшін \"Қарыздық активті қосу\" опциясын таңдаңыз."
 
-#: components/SelectCurrencyDialog.tsx:97
+#: components/SelectCurrencyDialog.tsx:103
 msgid "There are no currencies available that match the search query. Reset the search query to select a currency."
 msgstr "Іздеу сұрауына сәйкес келетін валюталар жоқ. Валютаны таңдау үшін іздеу сұрауын қалпына келтіріңіз."
 
@@ -201,22 +203,22 @@ msgstr "Іздеу сұрауына сәйкес келетін тілдер ж�
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "{0} нарығында <0/> үшін резервтік активтер жоқ. Осы мекенжай үшін резервтік активтерді имитациялау үшін \"Резервтік активті қосу\" опциясын таңдаңыз."
 
-#: pages/index.tsx:551
-msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
-msgstr "Бұл Aave қарыз симуляторы эксперименталды және белсенді түрде әзірленуде. Тек осы қолданбаның нәтижелеріне негізделген қаржылық шешімдер қабылдамаңыз."
+#: pages/index.tsx:552
+msgid "This Aave debt simulator is experimental. Don't make financial decisions based solely on the results of this app."
+msgstr "Бұл Aave қарыз симуляторы эксперименталды. Тек осы қолданбаның нәтижелеріне негізделген қаржылық шешімдер қабылдамаңыз."
 
-#: components/AddressCard.tsx:187
-#: components/AddressCard.tsx:343
+#: components/AddressCard.tsx:186
+#: components/AddressCard.tsx:342
 msgid "Total Borrowed:"
 msgstr "Жалпы қарыз:"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:530
+#: pages/index.tsx:531
 msgid "Use Random Address"
 msgstr "Кездейсоқ мекенжайды пайдаланыңыз"
 
-#: components/AddressCard.tsx:881
+#: components/AddressCard.tsx:886
 msgid "Use {assetSymbol} as collateral"
 msgstr "Кепіл ретінде {assetSymbol} пайдаланыңыз"
 
@@ -228,11 +230,11 @@ msgstr "Etherscan арқылы мекенжайды көру"
 msgid "Visit address details on Etherscan"
 msgstr "Etherscan сайтындағы мекенжай мәліметтерін қараңыз"
 
-#: pages/index.tsx:86
+#: pages/index.tsx:87
 msgid "Want to go for a quick spin?"
 msgstr "Жылдам айналдыруға барғыңыз келе ме?"
 
-#: components/AddressCard.tsx:141
+#: components/AddressCard.tsx:140
 msgid "in"
 msgstr "жылы"
 
@@ -240,19 +242,19 @@ msgstr "жылы"
 msgid "is an unofficial, open source, community-built Aave debt simulator."
 msgstr "бейресми, ашық бастапқы коды, қоғамдастық құрған Aave қарыз симуляторы."
 
-#: components/AddressCard.tsx:145
+#: components/AddressCard.tsx:144
 msgid "{0, plural, one {market} other {markets}}"
 msgstr "{ 0, plural, one {нарық} other {нарықтар} }"
 
-#: components/AddressCard.tsx:139
+#: components/AddressCard.tsx:138
 msgid "{0, plural, one {position} other {positions}}"
 msgstr "{ 0, plural, one {позиция} other {позициялар} }"
 
-#: components/AddressCard.tsx:1064
+#: components/AddressCard.tsx:1068
 msgid "{assetSymbol} Price ({selectedCurrency})"
 msgstr "{assetSymbol} Бағасы ({selectedCurrency})"
 
-#: components/AddressCard.tsx:941
+#: components/AddressCard.tsx:946
 msgid "{assetSymbol} Quantity"
 msgstr "{assetSymbol} Саны"
 

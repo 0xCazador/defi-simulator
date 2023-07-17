@@ -1,17 +1,17 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-15 19:38-0700\n"
+"POT-Creation-Date: 2023-07-17 16:04-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: ga\n"
 
-#: components/AddressCard.tsx:452
+#: components/AddressCard.tsx:451
 msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
 msgstr "<0>Léiríonn an cás leachtú praghais na praghsanna sócmhainní cúlchiste is airde, go garbh, a d’fhéadfadh an staid a chur faoi réir leachtaithe. Níl sócmhainní cobhsaí san áireamh sa chás seo agus glactar leis go gcoimeádann siad a luach reatha. Bíonn tionchar ag go leor fachtóirí ar leachtú. Níl sa chás seo ach sampla amháin le haghaidh tagartha. Féadann go leor cásanna difriúla leachtú a spreagadh.<1>Léigh tuilleadh anseo</1> .</0>"
 
-#: components/AddressCard.tsx:70
+#: components/AddressCard.tsx:69
 msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
 msgstr "<0>Tá Emode (Mód Éifeachtúlachta) cumasaithe ag an suíomh fiachais seo, ach ní thacaíonn DeFi Simulator le poist a bhfuil Emode cumasaithe acu go fóill. Tá súil againn tacaíocht a thabhairt do Emode go luath.</0> <1/>"
 
@@ -24,7 +24,7 @@ msgstr "Margaí Aave"
 msgid "Add {0} Asset"
 msgstr "Cuir {0} Sócmhainn leis"
 
-#: components/AddressCard.tsx:156
+#: components/AddressCard.tsx:155
 msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
 msgstr "Cuir leis, bain, agus modhnaigh praghsanna sócmhainní agus cainníochtaí thíos chun athruithe ar fhachtóirí sláinte agus ar chumhacht iasachtaíochta a fheiceáil."
 
@@ -32,20 +32,20 @@ msgstr "Cuir leis, bain, agus modhnaigh praghsanna sócmhainní agus cainníocht
 msgid "Address copied to clipboard!"
 msgstr "Cóipeáladh an seoladh chuig an ngearrthaisce!"
 
-#: components/AddressCard.tsx:508
+#: components/AddressCard.tsx:507
 msgid "Apply"
 msgstr "Cuir iarratas isteach"
 
-#: components/AddressCard.tsx:192
-#: components/AddressCard.tsx:355
+#: components/AddressCard.tsx:191
+#: components/AddressCard.tsx:354
 msgid "Available to Borrow:"
 msgstr "Ar fáil ar iasacht:"
 
-#: components/AddressCard.tsx:664
+#: components/AddressCard.tsx:666
 msgid "Borrowed Assets"
 msgstr "Sócmhainní ar Iasacht"
 
-#: pages/index.tsx:96
+#: pages/index.tsx:97
 msgid "Build from Scratch"
 msgstr "Tógáil ó Scratch"
 
@@ -57,7 +57,7 @@ msgstr "Roghnaigh Airgeadra"
 msgid "Choose Language"
 msgstr "Roghnaigh Teanga"
 
-#: pages/index.tsx:549
+#: pages/index.tsx:550
 msgid "Close alert"
 msgstr "Dún an foláireamh"
 
@@ -66,11 +66,15 @@ msgstr "Dún an foláireamh"
 msgid "Copy address to clipboard"
 msgstr "Cóipeáil an seoladh chuig an ngearrthaisce"
 
-#: pages/index.tsx:544
+#: pages/_app.tsx:49
+msgid "DeFi Simulator is an unofficial, open source, community-built Aave debt simulator."
+msgstr "Insamhlóir fiach Aave neamhoifigiúil, foinse oscailte is ea DeFi Simulator."
+
+#: pages/index.tsx:545
 msgid "Experimental!"
 msgstr "Turgnamhach!"
 
-#: components/AddressCard.tsx:135
+#: components/AddressCard.tsx:134
 msgid "Found"
 msgstr "Aimsíodh"
 
@@ -78,16 +82,16 @@ msgstr "Aimsíodh"
 msgid "Markets for"
 msgstr "Margaí le haghaidh"
 
-#: components/AddressCard.tsx:202
-#: components/AddressCard.tsx:379
+#: components/AddressCard.tsx:201
+#: components/AddressCard.tsx:378
 msgid "Net Asset Value:"
 msgstr "Glanluach Sócmhainne:"
 
-#: components/AddressCard.tsx:149
+#: components/AddressCard.tsx:148
 msgid "No Aave positions found."
 msgstr "Níor aimsíodh aon phost Aave."
 
-#: components/AddressCard.tsx:412
+#: components/AddressCard.tsx:411
 msgid "No Liquidation Scenario Available"
 msgstr "Níl aon Chás Leachtaithe ar Fáil"
 
@@ -100,15 +104,15 @@ msgstr "Níor aimsíodh aon seoladh"
 msgid "No matches"
 msgstr "Gan aon chluichí"
 
-#: pages/index.tsx:82
+#: pages/index.tsx:83
 msgid "OR"
 msgstr "NÓ"
 
-#: pages/index.tsx:71
+#: pages/index.tsx:72
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "Greamaigh seoladh le suíomh fiachais Ave sa bhosca thuas chun a fheiceáil conas a théann athruithe ar shócmhainní a fháil ar iasacht/a chur in áirithe i bhfeidhm ar fhachtóir sláinte agus ar chumhacht iasachtaíochta an tsuímh."
 
-#: components/AddressCard.tsx:429
+#: components/AddressCard.tsx:428
 msgid "Price Liquidation Scenario"
 msgstr "Cás Leachtaithe Praghsanna"
 
@@ -116,12 +120,12 @@ msgstr "Cás Leachtaithe Praghsanna"
 msgid "Questions or comments? Please <0>join the Discord!</0>"
 msgstr "Ceisteanna nó tuairimí? Le do thoil <0>bí páirteach sa Discord!</0>"
 
-#: components/AddressCard.tsx:812
+#: components/AddressCard.tsx:817
 msgid "Remove {assetSymbol}"
 msgstr "Bain {assetSymbol}"
 
-#: components/AddressCard.tsx:197
-#: components/AddressCard.tsx:367
+#: components/AddressCard.tsx:196
+#: components/AddressCard.tsx:366
 msgid "Reserve Asset Value:"
 msgstr "Luach Sócmhainne Cúlchiste:"
 
@@ -129,21 +133,21 @@ msgstr "Luach Sócmhainne Cúlchiste:"
 msgid "Reserve Assets"
 msgstr "Sócmhainní Cúlchiste"
 
-#: components/AddressCard.tsx:541
+#: components/AddressCard.tsx:540
 msgid "Reset all simulated values"
 msgstr "Athshocraigh gach luach insamhlaithe"
 
 #: components/AddAssetDialog.tsx:94
-#: components/SelectCurrencyDialog.tsx:81
+#: components/SelectCurrencyDialog.tsx:87
 #: components/SelectLanguageDialog.tsx:81
 msgid "Reset search query"
 msgstr "Athshocraigh ceist chuardaigh"
 
-#: components/AddressCard.tsx:970
+#: components/AddressCard.tsx:975
 msgid "Reset to Original Value ({0})"
 msgstr "Athshocraigh go Bunluach ({0})"
 
-#: components/SelectCurrencyDialog.tsx:73
+#: components/SelectCurrencyDialog.tsx:79
 msgid "Search for available currencies"
 msgstr "Cuardaigh airgeadraí atá ar fáil"
 
@@ -155,13 +159,11 @@ msgstr "Cuardaigh na teangacha atá ar fáil"
 msgid "Search for {0} Assets"
 msgstr "Cuardaigh {0} Sócmhainní"
 
-#: components/SelectCurrencyDialog.tsx:69
-#: components/SelectCurrencyDialog.tsx:128
+#: components/SelectCurrencyDialog.tsx:75
 msgid "Select Currency"
 msgstr "Roghnaigh Airgeadra"
 
 #: components/SelectLanguageDialog.tsx:69
-#: components/SelectLanguageDialog.tsx:127
 msgid "Select Language"
 msgstr "Roghnaigh Teanga"
 
@@ -173,11 +175,11 @@ msgstr "Roghnaigh {0} ({1}) {2} thíos chun é a chur mar shócmhainn {3} leis a
 msgid "Select {0} ({1}) {2} below to translate the app."
 msgstr "Roghnaigh {0} ({1}) {2} thíos chun an aip a aistriú."
 
-#: components/SelectCurrencyDialog.tsx:104
+#: components/SelectCurrencyDialog.tsx:110
 msgid "Select {0} ({1}) {2} below."
 msgstr "Roghnaigh {0} ({1}) {2} thíos."
 
-#: components/AddressCard.tsx:243
+#: components/AddressCard.tsx:242
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
 msgstr "Tharla rud éigin, nílimid in ann sonraí suímh an fhiachais seolta a lódáil faoi láthair. Bain triail eile as ar ball."
 
@@ -185,11 +187,11 @@ msgstr "Tharla rud éigin, nílimid in ann sonraí suímh an fhiachais seolta a 
 msgid "There are no assets that match the search query. Reset the search query to select an asset."
 msgstr "Níl aon sócmhainní ann a mheaitseálann an t-iarratas cuardaigh. Athshocraigh an cheist chuardaigh chun sócmhainn a roghnú."
 
-#: components/AddressCard.tsx:671
+#: components/AddressCard.tsx:673
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "Níl aon sócmhainní ar iasacht do <0/>i margadh {0}. Roghnaigh \"Cuir Sócmhainn Iasachta Leis\" chun sócmhainní a fuarthas ar iasacht don seoladh seo a insamhladh."
 
-#: components/SelectCurrencyDialog.tsx:97
+#: components/SelectCurrencyDialog.tsx:103
 msgid "There are no currencies available that match the search query. Reset the search query to select a currency."
 msgstr "Níl aon airgeadraí ar fáil a mheaitseálann an t-iarratas cuardaigh. Athshocraigh an cheist chuardaigh chun airgeadra a roghnú."
 
@@ -201,22 +203,22 @@ msgstr "Níl aon teanga ar fáil a mheaitseálann an t-iarratas cuardaigh. Athsh
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "Níl aon chúlsócmhainní do <0/>i margadh {0}. Roghnaigh \"Cuir Sócmhainn Chúlchiste Leis\" chun sócmhainní cúlchiste a insamhladh don seoladh seo."
 
-#: pages/index.tsx:551
-msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
-msgstr "Tá an t-insamhlóir fiach Aave seo turgnamhach agus á fhorbairt go gníomhach. Ná déan cinntí airgeadais bunaithe ar thorthaí na haipe seo amháin."
+#: pages/index.tsx:552
+msgid "This Aave debt simulator is experimental. Don't make financial decisions based solely on the results of this app."
+msgstr "Tá an t-insamhlóir fiach Aave seo turgnamhach. Ná déan cinntí airgeadais bunaithe ar thorthaí na haipe seo amháin."
 
-#: components/AddressCard.tsx:187
-#: components/AddressCard.tsx:343
+#: components/AddressCard.tsx:186
+#: components/AddressCard.tsx:342
 msgid "Total Borrowed:"
 msgstr "Iomlán ar Iasacht:"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:530
+#: pages/index.tsx:531
 msgid "Use Random Address"
 msgstr "Úsáid Seoladh Randamach"
 
-#: components/AddressCard.tsx:881
+#: components/AddressCard.tsx:886
 msgid "Use {assetSymbol} as collateral"
 msgstr "Úsáid {assetSymbol} mar chomhthaobhacht"
 
@@ -228,11 +230,11 @@ msgstr "Féach ar an seoladh ar Etherscan"
 msgid "Visit address details on Etherscan"
 msgstr "Tabhair cuairt ar shonraí seolta ar Etherscan"
 
-#: pages/index.tsx:86
+#: pages/index.tsx:87
 msgid "Want to go for a quick spin?"
 msgstr "Ar mhaith leat dul le casadh tapa?"
 
-#: components/AddressCard.tsx:141
+#: components/AddressCard.tsx:140
 msgid "in"
 msgstr "isteach"
 
@@ -240,19 +242,19 @@ msgstr "isteach"
 msgid "is an unofficial, open source, community-built Aave debt simulator."
 msgstr "is insamhlóir fiach Aave foinse oscailte neamhoifigiúil é."
 
-#: components/AddressCard.tsx:145
+#: components/AddressCard.tsx:144
 msgid "{0, plural, one {market} other {markets}}"
 msgstr "{ 0, plural, one {margadh} two {margaí} few {margaí} many {margaí} other {margaí} }"
 
-#: components/AddressCard.tsx:139
+#: components/AddressCard.tsx:138
 msgid "{0, plural, one {position} other {positions}}"
 msgstr "{ 0, plural, one {post} two {seasaimh} few {seasaimh} many {seasaimh} other {seasaimh} }"
 
-#: components/AddressCard.tsx:1064
+#: components/AddressCard.tsx:1068
 msgid "{assetSymbol} Price ({selectedCurrency})"
 msgstr "{assetSymbol} Praghas ({selectedCurrency})"
 
-#: components/AddressCard.tsx:941
+#: components/AddressCard.tsx:946
 msgid "{assetSymbol} Quantity"
 msgstr "{assetSymbol} Cainníocht"
 

@@ -2,7 +2,7 @@ import { ReactElement, RefObject, memo, useEffect, useRef, useState } from 'reac
 import { formatNumber, formatMoney, unformat } from 'accounting';
 import noUiSlider from 'nouislider';
 import { Trans, Plural, t } from '@lingui/macro';
-import { i18n } from "@lingui/core";
+import { useLingui } from "@lingui/react"
 
 import {
   Center,
@@ -51,7 +51,6 @@ import { AaveHealthFactorData } from '../hooks/useAaveData';
 import { FiAlertTriangle } from 'react-icons/fi';
 import LocalizedFiatDisplay from './LocalizedFiatDisplay';
 import { useFiatRates } from '../hooks/useFiatData';
-import { useRouter } from 'next/router';
 
 type Props = {};
 
@@ -564,6 +563,7 @@ const UserReserveAssetList = ({ summaryOffset }: UserReserveAssetListProps) => {
     setReserveAssetQuantity,
     setUseReserveAssetAsCollateral,
   } = useAaveData('');
+  const { i18n } = useLingui()
   const items: ImmutableArray<ReserveAssetDataItem> =
     addressData?.[currentMarket]?.workingData?.userReservesData || [];
 
@@ -620,6 +620,7 @@ const UserReserveAssetList = ({ summaryOffset }: UserReserveAssetListProps) => {
             setUseReserveAssetAsCollateral={setUseReserveAssetAsCollateral}
             disableSetUseReserveAssetAsCollateral={!item.asset.usageAsCollateralEnabled}
             isNewlyAddedBySimUser={!!item.asset.isNewlyAddedBySimUser}
+            locale={i18n?.locale || ""}
           />
         );
       })}
@@ -641,6 +642,7 @@ const UserBorrowedAssetList = ({ summaryOffset }: UserBorrowedAssetListProps) =>
     setAssetPriceInUSD,
     setBorrowedAssetQuantity,
   } = useAaveData('');
+  const { i18n } = useLingui()
   const items: ImmutableArray<BorrowedAssetDataItem> =
     addressData?.[currentMarket]?.workingData?.userBorrowsData || [];
 
@@ -696,6 +698,7 @@ const UserBorrowedAssetList = ({ summaryOffset }: UserBorrowedAssetListProps) =>
             setAssetPriceInUSD={setAssetPriceInUSD}
             setAssetQuantity={setBorrowedAssetQuantity}
             disableSetUseReserveAssetAsCollateral={false}
+            locale={i18n?.locale || ""}
           />
         );
       })}
@@ -717,7 +720,8 @@ const UserAssetItemPropsChecker = (oldProps: UserAssetItemProps, newProps: UserA
     oldPriceInUSD === newPriceInUSD &&
     oldCollateralEnabled === newCollateralEnabled &&
     oldProps.assetType === newProps.assetType &&
-    oldProps.assetSymbol === newProps.assetSymbol;
+    oldProps.assetSymbol === newProps.assetSymbol &&
+    oldProps.locale === newProps.locale;
 
   return arePropsEqual;
 };
@@ -737,6 +741,7 @@ type UserAssetItemProps = {
   setUseReserveAssetAsCollateral?: (symbol: string, value: boolean) => void;
   disableSetUseReserveAssetAsCollateral: boolean;
   isNewlyAddedBySimUser: boolean;
+  locale: string
 };
 
 const UserAssetItem = memo(
@@ -990,23 +995,20 @@ const UserAssetPriceInput = ({
   setAssetPriceInUSD,
 }: UserAssetPriceInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
-
   const { selectedCurrency, currentRate } = useFiatRates(false);
-  const router = useRouter();
+  const { i18n } = useLingui()
 
   const workingConvertedPrice = workingPrice * currentRate;
   const originalConvertedPrice = originalPrice * currentRate;
 
-  //const [lastInputValue, setLastInputValue] = useState(workingConvertedPrice); // used to set slider to intuitive range
-
   const formatPrice = (value: number) => {
-    i18n.activate(router.locale || "en");
     return i18n.number(value, { style: "currency", currency: selectedCurrency });
   }
 
   const formattedWorkingPrice: string = formatPrice(workingConvertedPrice);
 
   useEffect(() => {
+    if (!formattedWorkingPrice) return;
     // the input is uncontrolled, but we need to support external "reset" functionality
     // and selected fiat currency changes
     if (
@@ -1017,6 +1019,8 @@ const UserAssetPriceInput = ({
       inputRef.current.value = formattedWorkingPrice;
     }
   }, [formattedWorkingPrice]);
+
+  if (!selectedCurrency || !currentRate) return null;
 
   const convertValueToUSDAndSet = (assetSymbol: string, value: number) => {
     const updatedValue = value / currentRate;

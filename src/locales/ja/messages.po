@@ -1,17 +1,17 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-15 19:38-0700\n"
+"POT-Creation-Date: 2023-07-17 16:04-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: ja\n"
 
-#: components/AddressCard.tsx:452
+#: components/AddressCard.tsx:451
 msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
 msgstr "<0>価格清算シナリオは、ポジションを清算の対象とする可能性のあるおおよその最高準備資産価格を示している。安定資産はこのシナリオには含まれず、現在価値を維持すると仮定している。清算には多くの要因が影響する。このシナリオは参考のための一例に過ぎない。多くの異なるシナリオが清算の引き金となる可能性があります<1>。詳しくはこちらをご覧</1>ください。</0>"
 
-#: components/AddressCard.tsx:70
+#: components/AddressCard.tsx:69
 msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
 msgstr "<0>この借金ポジションはEmode（Efficieny Mode）が有効になっていますが、DeFi SimulatorはまだEmodeが有効になっているポジションをサポートしていません。近日中にEmodeのサポートを追加したいと考えています。</0><1/>"
 
@@ -24,7 +24,7 @@ msgstr "アーヴェ・マーケッツ"
 msgid "Add {0} Asset"
 msgstr "{0}]アセットを追加"
 
-#: components/AddressCard.tsx:156
+#: components/AddressCard.tsx:155
 msgid "Add, remove, and modify asset prices and quantities below to visualize changes to health factor and borrowing power."
 msgstr "以下の資産価格と数量を追加、削除、変更し、健康因子と借入パワーの変化を視覚化する。"
 
@@ -32,20 +32,20 @@ msgstr "以下の資産価格と数量を追加、削除、変更し、健康因
 msgid "Address copied to clipboard!"
 msgstr "クリップボードにコピーされたアドレス！"
 
-#: components/AddressCard.tsx:508
+#: components/AddressCard.tsx:507
 msgid "Apply"
 msgstr "適用"
 
-#: components/AddressCard.tsx:192
-#: components/AddressCard.tsx:355
+#: components/AddressCard.tsx:191
+#: components/AddressCard.tsx:354
 msgid "Available to Borrow:"
 msgstr "貸し出し可能："
 
-#: components/AddressCard.tsx:664
+#: components/AddressCard.tsx:666
 msgid "Borrowed Assets"
 msgstr "借入資産"
 
-#: pages/index.tsx:96
+#: pages/index.tsx:97
 msgid "Build from Scratch"
 msgstr "ゼロから作る"
 
@@ -57,7 +57,7 @@ msgstr "通貨の選択"
 msgid "Choose Language"
 msgstr "言語を選択"
 
-#: pages/index.tsx:549
+#: pages/index.tsx:550
 msgid "Close alert"
 msgstr "クローズアラート"
 
@@ -66,11 +66,15 @@ msgstr "クローズアラート"
 msgid "Copy address to clipboard"
 msgstr "アドレスをクリップボードにコピー"
 
-#: pages/index.tsx:544
+#: pages/_app.tsx:49
+msgid "DeFi Simulator is an unofficial, open source, community-built Aave debt simulator."
+msgstr "DeFiシミュレータは、非公式、オープンソース、コミュニティ構築のAave債務シミュレータです。"
+
+#: pages/index.tsx:545
 msgid "Experimental!"
 msgstr "実験的だ！"
 
-#: components/AddressCard.tsx:135
+#: components/AddressCard.tsx:134
 msgid "Found"
 msgstr "発見"
 
@@ -78,16 +82,16 @@ msgstr "発見"
 msgid "Markets for"
 msgstr "市場"
 
-#: components/AddressCard.tsx:202
-#: components/AddressCard.tsx:379
+#: components/AddressCard.tsx:201
+#: components/AddressCard.tsx:378
 msgid "Net Asset Value:"
 msgstr "純資産価値："
 
-#: components/AddressCard.tsx:149
+#: components/AddressCard.tsx:148
 msgid "No Aave positions found."
 msgstr "Aaveのポジションは見つかりませんでした。"
 
-#: components/AddressCard.tsx:412
+#: components/AddressCard.tsx:411
 msgid "No Liquidation Scenario Available"
 msgstr "清算シナリオなし"
 
@@ -100,15 +104,15 @@ msgstr "アドレスが見つかりません"
 msgid "No matches"
 msgstr "該当なし"
 
-#: pages/index.tsx:82
+#: pages/index.tsx:83
 msgid "OR"
 msgstr "または"
 
-#: pages/index.tsx:71
+#: pages/index.tsx:72
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "エイベの負債ポジションを持つ住所を上のボックスに貼り付けると、借入／準備資産の変更がポジションの健全性係数と借入余力にどのように影響するかを視覚化することができる。"
 
-#: components/AddressCard.tsx:429
+#: components/AddressCard.tsx:428
 msgid "Price Liquidation Scenario"
 msgstr "価格清算シナリオ"
 
@@ -116,12 +120,12 @@ msgstr "価格清算シナリオ"
 msgid "Questions or comments? Please <0>join the Discord!</0>"
 msgstr "ご質問やご意見は？<0>Discordにご参加</0>ください！"
 
-#: components/AddressCard.tsx:812
+#: components/AddressCard.tsx:817
 msgid "Remove {assetSymbol}"
 msgstr "{assetSymbol}]を削除"
 
-#: components/AddressCard.tsx:197
-#: components/AddressCard.tsx:367
+#: components/AddressCard.tsx:196
+#: components/AddressCard.tsx:366
 msgid "Reserve Asset Value:"
 msgstr "積立資産価値："
 
@@ -129,21 +133,21 @@ msgstr "積立資産価値："
 msgid "Reserve Assets"
 msgstr "予備資産"
 
-#: components/AddressCard.tsx:541
+#: components/AddressCard.tsx:540
 msgid "Reset all simulated values"
 msgstr "すべてのシミュレーション値をリセット"
 
 #: components/AddAssetDialog.tsx:94
-#: components/SelectCurrencyDialog.tsx:81
+#: components/SelectCurrencyDialog.tsx:87
 #: components/SelectLanguageDialog.tsx:81
 msgid "Reset search query"
 msgstr "検索クエリをリセット"
 
-#: components/AddressCard.tsx:970
+#: components/AddressCard.tsx:975
 msgid "Reset to Original Value ({0})"
 msgstr "元の値にリセット（[{0}）"
 
-#: components/SelectCurrencyDialog.tsx:73
+#: components/SelectCurrencyDialog.tsx:79
 msgid "Search for available currencies"
 msgstr "利用可能な通貨の検索"
 
@@ -155,13 +159,11 @@ msgstr "使用可能な言語の検索"
 msgid "Search for {0} Assets"
 msgstr "{0}]資産を検索する"
 
-#: components/SelectCurrencyDialog.tsx:69
-#: components/SelectCurrencyDialog.tsx:128
+#: components/SelectCurrencyDialog.tsx:75
 msgid "Select Currency"
 msgstr "通貨を選択"
 
 #: components/SelectLanguageDialog.tsx:69
-#: components/SelectLanguageDialog.tsx:127
 msgid "Select Language"
 msgstr "言語選択"
 
@@ -173,11 +175,11 @@ msgstr "以下の{0}({1}){2}を選択すると、{3}のアセットとしてCDP�
 msgid "Select {0} ({1}) {2} below to translate the app."
 msgstr "以下の{0}({1}){2}を選択するとアプリが翻訳されます。"
 
-#: components/SelectCurrencyDialog.tsx:104
+#: components/SelectCurrencyDialog.tsx:110
 msgid "Select {0} ({1}) {2} below."
 msgstr "以下の{0}({1}) {2}を選択します。"
 
-#: components/AddressCard.tsx:243
+#: components/AddressCard.tsx:242
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
 msgstr "何か問題が発生したようです。現在、住所負債ポジションデータをロードすることができません。後で再試行してください。"
 
@@ -185,11 +187,11 @@ msgstr "何か問題が発生したようです。現在、住所負債ポジシ
 msgid "There are no assets that match the search query. Reset the search query to select an asset."
 msgstr "検索条件に一致するアセットがありません。検索クエリをリセットしてアセットを選択してください。"
 
-#: components/AddressCard.tsx:671
+#: components/AddressCard.tsx:673
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "{0}]市場には、<0/>の借入資産はありません。Add Borrow Asset]を選択して、このアドレスの借り入れ資産をシミュレートしてください。"
 
-#: components/SelectCurrencyDialog.tsx:97
+#: components/SelectCurrencyDialog.tsx:103
 msgid "There are no currencies available that match the search query. Reset the search query to select a currency."
 msgstr "検索条件に一致する通貨がありません。検索クエリをリセットして通貨を選択してください。"
 
@@ -201,22 +203,22 @@ msgstr "検索条件に一致する言語がありません。検索クエリを
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "{0}] マーケットには<0/>の予備資産はありません。リザーブ資産を追加] を選択して、このアドレスのリザーブ資産をシミュレートしてください。"
 
-#: pages/index.tsx:551
-msgid "This Aave debt simulator is experimental and under active development. Don't make financial decisions based solely on the results of this app."
-msgstr "このAave負債シミュレーターは実験的なものであり、現在開発中です。このアプリの結果のみに基づいて財務上の決定を下さないでください。"
+#: pages/index.tsx:552
+msgid "This Aave debt simulator is experimental. Don't make financial decisions based solely on the results of this app."
+msgstr "このAave負債シミュレーターは実験的なものです。このアプリの結果のみに基づいて財務上の決定を下すことは避けてください。"
 
-#: components/AddressCard.tsx:187
-#: components/AddressCard.tsx:343
+#: components/AddressCard.tsx:186
+#: components/AddressCard.tsx:342
 msgid "Total Borrowed:"
 msgstr "借入総額"
 
 #: components/AddressInput.tsx:62
 #: components/AddressInput.tsx:64
-#: pages/index.tsx:530
+#: pages/index.tsx:531
 msgid "Use Random Address"
 msgstr "ランダムアドレスを使用"
 
-#: components/AddressCard.tsx:881
+#: components/AddressCard.tsx:886
 msgid "Use {assetSymbol} as collateral"
 msgstr "担保として{assetSymbol}を使用"
 
@@ -228,11 +230,11 @@ msgstr "Etherscanのアドレスを表示"
 msgid "Visit address details on Etherscan"
 msgstr "Etherscanの住所詳細を見る"
 
-#: pages/index.tsx:86
+#: pages/index.tsx:87
 msgid "Want to go for a quick spin?"
 msgstr "ちょっと走ってみる？"
 
-#: components/AddressCard.tsx:141
+#: components/AddressCard.tsx:140
 msgid "in"
 msgstr "において"
 
@@ -240,19 +242,19 @@ msgstr "において"
 msgid "is an unofficial, open source, community-built Aave debt simulator."
 msgstr "は、非公式のオープンソースで、コミュニティによって作られたAaveの債務シミュレーターである。"
 
-#: components/AddressCard.tsx:145
+#: components/AddressCard.tsx:144
 msgid "{0, plural, one {market} other {markets}}"
 msgstr "{ 0, plural, other {マーケット} }"
 
-#: components/AddressCard.tsx:139
+#: components/AddressCard.tsx:138
 msgid "{0, plural, one {position} other {positions}}"
 msgstr "{ 0, plural, other {ポジション} }"
 
-#: components/AddressCard.tsx:1064
+#: components/AddressCard.tsx:1068
 msgid "{assetSymbol} Price ({selectedCurrency})"
 msgstr "{assetSymbol} 価格 ({selectedCurrency})"
 
-#: components/AddressCard.tsx:941
+#: components/AddressCard.tsx:946
 msgid "{assetSymbol} Quantity"
 msgstr "{assetSymbol} 数量"
 
