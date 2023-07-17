@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-17 16:04-0700\n"
+"POT-Creation-Date: 2023-07-17 16:29-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -66,7 +66,7 @@ msgstr "알림 닫기"
 msgid "Copy address to clipboard"
 msgstr "클립보드에 주소 복사"
 
-#: pages/_app.tsx:49
+#: pages/_app.tsx:51
 msgid "DeFi Simulator is an unofficial, open source, community-built Aave debt simulator."
 msgstr "DeFi 시뮬레이터는 커뮤니티에서 구축한 비공식 오픈소스 Aave 부채 시뮬레이터입니다."
 

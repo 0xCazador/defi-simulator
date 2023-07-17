@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-17 16:04-0700\n"
+"POT-Creation-Date: 2023-07-17 16:29-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -66,7 +66,7 @@ msgstr "மூடு எச்சரிக்கை"
 msgid "Copy address to clipboard"
 msgstr "முகவரியை கிளிப்போர்டுக்கு நகலெடுக்கவும்"
 
-#: pages/_app.tsx:49
+#: pages/_app.tsx:51
 msgid "DeFi Simulator is an unofficial, open source, community-built Aave debt simulator."
 msgstr "DeFi சிமுலேட்டர் என்பது அதிகாரப்பூர்வமற்ற, திறந்த மூல, சமூகத்தால் உருவாக்கப்பட்ட Aave கடன் சிமுலேட்டர் ஆகும்."
 

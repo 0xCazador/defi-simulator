@@ -92,7 +92,7 @@ msgstr ""
 msgid "Copy address to clipboard"
 msgstr ""
 
-#: pages/_app.tsx:49
+#: pages/_app.tsx:51
 msgid "DeFi Simulator is an unofficial, open source, community-built Aave debt simulator."
 msgstr ""
 

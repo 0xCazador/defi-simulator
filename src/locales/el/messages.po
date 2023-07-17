@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-17 16:04-0700\n"
+"POT-Creation-Date: 2023-07-17 16:29-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -66,7 +66,7 @@ msgstr "Κλείσιμο συναγερμού"
 msgid "Copy address to clipboard"
 msgstr "Αντιγραφή διεύθυνσης στο πρόχειρο"
 
-#: pages/_app.tsx:49
+#: pages/_app.tsx:51
 msgid "DeFi Simulator is an unofficial, open source, community-built Aave debt simulator."
 msgstr "Ο προσομοιωτής DeFi είναι ένας ανεπίσημος, ανοικτού κώδικα, προσομοιωτής χρέους Aave που δημιουργήθηκε από την κοινότητα."
 
