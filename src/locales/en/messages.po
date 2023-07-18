@@ -21,11 +21,11 @@ msgstr ""
 msgid "{0, plural, one {position} other {positions}}"
 msgstr ""
 
-#: components/AddressCard.tsx:1068
+#: components/AddressCard.tsx:1113
 msgid "{assetSymbol} Price ({selectedCurrency})"
 msgstr ""
 
-#: components/AddressCard.tsx:946
+#: components/AddressCard.tsx:991
 msgid "{assetSymbol} Quantity"
 msgstr ""
 
@@ -33,7 +33,19 @@ msgstr ""
 msgid "{subLabel}"
 msgstr ""
 
-#: components/AddressCard.tsx:451
+#: components/AddressCard.tsx:371
+msgid "<0>Available to Borrow represents the total borrowing power available to the position, expressed in the selected fiat currency.</0>"
+msgstr ""
+
+#: components/AddressCard.tsx:417
+msgid "<0>Net Asset Value represents the sum of the reserve assets subtracted by the sum of the borrowed assets, expressed in the selected fiat currency.</0>"
+msgstr ""
+
+#: components/AddressCard.tsx:394
+msgid "<0>Reserve Asset Value represents the sum of the reserve assets, expressed in the selected fiat currency.</0>"
+msgstr ""
+
+#: components/AddressCard.tsx:496
 msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
 msgstr ""
 
@@ -41,13 +53,24 @@ msgstr ""
 msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
 msgstr ""
 
+#: components/AddressCard.tsx:347
+msgid "<0>Total Borrowed refers to the sum of all assets borrowed, expressed in the selected fiat currency.</0>"
+msgstr ""
+
 #: components/AppBar.tsx:125
 msgid "Aave Markets"
 msgstr ""
 
 #: components/AddAssetDialog.tsx:82
-#: components/AddAssetDialog.tsx:151
 msgid "Add {0} Asset"
+msgstr ""
+
+#: components/AddAssetDialog.tsx:152
+msgid "Add Borrow Asset"
+msgstr ""
+
+#: components/AddAssetDialog.tsx:153
+msgid "Add Reserve Asset"
 msgstr ""
 
 #: components/AddressCard.tsx:155
@@ -58,16 +81,16 @@ msgstr ""
 msgid "Address copied to clipboard!"
 msgstr ""
 
-#: components/AddressCard.tsx:507
+#: components/AddressCard.tsx:552
 msgid "Apply"
 msgstr ""
 
 #: components/AddressCard.tsx:191
-#: components/AddressCard.tsx:354
+#: components/AddressCard.tsx:368
 msgid "Available to Borrow:"
 msgstr ""
 
-#: components/AddressCard.tsx:666
+#: components/AddressCard.tsx:711
 msgid "Borrowed Assets"
 msgstr ""
 
@@ -117,7 +140,7 @@ msgid "Markets for"
 msgstr ""
 
 #: components/AddressCard.tsx:201
-#: components/AddressCard.tsx:378
+#: components/AddressCard.tsx:414
 msgid "Net Asset Value:"
 msgstr ""
 
@@ -129,7 +152,7 @@ msgstr ""
 msgid "No address found"
 msgstr ""
 
-#: components/AddressCard.tsx:411
+#: components/AddressCard.tsx:456
 msgid "No Liquidation Scenario Available"
 msgstr ""
 
@@ -146,7 +169,7 @@ msgstr ""
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr ""
 
-#: components/AddressCard.tsx:428
+#: components/AddressCard.tsx:473
 msgid "Price Liquidation Scenario"
 msgstr ""
 
@@ -154,20 +177,20 @@ msgstr ""
 msgid "Questions or comments? Please <0>join the Discord!</0>"
 msgstr ""
 
-#: components/AddressCard.tsx:817
+#: components/AddressCard.tsx:862
 msgid "Remove {assetSymbol}"
 msgstr ""
 
 #: components/AddressCard.tsx:196
-#: components/AddressCard.tsx:366
+#: components/AddressCard.tsx:391
 msgid "Reserve Asset Value:"
 msgstr ""
 
-#: components/AddressCard.tsx:587
+#: components/AddressCard.tsx:632
 msgid "Reserve Assets"
 msgstr ""
 
-#: components/AddressCard.tsx:540
+#: components/AddressCard.tsx:585
 msgid "Reset all simulated values"
 msgstr ""
 
@@ -177,7 +200,7 @@ msgstr ""
 msgid "Reset search query"
 msgstr ""
 
-#: components/AddressCard.tsx:975
+#: components/AddressCard.tsx:1020
 msgid "Reset to Original Value ({0})"
 msgstr ""
 
@@ -194,7 +217,7 @@ msgid "Search for available languages"
 msgstr ""
 
 #: components/AddAssetDialog.tsx:118
-msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the debt position."
 msgstr ""
 
 #: components/SelectLanguageDialog.tsx:104
@@ -202,7 +225,7 @@ msgid "Select {0} ({1}) {2} below to translate the app."
 msgstr ""
 
 #: components/SelectCurrencyDialog.tsx:110
-msgid "Select {0} ({1}) {2} below."
+msgid "Select {0} ({1}) {2} below. After selecting a currency the app will display asset prices, liquidation scenario, and position summary in the selected currency."
 msgstr ""
 
 #: components/SelectCurrencyDialog.tsx:75
@@ -221,7 +244,7 @@ msgstr ""
 msgid "There are no assets that match the search query. Reset the search query to select an asset."
 msgstr ""
 
-#: components/AddressCard.tsx:673
+#: components/AddressCard.tsx:718
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr ""
 
@@ -233,7 +256,7 @@ msgstr ""
 msgid "There are no languages available that match the search query. Reset the search query to select a language."
 msgstr ""
 
-#: components/AddressCard.tsx:594
+#: components/AddressCard.tsx:639
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr ""
 
@@ -242,11 +265,11 @@ msgid "This Aave debt simulator is experimental. Don't make financial decisions 
 msgstr ""
 
 #: components/AddressCard.tsx:186
-#: components/AddressCard.tsx:342
+#: components/AddressCard.tsx:344
 msgid "Total Borrowed:"
 msgstr ""
 
-#: components/AddressCard.tsx:886
+#: components/AddressCard.tsx:931
 msgid "Use {assetSymbol} as collateral"
 msgstr ""
 

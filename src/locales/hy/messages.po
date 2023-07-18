@@ -1,13 +1,25 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-17 16:29-0700\n"
+"POT-Creation-Date: 2023-07-18 12:09-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: hy\n"
 
-#: components/AddressCard.tsx:451
+#: components/AddressCard.tsx:371
+msgid "<0>Available to Borrow represents the total borrowing power available to the position, expressed in the selected fiat currency.</0>"
+msgstr "<0>Հասանելի է փոխառության համար, ներկայացնում է դիրքի համար հասանելի փոխառության ընդհանուր հզորությունը՝ արտահայտված ընտրված ֆիատ արժույթով:</0>"
+
+#: components/AddressCard.tsx:417
+msgid "<0>Net Asset Value represents the sum of the reserve assets subtracted by the sum of the borrowed assets, expressed in the selected fiat currency.</0>"
+msgstr "<0>Զուտ ակտիվների արժեքը ներկայացնում է պահուստային ակտիվների հանրագումարը, որը հանվում է փոխառված ակտիվների գումարով, արտահայտված ընտրված ֆիատ արժույթով:</0>"
+
+#: components/AddressCard.tsx:394
+msgid "<0>Reserve Asset Value represents the sum of the reserve assets, expressed in the selected fiat currency.</0>"
+msgstr "<0>Պահուստային ակտիվների արժեքը ներկայացնում է պահուստային ակտիվների հանրագումարը՝ արտահայտված ընտրված ֆիատ արժույթով:</0>"
+
+#: components/AddressCard.tsx:496
 msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
 msgstr "<0>Գների լուծարման սցենարը ներկայացնում է պահուստային ակտիվների մոտավոր ամենաբարձր գները, որոնք կարող են լուծարման ենթարկել դիրքը: Կայուն ակտիվները ներառված չեն այս սցենարում և ենթադրվում է, որ պահպանում են իրենց ներկա արժեքը: Լուծարման վրա ազդում են բազմաթիվ գործոններ. Այս սցենարը միայն մեկ օրինակ է հղման համար: Շատ տարբեր սցենարներ կարող են հանգեցնել լուծարման:<1>Կարդալ ավելին այստեղ</1> .</0>"
 
@@ -15,12 +27,23 @@ msgstr "<0>Գների լուծարման սցենարը ներկայացնում
 msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
 msgstr "<0>Այս պարտքի դիրքը միացված է Emode-ին (Արդյունավետ ռեժիմ), սակայն DeFi Simulator-ը դեռ չի աջակցում Emode-ի միացված դիրքերը: Մենք հուսով ենք, որ շուտով կավելացնենք Emode-ի աջակցությունը:</0> <1/>"
 
+#: components/AddressCard.tsx:347
+msgid "<0>Total Borrowed refers to the sum of all assets borrowed, expressed in the selected fiat currency.</0>"
+msgstr "<0>Ընդամենը փոխառվածը վերաբերում է փոխառված բոլոր ակտիվների հանրագումարին` արտահայտված ընտրված ֆիատ արժույթով:</0>"
+
 #: components/AppBar.tsx:125
 msgid "Aave Markets"
 msgstr "Aave Markets"
 
+#: components/AddAssetDialog.tsx:152
+msgid "Add Borrow Asset"
+msgstr "Ավելացնել փոխառության ակտիվ"
+
+#: components/AddAssetDialog.tsx:153
+msgid "Add Reserve Asset"
+msgstr "Ավելացնել պահուստային ակտիվ"
+
 #: components/AddAssetDialog.tsx:82
-#: components/AddAssetDialog.tsx:151
 msgid "Add {0} Asset"
 msgstr "Ավելացնել {0} ակտիվ"
 
@@ -32,16 +55,16 @@ msgstr "Ավելացրեք, հեռացրեք և փոփոխեք ակտիվներ�
 msgid "Address copied to clipboard!"
 msgstr "Հասցեն պատճենվեց clipboard-ում:"
 
-#: components/AddressCard.tsx:507
+#: components/AddressCard.tsx:552
 msgid "Apply"
 msgstr "Դիմել"
 
 #: components/AddressCard.tsx:191
-#: components/AddressCard.tsx:354
+#: components/AddressCard.tsx:368
 msgid "Available to Borrow:"
 msgstr "Հասանելի է փոխառելու համար."
 
-#: components/AddressCard.tsx:666
+#: components/AddressCard.tsx:711
 msgid "Borrowed Assets"
 msgstr "Փոխառված ակտիվներ"
 
@@ -83,7 +106,7 @@ msgid "Markets for"
 msgstr "Շուկաներ համար"
 
 #: components/AddressCard.tsx:201
-#: components/AddressCard.tsx:378
+#: components/AddressCard.tsx:414
 msgid "Net Asset Value:"
 msgstr "Զուտ ակտիվների արժեքը."
 
@@ -91,7 +114,7 @@ msgstr "Զուտ ակտիվների արժեքը."
 msgid "No Aave positions found."
 msgstr "Aave դիրքեր չեն գտնվել:"
 
-#: components/AddressCard.tsx:411
+#: components/AddressCard.tsx:456
 msgid "No Liquidation Scenario Available"
 msgstr "Լուծարման սցենար չկա"
 
@@ -112,7 +135,7 @@ msgstr "ԿԱՄ"
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "Տեղադրեք հասցե Aave պարտքի դիրքով վերևի դաշտում՝ պատկերացնելու համար, թե ինչպես են փոխառության/պահուստավորման ակտիվների փոփոխություններն ազդում դիրքի առողջական գործոնի և փոխառության հզորության վրա:"
 
-#: components/AddressCard.tsx:428
+#: components/AddressCard.tsx:473
 msgid "Price Liquidation Scenario"
 msgstr "Գների լուծարման սցենար"
 
@@ -120,20 +143,20 @@ msgstr "Գների լուծարման սցենար"
 msgid "Questions or comments? Please <0>join the Discord!</0>"
 msgstr "Հարցեր, թե մեկնաբանություններ. Խնդրում ենք <0>միանալ Discord-ին:</0>"
 
-#: components/AddressCard.tsx:817
+#: components/AddressCard.tsx:862
 msgid "Remove {assetSymbol}"
 msgstr "Հեռացնել {assetSymbol}"
 
 #: components/AddressCard.tsx:196
-#: components/AddressCard.tsx:366
+#: components/AddressCard.tsx:391
 msgid "Reserve Asset Value:"
 msgstr "Պահուստային ակտիվների արժեքը."
 
-#: components/AddressCard.tsx:587
+#: components/AddressCard.tsx:632
 msgid "Reserve Assets"
 msgstr "Պահուստային ակտիվներ"
 
-#: components/AddressCard.tsx:540
+#: components/AddressCard.tsx:585
 msgid "Reset all simulated values"
 msgstr "Վերականգնել բոլոր նմանակված արժեքները"
 
@@ -143,7 +166,7 @@ msgstr "Վերականգնել բոլոր նմանակված արժեքները"
 msgid "Reset search query"
 msgstr "Վերականգնել որոնման հարցումը"
 
-#: components/AddressCard.tsx:975
+#: components/AddressCard.tsx:1020
 msgid "Reset to Original Value ({0})"
 msgstr "Վերակայել սկզբնական արժեքին ({0})"
 
@@ -168,16 +191,16 @@ msgid "Select Language"
 msgstr "Ընտրել լեզուն"
 
 #: components/AddAssetDialog.tsx:118
-msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
-msgstr "Ստորև ընտրեք {0} ({1}) {2}՝ այն որպես {3} ակտիվ CDP-ին ավելացնելու համար:"
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the debt position."
+msgstr "Ստորև ընտրեք {0} ({1}) {2}՝ որպես {3} ակտիվ պարտքի դիրքում ավելացնելու համար:"
 
 #: components/SelectLanguageDialog.tsx:104
 msgid "Select {0} ({1}) {2} below to translate the app."
 msgstr "Հավելվածը թարգմանելու համար ներքևում ընտրեք {0} ({1}) {2}:"
 
 #: components/SelectCurrencyDialog.tsx:110
-msgid "Select {0} ({1}) {2} below."
-msgstr "Ստորև ընտրեք {0} ({1}) {2}:"
+msgid "Select {0} ({1}) {2} below. After selecting a currency the app will display asset prices, liquidation scenario, and position summary in the selected currency."
+msgstr "Ստորև ընտրեք {0} ({1}) {2}: Արժույթն ընտրելուց հետո հավելվածը կցուցադրի ակտիվների գները, լուծարման սցենարը և դիրքի ամփոփումը ընտրված արժույթով:"
 
 #: components/AddressCard.tsx:242
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -187,7 +210,7 @@ msgstr "Ինչ-որ բան տեղի ունեցավ, մենք այս պահին �
 msgid "There are no assets that match the search query. Reset the search query to select an asset."
 msgstr "Որոնման հարցումին համապատասխանող օբյեկտներ չկան: Վերակայեք որոնման հարցումը՝ օբյեկտ ընտրելու համար:"
 
-#: components/AddressCard.tsx:673
+#: components/AddressCard.tsx:718
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "{0} շուկայում <0/>-ի համար փոխառված ակտիվներ չկան: Ընտրեք «Ավելացնել փոխառության ակտիվներ»՝ այս հասցեի համար փոխառված ակտիվները նմանակելու համար:"
 
@@ -199,7 +222,7 @@ msgstr "Որոնման հարցմանը համապատասխանող արժու�
 msgid "There are no languages available that match the search query. Reset the search query to select a language."
 msgstr "Որոնման հարցումին համապատասխանող լեզու չկա: Լեզու ընտրելու համար վերակայեք որոնման հարցումը:"
 
-#: components/AddressCard.tsx:594
+#: components/AddressCard.tsx:639
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "{0} շուկայում <0/>-ի համար պահուստային ակտիվներ չկան: Ընտրեք «Ավելացնել պահուստային ակտիվներ»՝ այս հասցեի պահուստային ակտիվները մոդելավորելու համար:"
 
@@ -208,7 +231,7 @@ msgid "This Aave debt simulator is experimental. Don't make financial decisions 
 msgstr "Այս Aave պարտքի սիմուլյատորը փորձնական է: Ֆինանսական որոշումներ մի կայացրեք՝ հիմնվելով միայն այս հավելվածի արդյունքների վրա:"
 
 #: components/AddressCard.tsx:186
-#: components/AddressCard.tsx:342
+#: components/AddressCard.tsx:344
 msgid "Total Borrowed:"
 msgstr "Ընդամենը փոխառված."
 
@@ -218,7 +241,7 @@ msgstr "Ընդամենը փոխառված."
 msgid "Use Random Address"
 msgstr "Օգտագործեք պատահական հասցե"
 
-#: components/AddressCard.tsx:886
+#: components/AddressCard.tsx:931
 msgid "Use {assetSymbol} as collateral"
 msgstr "Օգտագործեք {assetSymbol} որպես գրավ"
 
@@ -250,11 +273,11 @@ msgstr "{ 0, plural, one {շուկա} other {շուկաներ} }"
 msgid "{0, plural, one {position} other {positions}}"
 msgstr "{ 0, plural, one {դիրք} other {պաշտոններ} }"
 
-#: components/AddressCard.tsx:1068
+#: components/AddressCard.tsx:1113
 msgid "{assetSymbol} Price ({selectedCurrency})"
 msgstr "{assetSymbol} Գինը ({selectedCurrency})"
 
-#: components/AddressCard.tsx:946
+#: components/AddressCard.tsx:991
 msgid "{assetSymbol} Quantity"
 msgstr "{assetSymbol} Քանակ"
 

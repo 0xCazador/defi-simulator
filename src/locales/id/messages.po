@@ -1,13 +1,25 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-17 16:29-0700\n"
+"POT-Creation-Date: 2023-07-18 12:09-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: id\n"
 
-#: components/AddressCard.tsx:451
+#: components/AddressCard.tsx:371
+msgid "<0>Available to Borrow represents the total borrowing power available to the position, expressed in the selected fiat currency.</0>"
+msgstr "<0>Available to Borrow menunjukkan total daya pinjaman yang tersedia untuk posisi tersebut, dinyatakan dalam mata uang fiat yang dipilih.</0>"
+
+#: components/AddressCard.tsx:417
+msgid "<0>Net Asset Value represents the sum of the reserve assets subtracted by the sum of the borrowed assets, expressed in the selected fiat currency.</0>"
+msgstr "<0>Nilai Aset Bersih merupakan jumlah aset cadangan dikurangi dengan jumlah aset yang dipinjam, dinyatakan dalam mata uang fiat yang dipilih.</0>"
+
+#: components/AddressCard.tsx:394
+msgid "<0>Reserve Asset Value represents the sum of the reserve assets, expressed in the selected fiat currency.</0>"
+msgstr "<0>Nilai Aset Cadangan merupakan jumlah aset cadangan, yang dinyatakan dalam mata uang fiat yang dipilih.</0>"
+
+#: components/AddressCard.tsx:496
 msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
 msgstr "<0>Skenario likuidasi harga mewakili perkiraan harga aset cadangan tertinggi yang dapat menyebabkan posisi tersebut dilikuidasi. Aset yang stabil tidak termasuk dalam skenario ini dan diasumsikan mempertahankan nilai sekarang. Banyak faktor yang mempengaruhi likuidasi. Skenario ini hanyalah salah satu contoh sebagai referensi. Banyak skenario berbeda yang dapat memicu likuidasi,<1>baca lebih lanjut di sini</1>.</0>"
 
@@ -15,12 +27,23 @@ msgstr "<0>Skenario likuidasi harga mewakili perkiraan harga aset cadangan terti
 msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
 msgstr "<0>Posisi utang ini telah mengaktifkan Emode (Mode Efisiensi), tetapi DeFi Simulator belum mendukung posisi yang mengaktifkan Emode. Kami berharap dapat segera menambahkan dukungan untuk Emode.</0><1/>"
 
+#: components/AddressCard.tsx:347
+msgid "<0>Total Borrowed refers to the sum of all assets borrowed, expressed in the selected fiat currency.</0>"
+msgstr "<0>Total Pinjaman mengacu pada jumlah semua aset yang dipinjam, dinyatakan dalam mata uang fiat yang dipilih.</0>"
+
 #: components/AppBar.tsx:125
 msgid "Aave Markets"
 msgstr "Pasar Aave"
 
+#: components/AddAssetDialog.tsx:152
+msgid "Add Borrow Asset"
+msgstr "Tambah Aset Pinjaman"
+
+#: components/AddAssetDialog.tsx:153
+msgid "Add Reserve Asset"
+msgstr "Tambahkan Aset Cadangan"
+
 #: components/AddAssetDialog.tsx:82
-#: components/AddAssetDialog.tsx:151
 msgid "Add {0} Asset"
 msgstr "Tambahkan Aset {0}"
 
@@ -32,16 +55,16 @@ msgstr "Tambahkan, hapus, dan ubah harga dan jumlah aset di bawah ini untuk memv
 msgid "Address copied to clipboard!"
 msgstr "Alamat disalin ke papan klip!"
 
-#: components/AddressCard.tsx:507
+#: components/AddressCard.tsx:552
 msgid "Apply"
 msgstr "Menerapkan"
 
 #: components/AddressCard.tsx:191
-#: components/AddressCard.tsx:354
+#: components/AddressCard.tsx:368
 msgid "Available to Borrow:"
 msgstr "Tersedia untuk Dipinjam:"
 
-#: components/AddressCard.tsx:666
+#: components/AddressCard.tsx:711
 msgid "Borrowed Assets"
 msgstr "Aset yang Dipinjam"
 
@@ -83,7 +106,7 @@ msgid "Markets for"
 msgstr "Pasar untuk"
 
 #: components/AddressCard.tsx:201
-#: components/AddressCard.tsx:378
+#: components/AddressCard.tsx:414
 msgid "Net Asset Value:"
 msgstr "Nilai Aktiva Bersih:"
 
@@ -91,7 +114,7 @@ msgstr "Nilai Aktiva Bersih:"
 msgid "No Aave positions found."
 msgstr "Tidak ditemukan posisi Aave."
 
-#: components/AddressCard.tsx:411
+#: components/AddressCard.tsx:456
 msgid "No Liquidation Scenario Available"
 msgstr "Tidak Ada Skenario Likuidasi yang Tersedia"
 
@@ -112,7 +135,7 @@ msgstr "ATAU"
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "Tempelkan alamat dengan posisi utang Aave pada kotak di atas untuk memvisualisasikan bagaimana perubahan pada aset yang dipinjam/dicadangkan mempengaruhi faktor kesehatan posisi dan daya pinjam."
 
-#: components/AddressCard.tsx:428
+#: components/AddressCard.tsx:473
 msgid "Price Liquidation Scenario"
 msgstr "Skenario Likuidasi Harga"
 
@@ -120,20 +143,20 @@ msgstr "Skenario Likuidasi Harga"
 msgid "Questions or comments? Please <0>join the Discord!</0>"
 msgstr "Pertanyaan atau komentar? Silakan <0>bergabung di Discord!</0>"
 
-#: components/AddressCard.tsx:817
+#: components/AddressCard.tsx:862
 msgid "Remove {assetSymbol}"
 msgstr "Hapus {assetSymbol}"
 
 #: components/AddressCard.tsx:196
-#: components/AddressCard.tsx:366
+#: components/AddressCard.tsx:391
 msgid "Reserve Asset Value:"
 msgstr "Nilai Aset Cadangan:"
 
-#: components/AddressCard.tsx:587
+#: components/AddressCard.tsx:632
 msgid "Reserve Assets"
 msgstr "Aset Cadangan"
 
-#: components/AddressCard.tsx:540
+#: components/AddressCard.tsx:585
 msgid "Reset all simulated values"
 msgstr "Mengatur ulang semua nilai simulasi"
 
@@ -143,7 +166,7 @@ msgstr "Mengatur ulang semua nilai simulasi"
 msgid "Reset search query"
 msgstr "Mengatur ulang permintaan pencarian"
 
-#: components/AddressCard.tsx:975
+#: components/AddressCard.tsx:1020
 msgid "Reset to Original Value ({0})"
 msgstr "Atur Ulang ke Nilai Asli ({0})"
 
@@ -168,16 +191,16 @@ msgid "Select Language"
 msgstr "Pilih Bahasa"
 
 #: components/AddAssetDialog.tsx:118
-msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
-msgstr "Pilih {0} ({1}) {2} di bawah ini untuk menambahkannya sebagai aset {3} ke dalam CDP."
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the debt position."
+msgstr "Pilih {0} ({1}) {2} di bawah ini untuk menambahkannya sebagai aset {3} ke posisi utang."
 
 #: components/SelectLanguageDialog.tsx:104
 msgid "Select {0} ({1}) {2} below to translate the app."
 msgstr "Pilih {0} ({1}) {2} di bawah ini untuk menerjemahkan aplikasi."
 
 #: components/SelectCurrencyDialog.tsx:110
-msgid "Select {0} ({1}) {2} below."
-msgstr "Pilih {0} ({1}) {2} di bawah ini."
+msgid "Select {0} ({1}) {2} below. After selecting a currency the app will display asset prices, liquidation scenario, and position summary in the selected currency."
+msgstr "Pilih {0} ({1}) {2} di bawah ini. Setelah memilih mata uang, aplikasi akan menampilkan harga aset, skenario likuidasi, dan ringkasan posisi dalam mata uang yang dipilih."
 
 #: components/AddressCard.tsx:242
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -187,7 +210,7 @@ msgstr "Terjadi kesalahan, kami tidak dapat memuat data posisi utang alamat seka
 msgid "There are no assets that match the search query. Reset the search query to select an asset."
 msgstr "Tidak ada aset yang cocok dengan kueri pencarian. Atur ulang kueri pencarian untuk memilih aset."
 
-#: components/AddressCard.tsx:673
+#: components/AddressCard.tsx:718
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "Tidak ada aset yang dipinjam untuk <0/>di pasar {0}. Pilih \"Tambah Aset Pinjaman\" untuk mensimulasikan aset pinjaman untuk alamat ini."
 
@@ -199,7 +222,7 @@ msgstr "Tidak ada mata uang yang tersedia yang cocok dengan permintaan pencarian
 msgid "There are no languages available that match the search query. Reset the search query to select a language."
 msgstr "Tidak ada bahasa yang tersedia yang cocok dengan permintaan pencarian. Atur ulang permintaan pencarian untuk memilih bahasa."
 
-#: components/AddressCard.tsx:594
+#: components/AddressCard.tsx:639
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "Tidak ada aset cadangan untuk <0/>di pasar {0}. Pilih \"Tambahkan Aset Cadangan\" untuk mensimulasikan aset cadangan untuk alamat ini."
 
@@ -208,7 +231,7 @@ msgid "This Aave debt simulator is experimental. Don't make financial decisions 
 msgstr "Simulator utang Aave ini bersifat eksperimental. Jangan membuat keputusan keuangan hanya berdasarkan hasil dari aplikasi ini."
 
 #: components/AddressCard.tsx:186
-#: components/AddressCard.tsx:342
+#: components/AddressCard.tsx:344
 msgid "Total Borrowed:"
 msgstr "Total Pinjaman:"
 
@@ -218,7 +241,7 @@ msgstr "Total Pinjaman:"
 msgid "Use Random Address"
 msgstr "Gunakan Alamat Acak"
 
-#: components/AddressCard.tsx:886
+#: components/AddressCard.tsx:931
 msgid "Use {assetSymbol} as collateral"
 msgstr "Gunakan {assetSymbol} sebagai jaminan"
 
@@ -250,11 +273,11 @@ msgstr "{ 0, plural, other {pasar} }"
 msgid "{0, plural, one {position} other {positions}}"
 msgstr "{ 0, plural, other {posisi} }"
 
-#: components/AddressCard.tsx:1068
+#: components/AddressCard.tsx:1113
 msgid "{assetSymbol} Price ({selectedCurrency})"
 msgstr "harga {assetSymbol} ({selectedCurrency})"
 
-#: components/AddressCard.tsx:946
+#: components/AddressCard.tsx:991
 msgid "{assetSymbol} Quantity"
 msgstr "{assetSymbol} Kuantitas"
 

@@ -1,13 +1,25 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-17 16:29-0700\n"
+"POT-Creation-Date: 2023-07-18 12:09-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: th\n"
 
-#: components/AddressCard.tsx:451
+#: components/AddressCard.tsx:371
+msgid "<0>Available to Borrow represents the total borrowing power available to the position, expressed in the selected fiat currency.</0>"
+msgstr "<0>สามารถยืมได้ แสดงถึงอำนาจการยืมทั้งหมดที่มีสำหรับโพสิชัน โดยแสดงเป็นสกุลเงินคำสั่งที่เลือก</0>"
+
+#: components/AddressCard.tsx:417
+msgid "<0>Net Asset Value represents the sum of the reserve assets subtracted by the sum of the borrowed assets, expressed in the selected fiat currency.</0>"
+msgstr "<0>มูลค่าสินทรัพย์สุทธิแสดงถึงผลรวมของสินทรัพย์สำรองลบด้วยผลรวมของสินทรัพย์ที่ยืม โดยแสดงเป็นสกุลเงินคำสั่งที่เลือก</0>"
+
+#: components/AddressCard.tsx:394
+msgid "<0>Reserve Asset Value represents the sum of the reserve assets, expressed in the selected fiat currency.</0>"
+msgstr "<0>มูลค่าสินทรัพย์สำรองแสดงถึงผลรวมของสินทรัพย์สำรอง ซึ่งแสดงในสกุลเงินคำสั่งที่เลือก</0>"
+
+#: components/AddressCard.tsx:496
 msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
 msgstr "<0>สถานการณ์จำลองการชำระราคาแสดงถึงราคาสินทรัพย์สำรองสูงสุดโดยประมาณที่อาจทำให้สถานะถูกชำระบัญชี สถานการณ์นี้ไม่รวมสินทรัพย์ที่มั่นคงและจะถือว่ารักษามูลค่าปัจจุบัน มีหลายปัจจัยที่ส่งผลต่อการชำระบัญชี สถานการณ์นี้เป็นเพียงตัวอย่างหนึ่งสำหรับการอ้างอิงเท่านั้น สถานการณ์ต่างๆ มากมายสามารถทำให้เกิดการชำระบัญชีได้<1>อ่านเพิ่มเติมที่นี่</1> .</0>"
 
@@ -15,12 +27,23 @@ msgstr "<0>สถานการณ์จำลองการชำระรา
 msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
 msgstr "<0>สถานะหนี้นี้เปิดใช้งาน Emode (โหมดประสิทธิภาพ) แต่ DeFi Simulator ยังไม่รองรับสถานะที่เปิดใช้งาน Emode เราหวังว่าจะเพิ่มการรองรับสำหรับ Emode ในเร็วๆ นี้</0> <1/>"
 
+#: components/AddressCard.tsx:347
+msgid "<0>Total Borrowed refers to the sum of all assets borrowed, expressed in the selected fiat currency.</0>"
+msgstr "<0>ยอดยืมหมายถึงผลรวมของสินทรัพย์ทั้งหมดที่ยืม ซึ่งแสดงในสกุลเงินคำสั่งที่เลือก</0>"
+
 #: components/AppBar.tsx:125
 msgid "Aave Markets"
 msgstr "ตลาดอาฟ"
 
+#: components/AddAssetDialog.tsx:152
+msgid "Add Borrow Asset"
+msgstr "เพิ่มสินทรัพย์การยืม"
+
+#: components/AddAssetDialog.tsx:153
+msgid "Add Reserve Asset"
+msgstr "เพิ่มสินทรัพย์สำรอง"
+
 #: components/AddAssetDialog.tsx:82
-#: components/AddAssetDialog.tsx:151
 msgid "Add {0} Asset"
 msgstr "เพิ่มเนื้อหา {0}"
 
@@ -32,16 +55,16 @@ msgstr "เพิ่ม ลบ และแก้ไขราคาสินท�
 msgid "Address copied to clipboard!"
 msgstr "คัดลอกที่อยู่ไปยังคลิปบอร์ดแล้ว!"
 
-#: components/AddressCard.tsx:507
+#: components/AddressCard.tsx:552
 msgid "Apply"
 msgstr "นำมาใช้"
 
 #: components/AddressCard.tsx:191
-#: components/AddressCard.tsx:354
+#: components/AddressCard.tsx:368
 msgid "Available to Borrow:"
 msgstr "มีให้ยืม:"
 
-#: components/AddressCard.tsx:666
+#: components/AddressCard.tsx:711
 msgid "Borrowed Assets"
 msgstr "สินทรัพย์ที่ยืม"
 
@@ -83,7 +106,7 @@ msgid "Markets for"
 msgstr "ตลาดสำหรับ"
 
 #: components/AddressCard.tsx:201
-#: components/AddressCard.tsx:378
+#: components/AddressCard.tsx:414
 msgid "Net Asset Value:"
 msgstr "มูลค่าทรัพย์สินสุทธิ:"
 
@@ -91,7 +114,7 @@ msgstr "มูลค่าทรัพย์สินสุทธิ:"
 msgid "No Aave positions found."
 msgstr "ไม่พบตำแหน่ง Aave"
 
-#: components/AddressCard.tsx:411
+#: components/AddressCard.tsx:456
 msgid "No Liquidation Scenario Available"
 msgstr "ไม่มีสถานการณ์การชำระบัญชี"
 
@@ -112,7 +135,7 @@ msgstr "หรือ"
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "วางที่อยู่ที่มีตำแหน่งหนี้ Aave ในช่องด้านบนเพื่อให้เห็นภาพว่าการเปลี่ยนแปลงในการยืม/จองสินทรัพย์ส่งผลต่อปัจจัยด้านสุขภาพของตำแหน่งและอำนาจการยืมอย่างไร"
 
-#: components/AddressCard.tsx:428
+#: components/AddressCard.tsx:473
 msgid "Price Liquidation Scenario"
 msgstr "สถานการณ์การชำระราคา"
 
@@ -120,20 +143,20 @@ msgstr "สถานการณ์การชำระราคา"
 msgid "Questions or comments? Please <0>join the Discord!</0>"
 msgstr "คำถามหรือความคิดเห็น? โปรด <0>เข้าร่วม Discord!</0>"
 
-#: components/AddressCard.tsx:817
+#: components/AddressCard.tsx:862
 msgid "Remove {assetSymbol}"
 msgstr "ลบ {assetSymbol}"
 
 #: components/AddressCard.tsx:196
-#: components/AddressCard.tsx:366
+#: components/AddressCard.tsx:391
 msgid "Reserve Asset Value:"
 msgstr "มูลค่าสินทรัพย์สำรอง:"
 
-#: components/AddressCard.tsx:587
+#: components/AddressCard.tsx:632
 msgid "Reserve Assets"
 msgstr "สินทรัพย์สำรอง"
 
-#: components/AddressCard.tsx:540
+#: components/AddressCard.tsx:585
 msgid "Reset all simulated values"
 msgstr "รีเซ็ตค่าจำลองทั้งหมด"
 
@@ -143,7 +166,7 @@ msgstr "รีเซ็ตค่าจำลองทั้งหมด"
 msgid "Reset search query"
 msgstr "รีเซ็ตคำค้นหา"
 
-#: components/AddressCard.tsx:975
+#: components/AddressCard.tsx:1020
 msgid "Reset to Original Value ({0})"
 msgstr "รีเซ็ตเป็นค่าดั้งเดิม ({0})"
 
@@ -168,16 +191,16 @@ msgid "Select Language"
 msgstr "เลือกภาษา"
 
 #: components/AddAssetDialog.tsx:118
-msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
-msgstr "เลือก {0} ({1}) {2} ด้านล่างเพื่อเพิ่มเป็นเนื้อหา {3} ใน CDP"
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the debt position."
+msgstr "เลือก {0} ({1}) {2} ด้านล่างเพื่อเพิ่มเป็นสินทรัพย์ {3} ในสถานะหนี้"
 
 #: components/SelectLanguageDialog.tsx:104
 msgid "Select {0} ({1}) {2} below to translate the app."
 msgstr "เลือก {0} ({1}) {2} ด้านล่างเพื่อแปลแอป"
 
 #: components/SelectCurrencyDialog.tsx:110
-msgid "Select {0} ({1}) {2} below."
-msgstr "เลือก {0} ({1}) {2} ด้านล่าง"
+msgid "Select {0} ({1}) {2} below. After selecting a currency the app will display asset prices, liquidation scenario, and position summary in the selected currency."
+msgstr "เลือก {0} ({1}) {2} ด้านล่าง หลังจากเลือกสกุลเงินแล้ว แอพจะแสดงราคาสินทรัพย์ สถานการณ์การชำระบัญชี และสรุปสถานะในสกุลเงินที่เลือก"
 
 #: components/AddressCard.tsx:242
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -187,7 +210,7 @@ msgstr "มีบางอย่างเกิดขึ้น เราไม�
 msgid "There are no assets that match the search query. Reset the search query to select an asset."
 msgstr "ไม่มีเนื้อหาที่ตรงกับคำค้นหา รีเซ็ตคำค้นหาเพื่อเลือกเนื้อหา"
 
-#: components/AddressCard.tsx:673
+#: components/AddressCard.tsx:718
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "ไม่มีสินทรัพย์ที่ยืมมาสำหรับ <0/>ในตลาด {0} เลือก \"เพิ่มสินทรัพย์ที่ยืม\" เพื่อจำลองสินทรัพย์ที่ยืมสำหรับที่อยู่นี้"
 
@@ -199,7 +222,7 @@ msgstr "ไม่มีสกุลเงินที่ตรงกับคำ
 msgid "There are no languages available that match the search query. Reset the search query to select a language."
 msgstr "ไม่มีภาษาที่ตรงกับคำค้นหา รีเซ็ตคำค้นหาเพื่อเลือกภาษา"
 
-#: components/AddressCard.tsx:594
+#: components/AddressCard.tsx:639
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "ไม่มีสินทรัพย์สำรองสำหรับ <0/>ในตลาด {0} เลือก \"เพิ่มสินทรัพย์สำรอง\" เพื่อจำลองสินทรัพย์สำรองสำหรับที่อยู่นี้"
 
@@ -208,7 +231,7 @@ msgid "This Aave debt simulator is experimental. Don't make financial decisions 
 msgstr "เครื่องจำลองหนี้ Aave นี้เป็นการทดลอง อย่าตัดสินใจทางการเงินโดยพิจารณาจากผลลัพธ์ของแอปนี้เพียงอย่างเดียว"
 
 #: components/AddressCard.tsx:186
-#: components/AddressCard.tsx:342
+#: components/AddressCard.tsx:344
 msgid "Total Borrowed:"
 msgstr "ยืมทั้งหมด:"
 
@@ -218,7 +241,7 @@ msgstr "ยืมทั้งหมด:"
 msgid "Use Random Address"
 msgstr "ใช้ที่อยู่สุ่ม"
 
-#: components/AddressCard.tsx:886
+#: components/AddressCard.tsx:931
 msgid "Use {assetSymbol} as collateral"
 msgstr "ใช้ {assetSymbol} เป็นหลักประกัน"
 
@@ -250,11 +273,11 @@ msgstr "{ 0, plural, other {ตลาด} }"
 msgid "{0, plural, one {position} other {positions}}"
 msgstr "{ 0, plural, other {ตำแหน่ง} }"
 
-#: components/AddressCard.tsx:1068
+#: components/AddressCard.tsx:1113
 msgid "{assetSymbol} Price ({selectedCurrency})"
 msgstr "{assetSymbol} ราคา ({selectedCurrency})"
 
-#: components/AddressCard.tsx:946
+#: components/AddressCard.tsx:991
 msgid "{assetSymbol} Quantity"
 msgstr "{assetSymbol} ปริมาณ"
 

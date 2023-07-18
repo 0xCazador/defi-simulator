@@ -1,13 +1,25 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-17 16:29-0700\n"
+"POT-Creation-Date: 2023-07-18 12:09-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: sv\n"
 
-#: components/AddressCard.tsx:451
+#: components/AddressCard.tsx:371
+msgid "<0>Available to Borrow represents the total borrowing power available to the position, expressed in the selected fiat currency.</0>"
+msgstr "<0>Tillgängligt att låna representerar positionens totala tillgängliga lånemöjlighet, uttryckt i den valda fiatvalutan.</0>"
+
+#: components/AddressCard.tsx:417
+msgid "<0>Net Asset Value represents the sum of the reserve assets subtracted by the sum of the borrowed assets, expressed in the selected fiat currency.</0>"
+msgstr "<0>Nettotillgångsvärdet motsvarar summan av reservtillgångarna subtraherad med summan av de lånade tillgångarna, uttryckt i den valda fiatvalutan.</0>"
+
+#: components/AddressCard.tsx:394
+msgid "<0>Reserve Asset Value represents the sum of the reserve assets, expressed in the selected fiat currency.</0>"
+msgstr "<0>Värdet på reservtillgångarna representerar summan av reservtillgångarna, uttryckt i den valda fiatvalutan.</0>"
+
+#: components/AddressCard.tsx:496
 msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
 msgstr "<0>Prislikvidationsscenariot representerar de ungefärliga högsta reservtillgångspriserna som skulle kunna leda till att positionen likvideras. Stabila tillgångar ingår inte i detta scenario och antas bibehålla sitt nuvärde. Många faktorer påverkar likvidation. Detta scenario är endast ett exempel som referens. Många olika scenarier kan utlösa likvidation<1>.Läs mer här</1>.</0>"
 
@@ -15,12 +27,23 @@ msgstr "<0>Prislikvidationsscenariot representerar de ungefärliga högsta reser
 msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
 msgstr "<0>Denna skuldposition har Emode (Efficieny Mode) aktiverat, men DeFi Simulator stöder ännu inte positioner med Emode aktiverat. Vi hoppas kunna lägga till stöd för Emode inom kort.</0><1/>"
 
+#: components/AddressCard.tsx:347
+msgid "<0>Total Borrowed refers to the sum of all assets borrowed, expressed in the selected fiat currency.</0>"
+msgstr "<0>Totalt lånat avser summan av alla tillgångar som lånats, uttryckt i den valda fiatvalutan.</0>"
+
 #: components/AppBar.tsx:125
 msgid "Aave Markets"
 msgstr "Aave marknader"
 
+#: components/AddAssetDialog.tsx:152
+msgid "Add Borrow Asset"
+msgstr "Lägg till Låna tillgång"
+
+#: components/AddAssetDialog.tsx:153
+msgid "Add Reserve Asset"
+msgstr "Lägg till reservtillgång"
+
 #: components/AddAssetDialog.tsx:82
-#: components/AddAssetDialog.tsx:151
 msgid "Add {0} Asset"
 msgstr "Lägg till {0} Tillgång"
 
@@ -32,16 +55,16 @@ msgstr "Lägg till, ta bort och modifiera tillgångspriser och kvantiteter nedan
 msgid "Address copied to clipboard!"
 msgstr "Adress kopierad till urklipp!"
 
-#: components/AddressCard.tsx:507
+#: components/AddressCard.tsx:552
 msgid "Apply"
 msgstr "Tillämpa"
 
 #: components/AddressCard.tsx:191
-#: components/AddressCard.tsx:354
+#: components/AddressCard.tsx:368
 msgid "Available to Borrow:"
 msgstr "Tillgängligt att låna:"
 
-#: components/AddressCard.tsx:666
+#: components/AddressCard.tsx:711
 msgid "Borrowed Assets"
 msgstr "Upplånade tillgångar"
 
@@ -83,7 +106,7 @@ msgid "Markets for"
 msgstr "Marknader för"
 
 #: components/AddressCard.tsx:201
-#: components/AddressCard.tsx:378
+#: components/AddressCard.tsx:414
 msgid "Net Asset Value:"
 msgstr "Nettotillgångsvärde:"
 
@@ -91,7 +114,7 @@ msgstr "Nettotillgångsvärde:"
 msgid "No Aave positions found."
 msgstr "Inga Aave-positioner hittades."
 
-#: components/AddressCard.tsx:411
+#: components/AddressCard.tsx:456
 msgid "No Liquidation Scenario Available"
 msgstr "Inget likvidationsscenario tillgängligt"
 
@@ -112,7 +135,7 @@ msgstr "OR"
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "Klistra in en adress med en Aave-skuldposition i rutan ovan för att visualisera hur förändringar i upplåning/reservering av tillgångar påverkar positionens hälsofaktor och belåningsgrad."
 
-#: components/AddressCard.tsx:428
+#: components/AddressCard.tsx:473
 msgid "Price Liquidation Scenario"
 msgstr "Scenario för likvidation av priser"
 
@@ -120,20 +143,20 @@ msgstr "Scenario för likvidation av priser"
 msgid "Questions or comments? Please <0>join the Discord!</0>"
 msgstr "Frågor eller kommentarer? Gå gärna med i <0>Discord!</0>"
 
-#: components/AddressCard.tsx:817
+#: components/AddressCard.tsx:862
 msgid "Remove {assetSymbol}"
 msgstr "Ta bort {assetSymbol}"
 
 #: components/AddressCard.tsx:196
-#: components/AddressCard.tsx:366
+#: components/AddressCard.tsx:391
 msgid "Reserve Asset Value:"
 msgstr "Reservtillgångarnas värde:"
 
-#: components/AddressCard.tsx:587
+#: components/AddressCard.tsx:632
 msgid "Reserve Assets"
 msgstr "Reservtillgångar"
 
-#: components/AddressCard.tsx:540
+#: components/AddressCard.tsx:585
 msgid "Reset all simulated values"
 msgstr "Återställ alla simulerade värden"
 
@@ -143,7 +166,7 @@ msgstr "Återställ alla simulerade värden"
 msgid "Reset search query"
 msgstr "Återställ sökfråga"
 
-#: components/AddressCard.tsx:975
+#: components/AddressCard.tsx:1020
 msgid "Reset to Original Value ({0})"
 msgstr "Återställ till originalvärde ({0})"
 
@@ -168,16 +191,16 @@ msgid "Select Language"
 msgstr "Välj språk"
 
 #: components/AddAssetDialog.tsx:118
-msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
-msgstr "Välj {0} ({1}) {2} nedan för att lägga till den som en {3} tillgång till CDP."
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the debt position."
+msgstr "Välj {0} ({1}) {2} nedan för att lägga till den som en {3} tillgång till skuldpositionen."
 
 #: components/SelectLanguageDialog.tsx:104
 msgid "Select {0} ({1}) {2} below to translate the app."
 msgstr "Välj {0} ({1}) {2} nedan för att översätta appen."
 
 #: components/SelectCurrencyDialog.tsx:110
-msgid "Select {0} ({1}) {2} below."
-msgstr "Välj {0} ({1}) {2} nedan."
+msgid "Select {0} ({1}) {2} below. After selecting a currency the app will display asset prices, liquidation scenario, and position summary in the selected currency."
+msgstr "Välj {0} ({1}) {2} nedan. När du har valt en valuta kommer appen att visa tillgångspriser, likvidationsscenario och positionsöversikt i den valda valutan."
 
 #: components/AddressCard.tsx:242
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -187,7 +210,7 @@ msgstr "Något hände, vi kan inte ladda adressen skuldposition data just nu. F�
 msgid "There are no assets that match the search query. Reset the search query to select an asset."
 msgstr "Det finns inga tillgångar som matchar sökfrågan. Återställ sökfrågan för att välja en tillgång."
 
-#: components/AddressCard.tsx:673
+#: components/AddressCard.tsx:718
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "Det finns inga lånade tillgångar för <0/>på {0}-marknaden. Välj \"Lägg till lånad tillgång\" för att simulera lånade tillgångar för denna adress."
 
@@ -199,7 +222,7 @@ msgstr "Det finns inga tillgängliga valutor som matchar sökfrågan. Återstäl
 msgid "There are no languages available that match the search query. Reset the search query to select a language."
 msgstr "Det finns inga tillgängliga språk som matchar sökfrågan. Återställ sökfrågan för att välja ett språk."
 
-#: components/AddressCard.tsx:594
+#: components/AddressCard.tsx:639
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "Det finns inga reservtillgångar för <0/>på {0}-marknaden. Välj \"Lägg till reservtillgång\" för att simulera reservtillgångar för denna adress."
 
@@ -208,7 +231,7 @@ msgid "This Aave debt simulator is experimental. Don't make financial decisions 
 msgstr "Denna Aave-skuldsimulator är experimentell. Fatta inte ekonomiska beslut enbart baserat på resultaten från denna app."
 
 #: components/AddressCard.tsx:186
-#: components/AddressCard.tsx:342
+#: components/AddressCard.tsx:344
 msgid "Total Borrowed:"
 msgstr "Totalt lånat belopp:"
 
@@ -218,7 +241,7 @@ msgstr "Totalt lånat belopp:"
 msgid "Use Random Address"
 msgstr "Använd slumpmässig adress"
 
-#: components/AddressCard.tsx:886
+#: components/AddressCard.tsx:931
 msgid "Use {assetSymbol} as collateral"
 msgstr "Använd {assetSymbol} som säkerhet"
 
@@ -250,11 +273,11 @@ msgstr "{ 0, plural, one {marknad} other {marknader} }"
 msgid "{0, plural, one {position} other {positions}}"
 msgstr "{ 0, plural, one {position} other {positioner} }"
 
-#: components/AddressCard.tsx:1068
+#: components/AddressCard.tsx:1113
 msgid "{assetSymbol} Price ({selectedCurrency})"
 msgstr "{assetSymbol} Pris ({selectedCurrency})"
 
-#: components/AddressCard.tsx:946
+#: components/AddressCard.tsx:991
 msgid "{assetSymbol} Quantity"
 msgstr "{assetSymbol} Kvantitet"
 

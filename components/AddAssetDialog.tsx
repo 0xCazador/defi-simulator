@@ -117,7 +117,7 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
           <Text mb={8}>
             {t`Select ${assets.length === 1 ? 'the' : 'one of the'} (${assets.length}) ${assets.length === 1 ? 'asset' : 'assets'
               } below to add it as a ${assetType === 'BORROW' ? 'borrow' : 'reserve'
-              } asset to the CDP.`}
+              } asset to the debt position.`}
           </Text>
         )}
 
@@ -148,7 +148,9 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
 
       <Group position="center">
         <Button variant="outline" onClick={() => setOpen(true)}>
-          {t`Add ${assetType === 'BORROW' ? 'Borrow' : 'Reserve'} Asset`}
+          {assetType === "BORROW"
+            ? t`Add Borrow Asset`
+            : t`Add Reserve Asset`}
         </Button>
       </Group>
     </>

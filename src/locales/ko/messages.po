@@ -1,13 +1,25 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-17 16:29-0700\n"
+"POT-Creation-Date: 2023-07-18 12:09-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: ko\n"
 
-#: components/AddressCard.tsx:451
+#: components/AddressCard.tsx:371
+msgid "<0>Available to Borrow represents the total borrowing power available to the position, expressed in the selected fiat currency.</0>"
+msgstr "<0>차입 가능 금액은 포지션에서 사용할 수 있는 총 차입금을 나타내며 선택한 법정 통화로 표시됩니다.</0>"
+
+#: components/AddressCard.tsx:417
+msgid "<0>Net Asset Value represents the sum of the reserve assets subtracted by the sum of the borrowed assets, expressed in the selected fiat currency.</0>"
+msgstr "<0>순자산가치는 준비 자산의 합계에서 차입 자산의 합계를 뺀 값으로, 선택한 법정 통화로 표시됩니다.</0>"
+
+#: components/AddressCard.tsx:394
+msgid "<0>Reserve Asset Value represents the sum of the reserve assets, expressed in the selected fiat currency.</0>"
+msgstr "<0>준비금 자산 가치는 선택한 법정 통화로 표시된 준비금 자산의 합계를 나타냅니다.</0>"
+
+#: components/AddressCard.tsx:496
 msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
 msgstr "<0>가격 청산 시나리오는 포지션이 청산될 수 있는 대략적인 최고 보유자산 가격을 나타냅니다. 안정적 자산은 이 시나리오에 포함되지 않으며 현재 가치를 유지하는 것으로 가정합니다. 청산에는 여러 요인이 영향을 미칩니다. 이 시나리오는 참고를 위한 하나의 예시일 뿐입니다. 다양한 시나리오에서 청산이 발생할 수 있습니다.<1>자세한 내용은 여기를</1> 참조하세요.</0>"
 
@@ -15,12 +27,23 @@ msgstr "<0>가격 청산 시나리오는 포지션이 청산될 수 있는 대�
 msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
 msgstr "<0>이 부채 포지션은 이모드(효율성 모드)가 활성화되어 있지만, DeFi 시뮬레이터는 아직 이모드가 활성화된 포지션을 지원하지 않습니다. 곧 이모드에 대한 지원을 추가할 예정입니다.</0><1/>"
 
+#: components/AddressCard.tsx:347
+msgid "<0>Total Borrowed refers to the sum of all assets borrowed, expressed in the selected fiat currency.</0>"
+msgstr "<0>총 차입금은 차입한 모든 자산의 합계를 의미하며, 선택한 법정 통화로 표시됩니다.</0>"
+
 #: components/AppBar.tsx:125
 msgid "Aave Markets"
 msgstr "에이브 마켓"
 
+#: components/AddAssetDialog.tsx:152
+msgid "Add Borrow Asset"
+msgstr "차용 자산 추가"
+
+#: components/AddAssetDialog.tsx:153
+msgid "Add Reserve Asset"
+msgstr "예비 자산 추가"
+
 #: components/AddAssetDialog.tsx:82
-#: components/AddAssetDialog.tsx:151
 msgid "Add {0} Asset"
 msgstr "{0}] 에셋 추가"
 
@@ -32,16 +55,16 @@ msgstr "아래에서 자산 가격과 수량을 추가, 제거, 수정하여 건
 msgid "Address copied to clipboard!"
 msgstr "주소가 클립보드에 복사되었습니다!"
 
-#: components/AddressCard.tsx:507
+#: components/AddressCard.tsx:552
 msgid "Apply"
 msgstr "신청하기"
 
 #: components/AddressCard.tsx:191
-#: components/AddressCard.tsx:354
+#: components/AddressCard.tsx:368
 msgid "Available to Borrow:"
 msgstr "빌릴 수 있습니다:"
 
-#: components/AddressCard.tsx:666
+#: components/AddressCard.tsx:711
 msgid "Borrowed Assets"
 msgstr "차입 자산"
 
@@ -83,7 +106,7 @@ msgid "Markets for"
 msgstr "대상 시장"
 
 #: components/AddressCard.tsx:201
-#: components/AddressCard.tsx:378
+#: components/AddressCard.tsx:414
 msgid "Net Asset Value:"
 msgstr "순자산 가치:"
 
@@ -91,7 +114,7 @@ msgstr "순자산 가치:"
 msgid "No Aave positions found."
 msgstr "Aave 포지션을 찾을 수 없습니다."
 
-#: components/AddressCard.tsx:411
+#: components/AddressCard.tsx:456
 msgid "No Liquidation Scenario Available"
 msgstr "사용 가능한 청산 시나리오 없음"
 
@@ -112,7 +135,7 @@ msgstr "또는"
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "위 상자에 Aave 부채 포지션이 있는 주소를 붙여넣으면 자산 차입/예비자산 변경이 포지션의 건전성 비율과 차입력에 어떤 영향을 미치는지 시각화할 수 있습니다."
 
-#: components/AddressCard.tsx:428
+#: components/AddressCard.tsx:473
 msgid "Price Liquidation Scenario"
 msgstr "가격 청산 시나리오"
 
@@ -120,20 +143,20 @@ msgstr "가격 청산 시나리오"
 msgid "Questions or comments? Please <0>join the Discord!</0>"
 msgstr "질문이나 의견이 있으신가요? <0>디스코드에 참여해</0> 주세요 <0>!</0>"
 
-#: components/AddressCard.tsx:817
+#: components/AddressCard.tsx:862
 msgid "Remove {assetSymbol}"
 msgstr "{assetSymbol}] 제거"
 
 #: components/AddressCard.tsx:196
-#: components/AddressCard.tsx:366
+#: components/AddressCard.tsx:391
 msgid "Reserve Asset Value:"
 msgstr "자산 가치 예약:"
 
-#: components/AddressCard.tsx:587
+#: components/AddressCard.tsx:632
 msgid "Reserve Assets"
 msgstr "자산 예약"
 
-#: components/AddressCard.tsx:540
+#: components/AddressCard.tsx:585
 msgid "Reset all simulated values"
 msgstr "모든 시뮬레이션 값 초기화"
 
@@ -143,7 +166,7 @@ msgstr "모든 시뮬레이션 값 초기화"
 msgid "Reset search query"
 msgstr "검색어 재설정"
 
-#: components/AddressCard.tsx:975
+#: components/AddressCard.tsx:1020
 msgid "Reset to Original Value ({0})"
 msgstr "원래 값으로 재설정({0})"
 
@@ -168,16 +191,16 @@ msgid "Select Language"
 msgstr "언어 선택"
 
 #: components/AddAssetDialog.tsx:118
-msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
-msgstr "아래에서 {0} ({1}) {2}를 선택하여 CDP에 {3} 자산으로 추가합니다."
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the debt position."
+msgstr "아래에서 {0} ({1}) {2}를 선택하여 부채 포지션에 {3} 자산으로 추가합니다."
 
 #: components/SelectLanguageDialog.tsx:104
 msgid "Select {0} ({1}) {2} below to translate the app."
 msgstr "아래에서 {0} ({1}) {2}를 선택하여 앱을 번역합니다."
 
 #: components/SelectCurrencyDialog.tsx:110
-msgid "Select {0} ({1}) {2} below."
-msgstr "아래에서 {0} ({1}) {2}를 선택합니다."
+msgid "Select {0} ({1}) {2} below. After selecting a currency the app will display asset prices, liquidation scenario, and position summary in the selected currency."
+msgstr "아래에서 {0} ({1}) {2}를 선택합니다. 통화를 선택하면 앱에 선택한 통화로 자산 가격, 청산 시나리오, 포지션 요약이 표시됩니다."
 
 #: components/AddressCard.tsx:242
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -187,7 +210,7 @@ msgstr "문제가 발생하여 지금 주소 부채 포지션 데이터를 로�
 msgid "There are no assets that match the search query. Reset the search query to select an asset."
 msgstr "검색어와 일치하는 자산이 없습니다. 검색 쿼리를 재설정하여 에셋을 선택합니다."
 
-#: components/AddressCard.tsx:673
+#: components/AddressCard.tsx:718
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "{0}] 마켓에 <0/>에 대한 차입 자산이 없습니다. \"자산 차입 추가\"를 선택하여 이 주소에 대한 차입 자산을 시뮬레이션합니다."
 
@@ -199,7 +222,7 @@ msgstr "검색어와 일치하는 통화가 없습니다. 검색어를 재설정
 msgid "There are no languages available that match the search query. Reset the search query to select a language."
 msgstr "검색어와 일치하는 언어가 없습니다. 검색 쿼리를 재설정하여 언어를 선택하세요."
 
-#: components/AddressCard.tsx:594
+#: components/AddressCard.tsx:639
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "{0}] 마켓에 <0/>에 대한 예약 자산이 없습니다. \"예탁 자산 추가\"를 선택하면 이 주소에 대한 예탁 자산을 시뮬레이션할 수 있습니다."
 
@@ -208,7 +231,7 @@ msgid "This Aave debt simulator is experimental. Don't make financial decisions 
 msgstr "이 Aave 부채 시뮬레이터는 실험적입니다. 이 앱의 결과에만 의존하여 재무 결정을 내리지 마세요."
 
 #: components/AddressCard.tsx:186
-#: components/AddressCard.tsx:342
+#: components/AddressCard.tsx:344
 msgid "Total Borrowed:"
 msgstr "총 차입금:"
 
@@ -218,7 +241,7 @@ msgstr "총 차입금:"
 msgid "Use Random Address"
 msgstr "임의 주소 사용"
 
-#: components/AddressCard.tsx:886
+#: components/AddressCard.tsx:931
 msgid "Use {assetSymbol} as collateral"
 msgstr "{assetSymbol}]을 담보로 사용하세요"
 
@@ -250,11 +273,11 @@ msgstr "{ 0, plural, other {시장} }"
 msgid "{0, plural, one {position} other {positions}}"
 msgstr "{ 0, plural, other {위치} }"
 
-#: components/AddressCard.tsx:1068
+#: components/AddressCard.tsx:1113
 msgid "{assetSymbol} Price ({selectedCurrency})"
 msgstr "{assetSymbol} 가격 ({selectedCurrency})"
 
-#: components/AddressCard.tsx:946
+#: components/AddressCard.tsx:991
 msgid "{assetSymbol} Quantity"
 msgstr "{assetSymbol} 수량"
 

@@ -1,13 +1,25 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-17 16:29-0700\n"
+"POT-Creation-Date: 2023-07-18 12:09-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: hu\n"
 
-#: components/AddressCard.tsx:451
+#: components/AddressCard.tsx:371
+msgid "<0>Available to Borrow represents the total borrowing power available to the position, expressed in the selected fiat currency.</0>"
+msgstr "<0>A hitelfelvételre rendelkezésre álló összeg a pozíció rendelkezésére álló teljes hitelfelvételi képességet jelenti, a kiválasztott fiat pénznemben kifejezve.</0>"
+
+#: components/AddressCard.tsx:417
+msgid "<0>Net Asset Value represents the sum of the reserve assets subtracted by the sum of the borrowed assets, expressed in the selected fiat currency.</0>"
+msgstr "<0>A nettó eszközérték a tartalékeszközök összegét jelenti, levonva a kölcsönvett eszközök összegével, a kiválasztott fiat pénznemben kifejezve.</0>"
+
+#: components/AddressCard.tsx:394
+msgid "<0>Reserve Asset Value represents the sum of the reserve assets, expressed in the selected fiat currency.</0>"
+msgstr "<0>A tartalékeszközök értéke a tartalékeszközök összegét jelenti, a kiválasztott fiat pénznemben kifejezve.</0>"
+
+#: components/AddressCard.tsx:496
 msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
 msgstr "<0>Az árlikvidálási forgatókönyv azt a megközelítőleg legmagasabb tartalékeszköz-árat jelenti, amely a pozíciót likvidálás alá vonhatja. A stabil eszközök nem szerepelnek ebben a forgatókönyvben, és feltételezhetően megőrzik jelenértéküket. A felszámolást számos tényező befolyásolja. Ez a forgatókönyv csak egy példa. Számos különböző forgatókönyv válthatja ki a likvidálást<1>.Bővebben itt olvashat</1>.</0>"
 
@@ -15,12 +27,23 @@ msgstr "<0>Az árlikvidálási forgatókönyv azt a megközelítőleg legmagasab
 msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
 msgstr "<0>Ebben az adósságpozícióban engedélyezve van az Emode (Efficieny Mode), de a DeFi Simulator még nem támogatja az Emode engedélyezésű pozíciókat. Reméljük, hogy hamarosan hozzáadjuk az Emode támogatását.</0><1/>"
 
+#: components/AddressCard.tsx:347
+msgid "<0>Total Borrowed refers to the sum of all assets borrowed, expressed in the selected fiat currency.</0>"
+msgstr "<0>A Kölcsönvett összeg a kölcsönvett eszközök összegére utal, a kiválasztott fiat pénznemben kifejezve.</0>"
+
 #: components/AppBar.tsx:125
 msgid "Aave Markets"
 msgstr "Aave piacok"
 
+#: components/AddAssetDialog.tsx:152
+msgid "Add Borrow Asset"
+msgstr "Add kölcsön eszköz"
+
+#: components/AddAssetDialog.tsx:153
+msgid "Add Reserve Asset"
+msgstr "Tartalékeszköz hozzáadása"
+
 #: components/AddAssetDialog.tsx:82
-#: components/AddAssetDialog.tsx:151
 msgid "Add {0} Asset"
 msgstr "Hozzáadás {0} eszköz"
 
@@ -32,16 +55,16 @@ msgstr "Adjon hozzá, távolítson el és módosítsa el az alábbi eszközárak
 msgid "Address copied to clipboard!"
 msgstr "Cím másolva a vágólapra!"
 
-#: components/AddressCard.tsx:507
+#: components/AddressCard.tsx:552
 msgid "Apply"
 msgstr "Alkalmazza a"
 
 #: components/AddressCard.tsx:191
-#: components/AddressCard.tsx:354
+#: components/AddressCard.tsx:368
 msgid "Available to Borrow:"
 msgstr "Kölcsönözhető:"
 
-#: components/AddressCard.tsx:666
+#: components/AddressCard.tsx:711
 msgid "Borrowed Assets"
 msgstr "Kölcsönvett eszközök"
 
@@ -83,7 +106,7 @@ msgid "Markets for"
 msgstr "Piacok a"
 
 #: components/AddressCard.tsx:201
-#: components/AddressCard.tsx:378
+#: components/AddressCard.tsx:414
 msgid "Net Asset Value:"
 msgstr "Nettó eszközérték:"
 
@@ -91,7 +114,7 @@ msgstr "Nettó eszközérték:"
 msgid "No Aave positions found."
 msgstr "Nem találtunk Aave pozíciókat."
 
-#: components/AddressCard.tsx:411
+#: components/AddressCard.tsx:456
 msgid "No Liquidation Scenario Available"
 msgstr "Nincs likvidálási forgatókönyv"
 
@@ -112,7 +135,7 @@ msgstr "VAGY"
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "Illesszen be egy címet egy Aave adósságpozícióval a fenti mezőbe, hogy láthatóvá tegye, hogyan befolyásolják a hitelfelvételi/tartalékolási eszközök változásai a pozíció egészségi tényezőjét és hitelfelvételi képességét."
 
-#: components/AddressCard.tsx:428
+#: components/AddressCard.tsx:473
 msgid "Price Liquidation Scenario"
 msgstr "Árfelszámolási forgatókönyv"
 
@@ -120,20 +143,20 @@ msgstr "Árfelszámolási forgatókönyv"
 msgid "Questions or comments? Please <0>join the Discord!</0>"
 msgstr "Kérdések vagy észrevételek? Kérjük, <0>csatlakozz a Discordhoz!</0>"
 
-#: components/AddressCard.tsx:817
+#: components/AddressCard.tsx:862
 msgid "Remove {assetSymbol}"
 msgstr "Távolítsa el az {assetSymbol}"
 
 #: components/AddressCard.tsx:196
-#: components/AddressCard.tsx:366
+#: components/AddressCard.tsx:391
 msgid "Reserve Asset Value:"
 msgstr "Tartalék eszközérték:"
 
-#: components/AddressCard.tsx:587
+#: components/AddressCard.tsx:632
 msgid "Reserve Assets"
 msgstr "Tartalékeszközök"
 
-#: components/AddressCard.tsx:540
+#: components/AddressCard.tsx:585
 msgid "Reset all simulated values"
 msgstr "Az összes szimulált érték visszaállítása"
 
@@ -143,7 +166,7 @@ msgstr "Az összes szimulált érték visszaállítása"
 msgid "Reset search query"
 msgstr "Keresési lekérdezés visszaállítása"
 
-#: components/AddressCard.tsx:975
+#: components/AddressCard.tsx:1020
 msgid "Reset to Original Value ({0})"
 msgstr "Eredeti értékre visszaállítás ({0})"
 
@@ -168,16 +191,16 @@ msgid "Select Language"
 msgstr "Nyelv kiválasztása"
 
 #: components/AddAssetDialog.tsx:118
-msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
-msgstr "Válassza ki az {0} ({1}) {2} lehetőséget az alábbiakban, hogy {3} eszközként hozzáadja a CDP-hez."
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the debt position."
+msgstr "Válassza ki az {0} ({1}) {2} alábbiakat, hogy {3} eszközként hozzáadja az adósságpozícióhoz."
 
 #: components/SelectLanguageDialog.tsx:104
 msgid "Select {0} ({1}) {2} below to translate the app."
 msgstr "Az alkalmazás fordításához válassza az alábbi {0} ({1}) {2} lehetőséget."
 
 #: components/SelectCurrencyDialog.tsx:110
-msgid "Select {0} ({1}) {2} below."
-msgstr "Válassza ki az {0} ({1}) {2} alábbiakat."
+msgid "Select {0} ({1}) {2} below. After selecting a currency the app will display asset prices, liquidation scenario, and position summary in the selected currency."
+msgstr "Válassza ki az {0} ({1}) {2} alábbiakat. A pénznem kiválasztása után az alkalmazás megjeleníti az eszközárakat, a likvidálási forgatókönyvet és a pozícióösszefoglalót a kiválasztott pénznemben."
 
 #: components/AddressCard.tsx:242
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -187,7 +210,7 @@ msgstr "Valami történt, most nem tudjuk betölteni a címadósság pozíció a
 msgid "There are no assets that match the search query. Reset the search query to select an asset."
 msgstr "Nincs olyan eszköz, amely megfelelne a keresési lekérdezésnek. Állítsa vissza a keresési lekérdezést egy eszköz kiválasztásához."
 
-#: components/AddressCard.tsx:673
+#: components/AddressCard.tsx:718
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "Az {0} piacon a <0/>oldalon nincsenek kölcsönvett eszközök. Válassza a \"Kölcsönzött eszköz hozzáadása\" lehetőséget, hogy szimulálja a kölcsönzött eszközöket erre a címre."
 
@@ -199,7 +222,7 @@ msgstr "A keresési lekérdezésnek megfelelő pénznemek nem állnak rendelkez�
 msgid "There are no languages available that match the search query. Reset the search query to select a language."
 msgstr "A keresési lekérdezésnek megfelelő nyelvek nem állnak rendelkezésre. Állítsa vissza a keresési lekérdezést egy nyelv kiválasztásához."
 
-#: components/AddressCard.tsx:594
+#: components/AddressCard.tsx:639
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "Az {0} piacon a <0/>oldalon nincsenek tartalékeszközök. Válassza a \"Tartalékeszköz hozzáadása\" lehetőséget a cím tartalékeszközének szimulálásához."
 
@@ -208,7 +231,7 @@ msgid "This Aave debt simulator is experimental. Don't make financial decisions 
 msgstr "Ez az Aave adósságszimulátor kísérleti jellegű. Ne hozzon pénzügyi döntéseket kizárólag ennek az alkalmazásnak az eredményei alapján."
 
 #: components/AddressCard.tsx:186
-#: components/AddressCard.tsx:342
+#: components/AddressCard.tsx:344
 msgid "Total Borrowed:"
 msgstr "Kölcsönvett összeg:"
 
@@ -218,7 +241,7 @@ msgstr "Kölcsönvett összeg:"
 msgid "Use Random Address"
 msgstr "Véletlen cím használata"
 
-#: components/AddressCard.tsx:886
+#: components/AddressCard.tsx:931
 msgid "Use {assetSymbol} as collateral"
 msgstr "Használja {assetSymbol} fedezetként"
 
@@ -250,11 +273,11 @@ msgstr "{ 0, plural, one {piac} other {piacok} }"
 msgid "{0, plural, one {position} other {positions}}"
 msgstr "{ 0, plural, one {pozíció} other {pozíciók} }"
 
-#: components/AddressCard.tsx:1068
+#: components/AddressCard.tsx:1113
 msgid "{assetSymbol} Price ({selectedCurrency})"
 msgstr "{assetSymbol} Ár ({selectedCurrency})"
 
-#: components/AddressCard.tsx:946
+#: components/AddressCard.tsx:991
 msgid "{assetSymbol} Quantity"
 msgstr "{assetSymbol} Mennyiség"
 

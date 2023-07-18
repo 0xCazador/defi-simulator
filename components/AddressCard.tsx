@@ -29,7 +29,7 @@ import {
   Overlay,
   Alert,
 } from '@mantine/core';
-import { FaAsterisk, FaInfinity, FaInfoCircle } from 'react-icons/fa';
+import { FaAsterisk, FaInfinity, FaInfo, FaInfoCircle } from 'react-icons/fa';
 import { RxReset } from 'react-icons/rx';
 import { IoLogoUsd } from 'react-icons/io';
 import { ImmutableArray, ImmutableObject } from '@hookstate/core';
@@ -339,7 +339,19 @@ const HealthFactorSummary = ({ data, summaryRef }: HealthFactorSummaryProps) => 
         <Grid>
           <Grid.Col lg={3} xs={6} style={{ textAlign: 'center', minHeight: '78px' }}>
             <Paper>
-              <Text fz="xs"><Trans>{'Total Borrowed: '}</Trans></Text>
+              <Popover width="250px" withArrow shadow="md">
+                <Popover.Target>
+                  <Text fz="xs" underline style={{ textDecorationStyle: "dotted", cursor: "pointer" }}><Trans>{'Total Borrowed: '}</Trans></Text>
+                </Popover.Target>
+                <Popover.Dropdown>
+                  <Trans>
+                    <Text size="sm">
+                      Total Borrowed refers to the sum of all assets borrowed, expressed in the selected fiat currency.
+                    </Text>
+                  </Trans>
+                </Popover.Dropdown>
+              </Popover>
+
               {totalBorrowsDiffers && (
                 <Text fz="xs" c="dimmed">
                   <LocalizedFiatDisplay valueUSD={originalTotalBorrowsUSD} /> ➔
@@ -351,7 +363,18 @@ const HealthFactorSummary = ({ data, summaryRef }: HealthFactorSummaryProps) => 
             </Paper>
           </Grid.Col>
           <Grid.Col lg={3} xs={6} style={{ textAlign: 'center' }}>
-            <Text fz="xs"><Trans>{'Available to Borrow: '}</Trans></Text>
+            <Popover width="250px" withArrow shadow="md">
+              <Popover.Target>
+                <Text fz="xs" underline style={{ textDecorationStyle: "dotted", cursor: "pointer" }}><Trans>{'Available to Borrow: '}</Trans></Text>
+              </Popover.Target>
+              <Popover.Dropdown>
+                <Trans>
+                  <Text size="sm">
+                    Available to Borrow represents the total borrowing power available to the position, expressed in the selected fiat currency.
+                  </Text>
+                </Trans>
+              </Popover.Dropdown>
+            </Popover>
             {availableBorrowsDiffers && (
               <Text fz="xs" c="dimmed">
                 <LocalizedFiatDisplay valueUSD={originalAvailableBorrowsUSD} /> ➔
@@ -363,7 +386,18 @@ const HealthFactorSummary = ({ data, summaryRef }: HealthFactorSummaryProps) => 
           </Grid.Col>
           <Grid.Col lg={3} xs={6} style={{ textAlign: 'center', minHeight: '78px' }}>
             <Paper>
-              <Text fz="xs"><Trans>{'Reserve Asset Value: '}</Trans></Text>
+              <Popover width="250px" withArrow shadow="md">
+                <Popover.Target>
+                  <Text fz="xs" underline style={{ textDecorationStyle: "dotted", cursor: "pointer" }}><Trans>{'Reserve Asset Value: '}</Trans></Text>
+                </Popover.Target>
+                <Popover.Dropdown>
+                  <Trans>
+                    <Text size="sm">
+                      Reserve Asset Value represents the sum of the reserve assets, expressed in the selected fiat currency.
+                    </Text>
+                  </Trans>
+                </Popover.Dropdown>
+              </Popover>
               {totalCollateralDiffers && (
                 <Text fz="xs" c="dimmed">
                   <LocalizedFiatDisplay valueUSD={originalTotalCollateralUSD} /> ➔
@@ -375,7 +409,18 @@ const HealthFactorSummary = ({ data, summaryRef }: HealthFactorSummaryProps) => 
             </Paper>
           </Grid.Col>
           <Grid.Col lg={3} xs={6} style={{ textAlign: 'center' }}>
-            <Text fz="xs"><Trans>{'Net Asset Value: '}</Trans></Text>
+            <Popover width="250px" withArrow shadow="md">
+              <Popover.Target>
+                <Text fz="xs" underline style={{ textDecorationStyle: "dotted", cursor: "pointer" }}><Trans>{'Net Asset Value: '}</Trans></Text>
+              </Popover.Target>
+              <Popover.Dropdown>
+                <Trans>
+                  <Text size="sm">
+                    Net Asset Value represents the sum of the reserve assets subtracted by the sum of the borrowed assets, expressed in the selected fiat currency.
+                  </Text>
+                </Trans>
+              </Popover.Dropdown>
+            </Popover>
             {netValueUSDDiffers && (
               <Text fz="xs" c="dimmed">
                 <LocalizedFiatDisplay valueUSD={originalNetValueUSD} /> ➔

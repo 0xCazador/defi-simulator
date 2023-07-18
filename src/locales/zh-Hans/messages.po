@@ -1,13 +1,25 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-17 16:29-0700\n"
+"POT-Creation-Date: 2023-07-18 12:09-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: zh-Hans\n"
 
-#: components/AddressCard.tsx:451
+#: components/AddressCard.tsx:371
+msgid "<0>Available to Borrow represents the total borrowing power available to the position, expressed in the selected fiat currency.</0>"
+msgstr "<0>可用借款表示头寸可用的总借款能力，以选定的法定货币表示。</0>"
+
+#: components/AddressCard.tsx:417
+msgid "<0>Net Asset Value represents the sum of the reserve assets subtracted by the sum of the borrowed assets, expressed in the selected fiat currency.</0>"
+msgstr "<0>资产净值表示储备资产总和减去借贷资产总和，以选定的法定货币表示。</0>"
+
+#: components/AddressCard.tsx:394
+msgid "<0>Reserve Asset Value represents the sum of the reserve assets, expressed in the selected fiat currency.</0>"
+msgstr "<0>储备资产价值代表储备资产的总和，以选定的法定货币表示。</0>"
+
+#: components/AddressCard.tsx:496
 msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
 msgstr "<0>价格清算情景代表可能使头寸清算的大约最高储备资产价格。稳定的资产不包括在这一情景中，并被假设为保持其现值。许多因素影响清算。这种情况只是一个例子，供参考。许多不同的情况可以触发清算<1>。请在此阅读更多信息</1>。</0>"
 
@@ -15,12 +27,23 @@ msgstr "<0>价格清算情景代表可能使头寸清算的大约最高储备资
 msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
 msgstr "<0>这个债务岗位启用了Emode（高效模式），但DeFi模拟器还不支持启用Emode的岗位。我们希望能很快增加对Emode的支持。</0><1/>"
 
+#: components/AddressCard.tsx:347
+msgid "<0>Total Borrowed refers to the sum of all assets borrowed, expressed in the selected fiat currency.</0>"
+msgstr "<0>借款总额是指以所选法定货币表示的所有借款资产的总和。</0>"
+
 #: components/AppBar.tsx:125
 msgid "Aave Markets"
 msgstr "Aave市场"
 
+#: components/AddAssetDialog.tsx:152
+msgid "Add Borrow Asset"
+msgstr "增加借款资产"
+
+#: components/AddAssetDialog.tsx:153
+msgid "Add Reserve Asset"
+msgstr "增加储备资产"
+
 #: components/AddAssetDialog.tsx:82
-#: components/AddAssetDialog.tsx:151
 msgid "Add {0} Asset"
 msgstr "添加{0}资产"
 
@@ -32,16 +55,16 @@ msgstr "在下面添加、删除和修改资产价格和数量，以可视化健
 msgid "Address copied to clipboard!"
 msgstr "地址复制到剪贴板上了!"
 
-#: components/AddressCard.tsx:507
+#: components/AddressCard.tsx:552
 msgid "Apply"
 msgstr "申请"
 
 #: components/AddressCard.tsx:191
-#: components/AddressCard.tsx:354
+#: components/AddressCard.tsx:368
 msgid "Available to Borrow:"
 msgstr "可供借阅："
 
-#: components/AddressCard.tsx:666
+#: components/AddressCard.tsx:711
 msgid "Borrowed Assets"
 msgstr "借用的资产"
 
@@ -83,7 +106,7 @@ msgid "Markets for"
 msgstr "市场"
 
 #: components/AddressCard.tsx:201
-#: components/AddressCard.tsx:378
+#: components/AddressCard.tsx:414
 msgid "Net Asset Value:"
 msgstr "净资产价值："
 
@@ -91,7 +114,7 @@ msgstr "净资产价值："
 msgid "No Aave positions found."
 msgstr "没有发现Aave职位。"
 
-#: components/AddressCard.tsx:411
+#: components/AddressCard.tsx:456
 msgid "No Liquidation Scenario Available"
 msgstr "没有清算方案可言"
 
@@ -112,7 +135,7 @@ msgstr "或"
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "将一个带有Aave债务头寸的地址粘贴在上面的方框中，以直观地看到借款/储备资产的变化如何影响该头寸的健康系数和借款能力。"
 
-#: components/AddressCard.tsx:428
+#: components/AddressCard.tsx:473
 msgid "Price Liquidation Scenario"
 msgstr "价格清算情况"
 
@@ -120,20 +143,20 @@ msgstr "价格清算情况"
 msgid "Questions or comments? Please <0>join the Discord!</0>"
 msgstr "有问题或意见？请<0>加入讨论组!</0>"
 
-#: components/AddressCard.tsx:817
+#: components/AddressCard.tsx:862
 msgid "Remove {assetSymbol}"
 msgstr "删除{assetSymbol}"
 
 #: components/AddressCard.tsx:196
-#: components/AddressCard.tsx:366
+#: components/AddressCard.tsx:391
 msgid "Reserve Asset Value:"
 msgstr "储备资产价值："
 
-#: components/AddressCard.tsx:587
+#: components/AddressCard.tsx:632
 msgid "Reserve Assets"
 msgstr "储备资产"
 
-#: components/AddressCard.tsx:540
+#: components/AddressCard.tsx:585
 msgid "Reset all simulated values"
 msgstr "重置所有模拟值"
 
@@ -143,7 +166,7 @@ msgstr "重置所有模拟值"
 msgid "Reset search query"
 msgstr "重置搜索查询"
 
-#: components/AddressCard.tsx:975
+#: components/AddressCard.tsx:1020
 msgid "Reset to Original Value ({0})"
 msgstr "重置为原始值（{0}）。"
 
@@ -168,16 +191,16 @@ msgid "Select Language"
 msgstr "选择语言"
 
 #: components/AddAssetDialog.tsx:118
-msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
-msgstr "选择下面的{0}（{1}）{2}，将其作为{3}资产加入CDP。"
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the debt position."
+msgstr "选择下面的{0}（{1}）{2}将其作为{3}资产添加到债务头寸中。"
 
 #: components/SelectLanguageDialog.tsx:104
 msgid "Select {0} ({1}) {2} below to translate the app."
 msgstr "选择下面的{0}（{1}）{2}来翻译应用程序。"
 
 #: components/SelectCurrencyDialog.tsx:110
-msgid "Select {0} ({1}) {2} below."
-msgstr "选择下面的{0}（{1}）{2}。"
+msgid "Select {0} ({1}) {2} below. After selecting a currency the app will display asset prices, liquidation scenario, and position summary in the selected currency."
+msgstr "在下面选择{0}（{1}）{2}。选择货币后，应用程序将显示所选货币的资产价格、清算方案和头寸摘要。"
 
 #: components/AddressCard.tsx:242
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -187,7 +210,7 @@ msgstr "发生了一些事情，我们现在无法加载地址债务位置数据
 msgid "There are no assets that match the search query. Reset the search query to select an asset."
 msgstr "没有符合搜索条件的资产。重置搜索查询，选择一项资产。"
 
-#: components/AddressCard.tsx:673
+#: components/AddressCard.tsx:718
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "<0/>，在{0}市场上没有借贷资产。选择 \"添加借款资产 \"来模拟这个地址的借款资产。"
 
@@ -199,7 +222,7 @@ msgstr "没有符合搜索条件的货币。重置搜索查询以选择货币。
 msgid "There are no languages available that match the search query. Reset the search query to select a language."
 msgstr "没有符合搜索条件的语言。重置搜索查询以选择语言。"
 
-#: components/AddressCard.tsx:594
+#: components/AddressCard.tsx:639
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "在{0}市场上没有<0/>的储备资产。选择 \"添加储备资产 \"来模拟这个地址的储备资产。"
 
@@ -208,7 +231,7 @@ msgid "This Aave debt simulator is experimental. Don't make financial decisions 
 msgstr "本Aave债务模拟器为实验性软件。请勿仅根据本应用程序的结果做出财务决定。"
 
 #: components/AddressCard.tsx:186
-#: components/AddressCard.tsx:342
+#: components/AddressCard.tsx:344
 msgid "Total Borrowed:"
 msgstr "借款总额："
 
@@ -218,7 +241,7 @@ msgstr "借款总额："
 msgid "Use Random Address"
 msgstr "使用随机地址"
 
-#: components/AddressCard.tsx:886
+#: components/AddressCard.tsx:931
 msgid "Use {assetSymbol} as collateral"
 msgstr "用{assetSymbol}作为抵押品"
 
@@ -250,11 +273,11 @@ msgstr "{ 0, plural, other {市场} }"
 msgid "{0, plural, one {position} other {positions}}"
 msgstr "{ 0, plural, other {职位} }"
 
-#: components/AddressCard.tsx:1068
+#: components/AddressCard.tsx:1113
 msgid "{assetSymbol} Price ({selectedCurrency})"
 msgstr "{assetSymbol} 价格（{selectedCurrency}）。"
 
-#: components/AddressCard.tsx:946
+#: components/AddressCard.tsx:991
 msgid "{assetSymbol} Quantity"
 msgstr "{assetSymbol} 数量"
 

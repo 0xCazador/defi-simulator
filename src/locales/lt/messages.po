@@ -1,13 +1,25 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-17 16:29-0700\n"
+"POT-Creation-Date: 2023-07-18 12:09-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: lt\n"
 
-#: components/AddressCard.tsx:451
+#: components/AddressCard.tsx:371
+msgid "<0>Available to Borrow represents the total borrowing power available to the position, expressed in the selected fiat currency.</0>"
+msgstr "<0>Available to Borrow rodo visą pozicijai prieinamą skolinimosi galią, išreikštą pasirinkta fiat valiuta.</0>"
+
+#: components/AddressCard.tsx:417
+msgid "<0>Net Asset Value represents the sum of the reserve assets subtracted by the sum of the borrowed assets, expressed in the selected fiat currency.</0>"
+msgstr "<0>Grynoji turto vertė - tai atsargų suma, iš kurios atimta pasiskolinto turto suma, išreikšta pasirinkta fiat valiuta.</0>"
+
+#: components/AddressCard.tsx:394
+msgid "<0>Reserve Asset Value represents the sum of the reserve assets, expressed in the selected fiat currency.</0>"
+msgstr "<0>Rezervinio turto vertė - tai rezervinio turto suma, išreikšta pasirinkta fiat valiuta.</0>"
+
+#: components/AddressCard.tsx:496
 msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
 msgstr "<0>Kainų likvidavimo scenarijus parodo apytiksliai didžiausias rezervinio turto kainas, dėl kurių pozicija gali būti likviduota. Stabilus turtas į šį scenarijų neįtrauktas ir daroma prielaida, kad jo dabartinė vertė išliks nepakitusi. Likvidavimui įtakos turi daug veiksnių. Šis scenarijus yra tik vienas iš pavyzdžių, kuriuo galima remtis. Likvidavimą gali sukelti daug skirtingų scenarijų<1>. daugiau skaitykite čia</1>.</0>"
 
@@ -15,12 +27,23 @@ msgstr "<0>Kainų likvidavimo scenarijus parodo apytiksliai didžiausias rezervi
 msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
 msgstr "<0>Šioje skolos pozicijoje įjungtas \"Emode\" (efektyvumo režimas), tačiau \"DeFi Simulator\" dar nepalaiko pozicijų su įjungtu \"Emode\" režimu. Tikimės netrukus pridėti Emode palaikymą.</0><1/>"
 
+#: components/AddressCard.tsx:347
+msgid "<0>Total Borrowed refers to the sum of all assets borrowed, expressed in the selected fiat currency.</0>"
+msgstr "<0>Iš viso pasiskolinta reiškia viso pasiskolinto turto sumą, išreikštą pasirinkta fiat valiuta.</0>"
+
 #: components/AppBar.tsx:125
 msgid "Aave Markets"
 msgstr "\"Aave Markets"
 
+#: components/AddAssetDialog.tsx:152
+msgid "Add Borrow Asset"
+msgstr "Pridėti pasiskolintą turtą"
+
+#: components/AddAssetDialog.tsx:153
+msgid "Add Reserve Asset"
+msgstr "Pridėti rezervinį turtą"
+
 #: components/AddAssetDialog.tsx:82
-#: components/AddAssetDialog.tsx:151
 msgid "Add {0} Asset"
 msgstr "Pridėti {0} Turtas"
 
@@ -32,16 +55,16 @@ msgstr "Toliau pridėkite, pašalinkite ir pakeiskite turto kainas ir kiekius, k
 msgid "Address copied to clipboard!"
 msgstr "Adresas nukopijuotas į iškarpinę!"
 
-#: components/AddressCard.tsx:507
+#: components/AddressCard.tsx:552
 msgid "Apply"
 msgstr "Taikyti"
 
 #: components/AddressCard.tsx:191
-#: components/AddressCard.tsx:354
+#: components/AddressCard.tsx:368
 msgid "Available to Borrow:"
 msgstr "Galima pasiskolinti:"
 
-#: components/AddressCard.tsx:666
+#: components/AddressCard.tsx:711
 msgid "Borrowed Assets"
 msgstr "Skolintas turtas"
 
@@ -83,7 +106,7 @@ msgid "Markets for"
 msgstr "Rinkos"
 
 #: components/AddressCard.tsx:201
-#: components/AddressCard.tsx:378
+#: components/AddressCard.tsx:414
 msgid "Net Asset Value:"
 msgstr "Grynoji turto vertė:"
 
@@ -91,7 +114,7 @@ msgstr "Grynoji turto vertė:"
 msgid "No Aave positions found."
 msgstr "Nerasta jokių \"Aave\" pozicijų."
 
-#: components/AddressCard.tsx:411
+#: components/AddressCard.tsx:456
 msgid "No Liquidation Scenario Available"
 msgstr "Nėra likvidavimo scenarijaus"
 
@@ -112,7 +135,7 @@ msgstr "ARBA"
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "Į viršuje esantį langelį įklijuokite adresą su Aave skolos pozicija, kad pamatytumėte, kaip skolinto / rezervuoto turto pokyčiai veikia pozicijos sveikumo koeficientą ir skolinimosi galią."
 
-#: components/AddressCard.tsx:428
+#: components/AddressCard.tsx:473
 msgid "Price Liquidation Scenario"
 msgstr "Kainų likvidavimo scenarijus"
 
@@ -120,20 +143,20 @@ msgstr "Kainų likvidavimo scenarijus"
 msgid "Questions or comments? Please <0>join the Discord!</0>"
 msgstr "Klausimai ar komentarai? <0>Prisijunkite prie Discord</0>!"
 
-#: components/AddressCard.tsx:817
+#: components/AddressCard.tsx:862
 msgid "Remove {assetSymbol}"
 msgstr "Pašalinti {assetSymbol}"
 
 #: components/AddressCard.tsx:196
-#: components/AddressCard.tsx:366
+#: components/AddressCard.tsx:391
 msgid "Reserve Asset Value:"
 msgstr "Rezervinio turto vertė:"
 
-#: components/AddressCard.tsx:587
+#: components/AddressCard.tsx:632
 msgid "Reserve Assets"
 msgstr "Rezervinis turtas"
 
-#: components/AddressCard.tsx:540
+#: components/AddressCard.tsx:585
 msgid "Reset all simulated values"
 msgstr "Iš naujo nustatyti visas imituojamas vertes"
 
@@ -143,7 +166,7 @@ msgstr "Iš naujo nustatyti visas imituojamas vertes"
 msgid "Reset search query"
 msgstr "Iš naujo nustatyti paieškos užklausą"
 
-#: components/AddressCard.tsx:975
+#: components/AddressCard.tsx:1020
 msgid "Reset to Original Value ({0})"
 msgstr "Iš naujo nustatyta pradinė vertė ({0})"
 
@@ -168,16 +191,16 @@ msgid "Select Language"
 msgstr "Pasirinkite kalbą"
 
 #: components/AddAssetDialog.tsx:118
-msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
-msgstr "Pasirinkite {0} ({1}) {2} toliau, kad pridėtumėte jį kaip {3} turtą prie CDP."
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the debt position."
+msgstr "Pasirinkite {0} ({1}) {2} toliau, kad pridėtumėte jį kaip {3} turtą prie skolos pozicijos."
 
 #: components/SelectLanguageDialog.tsx:104
 msgid "Select {0} ({1}) {2} below to translate the app."
 msgstr "Pasirinkite {0} ({1}) {2} toliau, kad išverstumėte programą."
 
 #: components/SelectCurrencyDialog.tsx:110
-msgid "Select {0} ({1}) {2} below."
-msgstr "Pasirinkite {0} ({1}) {2} toliau."
+msgid "Select {0} ({1}) {2} below. After selecting a currency the app will display asset prices, liquidation scenario, and position summary in the selected currency."
+msgstr "Pasirinkite {0} ({1}) {2} toliau. Pasirinkus valiutą, programa parodys turto kainas, likvidavimo scenarijų ir pozicijos santrauką pasirinkta valiuta."
 
 #: components/AddressCard.tsx:242
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -187,7 +210,7 @@ msgstr "Kažkas atsitiko, dabar negalime įkelti adreso skolos pozicijos duomen�
 msgid "There are no assets that match the search query. Reset the search query to select an asset."
 msgstr "Paieškos užklausą atitinkančio turto nėra. Iš naujo nustatykite paieškos užklausą ir pasirinkite turtą."
 
-#: components/AddressCard.tsx:673
+#: components/AddressCard.tsx:718
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "Rinkoje {0} nėra skolinto turto <0/>. Pasirinkite \"Add Borrow Asset\" (pridėti skolintą turtą), kad imituotumėte šio adreso skolintą turtą."
 
@@ -199,7 +222,7 @@ msgstr "Nėra valiutų, atitinkančių paieškos užklausą. Iš naujo nustatyki
 msgid "There are no languages available that match the search query. Reset the search query to select a language."
 msgstr "Paieškos užklausą atitinkančių kalbų nėra. Iš naujo nustatykite paieškos užklausą ir pasirinkite kalbą."
 
-#: components/AddressCard.tsx:594
+#: components/AddressCard.tsx:639
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "<0/>rinkoje {0} atsargų nėra. Pasirinkite \"Add Reserve Asset\" (pridėti atsargų turtą), kad imituotumėte šio adreso atsargų turtą."
 
@@ -208,7 +231,7 @@ msgid "This Aave debt simulator is experimental. Don't make financial decisions 
 msgstr "Šis \"Aave\" skolos simuliatorius yra eksperimentinis. Nepriimkite finansinių sprendimų remdamiesi vien šios programėlės rezultatais."
 
 #: components/AddressCard.tsx:186
-#: components/AddressCard.tsx:342
+#: components/AddressCard.tsx:344
 msgid "Total Borrowed:"
 msgstr "Iš viso pasiskolinta:"
 
@@ -218,7 +241,7 @@ msgstr "Iš viso pasiskolinta:"
 msgid "Use Random Address"
 msgstr "Naudoti atsitiktinį adresą"
 
-#: components/AddressCard.tsx:886
+#: components/AddressCard.tsx:931
 msgid "Use {assetSymbol} as collateral"
 msgstr "Naudokite {assetSymbol} kaip užstatą"
 
@@ -250,11 +273,11 @@ msgstr "{ 0, plural, one {rinka} few {rinkos} other {rinkos} }"
 msgid "{0, plural, one {position} other {positions}}"
 msgstr "{ 0, plural, one {pozicija} few {pozicijos} other {pozicijos} }"
 
-#: components/AddressCard.tsx:1068
+#: components/AddressCard.tsx:1113
 msgid "{assetSymbol} Price ({selectedCurrency})"
 msgstr "{assetSymbol} Kaina ({selectedCurrency})"
 
-#: components/AddressCard.tsx:946
+#: components/AddressCard.tsx:991
 msgid "{assetSymbol} Quantity"
 msgstr "{assetSymbol} Kiekis"
 

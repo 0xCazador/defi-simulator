@@ -1,13 +1,25 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-17 16:29-0700\n"
+"POT-Creation-Date: 2023-07-18 12:09-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: bn\n"
 
-#: components/AddressCard.tsx:451
+#: components/AddressCard.tsx:371
+msgid "<0>Available to Borrow represents the total borrowing power available to the position, expressed in the selected fiat currency.</0>"
+msgstr "<0>ধার নেওয়ার জন্য উপলব্ধ পজিশনে উপলব্ধ মোট ধার নেওয়ার ক্ষমতাকে প্রতিনিধিত্ব করে, যা নির্বাচিত ফিয়াট মুদ্রায় প্রকাশ করা হয়।</0>"
+
+#: components/AddressCard.tsx:417
+msgid "<0>Net Asset Value represents the sum of the reserve assets subtracted by the sum of the borrowed assets, expressed in the selected fiat currency.</0>"
+msgstr "<0>নিট সম্পদ মূল্য নির্বাচিত ফিয়াট মুদ্রায় প্রকাশ করা ধার করা সম্পদের যোগফল দ্বারা বিয়োগ করা রিজার্ভ সম্পদের যোগফলকে প্রতিনিধিত্ব করে।</0>"
+
+#: components/AddressCard.tsx:394
+msgid "<0>Reserve Asset Value represents the sum of the reserve assets, expressed in the selected fiat currency.</0>"
+msgstr "<0>রিজার্ভ অ্যাসেট ভ্যালু রিজার্ভ অ্যাসেটের যোগফলকে প্রতিনিধিত্ব করে, নির্বাচিত ফিয়াট মুদ্রায় প্রকাশ করা হয়।</0>"
+
+#: components/AddressCard.tsx:496
 msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
 msgstr "<0>মূল্য লিকুইডেশনের পরিস্থিতি আনুমানিক সর্বোচ্চ রিজার্ভ সম্পদের মূল্যকে প্রতিনিধিত্ব করে যা অবস্থানকে অবসানের বিষয় হতে পারে। স্থিতিশীল সম্পদ এই দৃশ্যে অন্তর্ভুক্ত করা হয় না এবং তাদের বর্তমান মান বজায় রাখার জন্য অনুমান করা হয়। অনেক কারণ তরলতা প্রভাবিত করে। এই দৃশ্যটি রেফারেন্সের জন্য শুধুমাত্র একটি উদাহরণ। অনেক ভিন্ন পরিস্থিতি তরলতা ট্রিগার করতে পারে।<1>এখানে আরও পড়ুন</1> .</0>"
 
@@ -15,12 +27,23 @@ msgstr "<0>মূল্য লিকুইডেশনের পরিস্থ�
 msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
 msgstr "<0>এই ডেট পজিশন ইমোড (দক্ষতা মোড) সক্ষম করা আছে, কিন্তু ডিফাই সিমুলেটর এখনও ইমোড সক্ষম করে অবস্থান সমর্থন করে না। আমরা শীঘ্রই ইমোডের জন্য সমর্থন যোগ করার আশা করি।</0> <1/>"
 
+#: components/AddressCard.tsx:347
+msgid "<0>Total Borrowed refers to the sum of all assets borrowed, expressed in the selected fiat currency.</0>"
+msgstr "<0>মোট ধার বলতে ধার করা সমস্ত সম্পদের যোগফলকে বোঝায়, যা নির্বাচিত ফিয়াট মুদ্রায় প্রকাশ করা হয়।</0>"
+
 #: components/AppBar.tsx:125
 msgid "Aave Markets"
 msgstr "Aave মার্কেটস"
 
+#: components/AddAssetDialog.tsx:152
+msgid "Add Borrow Asset"
+msgstr "ধার সম্পদ যোগ করুন"
+
+#: components/AddAssetDialog.tsx:153
+msgid "Add Reserve Asset"
+msgstr "রিজার্ভ সম্পদ যোগ করুন"
+
 #: components/AddAssetDialog.tsx:82
-#: components/AddAssetDialog.tsx:151
 msgid "Add {0} Asset"
 msgstr "{0} সম্পদ যোগ করুন"
 
@@ -32,16 +55,16 @@ msgstr "স্বাস্থ্য ফ্যাক্টর এবং ধার
 msgid "Address copied to clipboard!"
 msgstr "ঠিকানা ক্লিপবোর্ডে অনুলিপি করা হয়েছে!"
 
-#: components/AddressCard.tsx:507
+#: components/AddressCard.tsx:552
 msgid "Apply"
 msgstr "আবেদন করুন"
 
 #: components/AddressCard.tsx:191
-#: components/AddressCard.tsx:354
+#: components/AddressCard.tsx:368
 msgid "Available to Borrow:"
 msgstr "ধার পাওয়া যায়:"
 
-#: components/AddressCard.tsx:666
+#: components/AddressCard.tsx:711
 msgid "Borrowed Assets"
 msgstr "ধার করা সম্পদ"
 
@@ -83,7 +106,7 @@ msgid "Markets for"
 msgstr "জন্য বাজার"
 
 #: components/AddressCard.tsx:201
-#: components/AddressCard.tsx:378
+#: components/AddressCard.tsx:414
 msgid "Net Asset Value:"
 msgstr "নেট সম্পদ মূল্য:"
 
@@ -91,7 +114,7 @@ msgstr "নেট সম্পদ মূল্য:"
 msgid "No Aave positions found."
 msgstr "কোন Aave অবস্থান পাওয়া যায়নি."
 
-#: components/AddressCard.tsx:411
+#: components/AddressCard.tsx:456
 msgid "No Liquidation Scenario Available"
 msgstr "কোন লিকুইডেশন দৃশ্যকল্প উপলব্ধ"
 
@@ -112,7 +135,7 @@ msgstr "বা"
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "উপরের বাক্সে Aave ঋণের অবস্থান সহ একটি ঠিকানা পেস্ট করুন কিভাবে ধার/সংরক্ষিত সম্পদের পরিবর্তনগুলি অবস্থানের স্বাস্থ্য ফ্যাক্টর এবং ধার নেওয়ার ক্ষমতাকে প্রভাবিত করে।"
 
-#: components/AddressCard.tsx:428
+#: components/AddressCard.tsx:473
 msgid "Price Liquidation Scenario"
 msgstr "মূল্য লিকুইডেশন দৃশ্যকল্প"
 
@@ -120,20 +143,20 @@ msgstr "মূল্য লিকুইডেশন দৃশ্যকল্প"
 msgid "Questions or comments? Please <0>join the Discord!</0>"
 msgstr "প্রশ্ন বা মন্তব্য? অনুগ্রহ করে <0>ডিসকর্ডে যোগ দিন!</0>"
 
-#: components/AddressCard.tsx:817
+#: components/AddressCard.tsx:862
 msgid "Remove {assetSymbol}"
 msgstr "সরান {assetSymbol}"
 
 #: components/AddressCard.tsx:196
-#: components/AddressCard.tsx:366
+#: components/AddressCard.tsx:391
 msgid "Reserve Asset Value:"
 msgstr "রিজার্ভ সম্পদ মূল্য:"
 
-#: components/AddressCard.tsx:587
+#: components/AddressCard.tsx:632
 msgid "Reserve Assets"
 msgstr "রিজার্ভ সম্পদ"
 
-#: components/AddressCard.tsx:540
+#: components/AddressCard.tsx:585
 msgid "Reset all simulated values"
 msgstr "সমস্ত সিমুলেটেড মান পুনরায় সেট করুন"
 
@@ -143,7 +166,7 @@ msgstr "সমস্ত সিমুলেটেড মান পুনরায
 msgid "Reset search query"
 msgstr "অনুসন্ধান ক্যোয়ারী রিসেট করুন"
 
-#: components/AddressCard.tsx:975
+#: components/AddressCard.tsx:1020
 msgid "Reset to Original Value ({0})"
 msgstr "আসল মান ({0}) এ রিসেট করুন"
 
@@ -168,16 +191,16 @@ msgid "Select Language"
 msgstr "ভাষা নির্বাচন কর"
 
 #: components/AddAssetDialog.tsx:118
-msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
-msgstr "CDP-তে {3} সম্পদ হিসেবে যোগ করতে নিচে {0} ({1}) {2} নির্বাচন করুন।"
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the debt position."
+msgstr "ঋণের অবস্থানে একটি {3} সম্পদ হিসেবে যোগ করতে নিচে {0} ({1}) {2} নির্বাচন করুন।"
 
 #: components/SelectLanguageDialog.tsx:104
 msgid "Select {0} ({1}) {2} below to translate the app."
 msgstr "অ্যাপটি অনুবাদ করতে নিচে {0} ({1}) {2} নির্বাচন করুন।"
 
 #: components/SelectCurrencyDialog.tsx:110
-msgid "Select {0} ({1}) {2} below."
-msgstr "নীচে {0} ({1}) {2} নির্বাচন করুন।"
+msgid "Select {0} ({1}) {2} below. After selecting a currency the app will display asset prices, liquidation scenario, and position summary in the selected currency."
+msgstr "নীচে {0} ({1}) {2} নির্বাচন করুন। একটি মুদ্রা নির্বাচন করার পরে অ্যাপটি নির্বাচিত মুদ্রায় সম্পদের মূল্য, লিকুইডেশন দৃশ্য এবং অবস্থানের সারাংশ প্রদর্শন করবে।"
 
 #: components/AddressCard.tsx:242
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -187,7 +210,7 @@ msgstr "কিছু হয়েছে, আমরা এই মুহূর্�
 msgid "There are no assets that match the search query. Reset the search query to select an asset."
 msgstr "সার্চ কোয়েরির সাথে মেলে এমন কোন সম্পদ নেই। একটি সম্পদ নির্বাচন করতে অনুসন্ধান ক্যোয়ারী রিসেট করুন।"
 
-#: components/AddressCard.tsx:673
+#: components/AddressCard.tsx:718
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "{0} বাজারে <0/>এর জন্য কোনো ধার করা সম্পদ নেই। এই ঠিকানার জন্য ধার করা সম্পদ অনুকরণ করতে \"ধার করা সম্পদ যোগ করুন\" নির্বাচন করুন।"
 
@@ -199,7 +222,7 @@ msgstr "সার্চ কোয়েরির সাথে মেলে এ�
 msgid "There are no languages available that match the search query. Reset the search query to select a language."
 msgstr "সার্চ কোয়েরির সাথে মেলে এমন কোনো ভাষা নেই। একটি ভাষা নির্বাচন করতে অনুসন্ধান ক্যোয়ারী রিসেট করুন।"
 
-#: components/AddressCard.tsx:594
+#: components/AddressCard.tsx:639
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "{0} বাজারে <0/>এর জন্য কোনো রিজার্ভ সম্পদ নেই। এই ঠিকানার জন্য রিজার্ভ সম্পদ অনুকরণ করতে \"সংরক্ষিত সম্পদ যোগ করুন\" নির্বাচন করুন।"
 
@@ -208,7 +231,7 @@ msgid "This Aave debt simulator is experimental. Don't make financial decisions 
 msgstr "এই Aave ঋণ সিমুলেটর পরীক্ষামূলক. শুধুমাত্র এই অ্যাপের ফলাফলের উপর ভিত্তি করে আর্থিক সিদ্ধান্ত নেবেন না।"
 
 #: components/AddressCard.tsx:186
-#: components/AddressCard.tsx:342
+#: components/AddressCard.tsx:344
 msgid "Total Borrowed:"
 msgstr "মোট ধার করা:"
 
@@ -218,7 +241,7 @@ msgstr "মোট ধার করা:"
 msgid "Use Random Address"
 msgstr "এলোমেলো ঠিকানা ব্যবহার করুন"
 
-#: components/AddressCard.tsx:886
+#: components/AddressCard.tsx:931
 msgid "Use {assetSymbol} as collateral"
 msgstr "সমান্তরাল হিসাবে {assetSymbol} ব্যবহার করুন"
 
@@ -250,11 +273,11 @@ msgstr "{ 0, plural, one {বাজার} other {বাজার} }"
 msgid "{0, plural, one {position} other {positions}}"
 msgstr "{ 0, plural, one {অবস্থান} other {অবস্থান} }"
 
-#: components/AddressCard.tsx:1068
+#: components/AddressCard.tsx:1113
 msgid "{assetSymbol} Price ({selectedCurrency})"
 msgstr "{assetSymbol} মূল্য ({selectedCurrency})"
 
-#: components/AddressCard.tsx:946
+#: components/AddressCard.tsx:991
 msgid "{assetSymbol} Quantity"
 msgstr "{assetSymbol} পরিমাণ"
 

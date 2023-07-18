@@ -108,7 +108,7 @@ export default function SelectCurrencyDialog({ }: SelectCurrencyDialogProps) {
                 ) : (
                     <Text mb={8}>
                         {t`Select ${currencies.length === 1 ? 'the' : 'one of the'} (${currencies.length}) ${currencies.length === 1 ? 'currency' : 'currencies'
-                            } below.`}
+                            } below. After selecting a currency the app will display asset prices, liquidation scenario, and position summary in the selected currency.`}
                     </Text>
                 )}
 

@@ -1,13 +1,25 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-07-17 16:29-0700\n"
+"POT-Creation-Date: 2023-07-18 12:09-0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: cs\n"
 
-#: components/AddressCard.tsx:451
+#: components/AddressCard.tsx:371
+msgid "<0>Available to Borrow represents the total borrowing power available to the position, expressed in the selected fiat currency.</0>"
+msgstr "<0>Položka Available to Borrow představuje celkovou výpůjční sílu, kterou má pozice k dispozici, vyjádřenou ve vybrané fiat měně.</0>"
+
+#: components/AddressCard.tsx:417
+msgid "<0>Net Asset Value represents the sum of the reserve assets subtracted by the sum of the borrowed assets, expressed in the selected fiat currency.</0>"
+msgstr "<0>Čistá hodnota aktiv představuje součet rezervních aktiv odečtený od součtu vypůjčených aktiv, vyjádřený ve zvolené fiat měně.</0>"
+
+#: components/AddressCard.tsx:394
+msgid "<0>Reserve Asset Value represents the sum of the reserve assets, expressed in the selected fiat currency.</0>"
+msgstr "<0>Hodnota rezervních aktiv představuje součet rezervních aktiv vyjádřený ve vybrané fiat měně.</0>"
+
+#: components/AddressCard.tsx:496
 msgid "<0>The price liquidation scenario represents the approximate highest reserve asset prices that could subject the position to liquidation. Stable assets are not included in this scenario and are assumed to maintain their present value. Many factors affect liquidation. This scenario is only one example for reference. Many different scenarios can trigger liquidation.<1>Read more here</1>.</0>"
 msgstr "<0>Cenový scénář likvidace představuje přibližné nejvyšší ceny rezervních aktiv, které by mohly pozici zlikvidovat. Stabilní aktiva nejsou do tohoto scénáře zahrnuta a předpokládá se, že si zachovají svou současnou hodnotu. Likvidaci ovlivňuje mnoho faktorů. Tento scénář je pouze jedním z referenčních příkladů. Likvidaci může vyvolat mnoho různých scénářů<1>. více zde</1>.</0>"
 
@@ -15,12 +27,23 @@ msgstr "<0>Cenový scénář likvidace představuje přibližné nejvyšší cen
 msgid "<0>This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.</0><1/>"
 msgstr "<0>Tato dluhová pozice má zapnutý Emode (Efficieny Mode), ale DeFi Simulator zatím nepodporuje pozice se zapnutým Emode. Doufáme, že podporu Emode brzy přidáme.</0><1/>"
 
+#: components/AddressCard.tsx:347
+msgid "<0>Total Borrowed refers to the sum of all assets borrowed, expressed in the selected fiat currency.</0>"
+msgstr "<0>Celkové vypůjčené prostředky se vztahují k součtu všech vypůjčených aktiv, vyjádřených ve vybrané fiat měně.</0>"
+
 #: components/AppBar.tsx:125
 msgid "Aave Markets"
 msgstr "Aave Markets"
 
+#: components/AddAssetDialog.tsx:152
+msgid "Add Borrow Asset"
+msgstr "Přidat výpůjčku majetku"
+
+#: components/AddAssetDialog.tsx:153
+msgid "Add Reserve Asset"
+msgstr "Přidat rezervní aktivum"
+
 #: components/AddAssetDialog.tsx:82
-#: components/AddAssetDialog.tsx:151
 msgid "Add {0} Asset"
 msgstr "Přidat položku {0} Asset"
 
@@ -32,16 +55,16 @@ msgstr "Níže můžete přidávat, odebírat a upravovat ceny a množství akti
 msgid "Address copied to clipboard!"
 msgstr "Adresa zkopírována do schránky!"
 
-#: components/AddressCard.tsx:507
+#: components/AddressCard.tsx:552
 msgid "Apply"
 msgstr "Použít"
 
 #: components/AddressCard.tsx:191
-#: components/AddressCard.tsx:354
+#: components/AddressCard.tsx:368
 msgid "Available to Borrow:"
 msgstr "K dispozici k vypůjčení:"
 
-#: components/AddressCard.tsx:666
+#: components/AddressCard.tsx:711
 msgid "Borrowed Assets"
 msgstr "Vypůjčená aktiva"
 
@@ -83,7 +106,7 @@ msgid "Markets for"
 msgstr "Trhy pro"
 
 #: components/AddressCard.tsx:201
-#: components/AddressCard.tsx:378
+#: components/AddressCard.tsx:414
 msgid "Net Asset Value:"
 msgstr "Čistá hodnota aktiv:"
 
@@ -91,7 +114,7 @@ msgstr "Čistá hodnota aktiv:"
 msgid "No Aave positions found."
 msgstr "Nebyly nalezeny žádné pozice Aave."
 
-#: components/AddressCard.tsx:411
+#: components/AddressCard.tsx:456
 msgid "No Liquidation Scenario Available"
 msgstr "Není k dispozici žádný likvidační scénář"
 
@@ -112,7 +135,7 @@ msgstr "NEBO"
 msgid "Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets affect the position's health factor and borrowing power."
 msgstr "Vložte adresu s dluhovou pozicí Aave do výše uvedeného pole a zobrazte, jak změny ve vypůjčených/rezervovaných aktivech ovlivňují faktor zdraví a výpůjční sílu pozice."
 
-#: components/AddressCard.tsx:428
+#: components/AddressCard.tsx:473
 msgid "Price Liquidation Scenario"
 msgstr "Scénář likvidace cen"
 
@@ -120,20 +143,20 @@ msgstr "Scénář likvidace cen"
 msgid "Questions or comments? Please <0>join the Discord!</0>"
 msgstr "Dotazy nebo připomínky? <0>Připojte se</0> prosím <0>k Discordu!</0>"
 
-#: components/AddressCard.tsx:817
+#: components/AddressCard.tsx:862
 msgid "Remove {assetSymbol}"
 msgstr "Odstranit {assetSymbol}"
 
 #: components/AddressCard.tsx:196
-#: components/AddressCard.tsx:366
+#: components/AddressCard.tsx:391
 msgid "Reserve Asset Value:"
 msgstr "Hodnota rezervního majetku:"
 
-#: components/AddressCard.tsx:587
+#: components/AddressCard.tsx:632
 msgid "Reserve Assets"
 msgstr "Rezervní aktiva"
 
-#: components/AddressCard.tsx:540
+#: components/AddressCard.tsx:585
 msgid "Reset all simulated values"
 msgstr "Obnovení všech simulovaných hodnot"
 
@@ -143,7 +166,7 @@ msgstr "Obnovení všech simulovaných hodnot"
 msgid "Reset search query"
 msgstr "Obnovení vyhledávacího dotazu"
 
-#: components/AddressCard.tsx:975
+#: components/AddressCard.tsx:1020
 msgid "Reset to Original Value ({0})"
 msgstr "Obnovení původní hodnoty ({0})"
 
@@ -168,16 +191,16 @@ msgid "Select Language"
 msgstr "Zvolte jazyk"
 
 #: components/AddAssetDialog.tsx:118
-msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the CDP."
-msgstr "Výběrem položky {0} ({1}) {2} níže ji přidáte jako aktivum {3} do CDP."
+msgid "Select {0} ({1}) {2} below to add it as a {3} asset to the debt position."
+msgstr "Výběrem položky {0} ({1}) {2} níže ji přidáte jako aktivum {3} do dluhové pozice."
 
 #: components/SelectLanguageDialog.tsx:104
 msgid "Select {0} ({1}) {2} below to translate the app."
 msgstr "Chcete-li aplikaci přeložit, vyberte níže uvedené možnosti {0} ({1}) {2}."
 
 #: components/SelectCurrencyDialog.tsx:110
-msgid "Select {0} ({1}) {2} below."
-msgstr "Zvolte {0} ({1}) {2} níže."
+msgid "Select {0} ({1}) {2} below. After selecting a currency the app will display asset prices, liquidation scenario, and position summary in the selected currency."
+msgstr "Zvolte {0} ({1}) {2} níže. Po výběru měny aplikace zobrazí ceny aktiv, scénář likvidace a přehled pozic ve vybrané měně."
 
 #: components/AddressCard.tsx:242
 msgid "Something happened, we're not able to load the address debt position data right now. Try again later."
@@ -187,7 +210,7 @@ msgstr "Něco se stalo, nejsme schopni načíst údaje o poloze dluhu adresy. Zk
 msgid "There are no assets that match the search query. Reset the search query to select an asset."
 msgstr "Neexistují žádné prostředky, které by odpovídaly vyhledávacímu dotazu. Obnovte vyhledávací dotaz a vyberte aktivum."
 
-#: components/AddressCard.tsx:673
+#: components/AddressCard.tsx:718
 msgid "There are no borrowed assets for <0/>in the {0} market. Select \"Add Borrow Asset\" to simulate borrowed assets for this address."
 msgstr "Na trhu {0} nejsou žádná vypůjčená aktiva pro <0/>. Zvolte \"Add Borrow Asset\" (Přidat vypůjčená aktiva) a simulujte vypůjčená aktiva pro tuto adresu."
 
@@ -199,7 +222,7 @@ msgstr "Nejsou k dispozici žádné měny, které by odpovídaly vyhledávacímu
 msgid "There are no languages available that match the search query. Reset the search query to select a language."
 msgstr "Nejsou k dispozici žádné jazyky, které by odpovídaly vyhledávacímu dotazu. Resetujte vyhledávací dotaz a vyberte jazyk."
 
-#: components/AddressCard.tsx:594
+#: components/AddressCard.tsx:639
 msgid "There are no reserve assets for <0/>in the {0} market. Select \"Add Reserve Asset\" to simulate reserve assets for this address."
 msgstr "Na trhu {0} neexistují žádná rezervní aktiva pro <0/>. Chcete-li pro tuto adresu simulovat rezervní aktiva, vyberte možnost \"Přidat rezervní aktiva\"."
 
@@ -208,7 +231,7 @@ msgid "This Aave debt simulator is experimental. Don't make financial decisions 
 msgstr "Tento simulátor dluhu Aave je experimentální. Nedělejte finanční rozhodnutí pouze na základě výsledků této aplikace."
 
 #: components/AddressCard.tsx:186
-#: components/AddressCard.tsx:342
+#: components/AddressCard.tsx:344
 msgid "Total Borrowed:"
 msgstr "Celkem vypůjčeno:"
 
@@ -218,7 +241,7 @@ msgstr "Celkem vypůjčeno:"
 msgid "Use Random Address"
 msgstr "Použití náhodné adresy"
 
-#: components/AddressCard.tsx:886
+#: components/AddressCard.tsx:931
 msgid "Use {assetSymbol} as collateral"
 msgstr "Použijte {assetSymbol} jako zástavu"
 
@@ -250,11 +273,11 @@ msgstr "{ 0, plural, one {trh} few {trhy} other {trhy} }"
 msgid "{0, plural, one {position} other {positions}}"
 msgstr "{ 0, plural, one {pozice} few {pozice} other {pozice} }"
 
-#: components/AddressCard.tsx:1068
+#: components/AddressCard.tsx:1113
 msgid "{assetSymbol} Price ({selectedCurrency})"
 msgstr "{assetSymbol} Cena ({selectedCurrency})"
 
-#: components/AddressCard.tsx:946
+#: components/AddressCard.tsx:991
 msgid "{assetSymbol} Quantity"
 msgstr "{assetSymbol} Množství"
 
