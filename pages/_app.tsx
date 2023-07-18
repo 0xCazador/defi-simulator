@@ -56,7 +56,7 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
         />
         <link rel="shortcut icon" href="/favicon.ico" />
         {languages.map(language => {
-          return <link rel="alternate" hrefLang={language.code} href={`/${language.code}`} />
+          return <link rel="alternate" hrefLang={language.code} href={`https://defisim.xyz/${language.code}`} />
         })}
       </Head>
       <I18nProvider i18n={i18n}>
