@@ -833,13 +833,15 @@ export const getCalculatedLiquidationScenario = (hfData: AaveHealthFactorData, c
         decrementPercentage = (priceDecrement * 100) / asset.priceInUSD;
       }
 
-      asset.priceInUSD = asset.priceInUSD - priceDecrement;
+      asset.priceInUSD = Math.max(asset.priceInUSD - priceDecrement, 0.01);
 
-      // If an asset price needs to go negative in order to arrive at liquidation threshold,
+      // If all asset prices needs to go below one cent in order to arrive at liquidation threshold,
       // short circuit the operation and assume there is no viable price liquidation scenario for this
       // position.
-      if (asset.priceInUSD < 0) {
-        shortCircuit = true;
+      if (asset.priceInUSD === 0.01) {
+        if (!assets.find(asset => asset.priceInUSD > 0.01)) {
+          shortCircuit = true;
+        }
       }
 
       const reserveItemAsset = hfData.userReservesData.find(item => item.asset.symbol === asset.symbol);
