@@ -11,6 +11,8 @@ import {
 import { BiGhost } from 'react-icons/bi';
 import { BsTwitter, BsGithub, BsDiscord } from 'react-icons/bs';
 import { Trans } from "@lingui/macro";
+import SelectLanguageDialog from './SelectLanguageDialog';
+import SelectCurrencyDialog from './SelectCurrencyDialog';
 
 const useStyles = createStyles((theme) => ({
   footer: {
@@ -135,6 +137,11 @@ export default function FooterLinks() {
         <Text color="dimmed" size="sm" mb={15}>
           defisim.xyz
         </Text>
+
+        <Group spacing={0} position="right" noWrap>
+          <SelectLanguageDialog />
+          <SelectCurrencyDialog />
+        </Group>
 
         <Group spacing={0} className={classes.social} position="right" noWrap>
           <ActionIcon title="Link to Discord" size="lg" component="a" href="https://discord.gg/VF64xjhXEs" target="_blank">

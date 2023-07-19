@@ -19,10 +19,6 @@ import AddressInput, { isValidENSAddress } from '../components/AddressInput';
 import AddressCard from '../components/AddressCard';
 import Footer from '../components/Footer';
 import { activateLocale } from './_app';
-import I18nInput from '../components/I18nInput';
-import { useFiatRates } from '../hooks/useFiatData';
-import SelectLanguageDialog from '../components/SelectLanguageDialog';
-import SelectCurrencyDialog from '../components/SelectCurrencyDialog';
 
 export default function HomePage() {
   const router: NextRouter = useRouter();
@@ -54,10 +50,6 @@ export default function HomePage() {
       {currentAddress && <AddressCard />}
       {!currentAddress && <SplashSection />}
       <ExperimentalAlert />
-      <Center>
-        <SelectLanguageDialog />
-        <SelectCurrencyDialog />
-      </Center>
       <Footer />
     </Container>
   );
