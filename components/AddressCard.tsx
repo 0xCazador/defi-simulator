@@ -996,6 +996,7 @@ const UserAssetQuantityInput = ({
         inputWrapperOrder={['label', 'error', 'input', 'description']}
         rightSection={resetIcon}
       />
+
       <Slider
         defaultValue={workingQuantity}
         onChange={(value) => handleChange(value, true)}

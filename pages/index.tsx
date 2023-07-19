@@ -83,9 +83,15 @@ const SplashSection = () => {
 
       <Center>
         <RandomAddressButton />
-        <Space w="xl" />
-        <Divider orientation="vertical" />
-        <Space w="xl" />
+      </Center>
+
+      <Center mt={15}>
+        <Text fz="md" ta="center"><Trans>Create a new simulated position in any Aave market:</Trans></Text>
+      </Center>
+
+      <Space h="md" />
+
+      <Center>
         <Button onClick={() => router.push("?address=sandbox.eth")}><Trans>Build from Scratch</Trans></Button>
       </Center>
     </>
