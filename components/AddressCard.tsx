@@ -56,12 +56,28 @@ const AddressCard = ({ }: Props) => {
   const summaryRef = useRef<HTMLDivElement>(null);
   const summaryOffset: number = summaryRef?.current?.clientHeight || 0;
   const isEmode: boolean = (data?.workingData?.userEmodeCategoryId || 0) !== 0;
+  const isIsolationMode: boolean = data?.workingData?.isInIsolationMode;
 
   return (
     <div style={{ marginTop: '15px' }} >
       <HealthFactorAddressSummary addressData={addressData} />
       <div style={{ zIndex: '6', backgroundColor: "#1A1B1E" }}>
-        {isEmode ? (
+        {isIsolationMode && (
+          <>
+            <Alert
+              mb={15}
+              mt={45}
+              icon={<FiAlertTriangle size="1rem" />}
+              title="Isolation Mode Not Supported!"
+              color="red"
+              variant="outline"
+            >
+              This debt position has Isolation Mode enabled, but DeFi Simulator does not yet support positions with Isolation mode enabled. We hope to add support for Isolation Mode soon.
+            </Alert>
+          </>
+
+        )}
+        {isEmode && (
           <>
             <Alert
               mb={15}
@@ -73,9 +89,10 @@ const AddressCard = ({ }: Props) => {
             >
               This debt position has Emode (Efficieny Mode) enabled, but DeFi Simulator does not yet support positions with Emode enabled. We hope to add support for Emode soon.
             </Alert>
-            <HealthFactorSkeleton animate={false} />
           </>
-        ) : (
+
+        )}
+        {!isEmode && !isIsolationMode && (
           <>
             {
               isFetching
@@ -92,10 +109,9 @@ const AddressCard = ({ }: Props) => {
                 )
             }
           </>
+
         )}
-
       </div>
-
     </div>
   );
 };

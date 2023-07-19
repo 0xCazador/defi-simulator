@@ -30,7 +30,8 @@ export type AaveHealthFactorData = {
   currentLoanToValue: number;
   userReservesData: ReserveAssetDataItem[];
   userBorrowsData: BorrowedAssetDataItem[];
-  userEmodeCategoryId?: number
+  userEmodeCategoryId?: number,
+  isInIsolationMode?: boolean
 };
 
 export type ReserveAssetDataItem = {

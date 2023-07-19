@@ -120,6 +120,9 @@ const aaveUserSummaryToHealthFactor = (
       usageAsCollateralEnabled: reserveItem.reserve.usageAsCollateralEnabled,
       reserveLiquidationThreshold: Number(reserveItem.reserve.reserveLiquidationThreshold),
       initialPriceInUSD: Number(reserveItem.reserve.priceInUSD),
+      aTokenAddress: reserveItem.reserve.aTokenAddress,
+      stableDebtTokenAddress: reserveItem.reserve.stableDebtTokenAddress,
+      variableDebtTokenAddress: reserveItem.reserve.variableDebtTokenAddress,
     };
     return details;
   };
@@ -169,7 +172,8 @@ const aaveUserSummaryToHealthFactor = (
 
         return item;
       }),
-    userEmodeCategoryId
+    userEmodeCategoryId,
+    isInIsolationMode: userSummary.isInIsolationMode
   };
   const marketReferenceCurrencyPriceInUSD = new BigNumber(
     baseCurrencyData.marketReferenceCurrencyPriceInUsd
@@ -197,7 +201,8 @@ const aaveUserSummaryToHealthFactor = (
       currentLoanToValue: reserveData.currentLoanToValue,
       userReservesData: reserveData.userReservesData,
       userBorrowsData: reserveData.userBorrowsData,
-      userEmodeCategoryId: reserveData.userEmodeCategoryId
+      userEmodeCategoryId: reserveData.userEmodeCategoryId,
+      isInIsolationMode: reserveData.isInIsolationMode
     },
     workingData: {
       healthFactor: reserveData.healthFactor,
@@ -209,7 +214,8 @@ const aaveUserSummaryToHealthFactor = (
       currentLoanToValue: reserveData.currentLoanToValue,
       userReservesData: [...reserveData.userReservesData],
       userBorrowsData: [...reserveData.userBorrowsData],
-      userEmodeCategoryId: reserveData.userEmodeCategoryId
+      userEmodeCategoryId: reserveData.userEmodeCategoryId,
+      isInIsolationMode: reserveData.isInIsolationMode
     },
   };
 
