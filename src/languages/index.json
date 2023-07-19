@@ -1,0 +1,374 @@
+[
+  {
+    "code": "be",
+    "name": "Belarusian",
+    "region": "Belarusian",
+    "native": "Беларускі"
+  },
+  {
+    "code": "bg",
+    "name": "Bulgarian",
+    "region": "Bulgarian",
+    "native": "български"
+  },
+  {
+    "code": "bn",
+    "name": "Bengali",
+    "region": "Bengali",
+    "native": "বাংলা"
+  },
+  {
+    "code": "bs",
+    "name": "Bosnian",
+    "region": "Bosnian",
+    "native": "bosanski"
+  },
+  {
+    "code": "ca",
+    "name": "Catalan",
+    "region": "Catalan",
+    "native": "català"
+  },
+  {
+    "code": "cs",
+    "name": "Czech",
+    "region": "Czech",
+    "native": "čeština"
+  },
+  {
+    "code": "da",
+    "name": "Danish",
+    "region": "Danish",
+    "native": "dansk"
+  },
+  {
+    "code": "de",
+    "name": "German",
+    "region": "German",
+    "native": "Deutsch"
+  },
+  {
+    "code": "el",
+    "name": "Greek",
+    "region": "Greek",
+    "native": "ελληνικά"
+  },
+  {
+    "code": "en",
+    "name": "English",
+    "region": "English",
+    "native": "English"
+  },
+  {
+    "code": "es",
+    "name": "Spanish",
+    "region": "Spanish",
+    "native": "español"
+  },
+  {
+    "code": "et",
+    "name": "Estonian",
+    "region": "Estonian",
+    "native": "eesti"
+  },
+  {
+    "code": "fi",
+    "name": "Finnish",
+    "region": "Finnish",
+    "native": "suomi"
+  },
+  {
+    "code": "fil",
+    "name": "Filipino",
+    "region": "Filipino",
+    "native": "Filipino"
+  },
+  {
+    "code": "fr",
+    "name": "French",
+    "region": "French",
+    "native": "français"
+  },
+  {
+    "code": "ga",
+    "name": "Irish",
+    "region": "Irish",
+    "native": "Gaeilge"
+  },
+  {
+    "code": "hi",
+    "name": "Hindi",
+    "region": "Hindi",
+    "native": "हिंदी"
+  },
+  {
+    "code": "hr",
+    "name": "Croatian",
+    "region": "Croatian",
+    "native": "hrvatski"
+  },
+  {
+    "code": "hu",
+    "name": "Hungarian",
+    "region": "Hungarian",
+    "native": "magyar"
+  },
+  {
+    "code": "hy",
+    "name": "Armenian",
+    "region": "Armenian",
+    "native": "Հայերեն"
+  },
+  {
+    "code": "id",
+    "name": "Indonesian",
+    "region": "Indonesian",
+    "native": "Bahasa Indonesia"
+  },
+  {
+    "code": "is",
+    "name": "Icelandic",
+    "region": "Icelandic",
+    "native": "íslenska"
+  },
+  {
+    "code": "it",
+    "name": "Italian",
+    "region": "Italian",
+    "native": "italiano"
+  },
+  {
+    "code": "ja",
+    "name": "Japanese",
+    "region": "Japanese",
+    "native": "日本語"
+  },
+  {
+    "code": "jv",
+    "name": "Javanese",
+    "region": "Javanese",
+    "native": "ꦧꦱꦗꦮ"
+  },
+  {
+    "code": "ka",
+    "name": "Georgian",
+    "region": "Georgian",
+    "native": "ქართული"
+  },
+  {
+    "code": "kk",
+    "name": "Kazakh",
+    "region": "Kazakh",
+    "native": "Қазащb"
+  },
+  {
+    "code": "km",
+    "name": "Khmer",
+    "region": "Khmer",
+    "native": "ខ្មែរ"
+  },
+  {
+    "code": "ko",
+    "name": "Korean",
+    "region": "Korean",
+    "native": "한국어"
+  },
+  {
+    "code": "ks",
+    "name": "Kashmiri",
+    "region": "Kashmiri",
+    "native": "कॉशुर, كٲشُر"
+  },
+  {
+    "code": "ky",
+    "name": "Kyrgyz",
+    "region": "Kyrgyz",
+    "native": "Кыргыз"
+  },
+  {
+    "code": "lb",
+    "name": "Luxembourgish",
+    "region": "Luxembourgish",
+    "native": "Lëtzebuergesch"
+  },
+  {
+    "code": "lt",
+    "name": "Lithuanian",
+    "region": "Lithuanian",
+    "native": "lietuvių"
+  },
+  {
+    "code": "lv",
+    "name": "Latvian",
+    "region": "Latvian",
+    "native": "latviešu"
+  },
+  {
+    "code": "mk",
+    "name": "Macedonian (FYROM)",
+    "region": "Macedonian",
+    "native": "македонски јазик"
+  },
+  {
+    "code": "ml",
+    "name": "Malayalam",
+    "region": "Malayalam",
+    "native": "മലയാളം"
+  },
+  {
+    "code": "mn",
+    "name": "Mongolian (Cyrillic)",
+    "region": "Mongolian",
+    "native": "Монгол хэл"
+  },
+  {
+    "code": "ms",
+    "name": "Malay",
+    "region": "Malay",
+    "native": "Bahasa Malaysia"
+  },
+  {
+    "code": "mt",
+    "name": "Maltese",
+    "region": "Maltese",
+    "native": "Malti"
+  },
+  {
+    "code": "my",
+    "name": "Myanmar",
+    "region": "Burmese (Myanmar)",
+    "native": "မြန်မာစာ"
+  },
+  {
+    "code": "ne",
+    "name": "Nepali",
+    "region": "Nepali",
+    "native": "नेपाली"
+  },
+  {
+    "code": "nl",
+    "name": "Dutch",
+    "region": "Dutch",
+    "native": "Nederlands"
+  },
+  {
+    "code": "no",
+    "name": "Norwegian (Bokmål)",
+    "region": "Norwegian",
+    "native": "norsk"
+  },
+  {
+    "code": "pa",
+    "name": "Punjabi",
+    "region": "Punjabi",
+    "native": "ਪੰਜਾਬੀ"
+  },
+  {
+    "code": "pl",
+    "name": "Polish",
+    "region": "Polish",
+    "native": "polski"
+  },
+  {
+    "code": "pt",
+    "name": "Portuguese",
+    "region": "Portuguese",
+    "native": "Português"
+  },
+  {
+    "code": "ro",
+    "name": "Romanian",
+    "region": "Romanian",
+    "native": "română"
+  },
+  {
+    "code": "ru",
+    "name": "Russian",
+    "region": "Russian",
+    "native": "русский"
+  },
+  {
+    "code": "sc",
+    "name": "Sardinian",
+    "region": "Sardinian",
+    "native": "sardu"
+  },
+  {
+    "code": "sk",
+    "name": "Slovak",
+    "region": "Slovak",
+    "native": "slovenčina"
+  },
+  {
+    "code": "sl",
+    "name": "Slovenian",
+    "region": "Slovenian",
+    "native": "slovenski"
+  },
+  {
+    "code": "sq",
+    "name": "Albanian",
+    "region": "Albanian",
+    "native": "shqipe"
+  },
+  {
+    "code": "sr",
+    "name": "Serbian (Latin)",
+    "region": "Serbian",
+    "native": "srpski"
+  },
+  {
+    "code": "sv",
+    "name": "Swedish",
+    "region": "Swedish",
+    "native": "svenska"
+  },
+  {
+    "code": "ta",
+    "name": "Tamil",
+    "region": "Tamil",
+    "native": "தமிழ்"
+  },
+  {
+    "code": "th",
+    "name": "Thai",
+    "region": "Thai",
+    "native": "ไทย"
+  },
+  {
+    "code": "tk",
+    "name": "Turkmen",
+    "region": "Turkmen",
+    "native": "türkmençe"
+  },
+  {
+    "code": "tr",
+    "name": "Turkish",
+    "region": "Turkish",
+    "native": "Türkçe"
+  },
+  {
+    "code": "uk",
+    "name": "Ukrainian",
+    "region": "Ukrainian",
+    "native": "україньска"
+  },
+  {
+    "code": "uz",
+    "name": "Uzbek (Latin)",
+    "region": "Uzbek",
+    "native": "U'zbek"
+  },
+  {
+    "code": "vi",
+    "name": "Vietnamese",
+    "region": "Vietnamese",
+    "native": "Tiếng Việt"
+  },
+  {
+    "code": "zh-Hans",
+    "name": "Chinese",
+    "region": "Chinese (Simplified)",
+    "native": "中文(简体)"
+  }
+]

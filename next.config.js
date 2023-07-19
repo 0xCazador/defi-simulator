@@ -1,3 +1,5 @@
+const linguiConfig = require('./lingui.config');
+
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
@@ -5,8 +7,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 module.exports = withBundleAnalyzer({
   reactStrictMode: false,
   i18n: {
-    locales: ['en'], // More coming soon via #5
-    defaultLocale: 'en',
+    locales: linguiConfig.locales,
+    defaultLocale: "en",
   },
   eslint: {
     ignoreDuringBuilds: true,
@@ -14,5 +16,9 @@ module.exports = withBundleAnalyzer({
   typescript: {
     ignoreBuildErrors: true,
   },
-   productionBrowserSourceMaps: true,
+  productionBrowserSourceMaps: true,
+  webpack: (config) => {
+    config.experiments.topLevelAwait = true 
+    return config;
+  }
 });

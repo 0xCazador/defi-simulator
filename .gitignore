@@ -36,3 +36,7 @@ yarn-error.log*
 
 # storybook
 storybook-static
+
+# lingui i18n
+/src/locales/
+

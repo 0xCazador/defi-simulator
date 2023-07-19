@@ -4,8 +4,6 @@
     border-color: #373a40;
     box-shadow: none;
     margin-top: 5px;
-}
-
-.noUi-handle {
-    background-color: #e9ecef;
+    margin-left: 16px;
+    margin-right: 16px;
 }
