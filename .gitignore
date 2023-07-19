@@ -38,6 +38,5 @@ yarn-error.log*
 storybook-static
 
 # lingui i18n
-./src/locales/_build/
-./src/locales/**/*.js
+/src/locales/
 

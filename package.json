@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && npm run sync_and_purge",
+    "build": "npm run sync_and_purge && next build",
     "analyze": "ANALYZE=true next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
