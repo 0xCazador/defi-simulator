@@ -476,7 +476,7 @@ export const getHealthFactorColor = (hf: number = 0) => {
 
 export const isStablecoinAsset = (asset: AssetDetails) => {
   const symbol = asset.symbol?.toUpperCase();
-  return symbol?.includes("DAI") || symbol?.includes("USD");
+  return symbol?.includes("DAI") || symbol?.includes("USD") || symbol.includes("GHO");
 }
 
 export const getEligibleLiquidationScenarioReserves = (hfData: AaveHealthFactorData) => {
