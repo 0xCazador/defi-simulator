@@ -123,7 +123,7 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
             const iconName = asset.symbol.toLowerCase().replace('.e', '').replace('.b', '').replace('m.', '');
             return (
               <List.Item
-                key={asset.symbol}
+                key={`${asset.symbol}-${asset.name}`}
                 onClick={() => handleAddAsset(asset.symbol)}
                 style={{ cursor: 'pointer ' }}
                 m={5}
