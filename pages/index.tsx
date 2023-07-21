@@ -6,31 +6,41 @@ import {
   Divider,
   Space,
   Text,
-} from '@mantine/core';
-import { FiAlertTriangle } from 'react-icons/fi';
-import { useEffect, useState, Children, cloneElement, ReactElement } from 'react';
-import { NextRouter, useRouter } from 'next/router';
-import { ethers } from 'ethers';
+} from "@mantine/core";
+import { FiAlertTriangle } from "react-icons/fi";
+import {
+  useEffect,
+  useState,
+  Children,
+  cloneElement,
+  ReactElement,
+} from "react";
+import { NextRouter, useRouter } from "next/router";
+import { ethers } from "ethers";
 import { Trans, t } from "@lingui/macro";
 
-import { useAaveData } from '../hooks/useAaveData';
-import AppBar from '../components/AppBar';
-import AddressInput, { isValidENSAddress } from '../components/AddressInput';
-import AddressCard from '../components/AddressCard';
-import Footer from '../components/Footer';
-import { activateLocale } from './_app';
+import { useAaveData } from "../hooks/useAaveData";
+import AppBar from "../components/AppBar";
+import AddressInput, { isValidENSAddress } from "../components/AddressInput";
+import AddressCard from "../components/AddressCard";
+import Footer from "../components/Footer";
+import { activateLocale } from "./_app";
 
 export default function HomePage() {
   const router: NextRouter = useRouter();
   const address = router?.query?.address as string;
-  const isValidAddress: boolean = ethers.utils.isAddress(address) || isValidENSAddress(address);
-  const { currentAddress, setCurrentAddress } = useAaveData(isValidAddress ? address : '');
+  const isValidAddress: boolean =
+    ethers.utils.isAddress(address) || isValidENSAddress(address);
+  const { currentAddress, setCurrentAddress } = useAaveData(
+    isValidAddress ? address : ""
+  );
 
   const locale = router?.locale;
 
-  useEffect(() => { // ensure current address is correctly set from url
+  useEffect(() => {
+    // ensure current address is correctly set from url
     if (!address && currentAddress) {
-      setCurrentAddress('');
+      setCurrentAddress("");
     }
     if (router.query.address && router.query.address !== currentAddress) {
       if (isValidAddress) {
@@ -39,12 +49,13 @@ export default function HomePage() {
     }
   }, [address]);
 
-  useEffect(() => { // ensure current locale is correctly set from url
+  useEffect(() => {
+    // ensure current locale is correctly set from url
     if (locale) activateLocale(locale);
   }, [locale]);
 
   return (
-    <Container px="xs" style={{ contain: 'paint' }}>
+    <Container px="xs" style={{ contain: "paint" }}>
       <AppBar />
       <AddressInput />
       {currentAddress && <AddressCard />}
@@ -62,21 +73,19 @@ const SplashSection = () => {
       <Center mt={15}>
         <Text fz="md" ta="center" span>
           <Trans>
-            Paste an address with an Aave debt position in the box above to visualize how changes to borrow/reserve assets
-            affect the position's health factor and borrowing power.
+            Paste an address with an Aave debt position in the box above to
+            visualize how changes to borrow/reserve assets affect the position's
+            health factor and borrowing power.
           </Trans>
         </Text>
       </Center>
 
-      <Divider
-        my="sm"
-        variant="dashed"
-        labelPosition="center"
-        label={t`OR`}
-      />
+      <Divider my="sm" variant="dashed" labelPosition="center" label={t`OR`} />
 
       <Center mt={15}>
-        <Text fz="md" ta="center"><Trans>Want to go for a quick spin?</Trans></Text>
+        <Text fz="md" ta="center">
+          <Trans>Want to go for a quick spin?</Trans>
+        </Text>
       </Center>
 
       <Space h="md" />
@@ -86,19 +95,21 @@ const SplashSection = () => {
       </Center>
 
       <Center mt={15}>
-        <Text fz="md" ta="center"><Trans>Create a new simulated position in any Aave market:</Trans></Text>
+        <Text fz="md" ta="center">
+          <Trans>Create a new simulated position in any Aave market:</Trans>
+        </Text>
       </Center>
 
       <Space h="md" />
 
       <Center>
-        <Button onClick={() => router.push("?address=sandbox.eth")}><Trans>Build from Scratch</Trans></Button>
+        <Button onClick={() => router.push("?address=sandbox.eth")}>
+          <Trans>Build from Scratch</Trans>
+        </Button>
       </Center>
     </>
-
-  )
-}
-
+  );
+};
 
 type RandomAddressButtonProps = {
   children?: React.ReactNode;
@@ -514,19 +525,24 @@ export const RandomAddressButton = ({ children }: RandomAddressButtonProps) => {
     "0x1749ad951fb612b42dc105944da86c362a783487",
     "0x1a8c730c2ad5faab9fe0d7ee5bfd750e044a111d",
     "0xe6395145c839dac68d4f4c006101f88614d359f0",
-    "0x7a16ff8270133f063aab6c9977183d9e72835428"
+    "0x7a16ff8270133f063aab6c9977183d9e72835428",
   ];
 
   const address = addresses[getRandomInt(0, addresses.length)];
 
-  const renderChildren = () => Children.map(children, (child) => cloneElement(child as ReactElement, {
-    onClick: () => router.push(`?address=${address}`),
-  }));
+  const renderChildren = () =>
+    Children.map(children, (child) =>
+      cloneElement(child as ReactElement, {
+        onClick: () => router.push(`?address=${address}`),
+      })
+    );
 
   return children ? (
     <span>{renderChildren()}</span>
   ) : (
-    <Button onClick={() => router.push(`?address=${address}`)}><Trans>Use Random Address</Trans></Button>
+    <Button onClick={() => router.push(`?address=${address}`)}>
+      <Trans>Use Random Address</Trans>
+    </Button>
   );
 };
 
@@ -548,8 +564,8 @@ const ExperimentalAlert = () => {
       closeButtonLabel={t`Close alert`}
     >
       <Trans>
-        This Aave debt simulator is experimental. Don't make financial
-        decisions based solely on the results of this app.
+        This Aave debt simulator is experimental. Don't make financial decisions
+        based solely on the results of this app.
       </Trans>
     </Alert>
   );

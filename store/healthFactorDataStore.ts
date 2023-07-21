@@ -1,6 +1,6 @@
-import React from 'react';
-import { hookstate, State } from '@hookstate/core';
-import { HealthFactorData } from '../hooks/useAaveData';
+import React from "react";
+import { hookstate, State } from "@hookstate/core";
+import { HealthFactorData } from "../hooks/useAaveData";
 
 interface HealthFactorStore {
   currentAddress: string;
@@ -9,8 +9,8 @@ interface HealthFactorStore {
 }
 
 const defaultState: HealthFactorStore = {
-  currentAddress: '',
-  currentMarket: 'ETHEREUM_V3',
+  currentAddress: "",
+  currentMarket: "ETHEREUM_V3",
   addressData: {},
 };
 

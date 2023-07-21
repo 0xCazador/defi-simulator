@@ -1,3 +1,4 @@
 *.js
 
-./src/locales/_build/
+/src/locales/
+

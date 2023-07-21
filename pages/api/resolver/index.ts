@@ -1,20 +1,20 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { ethers } from 'ethers';
+import type { NextApiRequest, NextApiResponse } from "next";
+import { ethers } from "ethers";
 
-import { Alchemy, Network } from 'alchemy-sdk';
+import { Alchemy, Network } from "alchemy-sdk";
 
-const allowedMethods = ['POST', 'OPTIONS'];
+const allowedMethods = ["POST", "OPTIONS"];
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
     if (!allowedMethods.includes(_req.method!)) {
-      return res.status(405).send({ message: 'Method not allowed.' });
+      return res.status(405).send({ message: "Method not allowed." });
     }
 
     const { address } = JSON.parse(_req.body);
     let resolvedAddress = address;
     if (!ethers.utils.isAddress(address)) {
-      resolvedAddress = (await getResolvedAddress(address)) || '';
+      resolvedAddress = (await getResolvedAddress(address)) || "";
     }
 
     res.status(200).send(resolvedAddress);

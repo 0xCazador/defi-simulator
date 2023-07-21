@@ -7,12 +7,12 @@ import {
   Title,
   Divider,
   Center,
-} from '@mantine/core';
-import { BiGhost } from 'react-icons/bi';
-import { BsTwitter, BsGithub, BsDiscord } from 'react-icons/bs';
+} from "@mantine/core";
+import { BiGhost } from "react-icons/bi";
+import { BsTwitter, BsGithub, BsDiscord } from "react-icons/bs";
 import { Trans } from "@lingui/macro";
-import SelectLanguageDialog from './SelectLanguageDialog';
-import SelectCurrencyDialog from './SelectCurrencyDialog';
+import SelectLanguageDialog from "./SelectLanguageDialog";
+import SelectCurrencyDialog from "./SelectCurrencyDialog";
 
 const useStyles = createStyles((theme) => ({
   footer: {
@@ -23,38 +23,38 @@ const useStyles = createStyles((theme) => ({
   logo: {
     maxWidth: 200,
 
-    [theme.fn.smallerThan('sm')]: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
+    [theme.fn.smallerThan("sm")]: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
     },
   },
 
   description: {
     marginTop: 5,
 
-    [theme.fn.smallerThan('sm')]: {
+    [theme.fn.smallerThan("sm")]: {
       marginTop: theme.spacing.xs,
-      textAlign: 'center',
+      textAlign: "center",
     },
   },
 
   inner: {
-    display: 'flex',
-    justifyContent: 'space-between',
+    display: "flex",
+    justifyContent: "space-between",
 
-    [theme.fn.smallerThan('sm')]: {
-      flexDirection: 'column',
-      alignItems: 'center',
+    [theme.fn.smallerThan("sm")]: {
+      flexDirection: "column",
+      alignItems: "center",
     },
   },
 
   groups: {
-    display: 'flex',
-    flexWrap: 'wrap',
+    display: "flex",
+    flexWrap: "wrap",
 
-    [theme.fn.smallerThan('sm')]: {
-      display: 'none',
+    [theme.fn.smallerThan("sm")]: {
+      display: "none",
     },
   },
 
@@ -63,14 +63,17 @@ const useStyles = createStyles((theme) => ({
   },
 
   link: {
-    display: 'block',
-    color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[6],
+    display: "block",
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[1]
+        : theme.colors.gray[6],
     fontSize: theme.fontSizes.sm,
     paddingTop: 3,
     paddingBottom: 3,
 
-    '&:hover': {
-      textDecoration: 'underline',
+    "&:hover": {
+      textDecoration: "underline",
     },
   },
 
@@ -78,26 +81,27 @@ const useStyles = createStyles((theme) => ({
     fontSize: theme.fontSizes.lg,
     fontWeight: 700,
     fontFamily: `Greycliff CF, ${theme.fontFamily}`,
-    color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+    color: theme.colorScheme === "dark" ? theme.white : theme.black,
   },
 
   afterFooter: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginTop: theme.spacing.xl,
     paddingTop: theme.spacing.xl,
     paddingBottom: theme.spacing.xl,
-    borderTop: `1px solid ${theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]
-      }`,
+    borderTop: `1px solid ${
+      theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2]
+    }`,
 
-    [theme.fn.smallerThan('sm')]: {
-      flexDirection: 'column',
+    [theme.fn.smallerThan("sm")]: {
+      flexDirection: "column",
     },
   },
 
   social: {
-    [theme.fn.smallerThan('sm')]: {
+    [theme.fn.smallerThan("sm")]: {
       marginTop: theme.spacing.xs,
     },
   },
@@ -112,10 +116,10 @@ export default function FooterLinks() {
         <div className={classes.logo}>
           <BiGhost size={36} />
           <Text size="xs" color="dimmed" className={classes.description}>
-            DeFi Simulator
-            {" "}
+            DeFi Simulator{" "}
             <Trans>
-              is an unofficial, open source, community-built Aave debt simulator.
+              is an unofficial, open source, community-built Aave debt
+              simulator.
             </Trans>
           </Text>
         </div>
@@ -125,8 +129,13 @@ export default function FooterLinks() {
         <Center>
           <Text size="xs" c="dimmed" mt="lg">
             <Trans>
-              Questions or comments? Please{' '}
-              <a href="https://discord.gg/VF64xjhXEs" target="_blank" rel="noreferrer" style={{ color: "#e9ecef" }}>
+              Questions or comments? Please{" "}
+              <a
+                href="https://discord.gg/VF64xjhXEs"
+                target="_blank"
+                rel="noreferrer"
+                style={{ color: "#e9ecef" }}
+              >
                 join the Discord!
               </a>
             </Trans>
@@ -144,13 +153,31 @@ export default function FooterLinks() {
         </Group>
 
         <Group spacing={0} className={classes.social} position="right" noWrap>
-          <ActionIcon title="Link to Discord" size="lg" component="a" href="https://discord.gg/VF64xjhXEs" target="_blank">
+          <ActionIcon
+            title="Link to Discord"
+            size="lg"
+            component="a"
+            href="https://discord.gg/VF64xjhXEs"
+            target="_blank"
+          >
             <BsDiscord size="1.05rem" />
           </ActionIcon>
-          <ActionIcon title="Link to Twitter" size="lg" component="a" href="https://twitter.com/defisim" target="_blank">
+          <ActionIcon
+            title="Link to Twitter"
+            size="lg"
+            component="a"
+            href="https://twitter.com/defisim"
+            target="_blank"
+          >
             <BsTwitter size="1.05rem" />
           </ActionIcon>
-          <ActionIcon title="Link to GitHub" size="lg" component="a" href="https://github.com/0xcazador/defi-simulator" target="_blank">
+          <ActionIcon
+            title="Link to GitHub"
+            size="lg"
+            component="a"
+            href="https://github.com/0xcazador/defi-simulator"
+            target="_blank"
+          >
             <BsGithub size="1.05rem" />
           </ActionIcon>
         </Group>

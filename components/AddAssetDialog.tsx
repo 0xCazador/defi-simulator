@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import { t, Trans } from "@lingui/macro";
 
 import {
@@ -11,64 +11,66 @@ import {
   ActionIcon,
   Text,
   Center,
-} from '@mantine/core';
-import { RxReset } from 'react-icons/rx';
+} from "@mantine/core";
+import { RxReset } from "react-icons/rx";
 import {
   useAaveData,
   ReserveAssetDataItem,
   BorrowedAssetDataItem,
-} from '../hooks/useAaveData';
+} from "../hooks/useAaveData";
 
 type AddAssetDialogProps = {
-  assetType: 'BORROW' | 'RESERVE';
+  assetType: "BORROW" | "RESERVE";
 };
 
 export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
   const [open, setOpen] = React.useState(false);
-  const [searchText, setSearchText] = React.useState('');
-  const { addressData, currentMarket, addBorrowAsset, addReserveAsset } = useAaveData('');
+  const [searchText, setSearchText] = React.useState("");
+  const { addressData, currentMarket, addBorrowAsset, addReserveAsset } =
+    useAaveData("");
 
   const handleClose = () => {
-    setSearchText('');
+    setSearchText("");
     setOpen(false);
   };
 
   const handleAddAsset = (asset: string) => {
-    assetType === 'BORROW' ? addBorrowAsset(asset) : addReserveAsset(asset);
+    assetType === "BORROW" ? addBorrowAsset(asset) : addReserveAsset(asset);
     handleClose();
   };
 
   const assets = open
     ? new Array(...(addressData?.[currentMarket]?.availableAssets || []))
-      .sort((a, b) => {
-        // alpha sort by symbol
-        if (a.symbol.toUpperCase() < b.symbol.toUpperCase()) {
-          return -1;
-        }
-        if (a.symbol.toUpperCase() > b.symbol.toUpperCase()) {
-          return 1;
-        }
-        return 0;
-      })
-      .filter((asset) => {
-        // filter name/symbol by search text, if there is any
-        if (!searchText.length) return true;
-        if (
-          asset.name.toUpperCase().includes(searchText.toUpperCase()) ||
-          asset.symbol.toUpperCase().includes(searchText.toUpperCase())
-        ) return true;
-        return false;
-      })
-      .filter((asset) => {
-        // filter out assets that are already in the CDP
-        const reserves = addressData?.[currentMarket]?.workingData
-          ?.userReservesData as ReserveAssetDataItem[];
-        const borrows = addressData?.[currentMarket]?.workingData
-          ?.userBorrowsData as BorrowedAssetDataItem[];
-        return assetType === 'RESERVE'
-          ? !reserves.find((item) => item.asset.symbol === asset.symbol)
-          : !borrows.find((item) => item.asset.symbol === asset.symbol);
-      })
+        .sort((a, b) => {
+          // alpha sort by symbol
+          if (a.symbol.toUpperCase() < b.symbol.toUpperCase()) {
+            return -1;
+          }
+          if (a.symbol.toUpperCase() > b.symbol.toUpperCase()) {
+            return 1;
+          }
+          return 0;
+        })
+        .filter((asset) => {
+          // filter name/symbol by search text, if there is any
+          if (!searchText.length) return true;
+          if (
+            asset.name.toUpperCase().includes(searchText.toUpperCase()) ||
+            asset.symbol.toUpperCase().includes(searchText.toUpperCase())
+          )
+            return true;
+          return false;
+        })
+        .filter((asset) => {
+          // filter out assets that are already in the CDP
+          const reserves = addressData?.[currentMarket]?.workingData
+            ?.userReservesData as ReserveAssetDataItem[];
+          const borrows = addressData?.[currentMarket]?.workingData
+            ?.userBorrowsData as BorrowedAssetDataItem[];
+          return assetType === "RESERVE"
+            ? !reserves.find((item) => item.asset.symbol === asset.symbol)
+            : !borrows.find((item) => item.asset.symbol === asset.symbol);
+        })
     : new Array(...(addressData?.[currentMarket]?.availableAssets || []));
 
   return (
@@ -76,27 +78,33 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
       <Modal
         opened={open}
         onClose={() => {
-          setSearchText('');
+          setSearchText("");
           setOpen(false);
         }}
-        title={t`Add ${assetType === 'BORROW' ? 'Borrow' : 'Reserve'} Asset`}
+        title={t`Add ${assetType === "BORROW" ? "Borrow" : "Reserve"} Asset`}
       >
         <TextInput
           value={searchText}
-          label={t`Search for ${assetType === 'BORROW' ? 'Borrow' : 'Reserve'} Assets`}
+          label={t`Search for ${
+            assetType === "BORROW" ? "Borrow" : "Reserve"
+          } Assets`}
           onChange={(e) => setSearchText(e.target.value)}
           size="sm"
           mb={8}
           style={{}}
-          inputWrapperOrder={['label', 'error', 'input', 'description']}
+          inputWrapperOrder={["label", "error", "input", "description"]}
           rightSection={
             searchText?.length > 0 && (
-              <Tooltip label={t`Reset search query`} position="top-end" withArrow>
+              <Tooltip
+                label={t`Reset search query`}
+                position="top-end"
+                withArrow
+              >
                 <ActionIcon>
                   <RxReset
                     size={18}
-                    style={{ display: 'block' }}
-                    onClick={() => setSearchText('')}
+                    style={{ display: "block" }}
+                    onClick={() => setSearchText("")}
                   />
                 </ActionIcon>
               </Tooltip>
@@ -108,27 +116,35 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
           <Center>
             <Text mt={15} mb={15}>
               <Trans>
-                There are no assets that match the search query. Reset the search query to select an
-                asset.
+                There are no assets that match the search query. Reset the
+                search query to select an asset.
               </Trans>
             </Text>
           </Center>
         ) : (
           <Text mb={8}>
-            {t`Select ${assets.length === 1 ? 'the' : 'one of the'} (${assets.length}) ${assets.length === 1 ? 'asset' : 'assets'
-              } below to add it as a ${assetType === 'BORROW' ? 'borrow' : 'reserve'
-              } asset to the debt position.`}
+            {t`Select ${assets.length === 1 ? "the" : "one of the"} (${
+              assets.length
+            }) ${
+              assets.length === 1 ? "asset" : "assets"
+            } below to add it as a ${
+              assetType === "BORROW" ? "borrow" : "reserve"
+            } asset to the debt position.`}
           </Text>
         )}
 
         <List>
           {assets.map((asset) => {
-            const iconName = asset.symbol.toLowerCase().replace('.e', '').replace('.b', '').replace('m.', '');
+            const iconName = asset.symbol
+              .toLowerCase()
+              .replace(".e", "")
+              .replace(".b", "")
+              .replace("m.", "");
             return (
               <List.Item
                 key={`${asset.symbol}-${asset.name}`}
                 onClick={() => handleAddAsset(asset.symbol)}
-                style={{ cursor: 'pointer ' }}
+                style={{ cursor: "pointer " }}
                 m={5}
                 icon={
                   <img
@@ -148,9 +164,7 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
 
       <Group position="center">
         <Button variant="outline" onClick={() => setOpen(true)}>
-          {assetType === "BORROW"
-            ? t`Add Borrow Asset`
-            : t`Add Reserve Asset`}
+          {assetType === "BORROW" ? t`Add Borrow Asset` : t`Add Reserve Asset`}
         </Button>
       </Group>
     </>
