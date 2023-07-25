@@ -61,7 +61,7 @@ import { useFiatRates } from "../hooks/useFiatData";
 
 type Props = {};
 
-const AddressCard = ({}: Props) => {
+const AddressCard = ({ }: Props) => {
   const { addressData, currentMarket, applyLiquidationScenario, isFetching } =
     useAaveData("");
   const data = addressData?.[currentMarket];
@@ -309,7 +309,7 @@ const HealthFactorSummary = ({
   const healthFactorDiffers: boolean =
     addressHasPosition &&
     data.workingData?.healthFactor?.toFixed(2) !==
-      data.fetchedData?.healthFactor?.toFixed(2);
+    data.fetchedData?.healthFactor?.toFixed(2);
 
   const originalTotalBorrowsUSD: number =
     data.fetchedData?.totalBorrowsUSD ?? 0;
@@ -317,7 +317,7 @@ const HealthFactorSummary = ({
   const totalBorrowsDiffers: boolean =
     addressHasPosition &&
     data.fetchedData?.totalBorrowsUSD?.toFixed(2) !==
-      data.workingData?.totalBorrowsUSD?.toFixed(2);
+    data.workingData?.totalBorrowsUSD?.toFixed(2);
 
   const originalAvailableBorrowsUSD: number = Math.max(
     data.fetchedData?.availableBorrowsUSD ?? 0,
@@ -332,7 +332,7 @@ const HealthFactorSummary = ({
   const availableBorrowsDiffers: boolean =
     addressHasPosition &&
     data.fetchedData?.availableBorrowsUSD?.toFixed(2) !==
-      data.workingData?.availableBorrowsUSD?.toFixed(2);
+    data.workingData?.availableBorrowsUSD?.toFixed(2);
 
   const originalTotalCollateralUSD: number =
     data.fetchedData?.userReservesData.reduce(
@@ -360,9 +360,9 @@ const HealthFactorSummary = ({
     (
       originalTotalCollateralUSD - (data.fetchedData?.totalBorrowsUSD ?? 0)
     ).toFixed(2) !==
-      (totalCollateralUSD - (data.workingData?.totalBorrowsUSD ?? 0)).toFixed(
-        2
-      );
+    (totalCollateralUSD - (data.workingData?.totalBorrowsUSD ?? 0)).toFixed(
+      2
+    );
 
   return (
     <div ref={summaryRef} style={{ position: "sticky", top: "0", zIndex: "5" }}>
@@ -373,7 +373,25 @@ const HealthFactorSummary = ({
           labelPosition="center"
           label={
             <Title order={3}>
-              {"Health Factor: "}
+              <Popover width="300px" withArrow shadow="md">
+                <Popover.Target>
+                  <Text
+                    span
+                    underline
+                    style={{ textDecorationStyle: "dotted", cursor: "pointer" }}
+                  >
+                    <Trans>{"Health Factor"}</Trans>
+                  </Text>
+                </Popover.Target>
+                <Popover.Dropdown>
+                  <Trans>
+                    <Text size="sm">
+                      The position is subject to liquidation when the Health Factor drops below 1.
+                    </Text>
+                  </Trans>
+                </Popover.Dropdown>
+              </Popover>
+              {": "}
               {healthFactorDiffers && (
                 <>
                   <Text mr="4px" span c="dimmed">
@@ -692,7 +710,7 @@ const LiquidationScenario = ({
   );
 };
 
-const ResetMarketButton = ({}) => {
+const ResetMarketButton = ({ }) => {
   const { addressData, currentMarket, resetCurrentMarketChanges } =
     useAaveData("");
   const data = addressData?.[currentMarket];
@@ -1079,9 +1097,9 @@ const UserAssetUseAsCollateralToggle = ({
   const handleSetUseReserveAssetAsCollateral = () => {
     setUseReserveAssetAsCollateral !== undefined
       ? setUseReserveAssetAsCollateral(
-          assetSymbol,
-          !usageAsCollateralEnabledOnUser
-        )
+        assetSymbol,
+        !usageAsCollateralEnabledOnUser
+      )
       : null;
   };
 
