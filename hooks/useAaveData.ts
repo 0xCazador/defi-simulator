@@ -261,12 +261,16 @@ export function useAaveData(address: string) {
       if (currentMarketHasPosition) return;
       const marketWithPosition = markets
         .sort((marketA, marketB) => {
-          const marketDataA = data?.[marketA.id]?.workingData;
-          const marketDataB = data?.[marketB.id]?.workingData;
-          return (
-            (marketDataB?.totalCollateralMarketReferenceCurrency || 0) -
-            (marketDataA?.totalCollateralMarketReferenceCurrency || 0)
-          );
+          const marketDataA = data?.[marketA.id];
+          const marketDataB = data?.[marketB.id];
+
+          const totalCollA = marketDataA?.workingData?.totalCollateralMarketReferenceCurrency || 0;
+          const totalCollB = marketDataB?.workingData?.totalCollateralMarketReferenceCurrency || 0;
+
+          const priceA = marketDataA.marketReferenceCurrencyPriceInUSD || 0;
+          const priceB = marketDataB.marketReferenceCurrencyPriceInUSD || 0;
+
+          return ((totalCollB * priceB) - (totalCollA * priceA));
         })
         .find(
           (market) =>
@@ -356,13 +360,13 @@ export function useAaveData(address: string) {
 
     assetType === "RESERVE"
       ? reserves.set((p) => {
-          p.splice(itemIndex, 1);
-          return p;
-        })
+        p.splice(itemIndex, 1);
+        return p;
+      })
       : borrows.set((p) => {
-          p.splice(itemIndex, 1);
-          return p;
-        });
+        p.splice(itemIndex, 1);
+        return p;
+      });
 
     updateAllDerivedHealthFactorData();
   };
@@ -456,7 +460,7 @@ export function useAaveData(address: string) {
   const updateAllDerivedHealthFactorData = () => {
     const currentMarketReferenceCurrencyPriceInUSD: number = store.addressData
       .nested(address)
-      [currentMarket].marketReferenceCurrencyPriceInUSD.get();
+    [currentMarket].marketReferenceCurrencyPriceInUSD.get();
 
     const healthFactorItem = store.addressData.nested(address)?.[
       currentMarket
@@ -539,7 +543,7 @@ export const getEligibleLiquidationScenarioReserves = (
   const exceedsMinResPct: boolean =
     cumulativeReserveMRCValue >
     hfData.totalCollateralMarketReferenceCurrency *
-      (MINIMUM_CUMULATIVE_RESERVE_PCT / 100);
+    (MINIMUM_CUMULATIVE_RESERVE_PCT / 100);
   const exceedsMinResUSD: boolean =
     cumulativeReserveUSDValue > MINIMUM_CUMULATIVE_RESERVE_USD;
 
@@ -908,15 +912,15 @@ export const getCalculatedLiquidationScenario = (
 
       let priceDecrement = decrementPercentage
         ? // Use the uniform percentage, if we  have it
-          Math.max(0.01, (decrementPercentage * asset.priceInUSD) / 100)
+        Math.max(0.01, (decrementPercentage * asset.priceInUSD) / 100)
         : // Else use an approximation based on the difference between current hf and HF_LIMIT
-          Math.max(
-            0.01,
-            Math.min(
-              asset.priceInUSD * ((hf - HF_LIMIT) * 0.45),
-              asset.priceInUSD * 0.5
-            )
-          );
+        Math.max(
+          0.01,
+          Math.min(
+            asset.priceInUSD * ((hf - HF_LIMIT) * 0.45),
+            asset.priceInUSD * 0.5
+          )
+        );
 
       priceDecrement =
         Math.round((priceDecrement + Number.EPSILON) * 100) / 100;
