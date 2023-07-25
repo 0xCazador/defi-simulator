@@ -213,7 +213,7 @@ export function useAaveData(address: string) {
   if (address?.length === 0) address = currentAddress || "";
 
   const isLoadingAny = !!markets.find(
-    (market) => data?.[market.id]?.isFetching
+    (market) => !!data?.[market.id]?.isFetching
   );
 
   useEffect(() => {
@@ -252,13 +252,19 @@ export function useAaveData(address: string) {
   }, [isLoadingAny]);
 
   // After fetching, if the current market doesn't have a position but another
-  // on does, select the market that has a position (prefer highest reserve balance).
+  // one does, select the market that has a position (prefer highest reserve balance).
   useEffect(() => {
-    if (!isFetching) {
+    if (!isFetching && addressProvided) {
       const currentMarketHasPosition =
         data?.[currentMarket].workingData?.healthFactor &&
         (data?.[currentMarket]?.workingData?.healthFactor ?? -1) > -1;
-      if (currentMarketHasPosition) return;
+
+      const currentMarketHasEdits = data?.[currentMarket]?.workingData?.healthFactor?.toFixed(2) !==
+        data?.[currentMarket]?.fetchedData?.healthFactor?.toFixed(2)
+
+      // Don't perform the auto-select if the user is actively editing the current market.
+      if (currentMarketHasPosition && currentMarketHasEdits) return;
+
       const marketWithPosition = markets
         .sort((marketA, marketB) => {
           const marketDataA = data?.[marketA.id];
@@ -267,8 +273,8 @@ export function useAaveData(address: string) {
           const totalCollA = marketDataA?.workingData?.totalCollateralMarketReferenceCurrency || 0;
           const totalCollB = marketDataB?.workingData?.totalCollateralMarketReferenceCurrency || 0;
 
-          const priceA = marketDataA.marketReferenceCurrencyPriceInUSD || 0;
-          const priceB = marketDataB.marketReferenceCurrencyPriceInUSD || 0;
+          const priceA = marketDataA?.marketReferenceCurrencyPriceInUSD || 0;
+          const priceB = marketDataB?.marketReferenceCurrencyPriceInUSD || 0;
 
           return ((totalCollB * priceB) - (totalCollA * priceA));
         })
