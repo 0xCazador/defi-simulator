@@ -973,7 +973,7 @@ const UserAssetItem = memo(
   }: UserAssetItemProps) => {
     const iconName = getIconNameFromAssetSymbol(assetSymbol);
     return (
-      <Paper shadow="xs" sx={{ marginBottom: "30px" }}>
+      <Paper mt="xl" mb="xl" withBorder p="xs" bg="#282a2e">
         <Group>
           <Text fz="md" fw={700}>
             {assetSymbol}
@@ -1042,7 +1042,6 @@ const UserAssetItem = memo(
             }
           />
         )}
-        <Divider variant="dashed" mt="xl" />
       </Paper>
     );
   },
