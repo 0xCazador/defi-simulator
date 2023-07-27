@@ -973,17 +973,17 @@ const UserAssetItem = memo(
   }: UserAssetItemProps) => {
     const iconName = getIconNameFromAssetSymbol(assetSymbol);
     return (
-      <Paper mt="xl" mb="xl" withBorder p="xs" pt="2px" bg="#282a2e">
+      <Paper mt="xl" mb="xl" withBorder p="xs" bg="#282a2e">
         <Group>
+          <img
+            src={`/icons/tokens/${iconName}.svg`}
+            width="24px"
+            height="24px"
+            alt={`${assetSymbol}`}
+          />
           <Text fz="md" fw={700}>
             {assetSymbol}
           </Text>
-          <img
-            src={`/icons/tokens/${iconName}.svg`}
-            width="32px"
-            height="32px"
-            alt={`${assetSymbol}`}
-          />
         </Group>
 
         <Grid columns={17}>

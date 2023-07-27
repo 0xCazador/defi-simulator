@@ -69,7 +69,45 @@ export type AssetDetails = {
   stableDebtTokenAddress?: string;
   variableDebtTokenAddress?: string;
   isNewlyAddedBySimUser?: boolean;
+  borrowingEnabled?: boolean,
+  liquidityIndex?: number,
+  variableBorrowIndex?: number,
+  liquidityRate?: number,
+  variableBorrowRate?: number,
+  stableBorrowRate?: number,
+  interestRateStrategyAddress?: number,
+  availableLiquidity?: number,
+  borrowCap?: number,
+  supplyCap?: number,
+  eModeLtv?: number,
+  eModeLiquidationThreshold?: number,
+  eModeLabel?: string,
+  borrowableInIsolation?: boolean,
+  isSiloedBorrowing?: boolean,
+  totalDebt?: number,
+  totalStableDebt?: number,
+  totalVariableDebt?: number,
+  totalLiquidity?: number,
 };
+
+/**
+ * left to borrow = borrowCap - totalDebt
+ * left to supply = supplyCap - totalLiquidity
+ * 
+ * baseLTVasCollateral
+ * reserveLiquidationThreshold
+ * 
+ * isFrozen
+ * isPaused
+ * usageAsCollateralEnabled
+ * 
+ * borrowingEnabled
+ * borrowCap
+ * supplyCap
+ * eModeLtv
+ * eModeLiquidationThreshold
+ */
+
 
 export type AaveMarketDataType = {
   v3?: boolean;
