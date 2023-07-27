@@ -14,7 +14,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
     const { address } = JSON.parse(_req.body);
     let resolvedAddress = address;
     if (!ethers.utils.isAddress(address)) {
-      resolvedAddress = (await getResolvedAddress(address)) || "";
+      resolvedAddress = (await getResolvedAddress(address)) || "0x87cCC67f0c1b67745989542152DD4acff3841CD6";
     }
 
     res.status(200).send(resolvedAddress);

@@ -65,7 +65,7 @@ const getAaveData = async (address: string, market: AaveMarketDataType) => {
   });
   const userReserves = await poolDataProviderContract.getUserReservesHumanized({
     lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
-    user: (await getResolvedAddress(address)) || "",
+    user: (await getResolvedAddress(address)) || "0x87cCC67f0c1b67745989542152DD4acff3841CD6",
   });
   const reservesArray = reserves.reservesData;
   const { baseCurrencyData } = reserves;
