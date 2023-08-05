@@ -237,7 +237,26 @@ export const HealthFactorSkeleton = ({
           <Skeleton height={45} mb="xl" animate={animate} />
         </Grid.Col>
       </Grid>
-      <Divider my="sm" variant="dashed" />
+      <Divider
+        my="sm"
+        variant="dashed"
+        labelPosition="center"
+        label={
+          <Title order={3}>
+            <Skeleton height={25} width={145} animate={animate} />
+          </Title>
+        }
+      />
+      <Divider
+        my="sm"
+        variant="dashed"
+        labelPosition="center"
+        label={
+          <Title order={3}>
+            <Skeleton height={25} width={145} animate={animate} />
+          </Title>
+        }
+      />
       {items.map((item) => (
         <Paper shadow="xs" sx={{ marginBottom: "50px" }} key={item}>
           <Skeleton height={20} width={175} mb="xl" animate={animate} />
