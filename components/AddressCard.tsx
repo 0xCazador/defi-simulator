@@ -1246,7 +1246,7 @@ const UserAssetItem = memo(
     const iconName = getIconNameFromAssetSymbol(assetSymbol);
     return (
       <Paper mt="xl" mb="xl" withBorder p="xs" bg="#282a2e">
-        <Group>
+        <Group mb="sm">
           <img
             src={`/icons/tokens/${iconName}.svg`}
             width="24px"
@@ -1284,9 +1284,9 @@ const UserAssetItem = memo(
         </Grid>
         <Container
           style={{
-            marginTop: "15px",
             display: "flex",
             justifyContent: "space-between",
+            paddingTop: "16px",
             padding: "0px",
           }}
         >
@@ -1296,6 +1296,25 @@ const UserAssetItem = memo(
             originalQuantity={originalQuantity}
             originalPrice={originalPrice}
           />
+        </Container>
+        <Container
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            padding: "0px",
+            paddingTop: "6px"
+          }}
+        >
+          {assetType === "RESERVE" ? (
+            <UserAssetUseAsCollateralToggle
+              assetSymbol={assetSymbol}
+              usageAsCollateralEnabledOnUser={usageAsCollateralEnabledOnUser}
+              setUseReserveAssetAsCollateral={setUseReserveAssetAsCollateral}
+              disableSetUseReserveAssetAsCollateral={
+                disableSetUseReserveAssetAsCollateral
+              }
+            />
+          ) : <Space m="lg" />}
           <Button
             compact
             variant="light"
@@ -1304,16 +1323,7 @@ const UserAssetItem = memo(
             {t`Remove ${assetSymbol}`}
           </Button>
         </Container>
-        {assetType === "RESERVE" && (
-          <UserAssetUseAsCollateralToggle
-            assetSymbol={assetSymbol}
-            usageAsCollateralEnabledOnUser={usageAsCollateralEnabledOnUser}
-            setUseReserveAssetAsCollateral={setUseReserveAssetAsCollateral}
-            disableSetUseReserveAssetAsCollateral={
-              disableSetUseReserveAssetAsCollateral
-            }
-          />
-        )}
+
       </Paper>
     );
   },
