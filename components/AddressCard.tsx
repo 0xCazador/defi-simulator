@@ -62,7 +62,7 @@ import { useFiatRates } from "../hooks/useFiatData";
 
 type Props = {};
 
-const AddressCard = ({ }: Props) => {
+const AddressCard = ({}: Props) => {
   const { addressData, currentMarket, applyLiquidationScenario, isFetching } =
     useAaveData("");
   const data = addressData?.[currentMarket];
@@ -330,7 +330,7 @@ const HealthFactorSummary = ({
   const healthFactorDiffers: boolean =
     addressHasPosition &&
     data.workingData?.healthFactor?.toFixed(2) !==
-    data.fetchedData?.healthFactor?.toFixed(2);
+      data.fetchedData?.healthFactor?.toFixed(2);
 
   const originalTotalBorrowsUSD: number =
     data.fetchedData?.totalBorrowsUSD ?? 0;
@@ -338,7 +338,7 @@ const HealthFactorSummary = ({
   const totalBorrowsDiffers: boolean =
     addressHasPosition &&
     data.fetchedData?.totalBorrowsUSD?.toFixed(2) !==
-    data.workingData?.totalBorrowsUSD?.toFixed(2);
+      data.workingData?.totalBorrowsUSD?.toFixed(2);
 
   const originalAvailableBorrowsUSD: number = Math.max(
     data.fetchedData?.availableBorrowsUSD ?? 0,
@@ -353,7 +353,7 @@ const HealthFactorSummary = ({
   const availableBorrowsDiffers: boolean =
     addressHasPosition &&
     data.fetchedData?.availableBorrowsUSD?.toFixed(2) !==
-    data.workingData?.availableBorrowsUSD?.toFixed(2);
+      data.workingData?.availableBorrowsUSD?.toFixed(2);
 
   const originalTotalCollateralUSD: number =
     data.fetchedData?.userReservesData.reduce(
@@ -381,9 +381,9 @@ const HealthFactorSummary = ({
     (
       originalTotalCollateralUSD - (data.fetchedData?.totalBorrowsUSD ?? 0)
     ).toFixed(2) !==
-    (totalCollateralUSD - (data.workingData?.totalBorrowsUSD ?? 0)).toFixed(
-      2
-    );
+      (totalCollateralUSD - (data.workingData?.totalBorrowsUSD ?? 0)).toFixed(
+        2
+      );
 
   return (
     <div ref={summaryRef} style={{ position: "sticky", top: "0", zIndex: "5" }}>
@@ -407,7 +407,8 @@ const HealthFactorSummary = ({
                 <Popover.Dropdown>
                   <Trans>
                     <Text size="sm">
-                      The position is subject to liquidation when the Health Factor drops below 1.
+                      The position is subject to liquidation when the Health
+                      Factor drops below 1.
                     </Text>
                   </Trans>
                 </Popover.Dropdown>
@@ -576,9 +577,7 @@ type ExtendedPositionDetailsProps = {
   data: ImmutableObject<HealthFactorData>;
 };
 
-const ExtendedPositionDetails = ({
-  data
-}: ExtendedPositionDetailsProps) => {
+const ExtendedPositionDetails = ({ data }: ExtendedPositionDetailsProps) => {
   const [showDetails, setShowDetails] = useState(false);
 
   if (!data || data?.isFetching) return null;
@@ -595,10 +594,15 @@ const ExtendedPositionDetails = ({
 
   const originalMaxLTV = data.fetchedData?.currentLoanToValue;
   const currentMaxLTV = data.workingData?.currentLoanToValue;
-  const maxLTVDiffers: boolean = originalMaxLTV?.toFixed(3) !== currentMaxLTV?.toFixed(3);
+  const maxLTVDiffers: boolean =
+    originalMaxLTV?.toFixed(3) !== currentMaxLTV?.toFixed(3);
 
-  const originalMaxLTVDisplayable = `${((originalMaxLTV || 0) * 100).toFixed(1)}%`;
-  const currentMaxLTVDisplayable = `${((currentMaxLTV || 0) * 100).toFixed(1)}%`;
+  const originalMaxLTVDisplayable = `${((originalMaxLTV || 0) * 100).toFixed(
+    1
+  )}%`;
+  const currentMaxLTVDisplayable = `${((currentMaxLTV || 0) * 100).toFixed(
+    1
+  )}%`;
 
   const availableBorrowsUSD: number = Math.max(
     data.workingData?.availableBorrowsUSD ?? 0,
@@ -613,26 +617,35 @@ const ExtendedPositionDetails = ({
   const totalBorrowsDiffers: boolean =
     addressHasPosition &&
     data.fetchedData?.totalBorrowsUSD?.toFixed(2) !==
-    data.workingData?.totalBorrowsUSD?.toFixed(2);
+      data.workingData?.totalBorrowsUSD?.toFixed(2);
 
   const originalAvailableBorrowsUSD: number = Math.max(
     data.fetchedData?.availableBorrowsUSD ?? 0,
     0
   );
 
-  const currentCumulativeAvailableBorrows = availableBorrowsUSD + totalBorrowsUSD;
-  const currBorrowPowerUsed = (100 * totalBorrowsUSD) / currentCumulativeAvailableBorrows;
+  const currentCumulativeAvailableBorrows =
+    availableBorrowsUSD + totalBorrowsUSD;
+  const currBorrowPowerUsed =
+    (100 * totalBorrowsUSD) / currentCumulativeAvailableBorrows;
 
-  const originalCumulativeAvailableBorrows = originalAvailableBorrowsUSD + originalTotalBorrowsUSD;
-  const origBorrowPowerUsed = (100 * originalTotalBorrowsUSD) / originalCumulativeAvailableBorrows;
+  const originalCumulativeAvailableBorrows =
+    originalAvailableBorrowsUSD + originalTotalBorrowsUSD;
+  const origBorrowPowerUsed =
+    (100 * originalTotalBorrowsUSD) / originalCumulativeAvailableBorrows;
 
-  const borrowPowerDiffers: boolean = origBorrowPowerUsed?.toFixed(0) !== currBorrowPowerUsed?.toFixed(0);
+  const borrowPowerDiffers: boolean =
+    origBorrowPowerUsed?.toFixed(0) !== currBorrowPowerUsed?.toFixed(0);
 
+  const originalWorkingLTV =
+    (100 * (data.fetchedData?.totalBorrowsMarketReferenceCurrency || 1)) /
+    (data.fetchedData?.totalCollateralMarketReferenceCurrency || 1);
+  const currentWorkingLTV =
+    (100 * (data.workingData?.totalBorrowsMarketReferenceCurrency || 1)) /
+    (data.workingData?.totalCollateralMarketReferenceCurrency || 1);
 
-  const originalWorkingLTV = (100 * (data.fetchedData?.totalBorrowsMarketReferenceCurrency || 1)) / (data.fetchedData?.totalCollateralMarketReferenceCurrency || 1);
-  const currentWorkingLTV = (100 * (data.workingData?.totalBorrowsMarketReferenceCurrency || 1)) / (data.workingData?.totalCollateralMarketReferenceCurrency || 1);
-
-  const workingLTVDiffers: boolean = originalWorkingLTV?.toFixed(3) !== currentWorkingLTV?.toFixed(3);
+  const workingLTVDiffers: boolean =
+    originalWorkingLTV?.toFixed(3) !== currentWorkingLTV?.toFixed(3);
 
   const originalWorkingLTVDisplayable = `${originalWorkingLTV.toFixed(1)}%`;
   const currentWorkingLTVDisplayable = `${currentWorkingLTV?.toFixed(1)}%`;
@@ -683,7 +696,10 @@ const ExtendedPositionDetails = ({
                       <Text
                         fz="xs"
                         underline
-                        style={{ textDecorationStyle: "dotted", cursor: "pointer" }}
+                        style={{
+                          textDecorationStyle: "dotted",
+                          cursor: "pointer",
+                        }}
                       >
                         <Trans>{"Liquidation Threshold: "}</Trans>
                       </Text>
@@ -691,7 +707,10 @@ const ExtendedPositionDetails = ({
                     <Popover.Dropdown>
                       <Trans>
                         <Text size="sm">
-                          Liquidation Threshold refers to the loan to value percentage that makes the position subject to liquidation. This value applies to the overall position.
+                          Liquidation Threshold refers to the loan to value
+                          percentage that makes the position subject to
+                          liquidation. This value applies to the overall
+                          position.
                         </Text>
                       </Trans>
                     </Popover.Dropdown>
@@ -708,7 +727,6 @@ const ExtendedPositionDetails = ({
                 </Paper>
               </Grid.Col>
 
-
               <Grid.Col
                 lg={3}
                 xs={6}
@@ -720,7 +738,10 @@ const ExtendedPositionDetails = ({
                       <Text
                         fz="xs"
                         underline
-                        style={{ textDecorationStyle: "dotted", cursor: "pointer" }}
+                        style={{
+                          textDecorationStyle: "dotted",
+                          cursor: "pointer",
+                        }}
                       >
                         <Trans>{"Current Loan to Value: "}</Trans>
                       </Text>
@@ -728,7 +749,10 @@ const ExtendedPositionDetails = ({
                     <Popover.Dropdown>
                       <Trans>
                         <Text size="sm">
-                          Current Loan to Value refers to the overall value of all borrowed assets relative to the overall value of the reserve assets. This value applies to the overall position.
+                          Current Loan to Value refers to the overall value of
+                          all borrowed assets relative to the overall value of
+                          the reserve assets. This value applies to the overall
+                          position.
                         </Text>
                       </Trans>
                     </Popover.Dropdown>
@@ -745,14 +769,16 @@ const ExtendedPositionDetails = ({
                 </Paper>
               </Grid.Col>
 
-
               <Grid.Col lg={3} xs={6} style={{ textAlign: "center" }}>
                 <Popover width="250px" withArrow shadow="md">
                   <Popover.Target>
                     <Text
                       fz="xs"
                       underline
-                      style={{ textDecorationStyle: "dotted", cursor: "pointer" }}
+                      style={{
+                        textDecorationStyle: "dotted",
+                        cursor: "pointer",
+                      }}
                     >
                       <Trans>{"Max Loan to Value: "}</Trans>
                     </Text>
@@ -760,15 +786,16 @@ const ExtendedPositionDetails = ({
                   <Popover.Dropdown>
                     <Trans>
                       <Text size="sm">
-                        Max Loan to Value refers to the loan to value percentage where new loans may not be initiated. This value applies to the overall position.
+                        Max Loan to Value refers to the loan to value percentage
+                        where new loans may not be initiated. This value applies
+                        to the overall position.
                       </Text>
                     </Trans>
                   </Popover.Dropdown>
                 </Popover>
                 {maxLTVDiffers && (
                   <Text fz="xs" c="dimmed">
-                    {originalMaxLTVDisplayable}{" "}
-                    ➔
+                    {originalMaxLTVDisplayable} ➔
                   </Text>
                 )}
                 <Text span fw={700} fz="md">
@@ -787,7 +814,10 @@ const ExtendedPositionDetails = ({
                       <Text
                         fz="xs"
                         underline
-                        style={{ textDecorationStyle: "dotted", cursor: "pointer" }}
+                        style={{
+                          textDecorationStyle: "dotted",
+                          cursor: "pointer",
+                        }}
                       >
                         <Trans>{"Utilized Borrowing Power: "}</Trans>
                       </Text>
@@ -795,26 +825,35 @@ const ExtendedPositionDetails = ({
                     <Popover.Dropdown>
                       <Trans>
                         <Text size="sm">
-                          Borrowing Power represents the value of borrowed assets relative to the total value available to borrow. This value applies to the overall position.
+                          Borrowing Power represents the value of borrowed
+                          assets relative to the total value available to
+                          borrow. This value applies to the overall position.
                         </Text>
                       </Trans>
                     </Popover.Dropdown>
                   </Popover>
 
-                  <Progress color={hfColor} mt="xs" radius="md" size="lg" value={currBorrowPowerUsed} striped />
+                  <Progress
+                    color={hfColor}
+                    mt="xs"
+                    radius="md"
+                    size="lg"
+                    value={currBorrowPowerUsed}
+                    striped
+                  />
                   {borrowPowerDiffers && (
                     <Text span fz="xs" c="dimmed">
-                      {origBorrowPowerUsed?.toFixed(0)}{"% "}
+                      {origBorrowPowerUsed?.toFixed(0)}
+                      {"% "}
                       {" ➔ "}
                     </Text>
                   )}
                   <Text span fw={700} fz="md">
-                    {currBorrowPowerUsed?.toFixed(0)}{"% "}
+                    {currBorrowPowerUsed?.toFixed(0)}
+                    {"% "}
                   </Text>
-
                 </Paper>
               </Grid.Col>
-
             </Grid>
           );
         }}
@@ -982,7 +1021,7 @@ const LiquidationScenario = ({
   );
 };
 
-const ResetMarketButton = ({ }) => {
+const ResetMarketButton = ({}) => {
   const { addressData, currentMarket, resetCurrentMarketChanges } =
     useAaveData("");
   const data = addressData?.[currentMarket];
@@ -1014,7 +1053,11 @@ const ResetMarketButton = ({ }) => {
   return (
     <Tooltip label={label} position="top-end" withArrow>
       <ActionIcon style={{ display: "inline-block" }}>
-        <RxReset size={18} onClick={resetCurrentMarketChanges} color="#339af0" />
+        <RxReset
+          size={18}
+          onClick={resetCurrentMarketChanges}
+          color="#339af0"
+        />
       </ActionIcon>
     </Tooltip>
   );
@@ -1305,7 +1348,7 @@ const UserAssetItem = memo(
             display: "flex",
             justifyContent: "space-between",
             padding: "0px",
-            paddingTop: "6px"
+            paddingTop: "6px",
           }}
         >
           {assetType === "RESERVE" ? (
@@ -1317,7 +1360,9 @@ const UserAssetItem = memo(
                 disableSetUseReserveAssetAsCollateral
               }
             />
-          ) : <Space m="lg" />}
+          ) : (
+            <Space m="lg" />
+          )}
           <Button
             compact
             variant="light"
@@ -1326,7 +1371,6 @@ const UserAssetItem = memo(
             {t`Remove ${assetSymbol}`}
           </Button>
         </Container>
-
       </Paper>
     );
   },
@@ -1381,9 +1425,9 @@ const UserAssetUseAsCollateralToggle = ({
   const handleSetUseReserveAssetAsCollateral = () => {
     setUseReserveAssetAsCollateral !== undefined
       ? setUseReserveAssetAsCollateral(
-        assetSymbol,
-        !usageAsCollateralEnabledOnUser
-      )
+          assetSymbol,
+          !usageAsCollateralEnabledOnUser
+        )
       : null;
   };
 
@@ -1489,7 +1533,12 @@ const ResetInputValueIcon = ({
   return (
     <Tooltip label={label} position="top-end" withArrow>
       <ActionIcon>
-        <RxReset size={18} style={{ display: "block" }} onClick={onClick} color="#339af0" />
+        <RxReset
+          size={18}
+          style={{ display: "block" }}
+          onClick={onClick}
+          color="#339af0"
+        />
       </ActionIcon>
     </Tooltip>
   );

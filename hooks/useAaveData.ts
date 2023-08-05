@@ -69,45 +69,44 @@ export type AssetDetails = {
   stableDebtTokenAddress?: string;
   variableDebtTokenAddress?: string;
   isNewlyAddedBySimUser?: boolean;
-  borrowingEnabled?: boolean,
-  liquidityIndex?: number,
-  variableBorrowIndex?: number,
-  liquidityRate?: number,
-  variableBorrowRate?: number,
-  stableBorrowRate?: number,
-  interestRateStrategyAddress?: number,
-  availableLiquidity?: number,
-  borrowCap?: number,
-  supplyCap?: number,
-  eModeLtv?: number,
-  eModeLiquidationThreshold?: number,
-  eModeLabel?: string,
-  borrowableInIsolation?: boolean,
-  isSiloedBorrowing?: boolean,
-  totalDebt?: number,
-  totalStableDebt?: number,
-  totalVariableDebt?: number,
-  totalLiquidity?: number,
+  borrowingEnabled?: boolean;
+  liquidityIndex?: number;
+  variableBorrowIndex?: number;
+  liquidityRate?: number;
+  variableBorrowRate?: number;
+  stableBorrowRate?: number;
+  interestRateStrategyAddress?: number;
+  availableLiquidity?: number;
+  borrowCap?: number;
+  supplyCap?: number;
+  eModeLtv?: number;
+  eModeLiquidationThreshold?: number;
+  eModeLabel?: string;
+  borrowableInIsolation?: boolean;
+  isSiloedBorrowing?: boolean;
+  totalDebt?: number;
+  totalStableDebt?: number;
+  totalVariableDebt?: number;
+  totalLiquidity?: number;
 };
 
 /**
  * left to borrow = borrowCap - totalDebt
  * left to supply = supplyCap - totalLiquidity
- * 
+ *
  * baseLTVasCollateral
  * reserveLiquidationThreshold
- * 
+ *
  * isFrozen
  * isPaused
  * usageAsCollateralEnabled
- * 
+ *
  * borrowingEnabled
  * borrowCap
  * supplyCap
  * eModeLtv
  * eModeLiquidationThreshold
  */
-
 
 export type AaveMarketDataType = {
   v3?: boolean;
@@ -297,8 +296,9 @@ export function useAaveData(address: string) {
         data?.[currentMarket].workingData?.healthFactor &&
         (data?.[currentMarket]?.workingData?.healthFactor ?? -1) > -1;
 
-      const currentMarketHasEdits = data?.[currentMarket]?.workingData?.healthFactor?.toFixed(2) !==
-        data?.[currentMarket]?.fetchedData?.healthFactor?.toFixed(2)
+      const currentMarketHasEdits =
+        data?.[currentMarket]?.workingData?.healthFactor?.toFixed(2) !==
+        data?.[currentMarket]?.fetchedData?.healthFactor?.toFixed(2);
 
       // Don't perform the auto-select if the user is actively editing the current market.
       if (currentMarketHasPosition && currentMarketHasEdits) return;
@@ -308,13 +308,17 @@ export function useAaveData(address: string) {
           const marketDataA = data?.[marketA.id];
           const marketDataB = data?.[marketB.id];
 
-          const totalCollA = marketDataA?.workingData?.totalCollateralMarketReferenceCurrency || 0;
-          const totalCollB = marketDataB?.workingData?.totalCollateralMarketReferenceCurrency || 0;
+          const totalCollA =
+            marketDataA?.workingData?.totalCollateralMarketReferenceCurrency ||
+            0;
+          const totalCollB =
+            marketDataB?.workingData?.totalCollateralMarketReferenceCurrency ||
+            0;
 
           const priceA = marketDataA?.marketReferenceCurrencyPriceInUSD || 0;
           const priceB = marketDataB?.marketReferenceCurrencyPriceInUSD || 0;
 
-          return ((totalCollB * priceB) - (totalCollA * priceA));
+          return totalCollB * priceB - totalCollA * priceA;
         })
         .find(
           (market) =>
@@ -404,29 +408,27 @@ export function useAaveData(address: string) {
 
     assetType === "RESERVE"
       ? reserves.set((p) => {
-        p.splice(itemIndex, 1);
-        return p;
-      })
+          p.splice(itemIndex, 1);
+          return p;
+        })
       : borrows.set((p) => {
-        p.splice(itemIndex, 1);
-        return p;
-      });
+          p.splice(itemIndex, 1);
+          return p;
+        });
 
     updateAllDerivedHealthFactorData();
   };
 
   const resetCurrentMarketChanges = () => {
-    store.addressData
-      .nested(address)
-      ?.[currentMarket].workingData.set(
-        JSON.parse(
-          JSON.stringify(
-            store.addressData[currentAddress][currentMarket].fetchedData.get({
-              noproxy: true,
-            })
-          )
+    store.addressData.nested(address)?.[currentMarket].workingData.set(
+      JSON.parse(
+        JSON.stringify(
+          store.addressData[currentAddress][currentMarket].fetchedData.get({
+            noproxy: true,
+          })
         )
-      );
+      )
+    );
     updateAllDerivedHealthFactorData();
   };
 
@@ -504,7 +506,7 @@ export function useAaveData(address: string) {
   const updateAllDerivedHealthFactorData = () => {
     const currentMarketReferenceCurrencyPriceInUSD: number = store.addressData
       .nested(address)
-    [currentMarket].marketReferenceCurrencyPriceInUSD.get();
+      [currentMarket].marketReferenceCurrencyPriceInUSD.get();
 
     const healthFactorItem = store.addressData.nested(address)?.[
       currentMarket
@@ -587,7 +589,7 @@ export const getEligibleLiquidationScenarioReserves = (
   const exceedsMinResPct: boolean =
     cumulativeReserveMRCValue >
     hfData.totalCollateralMarketReferenceCurrency *
-    (MINIMUM_CUMULATIVE_RESERVE_PCT / 100);
+      (MINIMUM_CUMULATIVE_RESERVE_PCT / 100);
   const exceedsMinResUSD: boolean =
     cumulativeReserveUSDValue > MINIMUM_CUMULATIVE_RESERVE_USD;
 
@@ -965,15 +967,15 @@ export const getCalculatedLiquidationScenario = (
 
       let priceDecrement = decrementPercentage
         ? // Use the uniform percentage, if we  have it
-        Math.max(0.01, (decrementPercentage * asset.priceInUSD) / 100)
+          Math.max(0.01, (decrementPercentage * asset.priceInUSD) / 100)
         : // Else use an approximation based on the difference between current hf and HF_LIMIT
-        Math.max(
-          0.01,
-          Math.min(
-            asset.priceInUSD * ((hf - HF_LIMIT) * 0.45),
-            asset.priceInUSD * 0.5
-          )
-        );
+          Math.max(
+            0.01,
+            Math.min(
+              asset.priceInUSD * ((hf - HF_LIMIT) * 0.45),
+              asset.priceInUSD * 0.5
+            )
+          );
 
       priceDecrement =
         Math.round((priceDecrement + Number.EPSILON) * 100) / 100;
