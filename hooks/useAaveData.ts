@@ -783,6 +783,15 @@ export const updateDerivedHealthFactorData = (
     data.totalCollateralMarketReferenceCurrency = updatedCollateral.toNumber();
   }
 
+  // Update "totalBorrowsMarketReferenceCurrency"
+  if (
+    !totalBorrowsETH.isEqualTo(
+      new BigNumber(data.totalBorrowsMarketReferenceCurrency)
+    )
+  ) {
+    data.totalBorrowsMarketReferenceCurrency = totalBorrowsETH.toNumber();
+  }
+
   // Updated "currentLiquidationThreshold"
   if (
     weightedReservesETH.isGreaterThan(0) &&

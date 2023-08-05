@@ -35,6 +35,7 @@ import {
   Popover,
   Overlay,
   Alert,
+  Progress,
 } from "@mantine/core";
 import { FaAsterisk, FaInfinity, FaInfo, FaInfoCircle } from "react-icons/fa";
 import { RxReset } from "react-icons/rx";
@@ -113,6 +114,7 @@ const AddressCard = ({ }: Props) => {
             ) : (
               <>
                 <HealthFactorSummary summaryRef={summaryRef} data={data} />
+                <ExtendedPositionDetails data={data} />
                 <LiquidationScenario
                   data={data}
                   applyLiquidationScenario={applyLiquidationScenario}
@@ -548,6 +550,257 @@ const HealthFactorSummary = ({
         </Grid>
       </Paper>
     </div>
+  );
+};
+
+type ExtendedPositionDetailsProps = {
+  data: ImmutableObject<HealthFactorData>;
+};
+
+const ExtendedPositionDetails = ({
+  data
+}: ExtendedPositionDetailsProps) => {
+  const [showDetails, setShowDetails] = useState(false);
+
+  if (!data || data?.isFetching) return null;
+
+  const addressHasPosition: boolean =
+    (data.fetchedData?.healthFactor || -1) > -1;
+
+  const originalLT = data.fetchedData?.currentLiquidationThreshold;
+  const currentLT = data.workingData?.currentLiquidationThreshold;
+  const ltDiffers: boolean = originalLT?.toFixed(3) !== currentLT?.toFixed(3);
+
+  const originalLTDisplayable = `${((originalLT || 0) * 100).toFixed(1)}%`;
+  const currentLTDisplayable = `${((currentLT || 0) * 100).toFixed(1)}%`;
+
+  const originalMaxLTV = data.fetchedData?.currentLoanToValue;
+  const currentMaxLTV = data.workingData?.currentLoanToValue;
+  const maxLTVDiffers: boolean = originalMaxLTV?.toFixed(3) !== currentMaxLTV?.toFixed(3);
+
+  const originalMaxLTVDisplayable = `${((originalMaxLTV || 0) * 100).toFixed(1)}%`;
+  const currentMaxLTVDisplayable = `${((currentMaxLTV || 0) * 100).toFixed(1)}%`;
+
+  const availableBorrowsUSD: number = Math.max(
+    data.workingData?.availableBorrowsUSD ?? 0,
+    0
+  );
+
+  const originalTotalBorrowsUSD: number =
+    data.fetchedData?.totalBorrowsUSD ?? 0;
+
+  const totalBorrowsUSD: number = data.workingData?.totalBorrowsUSD ?? 0;
+
+  const totalBorrowsDiffers: boolean =
+    addressHasPosition &&
+    data.fetchedData?.totalBorrowsUSD?.toFixed(2) !==
+    data.workingData?.totalBorrowsUSD?.toFixed(2);
+
+  const originalAvailableBorrowsUSD: number = Math.max(
+    data.fetchedData?.availableBorrowsUSD ?? 0,
+    0
+  );
+
+  const currentCumulativeAvailableBorrows = availableBorrowsUSD + totalBorrowsUSD;
+  const currBorrowPowerUsed = (100 * totalBorrowsUSD) / currentCumulativeAvailableBorrows;
+
+  const originalCumulativeAvailableBorrows = originalAvailableBorrowsUSD + originalTotalBorrowsUSD;
+  const origBorrowPowerUsed = (100 * originalTotalBorrowsUSD) / originalCumulativeAvailableBorrows;
+
+  const borrowPowerDiffers: boolean = origBorrowPowerUsed?.toFixed(0) !== currBorrowPowerUsed?.toFixed(0);
+
+
+  const originalWorkingLTV = (100 * (data.fetchedData?.totalBorrowsMarketReferenceCurrency || 1)) / (data.fetchedData?.totalCollateralMarketReferenceCurrency || 1);
+  const currentWorkingLTV = (100 * (data.workingData?.totalBorrowsMarketReferenceCurrency || 1)) / (data.workingData?.totalCollateralMarketReferenceCurrency || 1);
+
+  const workingLTVDiffers: boolean = originalWorkingLTV?.toFixed(3) !== currentWorkingLTV?.toFixed(3);
+
+  const originalWorkingLTVDisplayable = `${originalWorkingLTV.toFixed(1)}%`;
+  const currentWorkingLTVDisplayable = `${currentWorkingLTV?.toFixed(1)}%`;
+
+  const hfColor: string = getHealthFactorColor(
+    data.workingData?.healthFactor || 0
+  );
+
+  return (
+    <>
+      <Divider
+        variant="dashed"
+        my="sm"
+        labelPosition="center"
+        label={
+          <>
+            <Button
+              variant="subtle"
+              color="gray"
+              compact
+              onClick={() => setShowDetails(!showDetails)}
+              rightIcon={showDetails ? <BsChevronUp /> : <BsChevronDown />}
+            >
+              <Trans>Advanced Position Details</Trans>
+            </Button>
+          </>
+        }
+        style={{ backgroundColor: "#1A1B1E" }}
+      />
+      <Transition
+        mounted={showDetails}
+        transition="slide-down"
+        duration={1600}
+        exitDuration={0}
+        timingFunction="ease"
+      >
+        {(styles) => {
+          return (
+            <Grid>
+              <Grid.Col
+                lg={3}
+                xs={6}
+                style={{ textAlign: "center", minHeight: "78px" }}
+              >
+                <Paper>
+                  <Popover width="250px" withArrow shadow="md">
+                    <Popover.Target>
+                      <Text
+                        fz="xs"
+                        underline
+                        style={{ textDecorationStyle: "dotted", cursor: "pointer" }}
+                      >
+                        <Trans>{"Liquidation Threshold: "}</Trans>
+                      </Text>
+                    </Popover.Target>
+                    <Popover.Dropdown>
+                      <Trans>
+                        <Text size="sm">
+                          Liquidation threshold refers to the calculated overall liquidation threshold for the position.
+                        </Text>
+                      </Trans>
+                    </Popover.Dropdown>
+                  </Popover>
+
+                  {ltDiffers && (
+                    <Text fz="xs" c="dimmed">
+                      {originalLTDisplayable} ➔
+                    </Text>
+                  )}
+                  <Text span fw={700} fz="md" mb={20}>
+                    {currentLTDisplayable}
+                  </Text>
+                </Paper>
+              </Grid.Col>
+
+
+              <Grid.Col
+                lg={3}
+                xs={6}
+                style={{ textAlign: "center", minHeight: "78px" }}
+              >
+                <Paper>
+                  <Popover width="250px" withArrow shadow="md">
+                    <Popover.Target>
+                      <Text
+                        fz="xs"
+                        underline
+                        style={{ textDecorationStyle: "dotted", cursor: "pointer" }}
+                      >
+                        <Trans>{"Current Loan to Value: "}</Trans>
+                      </Text>
+                    </Popover.Target>
+                    <Popover.Dropdown>
+                      <Trans>
+                        <Text size="sm">
+                          Current Loan to Value.
+                        </Text>
+                      </Trans>
+                    </Popover.Dropdown>
+                  </Popover>
+
+                  {workingLTVDiffers && (
+                    <Text fz="xs" c="dimmed">
+                      {originalWorkingLTVDisplayable} ➔
+                    </Text>
+                  )}
+                  <Text span fw={700} fz="md" mb={20}>
+                    {currentWorkingLTVDisplayable}
+                  </Text>
+                </Paper>
+              </Grid.Col>
+
+
+              <Grid.Col lg={3} xs={6} style={{ textAlign: "center" }}>
+                <Popover width="250px" withArrow shadow="md">
+                  <Popover.Target>
+                    <Text
+                      fz="xs"
+                      underline
+                      style={{ textDecorationStyle: "dotted", cursor: "pointer" }}
+                    >
+                      <Trans>{"Max Loan to Value: "}</Trans>
+                    </Text>
+                  </Popover.Target>
+                  <Popover.Dropdown>
+                    <Trans>
+                      <Text size="sm">
+                        Max Loan to Value refers to the calculated overall maximum loan to value for the position.
+                      </Text>
+                    </Trans>
+                  </Popover.Dropdown>
+                </Popover>
+                {maxLTVDiffers && (
+                  <Text fz="xs" c="dimmed">
+                    {originalMaxLTVDisplayable}{" "}
+                    ➔
+                  </Text>
+                )}
+                <Text span fw={700} fz="md">
+                  {currentMaxLTVDisplayable}{" "}
+                </Text>
+              </Grid.Col>
+
+              <Grid.Col
+                lg={3}
+                xs={6}
+                style={{ textAlign: "center", minHeight: "78px" }}
+              >
+                <Paper>
+                  <Popover width="250px" withArrow shadow="md">
+                    <Popover.Target>
+                      <Text
+                        fz="xs"
+                        underline
+                        style={{ textDecorationStyle: "dotted", cursor: "pointer" }}
+                      >
+                        <Trans>{"Utilized Borrowing Power: "}</Trans>
+                      </Text>
+                    </Popover.Target>
+                    <Popover.Dropdown>
+                      <Trans>
+                        <Text size="sm">
+                          Borrowing Power represents the value of borrowed assets relative to the total value available to borrow.
+                        </Text>
+                      </Trans>
+                    </Popover.Dropdown>
+                  </Popover>
+
+                  <Progress color={hfColor} mt="xs" radius="md" size="lg" value={currBorrowPowerUsed} striped />
+                  {borrowPowerDiffers && (
+                    <Text span fz="xs" c="dimmed">
+                      {origBorrowPowerUsed?.toFixed(0)}{"% "}
+                      {" ➔ "}
+                    </Text>
+                  )}
+                  <Text span fw={700} fz="md">
+                    {currBorrowPowerUsed?.toFixed(0)}{"% "}
+                  </Text>
+
+                </Paper>
+              </Grid.Col>
+
+            </Grid>
+          );
+        }}
+      </Transition>
+    </>
   );
 };
 
