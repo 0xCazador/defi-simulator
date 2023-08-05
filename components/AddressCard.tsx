@@ -1014,7 +1014,7 @@ const ResetMarketButton = ({ }) => {
   return (
     <Tooltip label={label} position="top-end" withArrow>
       <ActionIcon style={{ display: "inline-block" }}>
-        <RxReset size={18} onClick={resetCurrentMarketChanges} />
+        <RxReset size={18} onClick={resetCurrentMarketChanges} color="#339af0" />
       </ActionIcon>
     </Tooltip>
   );
@@ -1044,6 +1044,7 @@ const UserReserveAssetList = ({ summaryOffset }: UserReserveAssetListProps) => {
   return (
     <div style={{ marginTop: "15px" }}>
       <Container
+        pb="xs"
         style={{
           marginTop: "15px",
           display: "flex",
@@ -1129,6 +1130,7 @@ const UserBorrowedAssetList = ({
   return (
     <div style={{ marginTop: "15px" }}>
       <Container
+        pb="xs"
         style={{
           marginTop: "15px",
           display: "flex",
@@ -1487,7 +1489,7 @@ const ResetInputValueIcon = ({
   return (
     <Tooltip label={label} position="top-end" withArrow>
       <ActionIcon>
-        <RxReset size={18} style={{ display: "block" }} onClick={onClick} />
+        <RxReset size={18} style={{ display: "block" }} onClick={onClick} color="#339af0" />
       </ActionIcon>
     </Tooltip>
   );
