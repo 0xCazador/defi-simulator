@@ -672,7 +672,7 @@ const ExtendedPositionDetails = ({
                     <Popover.Dropdown>
                       <Trans>
                         <Text size="sm">
-                          Liquidation threshold refers to the calculated overall liquidation threshold for the position.
+                          Liquidation Threshold refers to the loan to value percentage that makes the position subject to liquidation. This value applies to the overall position.
                         </Text>
                       </Trans>
                     </Popover.Dropdown>
@@ -709,7 +709,7 @@ const ExtendedPositionDetails = ({
                     <Popover.Dropdown>
                       <Trans>
                         <Text size="sm">
-                          Current Loan to Value.
+                          Current Loan to Value refers to the overall value of all borrowed assets relative to the overall value of the reserve assets. This value applies to the overall position.
                         </Text>
                       </Trans>
                     </Popover.Dropdown>
@@ -741,7 +741,7 @@ const ExtendedPositionDetails = ({
                   <Popover.Dropdown>
                     <Trans>
                       <Text size="sm">
-                        Max Loan to Value refers to the calculated overall maximum loan to value for the position.
+                        Max Loan to Value refers to the loan to value percentage where new loans may not be initiated. This value applies to the overall position.
                       </Text>
                     </Trans>
                   </Popover.Dropdown>
@@ -776,7 +776,7 @@ const ExtendedPositionDetails = ({
                     <Popover.Dropdown>
                       <Trans>
                         <Text size="sm">
-                          Borrowing Power represents the value of borrowed assets relative to the total value available to borrow.
+                          Borrowing Power represents the value of borrowed assets relative to the total value available to borrow. This value applies to the overall position.
                         </Text>
                       </Trans>
                     </Popover.Dropdown>
