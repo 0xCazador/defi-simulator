@@ -62,19 +62,37 @@ import { useFiatRates } from "../hooks/useFiatData";
 
 type Props = {};
 
-const AddressCard = ({}: Props) => {
+const AddressCard = ({ }: Props) => {
   const { addressData, currentMarket, applyLiquidationScenario, isFetching } =
     useAaveData("");
-  const data = addressData?.[currentMarket];
+  const data = addressData?.[currentMarket] as HealthFactorData;
   const summaryRef = useRef<HTMLDivElement>(null);
   const summaryOffset: number = summaryRef?.current?.clientHeight || 0;
   const isEmode: boolean = (data?.workingData?.userEmodeCategoryId || 0) !== 0;
   const isIsolationMode: boolean = !!data?.workingData?.isInIsolationMode;
+  const isError: boolean = !!data?.fetchError?.length;
+  const marketName =
+    markets.find((market) => market.id === currentMarket)?.title ||
+    "Unknown Market";
 
   return (
     <div style={{ marginTop: "15px" }}>
       <HealthFactorAddressSummary addressData={addressData} />
       <div style={{ zIndex: "6", backgroundColor: "#1A1B1E" }}>
+        {isError && (
+          <Trans>
+            <Alert
+              mb={15}
+              mt={45}
+              icon={<FiAlertTriangle size="1rem" />}
+              title="Error Loading Market Data!"
+              color="red"
+              variant="outline"
+            >
+              {`An error occurred while loading data for this market (${marketName}). Try again later, or select a different market.`}
+            </Alert>
+          </Trans>
+        )}
         {isIsolationMode && (
           <Trans>
             <Alert
@@ -107,7 +125,7 @@ const AddressCard = ({}: Props) => {
             </Alert>
           </Trans>
         )}
-        {!isEmode && !isIsolationMode && (
+        {!isEmode && !isIsolationMode && !isError && (
           <>
             {isFetching ? (
               <HealthFactorSkeleton animate />
@@ -330,7 +348,7 @@ const HealthFactorSummary = ({
   const healthFactorDiffers: boolean =
     addressHasPosition &&
     data.workingData?.healthFactor?.toFixed(2) !==
-      data.fetchedData?.healthFactor?.toFixed(2);
+    data.fetchedData?.healthFactor?.toFixed(2);
 
   const originalTotalBorrowsUSD: number =
     data.fetchedData?.totalBorrowsUSD ?? 0;
@@ -338,7 +356,7 @@ const HealthFactorSummary = ({
   const totalBorrowsDiffers: boolean =
     addressHasPosition &&
     data.fetchedData?.totalBorrowsUSD?.toFixed(2) !==
-      data.workingData?.totalBorrowsUSD?.toFixed(2);
+    data.workingData?.totalBorrowsUSD?.toFixed(2);
 
   const originalAvailableBorrowsUSD: number = Math.max(
     data.fetchedData?.availableBorrowsUSD ?? 0,
@@ -353,7 +371,7 @@ const HealthFactorSummary = ({
   const availableBorrowsDiffers: boolean =
     addressHasPosition &&
     data.fetchedData?.availableBorrowsUSD?.toFixed(2) !==
-      data.workingData?.availableBorrowsUSD?.toFixed(2);
+    data.workingData?.availableBorrowsUSD?.toFixed(2);
 
   const originalTotalCollateralUSD: number =
     data.fetchedData?.userReservesData.reduce(
@@ -381,9 +399,9 @@ const HealthFactorSummary = ({
     (
       originalTotalCollateralUSD - (data.fetchedData?.totalBorrowsUSD ?? 0)
     ).toFixed(2) !==
-      (totalCollateralUSD - (data.workingData?.totalBorrowsUSD ?? 0)).toFixed(
-        2
-      );
+    (totalCollateralUSD - (data.workingData?.totalBorrowsUSD ?? 0)).toFixed(
+      2
+    );
 
   return (
     <div ref={summaryRef} style={{ position: "sticky", top: "0", zIndex: "5" }}>
@@ -617,7 +635,7 @@ const ExtendedPositionDetails = ({ data }: ExtendedPositionDetailsProps) => {
   const totalBorrowsDiffers: boolean =
     addressHasPosition &&
     data.fetchedData?.totalBorrowsUSD?.toFixed(2) !==
-      data.workingData?.totalBorrowsUSD?.toFixed(2);
+    data.workingData?.totalBorrowsUSD?.toFixed(2);
 
   const originalAvailableBorrowsUSD: number = Math.max(
     data.fetchedData?.availableBorrowsUSD ?? 0,
@@ -1021,7 +1039,7 @@ const LiquidationScenario = ({
   );
 };
 
-const ResetMarketButton = ({}) => {
+const ResetMarketButton = ({ }) => {
   const { addressData, currentMarket, resetCurrentMarketChanges } =
     useAaveData("");
   const data = addressData?.[currentMarket];
@@ -1425,9 +1443,9 @@ const UserAssetUseAsCollateralToggle = ({
   const handleSetUseReserveAssetAsCollateral = () => {
     setUseReserveAssetAsCollateral !== undefined
       ? setUseReserveAssetAsCollateral(
-          assetSymbol,
-          !usageAsCollateralEnabledOnUser
-        )
+        assetSymbol,
+        !usageAsCollateralEnabledOnUser
+      )
       : null;
   };
 

@@ -269,8 +269,27 @@ export function useAaveData(address: string) {
             body: JSON.stringify({ address, marketId: market.id }),
           };
           const response: Response = await fetch("/api/aave", options);
-          const hfData: HealthFactorData = await response.json();
-          store.addressData.nested(address).merge({ [market.id]: hfData });
+
+          if (response?.ok) {
+            // ok, use the response
+            const hfData: HealthFactorData = await response.json();
+            store.addressData.nested(address).merge({ [market.id]: hfData });
+          } else {
+            // monkey up an errored HealthFactorData object
+            const res = await response.json();
+            const message: string = `${response.statusText}: --- ${
+              res?.message ?? ""
+            }`;
+            const hfData: HealthFactorData = {
+              address,
+              fetchError: message,
+              isFetching: false,
+              lastFetched: Date.now(),
+              market,
+              marketReferenceCurrencyPriceInUSD: 1,
+            };
+            store.addressData.nested(address).merge({ [market.id]: hfData });
+          }
         };
         fetchData();
       });
