@@ -1283,6 +1283,7 @@ const UserAssetItem = memo(
           </Grid.Col>
         </Grid>
         <Container
+          mt="xs"
           style={{
             display: "flex",
             justifyContent: "space-between",
