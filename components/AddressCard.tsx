@@ -1139,12 +1139,12 @@ const UserReserveAssetList = ({ summaryOffset }: UserReserveAssetListProps) => {
   return (
     <div style={{ marginTop: "15px" }}>
       <Container
-        pb="xs"
         style={{
           marginTop: "15px",
           display: "flex",
           justifyContent: "space-between",
           padding: "0px",
+          paddingBottom: "5px",
           position: "sticky",
           top: `${summaryOffset}px`,
           zIndex: "4",
@@ -1225,12 +1225,12 @@ const UserBorrowedAssetList = ({
   return (
     <div style={{ marginTop: "15px" }}>
       <Container
-        pb="xs"
         style={{
           marginTop: "15px",
           display: "flex",
           justifyContent: "space-between",
           padding: "0px",
+          paddingBottom: "5px",
           position: "sticky",
           top: `${summaryOffset}px`,
           zIndex: "3",
