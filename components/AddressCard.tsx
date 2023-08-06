@@ -62,7 +62,7 @@ import { useFiatRates } from "../hooks/useFiatData";
 
 type Props = {};
 
-const AddressCard = ({}: Props) => {
+const AddressCard = ({ }: Props) => {
   const { addressData, currentMarket, applyLiquidationScenario, isFetching } =
     useAaveData("");
   const data = addressData?.[currentMarket] as HealthFactorData;
@@ -348,7 +348,7 @@ const HealthFactorSummary = ({
   const healthFactorDiffers: boolean =
     addressHasPosition &&
     data.workingData?.healthFactor?.toFixed(2) !==
-      data.fetchedData?.healthFactor?.toFixed(2);
+    data.fetchedData?.healthFactor?.toFixed(2);
 
   const originalTotalBorrowsUSD: number =
     data.fetchedData?.totalBorrowsUSD ?? 0;
@@ -356,7 +356,7 @@ const HealthFactorSummary = ({
   const totalBorrowsDiffers: boolean =
     addressHasPosition &&
     data.fetchedData?.totalBorrowsUSD?.toFixed(2) !==
-      data.workingData?.totalBorrowsUSD?.toFixed(2);
+    data.workingData?.totalBorrowsUSD?.toFixed(2);
 
   const originalAvailableBorrowsUSD: number = Math.max(
     data.fetchedData?.availableBorrowsUSD ?? 0,
@@ -371,7 +371,7 @@ const HealthFactorSummary = ({
   const availableBorrowsDiffers: boolean =
     addressHasPosition &&
     data.fetchedData?.availableBorrowsUSD?.toFixed(2) !==
-      data.workingData?.availableBorrowsUSD?.toFixed(2);
+    data.workingData?.availableBorrowsUSD?.toFixed(2);
 
   const originalTotalCollateralUSD: number =
     data.fetchedData?.userReservesData.reduce(
@@ -399,9 +399,9 @@ const HealthFactorSummary = ({
     (
       originalTotalCollateralUSD - (data.fetchedData?.totalBorrowsUSD ?? 0)
     ).toFixed(2) !==
-      (totalCollateralUSD - (data.workingData?.totalBorrowsUSD ?? 0)).toFixed(
-        2
-      );
+    (totalCollateralUSD - (data.workingData?.totalBorrowsUSD ?? 0)).toFixed(
+      2
+    );
 
   return (
     <div ref={summaryRef} style={{ position: "sticky", top: "0", zIndex: "5" }}>
@@ -684,13 +684,13 @@ const ExtendedPositionDetails = ({ data }: ExtendedPositionDetailsProps) => {
   const originalWorkingLTV = Math.min(
     100,
     (100 * (data.fetchedData?.totalBorrowsMarketReferenceCurrency || 1)) /
-      (data.fetchedData?.totalCollateralMarketReferenceCurrency || 1)
+    (data.fetchedData?.totalCollateralMarketReferenceCurrency || 1)
   );
 
   const currentWorkingLTV = Math.min(
     100,
     (100 * (data.workingData?.totalBorrowsMarketReferenceCurrency || 1)) /
-      (data.workingData?.totalCollateralMarketReferenceCurrency || 1)
+    (data.workingData?.totalCollateralMarketReferenceCurrency || 1)
   );
 
   const originalWorkingLTVDisplayable = origHasBorrows
@@ -990,8 +990,8 @@ const LiquidationScenario = ({
                 <Popover.Dropdown>
                   <Trans>
                     <Text size="sm">
-                      The price liquidation scenario represents the approximate
-                      highest reserve asset prices that could subject the
+                      The price liquidation scenario represents a set of
+                      reserve asset prices slightly greater than that which could subject the
                       position to liquidation. Stable assets are not included in
                       this scenario and are assumed to maintain their present
                       value. Many factors affect liquidation. This scenario is
@@ -1073,7 +1073,7 @@ const LiquidationScenario = ({
   );
 };
 
-const ResetMarketButton = ({}) => {
+const ResetMarketButton = ({ }) => {
   const { addressData, currentMarket, resetCurrentMarketChanges } =
     useAaveData("");
   const data = addressData?.[currentMarket];
@@ -1477,9 +1477,9 @@ const UserAssetUseAsCollateralToggle = ({
   const handleSetUseReserveAssetAsCollateral = () => {
     setUseReserveAssetAsCollateral !== undefined
       ? setUseReserveAssetAsCollateral(
-          assetSymbol,
-          !usageAsCollateralEnabledOnUser
-        )
+        assetSymbol,
+        !usageAsCollateralEnabledOnUser
+      )
       : null;
   };
 

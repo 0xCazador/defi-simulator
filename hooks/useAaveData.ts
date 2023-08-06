@@ -277,9 +277,8 @@ export function useAaveData(address: string) {
           } else {
             // monkey up an errored HealthFactorData object
             const res = await response.json();
-            const message: string = `${response.statusText}: --- ${
-              res?.message ?? ""
-            }`;
+            const message: string = `${response.statusText}: --- ${res?.message ?? ""
+              }`;
             const hfData: HealthFactorData = {
               address,
               fetchError: message,
@@ -427,13 +426,13 @@ export function useAaveData(address: string) {
 
     assetType === "RESERVE"
       ? reserves.set((p) => {
-          p.splice(itemIndex, 1);
-          return p;
-        })
+        p.splice(itemIndex, 1);
+        return p;
+      })
       : borrows.set((p) => {
-          p.splice(itemIndex, 1);
-          return p;
-        });
+        p.splice(itemIndex, 1);
+        return p;
+      });
 
     updateAllDerivedHealthFactorData();
   };
@@ -525,7 +524,7 @@ export function useAaveData(address: string) {
   const updateAllDerivedHealthFactorData = () => {
     const currentMarketReferenceCurrencyPriceInUSD: number = store.addressData
       .nested(address)
-      [currentMarket].marketReferenceCurrencyPriceInUSD.get();
+    [currentMarket].marketReferenceCurrencyPriceInUSD.get();
 
     const healthFactorItem = store.addressData.nested(address)?.[
       currentMarket
@@ -608,7 +607,7 @@ export const getEligibleLiquidationScenarioReserves = (
   const exceedsMinResPct: boolean =
     cumulativeReserveMRCValue >
     hfData.totalCollateralMarketReferenceCurrency *
-      (MINIMUM_CUMULATIVE_RESERVE_PCT / 100);
+    (MINIMUM_CUMULATIVE_RESERVE_PCT / 100);
   const exceedsMinResUSD: boolean =
     cumulativeReserveUSDValue > MINIMUM_CUMULATIVE_RESERVE_USD;
 
@@ -986,15 +985,15 @@ export const getCalculatedLiquidationScenario = (
 
       let priceDecrement = decrementPercentage
         ? // Use the uniform percentage, if we  have it
-          Math.max(0.01, (decrementPercentage * asset.priceInUSD) / 100)
+        Math.max(0.01, (decrementPercentage * asset.priceInUSD) / 100)
         : // Else use an approximation based on the difference between current hf and HF_LIMIT
-          Math.max(
-            0.01,
-            Math.min(
-              asset.priceInUSD * ((hf - HF_LIMIT) * 0.45),
-              asset.priceInUSD * 0.5
-            )
-          );
+        Math.max(
+          0.01,
+          Math.min(
+            asset.priceInUSD * ((hf - HF_LIMIT) * 0.45),
+            asset.priceInUSD * 0.5
+          )
+        );
 
       priceDecrement =
         Math.round((priceDecrement + Number.EPSILON) * 100) / 100;
