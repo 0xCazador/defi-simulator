@@ -1550,7 +1550,7 @@ const UserAssetQuantityInput = ({
         label={t`${assetSymbol} Quantity`}
         labelProps={{ size: "sm" }}
         onChange={(e) => handleChange(Number(e.target.value))}
-        size="md"
+        size="lg"
         type="number"
         inputWrapperOrder={["label", "error", "input", "description"]}
         rightSection={resetIcon}
@@ -1686,7 +1686,7 @@ const UserAssetPriceInput = ({
         labelProps={{ size: "sm" }}
         onChange={(e) => handleChange(unformat(e.target.value))}
         onBlur={handleBlur}
-        size="md"
+        size="lg"
         ref={inputRef}
         inputWrapperOrder={["label", "error", "input", "description"]}
         rightSection={resetIcon}
