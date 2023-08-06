@@ -62,7 +62,7 @@ import { useFiatRates } from "../hooks/useFiatData";
 
 type Props = {};
 
-const AddressCard = ({ }: Props) => {
+const AddressCard = ({}: Props) => {
   const { addressData, currentMarket, applyLiquidationScenario, isFetching } =
     useAaveData("");
   const data = addressData?.[currentMarket] as HealthFactorData;
@@ -348,7 +348,7 @@ const HealthFactorSummary = ({
   const healthFactorDiffers: boolean =
     addressHasPosition &&
     data.workingData?.healthFactor?.toFixed(2) !==
-    data.fetchedData?.healthFactor?.toFixed(2);
+      data.fetchedData?.healthFactor?.toFixed(2);
 
   const originalTotalBorrowsUSD: number =
     data.fetchedData?.totalBorrowsUSD ?? 0;
@@ -356,7 +356,7 @@ const HealthFactorSummary = ({
   const totalBorrowsDiffers: boolean =
     addressHasPosition &&
     data.fetchedData?.totalBorrowsUSD?.toFixed(2) !==
-    data.workingData?.totalBorrowsUSD?.toFixed(2);
+      data.workingData?.totalBorrowsUSD?.toFixed(2);
 
   const originalAvailableBorrowsUSD: number = Math.max(
     data.fetchedData?.availableBorrowsUSD ?? 0,
@@ -371,7 +371,7 @@ const HealthFactorSummary = ({
   const availableBorrowsDiffers: boolean =
     addressHasPosition &&
     data.fetchedData?.availableBorrowsUSD?.toFixed(2) !==
-    data.workingData?.availableBorrowsUSD?.toFixed(2);
+      data.workingData?.availableBorrowsUSD?.toFixed(2);
 
   const originalTotalCollateralUSD: number =
     data.fetchedData?.userReservesData.reduce(
@@ -399,9 +399,9 @@ const HealthFactorSummary = ({
     (
       originalTotalCollateralUSD - (data.fetchedData?.totalBorrowsUSD ?? 0)
     ).toFixed(2) !==
-    (totalCollateralUSD - (data.workingData?.totalBorrowsUSD ?? 0)).toFixed(
-      2
-    );
+      (totalCollateralUSD - (data.workingData?.totalBorrowsUSD ?? 0)).toFixed(
+        2
+      );
 
   return (
     <div ref={summaryRef} style={{ position: "sticky", top: "0", zIndex: "5" }}>
@@ -603,25 +603,46 @@ const ExtendedPositionDetails = ({ data }: ExtendedPositionDetailsProps) => {
   const addressHasPosition: boolean =
     (data.fetchedData?.healthFactor || -1) > -1;
 
+  const origHasReserves: boolean =
+    (data.fetchedData?.totalCollateralMarketReferenceCurrency || 0) > 0;
+  const currHasReserves: boolean =
+    (data.workingData?.totalCollateralMarketReferenceCurrency || 0) > 0;
+
+  const origHasBorrows: boolean =
+    (data.fetchedData?.totalBorrowsMarketReferenceCurrency || 0) > 0;
+  const currHasBorrows: boolean =
+    (data.workingData?.totalBorrowsMarketReferenceCurrency || 0) > 0;
+
+  /** LIQUIDATION THRESHOLD */
   const originalLT = data.fetchedData?.currentLiquidationThreshold;
   const currentLT = data.workingData?.currentLiquidationThreshold;
-  const ltDiffers: boolean = originalLT?.toFixed(3) !== currentLT?.toFixed(3);
 
-  const originalLTDisplayable = `${((originalLT || 0) * 100).toFixed(1)}%`;
-  const currentLTDisplayable = `${((currentLT || 0) * 100).toFixed(1)}%`;
+  const originalLTDisplayable = origHasReserves
+    ? `${((originalLT || 0) * 100).toFixed(1)}%`
+    : "---";
+  const currentLTDisplayable = currHasReserves
+    ? `${((currentLT || 0) * 100).toFixed(1)}%`
+    : "---";
 
+  const ltDiffers: boolean =
+    addressHasPosition && originalLTDisplayable !== currentLTDisplayable;
+
+  /** MAX LTV */
   const originalMaxLTV = data.fetchedData?.currentLoanToValue;
   const currentMaxLTV = data.workingData?.currentLoanToValue;
+
+  const originalMaxLTVDisplayable = origHasReserves
+    ? `${((originalMaxLTV || 0) * 100).toFixed(1)}%`
+    : "---";
+  const currentMaxLTVDisplayable = currHasReserves
+    ? `${((currentMaxLTV || 0) * 100).toFixed(1)}%`
+    : "---";
+
   const maxLTVDiffers: boolean =
-    originalMaxLTV?.toFixed(3) !== currentMaxLTV?.toFixed(3);
+    addressHasPosition &&
+    originalMaxLTVDisplayable !== currentMaxLTVDisplayable;
 
-  const originalMaxLTVDisplayable = `${((originalMaxLTV || 0) * 100).toFixed(
-    1
-  )}%`;
-  const currentMaxLTVDisplayable = `${((currentMaxLTV || 0) * 100).toFixed(
-    1
-  )}%`;
-
+  /** BORROWING POWER */
   const availableBorrowsUSD: number = Math.max(
     data.workingData?.availableBorrowsUSD ?? 0,
     0
@@ -632,11 +653,6 @@ const ExtendedPositionDetails = ({ data }: ExtendedPositionDetailsProps) => {
 
   const totalBorrowsUSD: number = data.workingData?.totalBorrowsUSD ?? 0;
 
-  const totalBorrowsDiffers: boolean =
-    addressHasPosition &&
-    data.fetchedData?.totalBorrowsUSD?.toFixed(2) !==
-    data.workingData?.totalBorrowsUSD?.toFixed(2);
-
   const originalAvailableBorrowsUSD: number = Math.max(
     data.fetchedData?.availableBorrowsUSD ?? 0,
     0
@@ -645,28 +661,48 @@ const ExtendedPositionDetails = ({ data }: ExtendedPositionDetailsProps) => {
   const currentCumulativeAvailableBorrows =
     availableBorrowsUSD + totalBorrowsUSD;
   const currBorrowPowerUsed =
-    (100 * totalBorrowsUSD) / currentCumulativeAvailableBorrows;
+    (100 * totalBorrowsUSD) / (currentCumulativeAvailableBorrows || 1);
 
   const originalCumulativeAvailableBorrows =
     originalAvailableBorrowsUSD + originalTotalBorrowsUSD;
+
   const origBorrowPowerUsed =
-    (100 * originalTotalBorrowsUSD) / originalCumulativeAvailableBorrows;
+    (100 * originalTotalBorrowsUSD) / (originalCumulativeAvailableBorrows || 1);
+
+  const origBorrowPowerUsedDisplayable = origHasBorrows
+    ? `${origBorrowPowerUsed?.toFixed(0)}%`
+    : "---";
+  const currBorrowPowerUsedDisplayable = currHasBorrows
+    ? `${currBorrowPowerUsed?.toFixed(0)}%`
+    : "---";
 
   const borrowPowerDiffers: boolean =
-    origBorrowPowerUsed?.toFixed(0) !== currBorrowPowerUsed?.toFixed(0);
+    addressHasPosition &&
+    origBorrowPowerUsedDisplayable !== currBorrowPowerUsedDisplayable;
 
-  const originalWorkingLTV =
+  /** CURRENT LTV */
+  const originalWorkingLTV = Math.min(
+    100,
     (100 * (data.fetchedData?.totalBorrowsMarketReferenceCurrency || 1)) /
-    (data.fetchedData?.totalCollateralMarketReferenceCurrency || 1);
-  const currentWorkingLTV =
+      (data.fetchedData?.totalCollateralMarketReferenceCurrency || 1)
+  );
+
+  const currentWorkingLTV = Math.min(
+    100,
     (100 * (data.workingData?.totalBorrowsMarketReferenceCurrency || 1)) /
-    (data.workingData?.totalCollateralMarketReferenceCurrency || 1);
+      (data.workingData?.totalCollateralMarketReferenceCurrency || 1)
+  );
+
+  const originalWorkingLTVDisplayable = origHasBorrows
+    ? `${originalWorkingLTV.toFixed(1)}%`
+    : "---";
+  const currentWorkingLTVDisplayable = currHasBorrows
+    ? `${currentWorkingLTV?.toFixed(1)}%`
+    : "---";
 
   const workingLTVDiffers: boolean =
-    originalWorkingLTV?.toFixed(3) !== currentWorkingLTV?.toFixed(3);
-
-  const originalWorkingLTVDisplayable = `${originalWorkingLTV.toFixed(1)}%`;
-  const currentWorkingLTVDisplayable = `${currentWorkingLTV?.toFixed(1)}%`;
+    addressHasPosition &&
+    originalWorkingLTVDisplayable !== currentWorkingLTVDisplayable;
 
   const hfColor: string = getHealthFactorColor(
     data.workingData?.healthFactor || 0
@@ -861,14 +897,12 @@ const ExtendedPositionDetails = ({ data }: ExtendedPositionDetailsProps) => {
                   />
                   {borrowPowerDiffers && (
                     <Text span fz="xs" c="dimmed">
-                      {origBorrowPowerUsed?.toFixed(0)}
-                      {"% "}
+                      {origBorrowPowerUsedDisplayable}
                       {" ➔ "}
                     </Text>
                   )}
                   <Text span fw={700} fz="md">
-                    {currBorrowPowerUsed?.toFixed(0)}
-                    {"% "}
+                    {currBorrowPowerUsedDisplayable}
                   </Text>
                 </Paper>
               </Grid.Col>
@@ -1039,7 +1073,7 @@ const LiquidationScenario = ({
   );
 };
 
-const ResetMarketButton = ({ }) => {
+const ResetMarketButton = ({}) => {
   const { addressData, currentMarket, resetCurrentMarketChanges } =
     useAaveData("");
   const data = addressData?.[currentMarket];
@@ -1443,9 +1477,9 @@ const UserAssetUseAsCollateralToggle = ({
   const handleSetUseReserveAssetAsCollateral = () => {
     setUseReserveAssetAsCollateral !== undefined
       ? setUseReserveAssetAsCollateral(
-        assetSymbol,
-        !usageAsCollateralEnabledOnUser
-      )
+          assetSymbol,
+          !usageAsCollateralEnabledOnUser
+        )
       : null;
   };
 
