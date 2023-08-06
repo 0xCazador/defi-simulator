@@ -26,7 +26,7 @@ type Language = {
 
 type SelectLanguageDialogProps = {};
 
-export default function SelectLanguageDialog({}: SelectLanguageDialogProps) {
+export default function SelectLanguageDialog({ }: SelectLanguageDialogProps) {
   const [open, setOpen] = React.useState(false);
   const [searchText, setSearchText] = React.useState("");
   const router: NextRouter = useRouter();
@@ -46,13 +46,13 @@ export default function SelectLanguageDialog({}: SelectLanguageDialogProps) {
 
   const langs: Language[] = open
     ? new Array(...languages).filter((language: Language) => {
-        // filter lang by search text, if there is any
-        if (!searchText.length) return true;
-        const { code, name, region, native } = language;
-        const token = `${code}-${name}-${region}-${native};`;
-        if (token.toUpperCase().includes(searchText.toUpperCase())) return true;
-        return false;
-      })
+      // filter lang by search text, if there is any
+      if (!searchText.length) return true;
+      const { code, name, region, native } = language;
+      const token = `${code}-${name}-${region}-${native};`;
+      if (token.toUpperCase().includes(searchText.toUpperCase())) return true;
+      return false;
+    })
     : new Array(...languages);
 
   return (
@@ -69,7 +69,7 @@ export default function SelectLanguageDialog({}: SelectLanguageDialogProps) {
           value={searchText}
           label={t`Search for available languages`}
           onChange={(e) => setSearchText(e.target.value)}
-          size="sm"
+          size="md"
           mb={8}
           style={{}}
           inputWrapperOrder={["label", "error", "input", "description"]}
@@ -103,11 +103,9 @@ export default function SelectLanguageDialog({}: SelectLanguageDialogProps) {
           </Center>
         ) : (
           <Text mb={8}>
-            {t`Select ${langs.length === 1 ? "the" : "one of the"} (${
-              langs.length
-            }) ${
-              langs.length === 1 ? "language" : "languages"
-            } below to translate the app.`}
+            {t`Select ${langs.length === 1 ? "the" : "one of the"} (${langs.length
+              }) ${langs.length === 1 ? "language" : "languages"
+              } below to translate the app.`}
           </Text>
         )}
 

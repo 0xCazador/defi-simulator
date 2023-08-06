@@ -26,7 +26,7 @@ type Currency = {
 
 type SelectCurrencyDialogProps = {};
 
-export default function SelectCurrencyDialog({}: SelectCurrencyDialogProps) {
+export default function SelectCurrencyDialog({ }: SelectCurrencyDialogProps) {
   const {
     isFetching,
     currencyData,
@@ -58,13 +58,13 @@ export default function SelectCurrencyDialog({}: SelectCurrencyDialogProps) {
 
   currencies = open
     ? new Array(...currencies).filter((currency) => {
-        // filter currency by search text, if there is any
-        if (!searchText.length) return true;
-        const { code, description } = currency as Currency;
-        const token = `${code}-${description};`;
-        if (token.toUpperCase().includes(searchText.toUpperCase())) return true;
-        return false;
-      })
+      // filter currency by search text, if there is any
+      if (!searchText.length) return true;
+      const { code, description } = currency as Currency;
+      const token = `${code}-${description};`;
+      if (token.toUpperCase().includes(searchText.toUpperCase())) return true;
+      return false;
+    })
     : new Array(...currencyItems);
 
   return (
@@ -82,7 +82,7 @@ export default function SelectCurrencyDialog({}: SelectCurrencyDialogProps) {
           value={searchText}
           label={t`Search for available currencies`}
           onChange={(e) => setSearchText(e.target.value)}
-          size="sm"
+          size="md"
           mb={8}
           style={{}}
           inputWrapperOrder={["label", "error", "input", "description"]}
@@ -116,11 +116,9 @@ export default function SelectCurrencyDialog({}: SelectCurrencyDialogProps) {
           </Center>
         ) : (
           <Text mb={8}>
-            {t`Select ${currencies.length === 1 ? "the" : "one of the"} (${
-              currencies.length
-            }) ${
-              currencies.length === 1 ? "currency" : "currencies"
-            } below. After selecting a currency the app will display asset prices, liquidation scenario, and position summary in the selected currency.`}
+            {t`Select ${currencies.length === 1 ? "the" : "one of the"} (${currencies.length
+              }) ${currencies.length === 1 ? "currency" : "currencies"
+              } below. After selecting a currency the app will display asset prices, liquidation scenario, and position summary in the selected currency.`}
           </Text>
         )}
 
@@ -147,9 +145,8 @@ export default function SelectCurrencyDialog({}: SelectCurrencyDialogProps) {
       </Modal>
 
       <Button compact variant="light" onClick={() => setOpen(true)}>
-        {`${selectedCurrencyData?.code.toLocaleUpperCase(router.locale)}  ${
-          selectedFlag ?? ""
-        }`}
+        {`${selectedCurrencyData?.code.toLocaleUpperCase(router.locale)}  ${selectedFlag ?? ""
+          }`}
       </Button>
     </>
   );
