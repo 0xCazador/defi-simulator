@@ -41,36 +41,36 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
 
   const assets = open
     ? new Array(...(addressData?.[currentMarket]?.availableAssets || []))
-        .sort((a, b) => {
-          // alpha sort by symbol
-          if (a.symbol.toUpperCase() < b.symbol.toUpperCase()) {
-            return -1;
-          }
-          if (a.symbol.toUpperCase() > b.symbol.toUpperCase()) {
-            return 1;
-          }
-          return 0;
-        })
-        .filter((asset) => {
-          // filter name/symbol by search text, if there is any
-          if (!searchText.length) return true;
-          if (
-            asset.name.toUpperCase().includes(searchText.toUpperCase()) ||
-            asset.symbol.toUpperCase().includes(searchText.toUpperCase())
-          )
-            return true;
-          return false;
-        })
-        .filter((asset) => {
-          // filter out assets that are already in the CDP
-          const reserves = addressData?.[currentMarket]?.workingData
-            ?.userReservesData as ReserveAssetDataItem[];
-          const borrows = addressData?.[currentMarket]?.workingData
-            ?.userBorrowsData as BorrowedAssetDataItem[];
-          return assetType === "RESERVE"
-            ? !reserves.find((item) => item.asset.symbol === asset.symbol)
-            : !borrows.find((item) => item.asset.symbol === asset.symbol);
-        })
+      .sort((a, b) => {
+        // alpha sort by symbol
+        if (a.symbol.toUpperCase() < b.symbol.toUpperCase()) {
+          return -1;
+        }
+        if (a.symbol.toUpperCase() > b.symbol.toUpperCase()) {
+          return 1;
+        }
+        return 0;
+      })
+      .filter((asset) => {
+        // filter name/symbol by search text, if there is any
+        if (!searchText.length) return true;
+        if (
+          asset.name.toUpperCase().includes(searchText.toUpperCase()) ||
+          asset.symbol.toUpperCase().includes(searchText.toUpperCase())
+        )
+          return true;
+        return false;
+      })
+      .filter((asset) => {
+        // filter out assets that are already in the CDP
+        const reserves = addressData?.[currentMarket]?.workingData
+          ?.userReservesData as ReserveAssetDataItem[];
+        const borrows = addressData?.[currentMarket]?.workingData
+          ?.userBorrowsData as BorrowedAssetDataItem[];
+        return assetType === "RESERVE"
+          ? !reserves.find((item) => item.asset.symbol === asset.symbol)
+          : !borrows.find((item) => item.asset.symbol === asset.symbol);
+      })
     : new Array(...(addressData?.[currentMarket]?.availableAssets || []));
 
   return (
@@ -85,11 +85,10 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
       >
         <TextInput
           value={searchText}
-          label={t`Search for ${
-            assetType === "BORROW" ? "Borrow" : "Reserve"
-          } Assets`}
+          label={t`Search for ${assetType === "BORROW" ? "Borrow" : "Reserve"
+            } Assets`}
           onChange={(e) => setSearchText(e.target.value)}
-          size="sm"
+          size="md"
           mb={8}
           style={{}}
           inputWrapperOrder={["label", "error", "input", "description"]}
@@ -123,13 +122,10 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
           </Center>
         ) : (
           <Text mb={8}>
-            {t`Select ${assets.length === 1 ? "the" : "one of the"} (${
-              assets.length
-            }) ${
-              assets.length === 1 ? "asset" : "assets"
-            } below to add it as a ${
-              assetType === "BORROW" ? "borrow" : "reserve"
-            } asset to the debt position.`}
+            {t`Select ${assets.length === 1 ? "the" : "one of the"} (${assets.length
+              }) ${assets.length === 1 ? "asset" : "assets"
+              } below to add it as a ${assetType === "BORROW" ? "borrow" : "reserve"
+              } asset to the debt position.`}
           </Text>
         )}
 
