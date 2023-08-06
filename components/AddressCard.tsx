@@ -991,7 +991,7 @@ const LiquidationScenario = ({
                   <Trans>
                     <Text size="sm">
                       The price liquidation scenario represents
-                      reserve asset prices slightly greater the prices that could subject the
+                      reserve asset prices slightly greater than the prices that could subject the
                       position to liquidation. Stable assets are not included in
                       this scenario and are assumed to maintain their present
                       value. Many factors affect liquidation. This scenario is
