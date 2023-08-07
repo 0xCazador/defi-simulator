@@ -781,6 +781,40 @@ const ExtendedPositionDetails = ({ data }: ExtendedPositionDetailsProps) => {
                 </Paper>
               </Grid.Col>
 
+              <Grid.Col lg={3} xs={6} style={{ textAlign: "center" }}>
+                <Popover width="250px" withArrow shadow="md">
+                  <Popover.Target>
+                    <Text
+                      fz="xs"
+                      underline
+                      style={{
+                        textDecorationStyle: "dotted",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <Trans>{"Max Loan to Value: "}</Trans>
+                    </Text>
+                  </Popover.Target>
+                  <Popover.Dropdown>
+                    <Trans>
+                      <Text size="sm">
+                        Maximum Loan to Value refers to the loan to value percentage
+                        where new loans may not be initiated. This value applies
+                        to the overall position.
+                      </Text>
+                    </Trans>
+                  </Popover.Dropdown>
+                </Popover>
+                {maxLTVDiffers && (
+                  <Text fz="xs" c="dimmed">
+                    {originalMaxLTVDisplayable} ➔
+                  </Text>
+                )}
+                <Text span fw={700} fz="md">
+                  {currentMaxLTVDisplayable}{" "}
+                </Text>
+              </Grid.Col>
+
               <Grid.Col
                 lg={3}
                 xs={6}
@@ -823,43 +857,10 @@ const ExtendedPositionDetails = ({ data }: ExtendedPositionDetailsProps) => {
                 </Paper>
               </Grid.Col>
 
-              <Grid.Col lg={3} xs={6} style={{ textAlign: "center" }}>
-                <Popover width="250px" withArrow shadow="md">
-                  <Popover.Target>
-                    <Text
-                      fz="xs"
-                      underline
-                      style={{
-                        textDecorationStyle: "dotted",
-                        cursor: "pointer",
-                      }}
-                    >
-                      <Trans>{"Max Loan to Value: "}</Trans>
-                    </Text>
-                  </Popover.Target>
-                  <Popover.Dropdown>
-                    <Trans>
-                      <Text size="sm">
-                        Max Loan to Value refers to the loan to value percentage
-                        where new loans may not be initiated. This value applies
-                        to the overall position.
-                      </Text>
-                    </Trans>
-                  </Popover.Dropdown>
-                </Popover>
-                {maxLTVDiffers && (
-                  <Text fz="xs" c="dimmed">
-                    {originalMaxLTVDisplayable} ➔
-                  </Text>
-                )}
-                <Text span fw={700} fz="md">
-                  {currentMaxLTVDisplayable}{" "}
-                </Text>
-              </Grid.Col>
-
               <Grid.Col
                 lg={3}
                 xs={6}
+                px="xl"
                 style={{ textAlign: "center", minHeight: "78px" }}
               >
                 <Paper>
