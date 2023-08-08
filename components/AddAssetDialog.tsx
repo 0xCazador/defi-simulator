@@ -81,11 +81,11 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
           setSearchText("");
           setOpen(false);
         }}
-        title={t`Add ${assetType === "BORROW" ? "Borrow" : "Reserve"} Asset`}
+        title={t`Add ${assetType === "BORROW" ? "Borrow" : "Supply"} Asset`}
       >
         <TextInput
           value={searchText}
-          label={t`Search for ${assetType === "BORROW" ? "Borrow" : "Reserve"
+          label={t`Search for ${assetType === "BORROW" ? "Borrow" : "Supply"
             } Assets`}
           onChange={(e) => setSearchText(e.target.value)}
           size="md"
@@ -124,7 +124,7 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
           <Text mb={8}>
             {t`Select ${assets.length === 1 ? "the" : "one of the"} (${assets.length
               }) ${assets.length === 1 ? "asset" : "assets"
-              } below to add it as a ${assetType === "BORROW" ? "borrow" : "reserve"
+              } below to add it as a ${assetType === "BORROW" ? "borrow" : "supply"
               } asset to the debt position.`}
           </Text>
         )}
@@ -160,7 +160,7 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
 
       <Group position="center">
         <Button variant="outline" onClick={() => setOpen(true)}>
-          {assetType === "BORROW" ? t`Add Borrow Asset` : t`Add Reserve Asset`}
+          {assetType === "BORROW" ? t`Borrow Asset` : t`Supply Asset`}
         </Button>
       </Group>
     </>

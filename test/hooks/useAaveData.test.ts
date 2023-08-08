@@ -56,7 +56,7 @@ describe.each(testDataItems)(`useAaveData ()`, (testDataItem) => {
       expect(fetch).toHaveBeenCalledTimes(markets.length);
     });
 
-    describe("when a reserve asset quantity is changed", () => {
+    describe("when a supplied asset quantity is changed", () => {
       test("it should modify the health factor and availableBorrowsUSD correctly", async () => {
         const { result } = renderHook(() => useAaveData(testDataItem.address));
         if (!reserveDataItem) return;
@@ -119,7 +119,7 @@ describe.each(testDataItems)(`useAaveData ()`, (testDataItem) => {
       });
     });
 
-    describe("when a reserve asset price is changed", () => {
+    describe("when a supplied asset price is changed", () => {
       test("it should modify the health factor and availableBorrowsUSD correctly", async () => {
         const { result } = renderHook(() => useAaveData(testDataItem.address));
         if (!reserveDataItem) return;
@@ -149,7 +149,7 @@ describe.each(testDataItems)(`useAaveData ()`, (testDataItem) => {
           testDataItem.userReservesData.length === 1 &&
           testDataItem.userBorrowsData.length === 1 &&
           testDataItem.userReservesData[0].asset.symbol ===
-            testDataItem.userBorrowsData[0].asset.symbol
+          testDataItem.userBorrowsData[0].asset.symbol
         ) {
           expect(data.workingData?.healthFactor).toEqual(originalHealthFactor);
         } else {
@@ -194,7 +194,7 @@ describe.each(testDataItems)(`useAaveData ()`, (testDataItem) => {
       });
     });
 
-    describe("when a reserve asset usageAsCollateralEnabledOnUser is changed", () => {
+    describe("when a supplied asset usageAsCollateralEnabledOnUser is changed", () => {
       test("it should modify the health factor and availableBorrowsUSD correctly", async () => {
         const { result } = renderHook(() => useAaveData(testDataItem.address));
         if (!reserveDataItem) return;

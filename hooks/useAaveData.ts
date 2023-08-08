@@ -617,7 +617,7 @@ export const getEligibleLiquidationScenarioReserves = (
 
   // in order for the non-stable reserves to be eligible for a liquidation scenario,
   // there must be at least one borrowed asset that is not included in the
-  // eligible reserve assets.
+  // eligible supply assets.
   const hasDifferentBorrowedAsset: boolean =
     !!hfData.userBorrowsData.length &&
     !!hfData.userBorrowsData.find(

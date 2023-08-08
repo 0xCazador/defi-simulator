@@ -74,7 +74,7 @@ const SplashSection = () => {
         <Text fz="md" ta="center" span>
           <Trans>
             Paste an address with an Aave debt position in the box above to
-            visualize how changes to borrow/reserve assets affect the position's
+            visualize how changes to borrow/supplied assets affect the position's
             health factor and borrowing power.
           </Trans>
         </Text>

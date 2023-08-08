@@ -243,7 +243,7 @@ export const HealthFactorSkeleton = ({
         <Grid.Col lg={3} xs={6} style={{ textAlign: "center" }}>
           <Paper>
             <Text fz="xs">
-              <Trans>{"Reserve Asset Value: "}</Trans>
+              <Trans>{"Supplied Asset Value: "}</Trans>
             </Text>
             <Skeleton height={45} mb="xl" animate={animate} />
           </Paper>
@@ -532,13 +532,13 @@ const HealthFactorSummary = ({
                     underline
                     style={{ textDecorationStyle: "dotted", cursor: "pointer" }}
                   >
-                    <Trans>{"Reserve Asset Value: "}</Trans>
+                    <Trans>{"Supplied Asset Value: "}</Trans>
                   </Text>
                 </Popover.Target>
                 <Popover.Dropdown>
                   <Trans>
                     <Text size="sm">
-                      Reserve Asset Value represents the sum of the reserve
+                      Supplied Asset Value represents the sum of the supplied
                       assets, expressed in the selected fiat currency.
                     </Text>
                   </Trans>
@@ -569,8 +569,8 @@ const HealthFactorSummary = ({
               <Popover.Dropdown>
                 <Trans>
                   <Text size="sm">
-                    Net Asset Value represents the sum of the reserve assets
-                    subtracted by the sum of the borrowed assets, expressed in
+                    Net Asset Value represents the sum of the supplied asset value
+                    subtracted by the sum of the borrowed asset value, expressed in
                     the selected fiat currency.
                   </Text>
                 </Trans>
@@ -839,7 +839,7 @@ const ExtendedPositionDetails = ({ data }: ExtendedPositionDetailsProps) => {
                         <Text size="sm">
                           Current Loan to Value refers to the overall value of
                           all borrowed assets relative to the overall value of
-                          the reserve assets. This value applies to the overall
+                          the supplied assets. This value applies to the overall
                           position.
                         </Text>
                       </Trans>
@@ -992,7 +992,7 @@ const LiquidationScenario = ({
                   <Trans>
                     <Text size="sm">
                       The price liquidation scenario represents
-                      reserve asset prices slightly greater than the prices that could subject the
+                      supplied asset prices slightly greater than the prices that could subject the
                       position to liquidation. Stable assets are not included in
                       this scenario and are assumed to maintain their present
                       value. Many factors affect liquidation. This scenario is
@@ -1153,7 +1153,7 @@ const UserReserveAssetList = ({ summaryOffset }: UserReserveAssetListProps) => {
         }}
       >
         <Title order={4} sx={{ marginBottom: "10px" }}>
-          <Trans>Reserve Assets</Trans>
+          <Trans>Supplied Assets</Trans>
         </Title>
         <AddAssetDialog assetType="RESERVE" />
       </Container>
@@ -1161,9 +1161,9 @@ const UserReserveAssetList = ({ summaryOffset }: UserReserveAssetListProps) => {
         <Center>
           <Text fz="sm" m={25} align="center">
             <Trans>
-              {"There are no reserve assets for "}
+              {"There are no supplied assets for "}
               <AbbreviatedEthereumAddress address={currentAddress} />
-              {` in the ${market?.title} market. Select "Add Reserve Asset" to simulate reserve assets for this address.`}
+              {` in the ${market?.title} market. Select "Add Supplied Asset" to simulate supplied assets for this address.`}
             </Trans>
           </Text>
         </Center>
