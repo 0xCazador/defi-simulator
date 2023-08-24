@@ -170,6 +170,18 @@ export const markets: AaveMarketDataType[] = [
     },
   },
   {
+    v3: true,
+    id: "BASE_V3",
+    title: "Base v3",
+    chainId: ChainId.base,
+    api: "https://lb.drpc.org/ogrpc?network=base&dkey={{DRPC_API_KEY}}",
+    addresses: {
+      LENDING_POOL_ADDRESS_PROVIDER:
+        pools.AaveV3Base.POOL_ADDRESSES_PROVIDER,
+      UI_POOL_DATA_PROVIDER: pools.AaveV3Base.UI_POOL_DATA_PROVIDER,
+    },
+  },
+  {
     v3: false,
     id: "POLYGON_V2",
     title: "Polygon v2",
