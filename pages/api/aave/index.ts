@@ -48,14 +48,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
 
 const getAaveData = async (address: string, market: AaveMarketDataType) => {
   const provider = new ethers.providers.StaticJsonRpcProvider(
-    market.api
-      .replace(
-        "{{ALCHEMY_API_KEY}}",
-        process.env.ALCHEMY_API_KEY as string
-      ).replace(
-        "{{DRPC_API_KEY}}",
-        process.env.DRPC_API_KEY as string
-      ),
+    market.api,
     market.chainId
   );
   const ctx: UiPoolDataProviderContext = {

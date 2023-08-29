@@ -126,7 +126,7 @@ export const markets: AaveMarketDataType[] = [
     id: "ETHEREUM_V2",
     title: "Ethereum v2",
     chainId: ChainId.mainnet,
-    api: "https://eth-mainnet.alchemyapi.io/v2/{{ALCHEMY_API_KEY}}",
+    api: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`,
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV2Ethereum.POOL_ADDRESSES_PROVIDER,
@@ -138,7 +138,7 @@ export const markets: AaveMarketDataType[] = [
     id: "ETHEREUM_V3",
     title: "Ethereum v3",
     chainId: ChainId.mainnet,
-    api: "https://eth-mainnet.alchemyapi.io/v2/{{ALCHEMY_API_KEY}}",
+    api: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`,
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Ethereum.POOL_ADDRESSES_PROVIDER,
@@ -150,7 +150,7 @@ export const markets: AaveMarketDataType[] = [
     id: "ARBITRUM_V3",
     title: "Arbitrum v3",
     chainId: ChainId.arbitrum_one,
-    api: "https://arb-mainnet.g.alchemy.com/v2/{{ALCHEMY_API_KEY}}",
+    api: `https://arb-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Arbitrum.POOL_ADDRESSES_PROVIDER,
@@ -162,7 +162,7 @@ export const markets: AaveMarketDataType[] = [
     id: "OPTIMISM_V3",
     title: "Optimism v3",
     chainId: ChainId.optimism,
-    api: "https://opt-mainnet.g.alchemy.com/v2/{{ALCHEMY_API_KEY}}",
+    api: `https://opt-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Optimism.POOL_ADDRESSES_PROVIDER,
@@ -174,7 +174,7 @@ export const markets: AaveMarketDataType[] = [
     id: "BASE_V3",
     title: "Base v3",
     chainId: ChainId.base,
-    api: "https://lb.drpc.org/ogrpc?network=base&dkey={{DRPC_API_KEY}}",
+    api: `https://lb.drpc.org/ogrpc?network=base&dkey=${process.env.DRPC_API_KEY}`,
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Base.POOL_ADDRESSES_PROVIDER,
@@ -186,7 +186,7 @@ export const markets: AaveMarketDataType[] = [
     id: "POLYGON_V2",
     title: "Polygon v2",
     chainId: ChainId.polygon,
-    api: "https://polygon-mainnet.g.alchemy.com/v2/{{ALCHEMY_API_KEY}}",
+    api: `https://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV2Polygon.POOL_ADDRESSES_PROVIDER,
@@ -198,7 +198,7 @@ export const markets: AaveMarketDataType[] = [
     id: "POLYGON_V3",
     title: "Polygon v3",
     chainId: ChainId.polygon,
-    api: "https://polygon-mainnet.g.alchemy.com/v2/{{ALCHEMY_API_KEY}}",
+    api: `https://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Polygon.POOL_ADDRESSES_PROVIDER,
