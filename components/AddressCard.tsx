@@ -985,7 +985,7 @@ const LiquidationScenario = ({
               <Popover width="250px" position="bottom" withArrow shadow="md">
                 <Popover.Target>
                   <ActionIcon style={{ display: "inline-block" }}>
-                    <FaInfoCircle size={18} />
+                    <FiAlertTriangle size={18} />
                   </ActionIcon>
                 </Popover.Target>
                 <Popover.Dropdown>
