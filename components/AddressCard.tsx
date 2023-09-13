@@ -1035,26 +1035,28 @@ const LiquidationScenario = ({
                 );
 
                 return (
-                  <Badge
-                    key={liqAsset.symbol}
-                    pl={0}
-                    size="lg"
-                    radius="lg"
-                    mr="sm"
-                    c="dimmed"
-                    leftSection={avatar}
-                  >
-                    <LocalizedFiatDisplay valueUSD={liqAsset.priceInUSD} />
-                    {/** 
-                      {change !== 0 && currentAssetPrice !== 0 &&
-                        <Text span size="xs" c="dimmed">
-                          <Text span size="xs" color={change < 0 ? "red" : "dimmed"}>
-                            {` (${change > 0 ? "+" : ""}${change}%)`}
+                  <Tooltip label={t`${liqAsset.symbol} liquidation price`} withArrow>
+                    <Badge
+                      key={liqAsset.symbol}
+                      pl={0}
+                      size="lg"
+                      radius="lg"
+                      mr="sm"
+                      c="dimmed"
+                      leftSection={avatar}
+                    >
+                      <LocalizedFiatDisplay valueUSD={liqAsset.priceInUSD} />
+                      {/** 
+                        {change !== 0 && currentAssetPrice !== 0 &&
+                          <Text span size="xs" c="dimmed">
+                            <Text span size="xs" color={change < 0 ? "red" : "dimmed"}>
+                              {` (${change > 0 ? "+" : ""}${change}%)`}
+                            </Text>
                           </Text>
-                        </Text>
-                      }
-                      */}
-                  </Badge>
+                        }
+                        */}
+                    </Badge>
+                  </Tooltip>
                 );
               })}
               <Button
