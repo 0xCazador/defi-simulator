@@ -924,7 +924,7 @@ const LiquidationScenario = ({
   data,
   applyLiquidationScenario,
 }: LiquidationScenarioProps) => {
-  const [showLiquidation, setShowLiquidation] = useState(false);
+  const [showLiquidation, setShowLiquidation] = useState(true);
 
   if (data?.isFetching) return null;
 
