@@ -1035,9 +1035,8 @@ const LiquidationScenario = ({
                 );
 
                 return (
-                  <Tooltip label={t`${liqAsset.symbol} liquidation price`} withArrow>
+                  <Tooltip key={liqAsset.symbol} label={t`${liqAsset.symbol} liquidation price`} withArrow>
                     <Badge
-                      key={liqAsset.symbol}
                       pl={0}
                       size="lg"
                       radius="lg"

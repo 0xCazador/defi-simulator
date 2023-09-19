@@ -17,6 +17,8 @@ import {
   useAaveData,
   ReserveAssetDataItem,
   BorrowedAssetDataItem,
+  isBorrowableAsset,
+  isSuppliableAsset,
 } from "../hooks/useAaveData";
 
 type AddAssetDialogProps = {
@@ -70,6 +72,9 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
         return assetType === "RESERVE"
           ? !reserves.find((item) => item.asset.symbol === asset.symbol)
           : !borrows.find((item) => item.asset.symbol === asset.symbol);
+      })
+      .filter((asset) => {
+        return assetType === "BORROW" ? isBorrowableAsset(asset) : isSuppliableAsset(asset);
       })
     : new Array(...(addressData?.[currentMarket]?.availableAssets || []));
 

@@ -130,6 +130,11 @@ const aaveUserSummaryToHealthFactor = (
       aTokenAddress: reserveItem.reserve.aTokenAddress,
       stableDebtTokenAddress: reserveItem.reserve.stableDebtTokenAddress,
       variableDebtTokenAddress: reserveItem.reserve.variableDebtTokenAddress,
+      flashLoanEnabled: reserveItem.reserve.flashLoanEnabled,
+      borrowingEnabled: reserveItem.reserve.borrowingEnabled,
+      isFrozen: reserveItem.reserve.isFrozen,
+      isPaused: reserveItem.reserve.isPaused,
+      isActive: reserveItem.reserve.isActive
     };
     return details;
   };

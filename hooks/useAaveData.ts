@@ -88,6 +88,7 @@ export type AssetDetails = {
   totalStableDebt?: number;
   totalVariableDebt?: number;
   totalLiquidity?: number;
+  flashLoanEnabled?: boolean
 };
 
 /**
@@ -588,10 +589,23 @@ export const getHealthFactorColor = (hf: number = 0) => {
 };
 
 export const isStablecoinAsset = (asset: AssetDetails) => {
-  const symbol = asset.symbol?.toUpperCase();
-  return (
-    symbol?.includes("DAI") || symbol?.includes("USD") || symbol.includes("GHO")
-  );
+  return ["DAI", "USD", "GHO", "EUR", "MAI"].includes(asset.symbol?.toUpperCase());
+};
+
+export const isActiveAsset = (asset: AssetDetails) => {
+  return asset.isActive && !asset.isPaused && !asset.isFrozen;
+};
+
+export const isBorrowableAsset = (asset: AssetDetails) => {
+  return isActiveAsset(asset) && asset.borrowingEnabled;
+};
+
+export const isSuppliableAsset = (asset: AssetDetails) => {
+  return isActiveAsset(asset) && asset.usageAsCollateralEnabled;
+};
+
+export const isFlashloanableAsset = (asset: AssetDetails) => {
+  return isActiveAsset(asset) && asset.flashLoanEnabled;
 };
 
 export const getEligibleLiquidationScenarioReserves = (
