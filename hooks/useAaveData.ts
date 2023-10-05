@@ -175,7 +175,7 @@ export const markets: AaveMarketDataType[] = [
     id: "BASE_V3",
     title: "Base v3",
     chainId: ChainId.base,
-    api: `https://lb.drpc.org/ogrpc?network=base&dkey=${process.env.DRPC_API_KEY}`,
+    api: `https://base-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Base.POOL_ADDRESSES_PROVIDER,
