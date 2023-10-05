@@ -3,13 +3,17 @@ import { ethers } from "ethers";
 import {
   UiPoolDataProvider,
   UiPoolDataProviderContext,
+  UiIncentiveDataProvider,
+  UiIncentiveDataProviderContext
 } from "@aave/contract-helpers";
 import dayjs from "dayjs";
 import {
   ComputedUserReserve,
   FormatUserSummaryResponse,
   formatReserves,
+  formatReservesAndIncentives,
   formatUserSummary,
+  formatUserSummaryAndIncentives,
 } from "@aave/math-utils";
 import BigNumber from "bignumber.js";
 import {
@@ -46,43 +50,62 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-const getAaveData = async (address: string, market: AaveMarketDataType) => {
+export const getAaveData = async (address: string, market: AaveMarketDataType) => {
   const provider = new ethers.providers.StaticJsonRpcProvider(
     market.api,
     market.chainId
   );
-  const ctx: UiPoolDataProviderContext = {
+
+  const UiPoolDataCtx: UiPoolDataProviderContext = {
     uiPoolDataProviderAddress: market.addresses.UI_POOL_DATA_PROVIDER,
     provider,
     chainId: market.chainId,
   };
-  const poolDataProviderContract = new UiPoolDataProvider(ctx);
+  const poolDataProviderContract = new UiPoolDataProvider(UiPoolDataCtx);
+
+  const UiIncentiveDataCtx: UiIncentiveDataProviderContext = {
+    uiIncentiveDataProviderAddress: market.addresses.UI_INCENTIVE_DATA_PROVIDER,
+    provider,
+    chainId: market.chainId,
+  };
+
+  const incentiveDataProviderContract = new UiIncentiveDataProvider(UiIncentiveDataCtx);
+
+  const user = (await getResolvedAddress(address)) || "0x87cCC67f0c1b67745989542152DD4acff3841CD6";
 
   const reserves = await poolDataProviderContract.getReservesHumanized({
     lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
   });
   const userReserves = await poolDataProviderContract.getUserReservesHumanized({
     lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
-    user:
-      (await getResolvedAddress(address)) ||
-      "0x87cCC67f0c1b67745989542152DD4acff3841CD6",
+    user
   });
   const reservesArray = reserves.reservesData;
   const { baseCurrencyData } = reserves;
   const userReservesArray = userReserves.userReserves;
 
+  const reserveIncentives = await incentiveDataProviderContract.getReservesIncentivesDataHumanized({
+    lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER
+  });
+
+  const userIncentives = await incentiveDataProviderContract.getUserReservesIncentivesDataHumanized({
+    lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
+    user
+  });
+
   const currentTimestamp = dayjs().unix();
 
-  const formattedPoolReserves = formatReserves({
+  const formattedPoolReserves = formatReservesAndIncentives({
     reserves: reservesArray,
     currentTimestamp,
     marketReferenceCurrencyDecimals:
       baseCurrencyData.marketReferenceCurrencyDecimals,
     marketReferencePriceInUsd:
       baseCurrencyData.marketReferenceCurrencyPriceInUsd,
+    reserveIncentives
   });
 
-  const userSummary = formatUserSummary({
+  const userSummary = formatUserSummaryAndIncentives({
     currentTimestamp,
     marketReferencePriceInUsd:
       baseCurrencyData.marketReferenceCurrencyPriceInUsd,
@@ -91,6 +114,8 @@ const getAaveData = async (address: string, market: AaveMarketDataType) => {
     userReserves: userReservesArray,
     formattedReserves: formattedPoolReserves,
     userEmodeCategoryId: userReserves.userEmodeCategoryId,
+    reserveIncentives,
+    userIncentives
   });
 
   const hf: HealthFactorData = aaveUserSummaryToHealthFactor(
@@ -111,30 +136,38 @@ const aaveUserSummaryToHealthFactor = (
   userEmodeCategoryId: number
 ) => {
   const getAssetDetailsFromReserveItem = (reserveItem: ComputedUserReserve) => {
+    const { reserve } = reserveItem;
     const details: AssetDetails = {
-      symbol: reserveItem.reserve.symbol,
-      name: reserveItem.reserve.name,
-      priceInUSD: Number(reserveItem.reserve.priceInUSD),
+      symbol: reserve.symbol,
+      name: reserve.name,
+      priceInUSD: Number(reserve.priceInUSD),
       priceInMarketReferenceCurrency: new BigNumber(
-        reserveItem.reserve.priceInMarketReferenceCurrency
+        reserve.priceInMarketReferenceCurrency
       )
         .shiftedBy(baseCurrencyData.marketReferenceCurrencyDecimals * -1)
         .toNumber(),
-      baseLTVasCollateral: Number(reserveItem.reserve.baseLTVasCollateral),
-      reserveFactor: Number(reserveItem.reserve.reserveFactor),
-      usageAsCollateralEnabled: reserveItem.reserve.usageAsCollateralEnabled,
+      baseLTVasCollateral: Number(reserve.baseLTVasCollateral),
+      reserveFactor: Number(reserve.reserveFactor),
+      usageAsCollateralEnabled: reserve.usageAsCollateralEnabled,
       reserveLiquidationThreshold: Number(
-        reserveItem.reserve.reserveLiquidationThreshold
+        reserve.reserveLiquidationThreshold
       ),
-      initialPriceInUSD: Number(reserveItem.reserve.priceInUSD),
-      aTokenAddress: reserveItem.reserve.aTokenAddress,
-      stableDebtTokenAddress: reserveItem.reserve.stableDebtTokenAddress,
-      variableDebtTokenAddress: reserveItem.reserve.variableDebtTokenAddress,
-      flashLoanEnabled: reserveItem.reserve.flashLoanEnabled,
-      borrowingEnabled: reserveItem.reserve.borrowingEnabled,
-      isFrozen: reserveItem.reserve.isFrozen,
-      isPaused: reserveItem.reserve.isPaused,
-      isActive: reserveItem.reserve.isActive
+      initialPriceInUSD: Number(reserve.priceInUSD),
+      aTokenAddress: reserve.aTokenAddress,
+      stableDebtTokenAddress: reserve.stableDebtTokenAddress,
+      variableDebtTokenAddress: reserve.variableDebtTokenAddress,
+      underlyingAsset: reserve.underlyingAsset,
+      flashLoanEnabled: reserve.flashLoanEnabled,
+      borrowingEnabled: reserve.borrowingEnabled,
+      isFrozen: reserve.isFrozen,
+      isPaused: reserve.isPaused,
+      isActive: reserve.isActive,
+      supplyAPY: Number(reserve.supplyAPY),
+      variableBorrowAPY: Number(reserve.variableBorrowAPY),
+      stableBorrowAPY: Number(reserve.stableBorrowAPY),
+      supplyAPR: Number(reserve.supplyAPR),
+      variableBorrowAPR: Number(reserve.variableBorrowAPR),
+      stableBorrowAPR: Number(reserve.stableBorrowAPR)
     };
     return details;
   };
@@ -181,8 +214,10 @@ const aaveUserSummaryToHealthFactor = (
         const item: BorrowedAssetDataItem = {
           asset: getAssetDetailsFromReserveItem(reserveItem),
           stableBorrows: Number(reserveItem.stableBorrows),
+          variableBorrows: Number(reserveItem.variableBorrows),
           totalBorrowsUSD: Number(reserveItem.totalBorrowsUSD),
           totalBorrows: Number(reserveItem.totalBorrows),
+          stableBorrowAPY: Number(reserveItem.stableBorrowAPY),
           totalBorrowsMarketReferenceCurrency: Number(
             reserveItem.totalBorrowsMarketReferenceCurrency
           ),

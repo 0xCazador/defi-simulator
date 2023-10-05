@@ -6,17 +6,19 @@ import { t } from "@lingui/macro";
 import { ActionIcon, Center, Divider, TextInput, Tooltip } from "@mantine/core";
 import { FaCopy, FaExternalLinkAlt } from "react-icons/fa";
 import { GiDiceSixFacesFive } from "react-icons/gi";
-import { useAaveData } from "../hooks/useAaveData";
+import { markets, useAaveData } from "../hooks/useAaveData";
 import { RandomAddressButton } from "../pages";
 
 type Props = {};
 
-const AddressInput = ({}: Props) => {
+const AddressInput = ({ }: Props) => {
   const [inputAddress, setInputAddress] = useState("");
   const [showCopied, setShowCopied] = useState(false);
   const router = useRouter();
 
-  const { currentAddress } = useAaveData("");
+  const { currentAddress, currentMarket } = useAaveData("");
+
+  const market = markets.find((market) => market.id === currentMarket);
 
   useEffect(() => {
     if (
@@ -89,14 +91,14 @@ const AddressInput = ({}: Props) => {
             </ActionIcon>
           </Tooltip>
           <Tooltip
-            label={t`View address on Etherscan`}
+            label={t`View address on ${market?.explorerName}`}
             position="left"
             withArrow
           >
             <a
               title={t`Visit address details on Etherscan`}
               target="_blank"
-              href={`https://etherscan.io/address/${inputAddress}`}
+              href={market?.explorer.replace("{{ADDRESS}}", inputAddress)}
               style={{
                 color: "#e9ecef",
                 marginRight: "44px",

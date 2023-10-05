@@ -1164,7 +1164,7 @@ const UserReserveAssetList = ({ summaryOffset }: UserReserveAssetListProps) => {
             <Trans>
               {"There are no supplied assets for "}
               <AbbreviatedEthereumAddress address={currentAddress} />
-              {` in the ${market?.title} market. Select "Add Supplied Asset" to simulate supplied assets for this address.`}
+              \              {`in the ${market?.title} market. Select "Add Supplied Asset" to simulate supplied assets for this address.`}
             </Trans>
           </Text>
         </Center>
@@ -1179,6 +1179,7 @@ const UserReserveAssetList = ({ summaryOffset }: UserReserveAssetListProps) => {
           <UserAssetItem
             key={`${item.asset.symbol}-RESERVE`}
             assetSymbol={item.asset.symbol}
+            assetDetails={item.asset}
             usageAsCollateralEnabledOnUser={item.usageAsCollateralEnabledOnUser}
             assetType="RESERVE"
             workingQuantity={item.underlyingBalance}
@@ -1265,8 +1266,11 @@ const UserBorrowedAssetList = ({
           <UserAssetItem
             key={`${item.asset.symbol}-BORROW`}
             assetSymbol={item.asset.symbol}
+            assetDetails={item.asset}
             isNewlyAddedBySimUser={!!item.asset.isNewlyAddedBySimUser}
             assetType="BORROW"
+            isStableBorrow={!!item.stableBorrows}
+            stableBorrowAPY={item.stableBorrowAPY}
             usageAsCollateralEnabledOnUser={false}
             workingQuantity={item.totalBorrows}
             originalQuantity={originalAsset?.totalBorrows ?? 0}
@@ -1312,6 +1316,9 @@ type UserAssetItemProps = {
   assetSymbol: string;
   usageAsCollateralEnabledOnUser: boolean;
   assetType: "RESERVE" | "BORROW";
+  assetDetails: AssetDetails;
+  isStableBorrow?: boolean;
+  stableBorrowAPY?: number;
   workingQuantity: number;
   originalQuantity: number;
   workingPrice: number;
@@ -1341,8 +1348,23 @@ const UserAssetItem = memo(
     setUseReserveAssetAsCollateral,
     disableSetUseReserveAssetAsCollateral,
     isNewlyAddedBySimUser,
+    assetDetails,
+    isStableBorrow = false,
+    stableBorrowAPY = 0
   }: UserAssetItemProps) => {
     const iconName = getIconNameFromAssetSymbol(assetSymbol);
+    console.log({ assetDetails })
+    const apy: number = assetType === "RESERVE"
+      ? assetDetails.supplyAPY || 0
+      : isStableBorrow
+        ? stableBorrowAPY
+        : assetDetails.variableBorrowAPY || 0;
+
+    const apySuffix: string = assetType === "RESERVE"
+      ? ""
+      : isStableBorrow
+        ? "(stable)"
+        : "(variable)";
     return (
       <Paper mt="xl" mb="xl" withBorder p="xs" bg="#282a2e">
         <Group mb="sm">
@@ -1352,8 +1374,12 @@ const UserAssetItem = memo(
             height="24px"
             alt={`${assetSymbol}`}
           />
-          <Text fz="md" fw={700}>
+          <Text fz="md" fw={700} span>
             {assetSymbol}
+          </Text>
+          <Divider orientation="vertical" variant="dotted" />
+          <Text fz="xs" span>
+            {`${(apy * 100).toFixed(2)}% APY ${apySuffix}`}
           </Text>
         </Group>
 

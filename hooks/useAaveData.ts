@@ -48,6 +48,7 @@ export type BorrowedAssetDataItem = {
   variableBorrows?: number;
   totalBorrows: number;
   totalBorrowsUSD: number;
+  stableBorrowAPY: number;
   totalBorrowsMarketReferenceCurrency: number;
 };
 
@@ -68,6 +69,7 @@ export type AssetDetails = {
   aTokenAddress?: string;
   stableDebtTokenAddress?: string;
   variableDebtTokenAddress?: string;
+  underlyingAsset?: string;
   isNewlyAddedBySimUser?: boolean;
   borrowingEnabled?: boolean;
   liquidityIndex?: number;
@@ -89,6 +91,14 @@ export type AssetDetails = {
   totalVariableDebt?: number;
   totalLiquidity?: number;
   flashLoanEnabled?: boolean
+  // Incentive Data
+  supplyAPY?: number;
+  variableBorrowAPY?: number;
+  stableBorrowAPY?: number;
+  supplyAPR?: number;
+  variableBorrowAPR?: number;
+  stableBorrowAPR?: number;
+
 };
 
 /**
@@ -118,7 +128,10 @@ export type AaveMarketDataType = {
   addresses: {
     LENDING_POOL_ADDRESS_PROVIDER: string;
     UI_POOL_DATA_PROVIDER: string;
+    UI_INCENTIVE_DATA_PROVIDER: string
   };
+  explorer: string;
+  explorerName: string;
 };
 
 export const markets: AaveMarketDataType[] = [
@@ -132,7 +145,10 @@ export const markets: AaveMarketDataType[] = [
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV2Ethereum.POOL_ADDRESSES_PROVIDER,
       UI_POOL_DATA_PROVIDER: pools.AaveV2Ethereum.UI_POOL_DATA_PROVIDER,
+      UI_INCENTIVE_DATA_PROVIDER: pools.AaveV2Ethereum.UI_INCENTIVE_DATA_PROVIDER
     },
+    explorer: "https://etherscan.io/address/{{ADDRESS}}",
+    explorerName: "Etherscan"
   },
   {
     v3: true,
@@ -144,7 +160,10 @@ export const markets: AaveMarketDataType[] = [
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Ethereum.POOL_ADDRESSES_PROVIDER,
       UI_POOL_DATA_PROVIDER: pools.AaveV3Ethereum.UI_POOL_DATA_PROVIDER,
+      UI_INCENTIVE_DATA_PROVIDER: pools.AaveV3Ethereum.UI_INCENTIVE_DATA_PROVIDER
     },
+    explorer: "https://etherscan.io/address/{{ADDRESS}}",
+    explorerName: "Etherscan"
   },
   {
     v3: true,
@@ -156,7 +175,10 @@ export const markets: AaveMarketDataType[] = [
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Arbitrum.POOL_ADDRESSES_PROVIDER,
       UI_POOL_DATA_PROVIDER: pools.AaveV3Arbitrum.UI_POOL_DATA_PROVIDER,
+      UI_INCENTIVE_DATA_PROVIDER: pools.AaveV3Arbitrum.UI_INCENTIVE_DATA_PROVIDER
     },
+    explorer: "https://arbiscan.io/address/{{ADDRESS}}",
+    explorerName: "Arbiscan"
   },
   {
     v3: true,
@@ -168,7 +190,10 @@ export const markets: AaveMarketDataType[] = [
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Optimism.POOL_ADDRESSES_PROVIDER,
       UI_POOL_DATA_PROVIDER: pools.AaveV3Optimism.UI_POOL_DATA_PROVIDER,
+      UI_INCENTIVE_DATA_PROVIDER: pools.AaveV3Optimism.UI_INCENTIVE_DATA_PROVIDER
     },
+    explorer: "https://optimistic.etherscan.io/address/{{ADDRESS}}",
+    explorerName: "Optimistic Etherscan"
   },
   {
     v3: true,
@@ -180,7 +205,10 @@ export const markets: AaveMarketDataType[] = [
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Base.POOL_ADDRESSES_PROVIDER,
       UI_POOL_DATA_PROVIDER: pools.AaveV3Base.UI_POOL_DATA_PROVIDER,
+      UI_INCENTIVE_DATA_PROVIDER: pools.AaveV3Base.UI_INCENTIVE_DATA_PROVIDER
     },
+    explorer: "https://basescan.org/address/{{ADDRESS}}",
+    explorerName: "BaseScan"
   },
   {
     v3: false,
@@ -192,7 +220,10 @@ export const markets: AaveMarketDataType[] = [
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV2Polygon.POOL_ADDRESSES_PROVIDER,
       UI_POOL_DATA_PROVIDER: pools.AaveV2Polygon.UI_POOL_DATA_PROVIDER,
+      UI_INCENTIVE_DATA_PROVIDER: pools.AaveV2Polygon.UI_INCENTIVE_DATA_PROVIDER
     },
+    explorer: "https://polygonscan.com/address/{{ADDRESS}}",
+    explorerName: "PolygonScan"
   },
   {
     v3: true,
@@ -204,7 +235,10 @@ export const markets: AaveMarketDataType[] = [
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Polygon.POOL_ADDRESSES_PROVIDER,
       UI_POOL_DATA_PROVIDER: pools.AaveV3Polygon.UI_POOL_DATA_PROVIDER,
+      UI_INCENTIVE_DATA_PROVIDER: pools.AaveV3Polygon.UI_INCENTIVE_DATA_PROVIDER
     },
+    explorer: "https://polygonscan.com/address/{{ADDRESS}}",
+    explorerName: "PolygonScan"
   },
   {
     v3: false,
@@ -216,7 +250,10 @@ export const markets: AaveMarketDataType[] = [
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV2Avalanche.POOL_ADDRESSES_PROVIDER,
       UI_POOL_DATA_PROVIDER: pools.AaveV2Avalanche.UI_POOL_DATA_PROVIDER,
+      UI_INCENTIVE_DATA_PROVIDER: pools.AaveV2Avalanche.UI_INCENTIVE_DATA_PROVIDER
     },
+    explorer: "https://avascan.info/blockchain/all/address/{{ADDRESS}}",
+    explorerName: "AvaScan"
   },
   {
     v3: true,
@@ -228,7 +265,10 @@ export const markets: AaveMarketDataType[] = [
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Avalanche.POOL_ADDRESSES_PROVIDER,
       UI_POOL_DATA_PROVIDER: pools.AaveV3Avalanche.UI_POOL_DATA_PROVIDER,
+      UI_INCENTIVE_DATA_PROVIDER: pools.AaveV3Avalanche.UI_INCENTIVE_DATA_PROVIDER
     },
+    explorer: "https://avascan.info/blockchain/all/address/{{ADDRESS}}",
+    explorerName: "AvaScan"
   },
   {
     v3: true,
@@ -239,7 +279,10 @@ export const markets: AaveMarketDataType[] = [
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER: pools.AaveV3Metis.POOL_ADDRESSES_PROVIDER,
       UI_POOL_DATA_PROVIDER: pools.AaveV3Metis.UI_POOL_DATA_PROVIDER,
+      UI_INCENTIVE_DATA_PROVIDER: pools.AaveV3Metis.UI_INCENTIVE_DATA_PROVIDER
     },
+    explorer: "https://andromeda-explorer.metis.io/address/{{ADDRESS}}",
+    explorerName: "Metis Explorer"
   },
 ];
 
