@@ -123,28 +123,27 @@ export default function FooterLinks() {
             </Trans>
           </Text>
         </div>
-
         <Divider orientation="vertical" />
-
         <Center>
           <Text size="xs" c="dimmed" mt="lg" mx="lg" display="block">
-            <Trans>
-              <Text mr="xs" mt="xl" color="red" span>
+            <Center>
+              <Text size="md" color="red" style={{ marginTop: "5px", marginRight: "5px" }}>
                 <MdNotificationsActive />
               </Text>
-              Looking for health factor alerts? Check out
+              <Trans>
+                Looking for health factor alerts? Check out
+              </Trans>
               &nbsp;
-            </Trans>
-            {" "}
-            <a
-              href="https://github.com/nebolax/aavealarm"
-              target="_blank"
-              rel="noreferrer"
-              style={{ color: "#e9ecef" }}
-            >
-              Aave Alarm
-            </a>
-            .
+              <a
+                href="https://github.com/nebolax/aavealarm"
+                target="_blank"
+                rel="noreferrer"
+                style={{ color: "#e9ecef" }}
+              >
+                Aave Alarm
+              </a>
+              .
+            </Center>
           </Text>
         </Center>
         <Center>
