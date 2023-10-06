@@ -36,6 +36,7 @@ import {
   Overlay,
   Alert,
   Progress,
+  Indicator,
 } from "@mantine/core";
 import { FaAsterisk, FaInfinity, FaInfo, FaInfoCircle } from "react-icons/fa";
 import { RxReset } from "react-icons/rx";
@@ -1353,7 +1354,6 @@ const UserAssetItem = memo(
     stableBorrowAPY = 0
   }: UserAssetItemProps) => {
     const iconName = getIconNameFromAssetSymbol(assetSymbol);
-    console.log({ assetDetails })
     const apy: number = assetType === "RESERVE"
       ? assetDetails.supplyAPY || 0
       : isStableBorrow
@@ -1581,6 +1581,7 @@ const UserAssetQuantityInput = ({
         size="md"
         type="number"
         inputWrapperOrder={["label", "error", "input", "description"]}
+        inputContainer={children => <Indicator zIndex="3" disabled={!originalQuantity || (originalQuantity === workingQuantity)}>{children}</Indicator>}
         rightSection={resetIcon}
       />
 
@@ -1717,6 +1718,7 @@ const UserAssetPriceInput = ({
         size="md"
         ref={inputRef}
         inputWrapperOrder={["label", "error", "input", "description"]}
+        inputContainer={children => <Indicator zIndex="3" disabled={!originalPrice || (originalPrice === workingPrice)}>{children}</Indicator>}
         rightSection={resetIcon}
       />
       <Slider
