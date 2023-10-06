@@ -13,6 +13,7 @@ import { BsTwitter, BsGithub, BsDiscord } from "react-icons/bs";
 import { Trans } from "@lingui/macro";
 import SelectLanguageDialog from "./SelectLanguageDialog";
 import SelectCurrencyDialog from "./SelectCurrencyDialog";
+import { MdNotificationsActive } from "react-icons/md";
 
 const useStyles = createStyles((theme) => ({
   footer: {
@@ -91,9 +92,8 @@ const useStyles = createStyles((theme) => ({
     marginTop: theme.spacing.xl,
     paddingTop: theme.spacing.xl,
     paddingBottom: theme.spacing.xl,
-    borderTop: `1px solid ${
-      theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2]
-    }`,
+    borderTop: `1px solid ${theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2]
+      }`,
 
     [theme.fn.smallerThan("sm")]: {
       flexDirection: "column",
@@ -127,7 +127,28 @@ export default function FooterLinks() {
         <Divider orientation="vertical" />
 
         <Center>
-          <Text size="xs" c="dimmed" mt="lg">
+          <Text size="xs" c="dimmed" mt="lg" mx="lg" display="block">
+            <Trans>
+              <Text mr="xs" mt="xl" color="red" span>
+                <MdNotificationsActive />
+              </Text>
+              Looking for health factor alerts? Check out
+              &nbsp;
+            </Trans>
+            {" "}
+            <a
+              href="https://github.com/nebolax/aavealarm"
+              target="_blank"
+              rel="noreferrer"
+              style={{ color: "#e9ecef" }}
+            >
+              Aave Alarm
+            </a>
+            .
+          </Text>
+        </Center>
+        <Center>
+          <Text size="xs" c="dimmed" mt="lg" mx="lg" display="block">
             <Trans>
               Questions or comments? Please{" "}
               <a
