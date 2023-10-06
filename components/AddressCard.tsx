@@ -1773,7 +1773,7 @@ const Slider = ({ defaultValue, onChange }: SliderProps) => {
           "50%": [Math.max(defaultValue, 1)],
           "85%": [Math.max(defaultValue * 2, 2)],
           max: [Math.max(defaultValue * 20, 20)],
-        },
+        }
       })
       .on("slide", handleChange);
 
@@ -1782,8 +1782,15 @@ const Slider = ({ defaultValue, onChange }: SliderProps) => {
   };
 
   const handleChange = (val: number[]) => {
-    onChange(Number(val[0]));
-    setValue(Number(val[0]));
+    let rounded = val[0];
+    if (rounded >= 10) rounded = Math.round(rounded);
+    if (rounded >= 100) rounded = Math.round(rounded / 5) * 5;
+    if (rounded >= 1000) rounded = Math.round(rounded / 50) * 50;
+    if (rounded >= 2000) rounded = Math.round(rounded / 100) * 100;
+    if (rounded >= 10000) rounded = Math.round(rounded / 500) * 500;
+    if (rounded >= 20000) rounded = Math.round(rounded / 1000) * 1000;
+    onChange(Number(rounded));
+    setValue(Number(rounded));
   };
 
   return <div ref={divRef} />;
