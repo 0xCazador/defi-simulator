@@ -8,7 +8,8 @@ import { ChainId } from "@aave/contract-helpers";
 import BigNumber from "bignumber.js";
 
 export type HealthFactorData = {
-  address: string;
+  address: string; // e.g. 0xc...123a or stani.eth
+  resolvedAddress: string; // e.g 0xc...123a (never ens)
   fetchError: string;
   isFetching: boolean;
   lastFetched: number;
@@ -32,7 +33,41 @@ export type AaveHealthFactorData = {
   userBorrowsData: BorrowedAssetDataItem[];
   userEmodeCategoryId?: number;
   isInIsolationMode?: boolean;
-};
+  txHistory: TxHistory;
+}
+
+export type TxHistory = {
+  data: TxHistoryItem[],
+  isFetching: boolean,
+  fetchError: string,
+  lastFetched: number
+}
+
+export type TxHistoryItem = {
+  id: string;
+  txHash: string;
+  action: "Borrow" | "Repay" | "Supply" | "Deposit" | "RedeemUnderlying" | "LiquidationCall";
+  amount?: number; // absent for liquidationCall
+  reserve?: TxHistoryReserveItem; // absent for liquidationCall
+  timestamp: number;
+  assetPriceUSD?: string; // absent for liquidationCall
+  // vvv liquidationCall formatting, only present on that action type
+  // collateral i.e. the reserve used to repay the borrowed debt
+  collateralAmount?: number;
+  collateralReserve?: TxHistoryReserveItem;
+  collateralPriceUSD?: string;
+  // principal i.e. the borrowed debt that's getting repaid
+  principalAmount?: number;
+  principalReserve?: TxHistoryReserveItem;
+  principalPriceUSD?: string;
+}
+
+export type TxHistoryReserveItem = {
+  symbol: string;
+  decimals: string;
+  name: string;
+  underlyingAsset: string;
+}
 
 export type ReserveAssetDataItem = {
   asset: AssetDetails;
@@ -132,6 +167,7 @@ export type AaveMarketDataType = {
   };
   explorer: string;
   explorerName: string;
+  subgraphUrl: string
 };
 
 export const markets: AaveMarketDataType[] = [
@@ -148,7 +184,9 @@ export const markets: AaveMarketDataType[] = [
       UI_INCENTIVE_DATA_PROVIDER: pools.AaveV2Ethereum.UI_INCENTIVE_DATA_PROVIDER
     },
     explorer: "https://etherscan.io/address/{{ADDRESS}}",
-    explorerName: "Etherscan"
+    explorerName: "Etherscan",
+    subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/protocol-v2',
+
   },
   {
     v3: true,
@@ -163,7 +201,8 @@ export const markets: AaveMarketDataType[] = [
       UI_INCENTIVE_DATA_PROVIDER: pools.AaveV3Ethereum.UI_INCENTIVE_DATA_PROVIDER
     },
     explorer: "https://etherscan.io/address/{{ADDRESS}}",
-    explorerName: "Etherscan"
+    explorerName: "Etherscan",
+    subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/protocol-v3',
   },
   {
     v3: true,
@@ -178,7 +217,8 @@ export const markets: AaveMarketDataType[] = [
       UI_INCENTIVE_DATA_PROVIDER: pools.AaveV3Arbitrum.UI_INCENTIVE_DATA_PROVIDER
     },
     explorer: "https://arbiscan.io/address/{{ADDRESS}}",
-    explorerName: "Arbiscan"
+    explorerName: "Arbiscan",
+    subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/protocol-v3-arbitrum',
   },
   {
     v3: true,
@@ -193,7 +233,8 @@ export const markets: AaveMarketDataType[] = [
       UI_INCENTIVE_DATA_PROVIDER: pools.AaveV3Optimism.UI_INCENTIVE_DATA_PROVIDER
     },
     explorer: "https://optimistic.etherscan.io/address/{{ADDRESS}}",
-    explorerName: "Optimistic Etherscan"
+    explorerName: "Optimistic Etherscan",
+    subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/protocol-v3-optimism',
   },
   {
     v3: true,
@@ -208,7 +249,8 @@ export const markets: AaveMarketDataType[] = [
       UI_INCENTIVE_DATA_PROVIDER: pools.AaveV3Base.UI_INCENTIVE_DATA_PROVIDER
     },
     explorer: "https://basescan.org/address/{{ADDRESS}}",
-    explorerName: "BaseScan"
+    explorerName: "BaseScan",
+    subgraphUrl: "" // Not set up yet
   },
   {
     v3: false,
@@ -223,7 +265,8 @@ export const markets: AaveMarketDataType[] = [
       UI_INCENTIVE_DATA_PROVIDER: pools.AaveV2Polygon.UI_INCENTIVE_DATA_PROVIDER
     },
     explorer: "https://polygonscan.com/address/{{ADDRESS}}",
-    explorerName: "PolygonScan"
+    explorerName: "PolygonScan",
+    subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/aave-v2-matic',
   },
   {
     v3: true,
@@ -238,7 +281,8 @@ export const markets: AaveMarketDataType[] = [
       UI_INCENTIVE_DATA_PROVIDER: pools.AaveV3Polygon.UI_INCENTIVE_DATA_PROVIDER
     },
     explorer: "https://polygonscan.com/address/{{ADDRESS}}",
-    explorerName: "PolygonScan"
+    explorerName: "PolygonScan",
+    subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/protocol-v3-polygon',
   },
   {
     v3: false,
@@ -253,7 +297,8 @@ export const markets: AaveMarketDataType[] = [
       UI_INCENTIVE_DATA_PROVIDER: pools.AaveV2Avalanche.UI_INCENTIVE_DATA_PROVIDER
     },
     explorer: "https://avascan.info/blockchain/all/address/{{ADDRESS}}",
-    explorerName: "AvaScan"
+    explorerName: "AvaScan",
+    subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/protocol-v2-avalanche',
   },
   {
     v3: true,
@@ -268,7 +313,8 @@ export const markets: AaveMarketDataType[] = [
       UI_INCENTIVE_DATA_PROVIDER: pools.AaveV3Avalanche.UI_INCENTIVE_DATA_PROVIDER
     },
     explorer: "https://avascan.info/blockchain/all/address/{{ADDRESS}}",
-    explorerName: "AvaScan"
+    explorerName: "AvaScan",
+    subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/protocol-v3-avalanche',
   },
   {
     v3: true,
@@ -282,7 +328,8 @@ export const markets: AaveMarketDataType[] = [
       UI_INCENTIVE_DATA_PROVIDER: pools.AaveV3Metis.UI_INCENTIVE_DATA_PROVIDER
     },
     explorer: "https://andromeda-explorer.metis.io/address/{{ADDRESS}}",
-    explorerName: "Metis Explorer"
+    explorerName: "Metis Explorer",
+    subgraphUrl: 'https://andromeda.thegraph.metis.io/subgraphs/name/aave/protocol-v3-metis',
   },
 ];
 
@@ -296,26 +343,28 @@ export const markets: AaveMarketDataType[] = [
     addReserveAsset,
     setCurrentMarket, }
  */
-export function useAaveData(address: string) {
+export function useAaveData(address: string, preventFetch: boolean = false) {
   const [isFetching, setIsFetching] = useState(false);
   const store = useHookstate(HealthFactorDataStore);
   const state = store.get({ noproxy: true });
   const { currentAddress, addressData, currentMarket } = state;
   const data = addressData?.[currentAddress];
-  const addressProvided = address && address.length > 0;
-  if (address?.length === 0) address = currentAddress || "";
+  const addressProvided: boolean = !!(address && address?.length > 0);
+  if (address?.length === 0 || address === "DEBUG") address = currentAddress || "";
 
   const isLoadingAny = !!markets.find(
-    (market) => !!data?.[market.id]?.isFetching
+    (market) => data?.[market.id]?.isFetching === true
   );
 
+  const deps = [currentAddress, addressProvided, isLoadingAny];
+
   useEffect(() => {
+    if (preventFetch) return;
     if (addressProvided && !isLoadingAny) {
       markets.map((market) => {
         const existingData = data?.[market.id];
         const lastFetched = existingData?.lastFetched;
-        // Consider stale and re-fetch if more than 30 seconds old
-        if (lastFetched && lastFetched > Date.now() - 30000) return;
+        if (lastFetched) return;
         if (existingData?.isFetching) return;
         setIsFetching(true);
         createInitial(market);
@@ -349,7 +398,7 @@ export function useAaveData(address: string) {
         fetchData();
       });
     }
-  }, [currentAddress, addressProvided, isLoadingAny]);
+  }, deps);
 
   useEffect(() => {
     if (address) store.currentAddress.set(address);
@@ -548,6 +597,11 @@ export function useAaveData(address: string) {
     updateAllDerivedHealthFactorData();
   };
 
+  const setTxHistory = (address: string, history: TxHistory) => {
+    const workingData = store.addressData.nested(address)?.[currentMarket]?.workingData as State<AaveHealthFactorData>;
+    if (workingData) workingData.txHistory?.set(history);
+  };
+
   const applyLiquidationScenario = () => {
     const liquidationScenario = getCalculatedLiquidationScenario(
       data?.[currentMarket]?.workingData as AaveHealthFactorData,
@@ -618,6 +672,7 @@ export function useAaveData(address: string) {
     setAssetPriceInUSD,
     applyLiquidationScenario,
     setUseReserveAssetAsCollateral,
+    setTxHistory
   };
 }
 
@@ -632,7 +687,7 @@ export const getHealthFactorColor = (hf: number = 0) => {
 };
 
 export const isStablecoinAsset = (asset: AssetDetails) => {
-  return ["DAI", "USD", "GHO", "EUR", "MAI"].includes(asset.symbol?.toUpperCase());
+  return !!["DAI", "USD", "GHO", "EUR", "MAI"].find(symbol => asset.symbol?.toUpperCase().includes(symbol));
 };
 
 export const isActiveAsset = (asset: AssetDetails) => {

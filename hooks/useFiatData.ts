@@ -49,8 +49,6 @@ export function useFiatRates(shouldFetch: boolean = false) {
     store.selectedCurrency.set(currencySymbol);
   };
 
-  //console.log({ state })
-
   return {
     isFetching,
     isError,

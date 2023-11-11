@@ -116,8 +116,8 @@ export default function AppBar() {
           <Menu
             width={260}
             position="bottom-end"
-            onClose={() => {}}
-            onOpen={() => {}}
+            onClose={() => { }}
+            onOpen={() => { }}
           >
             <Menu.Target>
               <UnstyledButton

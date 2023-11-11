@@ -6,7 +6,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { formatNumber, formatMoney, unformat } from "accounting";
+import { formatNumber, unformat } from "accounting";
 import noUiSlider from "nouislider";
 import { Trans, Plural, t } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
@@ -40,7 +40,7 @@ import {
 } from "@mantine/core";
 import { FaAsterisk, FaInfinity, FaInfo, FaInfoCircle } from "react-icons/fa";
 import { RxReset } from "react-icons/rx";
-import { IoLogoUsd } from "react-icons/io";
+import { CgRemoveR } from "react-icons/cg";
 import { ImmutableArray, ImmutableObject } from "@hookstate/core";
 import AddAssetDialog from "./AddAssetDialog";
 
@@ -53,13 +53,16 @@ import {
   getHealthFactorColor,
   getIconNameFromAssetSymbol,
   AssetDetails,
+  AaveHealthFactorData,
   getCalculatedLiquidationScenario,
 } from "../hooks/useAaveData";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
-import { AaveHealthFactorData } from "../hooks/useAaveData";
 import { FiAlertTriangle } from "react-icons/fi";
 import LocalizedFiatDisplay from "./LocalizedFiatDisplay";
 import { useFiatRates } from "../hooks/useFiatData";
+import { AssetAPY } from "./AssetAPY";
+import ReserveAssetDetailsDialog from "./ReserveAssetDetailsDialog";
+import BorrowedAssetDetailsDialog from "./BorrowedAssetDetailsDialog";
 
 type Props = {};
 
@@ -1257,7 +1260,7 @@ const UserBorrowedAssetList = ({
           </Text>
         </Center>
       )}
-      {items.map((item) => {
+      {items.map((item, idx) => {
         const originalAsset = addressData?.[
           currentMarket
         ]?.fetchedData?.userBorrowsData?.find(
@@ -1265,7 +1268,7 @@ const UserBorrowedAssetList = ({
         );
         return (
           <UserAssetItem
-            key={`${item.asset.symbol}-BORROW`}
+            key={`${item.asset.symbol}-BORROW-${idx}`}
             assetSymbol={item.asset.symbol}
             assetDetails={item.asset}
             isNewlyAddedBySimUser={!!item.asset.isNewlyAddedBySimUser}
@@ -1354,34 +1357,47 @@ const UserAssetItem = memo(
     stableBorrowAPY = 0
   }: UserAssetItemProps) => {
     const iconName = getIconNameFromAssetSymbol(assetSymbol);
-    const apy: number = assetType === "RESERVE"
-      ? assetDetails.supplyAPY || 0
-      : isStableBorrow
-        ? stableBorrowAPY
-        : assetDetails.variableBorrowAPY || 0;
 
-    const apySuffix: string = assetType === "RESERVE"
-      ? ""
-      : isStableBorrow
-        ? "(stable)"
-        : "(variable)";
     return (
       <Paper mt="xl" mb="xl" withBorder p="xs" bg="#282a2e">
-        <Group mb="sm">
-          <img
-            src={`/icons/tokens/${iconName}.svg`}
-            width="24px"
-            height="24px"
-            alt={`${assetSymbol}`}
-          />
-          <Text fz="md" fw={700} span>
-            {assetSymbol}
-          </Text>
-          <Divider orientation="vertical" variant="dotted" />
-          <Text fz="xs" span>
-            {`${(apy * 100).toFixed(2)}% APY ${apySuffix}`}
-          </Text>
-        </Group>
+        <Flex justify="space-between">
+          <Group mb="sm">
+            <img
+              src={`/icons/tokens/${iconName}.svg`}
+              width="24px"
+              height="24px"
+              alt={`${assetSymbol}`}
+            />
+            <Text fz="md" fw={700} span>
+              {assetSymbol}
+            </Text>
+            <Divider orientation="vertical" variant="dotted" />
+            <Text fz="xs" span>
+              <AssetAPY assetType={assetType} assetDetails={assetDetails} isStableBorrow={isStableBorrow} stableBorrowAPY={stableBorrowAPY} />
+            </Text>
+            <Divider orientation="vertical" variant="dotted" />
+
+            {assetType === "RESERVE"
+              ? <ReserveAssetDetailsDialog assetDetails={assetDetails} />
+              : <BorrowedAssetDetailsDialog assetDetails={assetDetails} isStableBorrow={isStableBorrow} stableBorrowAPY={stableBorrowAPY} />
+            }
+          </Group>
+
+          <Tooltip
+            label={t`Remove ${assetSymbol}`}
+            position="left"
+            withArrow
+          >
+            <ActionIcon>
+              <CgRemoveR
+                title={t`Remove ${assetSymbol}`}
+                size={16}
+                onClick={() => onRemoveAsset(assetSymbol, assetType)}
+              />
+            </ActionIcon>
+          </Tooltip>
+
+        </Flex>
 
         <Grid columns={17}>
           <Grid.Col span={8}>
@@ -1443,13 +1459,6 @@ const UserAssetItem = memo(
           ) : (
             <Space m="lg" />
           )}
-          <Button
-            compact
-            variant="light"
-            onClick={() => onRemoveAsset(assetSymbol, assetType)}
-          >
-            {t`Remove ${assetSymbol}`}
-          </Button>
         </Container>
       </Paper>
     );

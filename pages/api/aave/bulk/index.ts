@@ -1,26 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { ethers } from "ethers";
+
 import {
-  PoolBaseCurrencyHumanized,
-  UiPoolDataProvider,
-  UiPoolDataProviderContext,
-} from "@aave/contract-helpers";
-import dayjs from "dayjs";
-import {
-  ComputedUserReserve,
-  FormatUserSummaryResponse,
-  formatReserves,
-  formatUserSummary,
-} from "@aave/math-utils";
-import BigNumber from "bignumber.js";
-import {
-  AaveHealthFactorData,
   AaveMarketDataType,
-  AssetDetails,
-  BorrowedAssetDataItem,
   HealthFactorData,
-  ReserveAssetDataItem,
-  getCalculatedLiquidationScenario,
   markets,
 } from "../../../../hooks/useAaveData";
 import { getAaveData } from "..";

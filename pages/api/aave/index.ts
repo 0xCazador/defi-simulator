@@ -121,6 +121,7 @@ export const getAaveData = async (address: string, market: AaveMarketDataType) =
   const hf: HealthFactorData = aaveUserSummaryToHealthFactor(
     userSummary,
     address,
+    user, // if address is an ens, user will point to the resolved address.
     market,
     baseCurrencyData,
     userReserves.userEmodeCategoryId
@@ -131,6 +132,7 @@ export const getAaveData = async (address: string, market: AaveMarketDataType) =
 const aaveUserSummaryToHealthFactor = (
   userSummary: FormatUserSummaryResponse,
   address: string,
+  resolvedAddress: string,
   market: AaveMarketDataType,
   baseCurrencyData: any,
   userEmodeCategoryId: number
@@ -238,6 +240,7 @@ const aaveUserSummaryToHealthFactor = (
 
   const hf: HealthFactorData = {
     address,
+    resolvedAddress,
     fetchError: "",
     isFetching: false,
     lastFetched: Date.now(),
@@ -259,7 +262,7 @@ const aaveUserSummaryToHealthFactor = (
       userReservesData: reserveData.userReservesData,
       userBorrowsData: reserveData.userBorrowsData,
       userEmodeCategoryId: reserveData.userEmodeCategoryId,
-      isInIsolationMode: reserveData.isInIsolationMode,
+      isInIsolationMode: reserveData.isInIsolationMode
     },
     workingData: {
       healthFactor: reserveDataCopy.healthFactor,
