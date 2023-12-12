@@ -169,7 +169,16 @@ const aaveUserSummaryToHealthFactor = (
       stableBorrowAPY: Number(reserve.stableBorrowAPY),
       supplyAPR: Number(reserve.supplyAPR),
       variableBorrowAPR: Number(reserve.variableBorrowAPR),
-      stableBorrowAPR: Number(reserve.stableBorrowAPR)
+      stableBorrowAPR: Number(reserve.stableBorrowAPR),
+      availableLiquidity: Number(reserve.availableLiquidity),
+      borrowCap: Number(reserve.borrowCap),
+      supplyCap: Number(reserve.supplyCap),
+      eModeLtv: Number(reserve.eModeLtv),
+      eModeLiquidationThreshold: Number(reserve.eModeLiquidationThreshold),
+      eModeCategoryId: Number(reserve.eModeCategoryId),
+      eModeLabel: reserve.eModeLabel,
+      borrowableInIsolation: Boolean(reserve.borrowableInIsolation),
+      isSiloedBorrowing: Boolean(reserve.isSiloedBorrowing)
     };
     return details;
   };

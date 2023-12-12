@@ -38,7 +38,7 @@ import {
   Progress,
   Indicator,
 } from "@mantine/core";
-import { FaAsterisk, FaInfinity, FaInfo, FaInfoCircle } from "react-icons/fa";
+import { FaAsterisk, FaInfinity, FaInfo, FaInfoCircle, FaBolt } from "react-icons/fa";
 import { RxReset } from "react-icons/rx";
 import { CgRemoveR } from "react-icons/cg";
 import { ImmutableArray, ImmutableObject } from "@hookstate/core";
@@ -55,6 +55,7 @@ import {
   AssetDetails,
   AaveHealthFactorData,
   getCalculatedLiquidationScenario,
+  AaveMarketDataType,
 } from "../hooks/useAaveData";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { FiAlertTriangle } from "react-icons/fi";
@@ -72,7 +73,6 @@ const AddressCard = ({ }: Props) => {
   const data = addressData?.[currentMarket] as HealthFactorData;
   const summaryRef = useRef<HTMLDivElement>(null);
   const summaryOffset: number = summaryRef?.current?.clientHeight || 0;
-  const isEmode: boolean = (data?.workingData?.userEmodeCategoryId || 0) !== 0;
   const isIsolationMode: boolean = !!data?.workingData?.isInIsolationMode;
   const isError: boolean = !!data?.fetchError?.length;
   const marketName =
@@ -113,23 +113,7 @@ const AddressCard = ({ }: Props) => {
             </Alert>
           </Trans>
         )}
-        {isEmode && (
-          <Trans>
-            <Alert
-              mb={15}
-              mt={45}
-              icon={<FiAlertTriangle size="1rem" />}
-              title="Emode Not Supported!"
-              color="red"
-              variant="outline"
-            >
-              This debt position has Emode (Efficieny Mode) enabled, but DeFi
-              Simulator does not yet support positions with Emode enabled. We
-              hope to add support for Emode soon.
-            </Alert>
-          </Trans>
-        )}
-        {!isEmode && !isIsolationMode && !isError && (
+        {!isIsolationMode && !isError && (
           <>
             {isFetching ? (
               <HealthFactorSkeleton animate />
@@ -163,10 +147,13 @@ type HealthFactorAddressSummaryProps = {
 export const HealthFactorAddressSummary = ({
   addressData,
 }: HealthFactorAddressSummaryProps) => {
-  const { isFetching, currentAddress } = useAaveData("");
+  const { isFetching, currentAddress, currentMarket } = useAaveData("");
   const count = markets.filter(
     (market) => addressData?.[market.id]?.fetchedData?.healthFactor > -1
   ).length;
+
+  const market: AaveMarketDataType = markets.find(mkts => mkts.id === currentMarket);
+  const isEmode: boolean = (addressData?.[currentMarket]?.workingData?.userEmodeCategoryId || 0) !== 0;
 
   if (isFetching) {
     return (
@@ -187,6 +174,7 @@ export const HealthFactorAddressSummary = ({
             <Plural value={Number(count)} one="position" other="positions" />{" "}
             <Trans>in</Trans> {count}{" "}
             <Plural value={Number(count)} one="market" other="markets" />
+            .
           </Text>
         ) : (
           <Text size="sm" style={{ display: "inline-block" }}>
@@ -195,6 +183,14 @@ export const HealthFactorAddressSummary = ({
             <Trans>No Aave positions found.</Trans>
           </Text>
         )}
+      </Center>
+
+      <Center>
+        <Text span size="sm" mt="md" style={{ display: "inline-block" }}>
+          {market && ` ${market.title} `}
+          {market && <Trans>market selected.</Trans>}
+          {isEmode && <Trans> <Text ml="xs" span><FaBolt />E-mode is enabled by user.</Text></Trans>}
+        </Text>
       </Center>
 
       <Center>
@@ -1168,7 +1164,7 @@ const UserReserveAssetList = ({ summaryOffset }: UserReserveAssetListProps) => {
             <Trans>
               {"There are no supplied assets for "}
               <AbbreviatedEthereumAddress address={currentAddress} />
-              \              {`in the ${market?.title} market. Select "Add Supplied Asset" to simulate supplied assets for this address.`}
+              {` in the ${market?.title} market. Select "Add Supplied Asset" to simulate supplied assets for this address.`}
             </Trans>
           </Text>
         </Center>

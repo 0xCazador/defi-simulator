@@ -119,6 +119,7 @@ export type AssetDetails = {
   eModeLtv?: number;
   eModeLiquidationThreshold?: number;
   eModeLabel?: string;
+  eModeCategoryId?: number;
   borrowableInIsolation?: boolean;
   isSiloedBorrowing?: boolean;
   totalDebt?: number;
@@ -851,12 +852,17 @@ export const updateDerivedHealthFactorData = (
         updatedUnderlyingBalanceMarketReferenceCurrency
       );
 
-      const itemReserveLiquidationThreshold: BigNumber = new BigNumber(
-        reserveItem.asset.reserveLiquidationThreshold
-      ).dividedBy(10000);
-      const itemBaseLoanToValue: BigNumber = new BigNumber(
-        reserveItem.asset.baseLTVasCollateral
-      ).dividedBy(10000);
+      const isEmode: boolean = !!reserveItem.asset.eModeCategoryId && (reserveItem.asset.eModeCategoryId === data.userEmodeCategoryId);
+      const lt: number = isEmode
+        ? reserveItem.asset.eModeLiquidationThreshold || 0
+        : reserveItem.asset.reserveLiquidationThreshold || 0
+
+      const ltv: number = isEmode
+        ? reserveItem.asset.eModeLtv || 0
+        : reserveItem.asset.baseLTVasCollateral || 0
+
+      const itemReserveLiquidationThreshold: BigNumber = new BigNumber(lt).dividedBy(10000);
+      const itemBaseLoanToValue: BigNumber = new BigNumber(ltv).dividedBy(10000);
 
       weightedReservesETH = weightedReservesETH.plus(
         itemReserveLiquidationThreshold.multipliedBy(
