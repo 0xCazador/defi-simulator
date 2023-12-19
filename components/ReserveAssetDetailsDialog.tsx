@@ -41,7 +41,8 @@ export default function ReserveAssetDetailsDialog({ assetDetails }: ReserveAsset
     const { addressData, currentMarket, currentAddress } = useAaveData("", true);
 
     const market = markets.find((market) => market.id === currentMarket) as AaveMarketDataType;
-    const asset = addressData?.[currentMarket]?.workingData?.userReservesData?.find(r => r.asset.symbol === assetDetails.symbol) as ReserveAssetDataItem
+    const asset = addressData?.[currentMarket]?.workingData?.userReservesData?.find(r => r.asset.symbol === assetDetails.symbol) as ReserveAssetDataItem;
+    const fetchedAsset = addressData?.[currentMarket]?.workingData?.userReservesData?.find(r => r.asset.symbol === assetDetails.symbol) as ReserveAssetDataItem;
     const resolvedAddress: string = addressData?.[currentMarket]?.resolvedAddress;
 
     if (!market || !currentAddress || !asset) return null;
@@ -92,7 +93,7 @@ export default function ReserveAssetDetailsDialog({ assetDetails }: ReserveAsset
                     <AssetDetailsItem
                         title="Accrued Interest: "
                         description="Experimental. The Accrued Interest refers to the total interest accrued by this supplied asset since it was first supplied in the current market by the user. This feature is experimental, there may be miscalculations, or it may not be available for all assets."
-                        node={<ReserveAssetAPYAccrued asset={asset} address={currentAddress} resolvedAddress={resolvedAddress} />}
+                        node={<ReserveAssetAPYAccrued asset={fetchedAsset} address={currentAddress} resolvedAddress={resolvedAddress} />}
                         titleIcon={
                             <Tooltip
                                 label={t`Experimental Feature`}

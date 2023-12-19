@@ -46,6 +46,7 @@ export default function BorrowedAssetDetailsDialog({ assetDetails, isStableBorro
 
     const market = markets.find((market) => market.id === currentMarket) as AaveMarketDataType;
     const asset = addressData?.[currentMarket]?.workingData?.userBorrowsData?.find(r => r.asset.symbol === assetDetails.symbol) as BorrowedAssetDataItem;
+    const fetchedAsset = addressData?.[currentMarket]?.fetchedData?.userBorrowsData?.find(r => r.asset.symbol === assetDetails.symbol) as BorrowedAssetDataItem;
     const resolvedAddress: string = addressData?.[currentMarket]?.resolvedAddress;
 
     if (!market || !currentAddress || !asset) return null;
@@ -92,7 +93,7 @@ export default function BorrowedAssetDetailsDialog({ assetDetails, isStableBorro
                     <AssetDetailsItem
                         title="Accrued Interest: "
                         description="Experimental. The Accrued Interest refers to the total interest accrued by this borrowed asset since it was first borrowed in the current market by the user. This feature is experimental, there may be miscalculations, or it may not be available for all assets."
-                        node={<BorrowedAssetAPYAccrued asset={asset} address={currentAddress} resolvedAddress={resolvedAddress} />}
+                        node={<BorrowedAssetAPYAccrued asset={fetchedAsset} address={currentAddress} resolvedAddress={resolvedAddress} />}
                         titleIcon={
                             <Tooltip
                                 label={t`Experimental Feature`}
