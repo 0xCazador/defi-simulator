@@ -87,8 +87,8 @@ export default function BorrowedAssetDetailsDialog({ assetDetails, isStableBorro
 
                 <SimpleGrid cols={2}>
                     <AssetDetailsItem
-                        title="Borrow Interest Rate: "
-                        description="The Borrowed Interest Rate represents the annual percentage yield rate incurred by this asset."
+                        title="Current Borrow Interest Rate: "
+                        description="The Current Borrow Interest Rate represents the annual percentage yield rate incurred by this asset."
                         node={<AssetAPY assetType={"BORROW"} assetDetails={assetDetails} isStableBorrow={isStableBorrow} stableBorrowAPY={stableBorrowAPY} />} />
                     <AssetDetailsItem
                         title="Accrued Interest: "

@@ -42,7 +42,7 @@ export default function ReserveAssetDetailsDialog({ assetDetails }: ReserveAsset
 
     const market = markets.find((market) => market.id === currentMarket) as AaveMarketDataType;
     const asset = addressData?.[currentMarket]?.workingData?.userReservesData?.find(r => r.asset.symbol === assetDetails.symbol) as ReserveAssetDataItem;
-    const fetchedAsset = addressData?.[currentMarket]?.workingData?.userReservesData?.find(r => r.asset.symbol === assetDetails.symbol) as ReserveAssetDataItem;
+    const fetchedAsset = addressData?.[currentMarket]?.fetchedData?.userReservesData?.find(r => r.asset.symbol === assetDetails.symbol) as ReserveAssetDataItem;
     const resolvedAddress: string = addressData?.[currentMarket]?.resolvedAddress;
 
     if (!market || !currentAddress || !asset) return null;
@@ -87,8 +87,8 @@ export default function ReserveAssetDetailsDialog({ assetDetails }: ReserveAsset
 
                 <SimpleGrid cols={2}>
                     <AssetDetailsItem
-                        title="Supply Yield: "
-                        description="The Supply Yield represents the annual percentage yield accrued by the supplied asset."
+                        title="Current Supply Yield: "
+                        description="The Current Supply Yield represents the current annual percentage yield accrued by the supplied asset."
                         node={<AssetAPY assetType={"RESERVE"} assetDetails={assetDetails} />} />
                     <AssetDetailsItem
                         title="Accrued Interest: "
