@@ -26,6 +26,8 @@ export const ReserveAssetAPYAccrued = ({
         )
     }
 
+    if (!asset) return <span>---</span>;
+
     let principalValue: number = asset.underlyingBalance;
     let accruedValue: number = 0;
 

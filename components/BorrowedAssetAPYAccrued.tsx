@@ -25,6 +25,8 @@ export const BorrowedAssetAPYAccrued = ({
         )
     }
 
+    if (!asset) return <span>---</span>;
+
     let principalValue: number = asset.totalBorrows;
     let accruedValue: number = 0;
 
