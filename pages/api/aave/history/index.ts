@@ -14,8 +14,14 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
     const market = markets.find(
       (m: AaveMarketDataType) => m.id === marketId
     ) as AaveMarketDataType;
+
+    if (!market?.subgraphUrl?.length) {
+      return res.status(200).json([]);
+    }
+
     const data: TxHistoryItem[] = await getTxData(address, market);
     res.status(200).json(data);
+
   } catch (err: any) {
     console.error(err);
     res.status(500).json({ statusCode: 500, message: err.message });

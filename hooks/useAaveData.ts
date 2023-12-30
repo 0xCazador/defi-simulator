@@ -332,6 +332,21 @@ export const markets: AaveMarketDataType[] = [
     explorerName: "Metis Explorer",
     subgraphUrl: 'https://andromeda.thegraph.metis.io/subgraphs/name/aave/protocol-v3-metis',
   },
+  {
+    v3: true,
+    id: "GNOSIS_V3",
+    title: "Gnosis v3",
+    chainId: ChainId.xdai,
+    api: "https://rpc.gnosischain.com/",
+    addresses: {
+      LENDING_POOL_ADDRESS_PROVIDER: pools.AaveV3Gnosis.POOL_ADDRESSES_PROVIDER,
+      UI_POOL_DATA_PROVIDER: pools.AaveV3Gnosis.UI_POOL_DATA_PROVIDER,
+      UI_INCENTIVE_DATA_PROVIDER: pools.AaveV3Gnosis.UI_INCENTIVE_DATA_PROVIDER
+    },
+    explorer: "https://gnosisscan.io/address/{{ADDRESS}}",
+    explorerName: "Gnosis Explorer",
+    subgraphUrl: "",
+  },
 ];
 
 /** hook to fetch user aave data
