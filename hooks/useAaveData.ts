@@ -332,6 +332,7 @@ export const markets: AaveMarketDataType[] = [
     explorerName: "Metis Explorer",
     subgraphUrl: 'https://andromeda.thegraph.metis.io/subgraphs/name/aave/protocol-v3-metis',
   },
+  /*
   {
     v3: true,
     id: "GNOSIS_V3",
@@ -347,6 +348,7 @@ export const markets: AaveMarketDataType[] = [
     explorerName: "Gnosis Explorer",
     subgraphUrl: "",
   },
+  */
 ];
 
 /** hook to fetch user aave data
