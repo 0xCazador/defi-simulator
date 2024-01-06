@@ -1110,7 +1110,7 @@ const ResetMarketButton = ({ }) => {
         <RxReset
           size={18}
           onClick={resetCurrentMarketChanges}
-          color="#339af0"
+          color="#FFFF00"
         />
       </ActionIcon>
     </Tooltip>
@@ -1185,7 +1185,7 @@ const UserReserveAssetList = ({ summaryOffset }: UserReserveAssetListProps) => {
             workingQuantity={item.underlyingBalance}
             originalQuantity={originalAsset?.underlyingBalance ?? 0}
             workingPrice={item.asset.priceInUSD}
-            originalPrice={originalAsset?.asset.priceInUSD ?? 0}
+            originalPrice={item.asset.initialPriceInUSD ?? 0}
             onAddAsset={addReserveAsset}
             onRemoveAsset={removeAsset}
             setAssetPriceInUSD={setAssetPriceInUSD}
@@ -1586,7 +1586,7 @@ const UserAssetQuantityInput = ({
         size="md"
         type="number"
         inputWrapperOrder={["label", "error", "input", "description"]}
-        inputContainer={children => <Indicator zIndex="3" disabled={!originalQuantity || (originalQuantity === workingQuantity)}>{children}</Indicator>}
+        inputContainer={children => <Indicator zIndex="3" disabled={!originalQuantity || (originalQuantity === workingQuantity)} color="#FFFF00">{children}</Indicator>}
         rightSection={resetIcon}
       />
 
@@ -1623,7 +1623,7 @@ const ResetInputValueIcon = ({
           size={18}
           style={{ display: "block" }}
           onClick={onClick}
-          color="#339af0"
+          color="#FFFF00"
         />
       </ActionIcon>
     </Tooltip>
@@ -1723,7 +1723,7 @@ const UserAssetPriceInput = ({
         size="md"
         ref={inputRef}
         inputWrapperOrder={["label", "error", "input", "description"]}
-        inputContainer={children => <Indicator zIndex="3" disabled={!originalPrice || (originalPrice === workingPrice)}>{children}</Indicator>}
+        inputContainer={children => <Indicator zIndex="3" disabled={!originalPrice || (originalPrice === workingPrice)} color="#FFFF00">{children}</Indicator>}
         rightSection={resetIcon}
       />
       <Slider
