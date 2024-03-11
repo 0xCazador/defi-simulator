@@ -24,6 +24,7 @@ import {
 import { BiGhost } from "react-icons/bi";
 import {
   getHealthFactorColor,
+  getIconNameFromMarket,
   markets,
   useAaveData,
 } from "../hooks/useAaveData";
@@ -79,9 +80,7 @@ export default function AppBar() {
   );
   const currentMarketIcon = (
     <img
-      src={`/icons/networks/${currentMarketData?.id
-        ?.split("_")[0]
-        .toLowerCase()}.svg`}
+      src={`/icons/networks/${getIconNameFromMarket(currentMarketData)}.svg`}
       width="20px"
       height="20px"
       alt={`${currentMarketData?.title}`}
@@ -166,9 +165,7 @@ export default function AppBar() {
 
                 const icon = (
                   <img
-                    src={`/icons/networks/${market.id
-                      .split("_")[0]
-                      .toLowerCase()}.svg`}
+                    src={`/icons/networks/${getIconNameFromMarket(market)}.svg`}
                     width="25px"
                     height="25px"
                     alt={`${market.title}`}

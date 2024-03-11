@@ -82,6 +82,7 @@ export const ReserveAssetAPYAccrued = ({
     if (history.data.length > 98) isInvalidValue = true;
     if (accruedValue > (asset.underlyingBalance * .25)) isInvalidValue = true;
     if (history.fetchError?.length > 0) isInvalidValue = true;
+    if (!history?.data?.length) isInvalidValue = true;
 
     if (isInvalidValue) {
         return (

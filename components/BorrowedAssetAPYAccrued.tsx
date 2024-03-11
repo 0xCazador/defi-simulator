@@ -73,6 +73,7 @@ export const BorrowedAssetAPYAccrued = ({
     if (accruedValue < 0) isInvalidValue = true;
     if (history.data.length > 98) isInvalidValue = true;
     if (history.fetchError?.length > 0) isInvalidValue = true;
+    if (!history?.data?.length) isInvalidValue = true;
 
     if (isInvalidValue) {
         return (

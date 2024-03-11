@@ -332,23 +332,52 @@ export const markets: AaveMarketDataType[] = [
     explorerName: "Metis Explorer",
     subgraphUrl: 'https://andromeda.thegraph.metis.io/subgraphs/name/aave/protocol-v3-metis',
   },
-  /*
   {
     v3: true,
     id: "GNOSIS_V3",
     title: "Gnosis v3",
     chainId: ChainId.xdai,
-    api: "https://rpc.gnosischain.com/",
+    api: "https://gnosischain-mainnet.rpc.grove.city/v1/10ccb305",
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER: pools.AaveV3Gnosis.POOL_ADDRESSES_PROVIDER,
       UI_POOL_DATA_PROVIDER: pools.AaveV3Gnosis.UI_POOL_DATA_PROVIDER,
       UI_INCENTIVE_DATA_PROVIDER: pools.AaveV3Gnosis.UI_INCENTIVE_DATA_PROVIDER
     },
     explorer: "https://gnosisscan.io/address/{{ADDRESS}}",
-    explorerName: "Gnosis Explorer",
+    explorerName: "Gnosis Scan",
     subgraphUrl: "",
   },
-  */
+  {
+    v3: true,
+    id: "SCROLL_V3",
+    title: "Scroll v3",
+    chainId: ChainId.scroll,
+    api: "https://scroll-mainnet.rpc.grove.city/v1/10ccb305",
+    addresses: {
+      LENDING_POOL_ADDRESS_PROVIDER: pools.AaveV3Scroll.POOL_ADDRESSES_PROVIDER,
+      UI_POOL_DATA_PROVIDER: pools.AaveV3Scroll.UI_POOL_DATA_PROVIDER,
+      UI_INCENTIVE_DATA_PROVIDER: pools.AaveV3Scroll.UI_INCENTIVE_DATA_PROVIDER
+    },
+    explorer: "https://scrollscan.com/address/{{ADDRESS}}",
+    explorerName: "Scroll Scan",
+    subgraphUrl: "",
+  },
+  {
+    v3: true,
+    id: "BNB_V3",
+    title: "BNB Chain v3",
+    chainId: ChainId.bnb,
+    api: "https://bsc-mainnet.rpc.grove.city/v1/10ccb305",
+    addresses: {
+      LENDING_POOL_ADDRESS_PROVIDER: pools.AaveV3BNB.POOL_ADDRESSES_PROVIDER,
+      UI_POOL_DATA_PROVIDER: pools.AaveV3BNB.UI_POOL_DATA_PROVIDER,
+      UI_INCENTIVE_DATA_PROVIDER: pools.AaveV3BNB.UI_INCENTIVE_DATA_PROVIDER
+    },
+    explorer: "https://bscscan.com/address/{{ADDRESS}}",
+    explorerName: "BSC Scan",
+    subgraphUrl: "",
+  }
+
 ];
 
 /** hook to fetch user aave data
@@ -1197,5 +1226,13 @@ export const getIconNameFromAssetSymbol = (assetSymbol: string) => {
     ?.toLowerCase()
     .replace(".e", "")
     .replace(".b", "")
-    .replace("m.", "");
+    .replace("m.", "")
+    .replace("btcb", "btc") || "";
+};
+
+export const getIconNameFromMarket = (market?: AaveMarketDataType) => {
+  return market?.id
+    ?.split("_")[0]
+    .replace("BNB", "binance") // special case... follow aave interface convention
+    .toLowerCase() || "";
 };
