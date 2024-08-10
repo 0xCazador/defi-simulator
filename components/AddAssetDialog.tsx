@@ -19,6 +19,7 @@ import {
   BorrowedAssetDataItem,
   isBorrowableAsset,
   isSuppliableAsset,
+  getIconNameFromAssetSymbol,
 } from "../hooks/useAaveData";
 
 type AddAssetDialogProps = {
@@ -136,11 +137,7 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
 
         <List>
           {assets.map((asset) => {
-            const iconName = asset.symbol
-              .toLowerCase()
-              .replace(".e", "")
-              .replace(".b", "")
-              .replace("m.", "");
+            const iconName = getIconNameFromAssetSymbol(asset.symbol);
             return (
               <List.Item
                 key={`${asset.symbol}-${asset.name}`}
