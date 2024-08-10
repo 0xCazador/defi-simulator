@@ -290,7 +290,7 @@ export const markets: AaveMarketDataType[] = [
     id: "AVALANCHE_V2",
     title: "Avalanche v2",
     chainId: ChainId.avalanche,
-    api: "https://api.avax.network/ext/bc/C/rpc",
+    api: `https://avax-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV2Avalanche.POOL_ADDRESSES_PROVIDER,
@@ -306,7 +306,7 @@ export const markets: AaveMarketDataType[] = [
     id: "AVALANCHE_V3",
     title: "Avalanche v3",
     chainId: ChainId.avalanche,
-    api: "https://api.avax.network/ext/bc/C/rpc",
+    api: `https://avax-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Avalanche.POOL_ADDRESSES_PROVIDER,
@@ -322,7 +322,7 @@ export const markets: AaveMarketDataType[] = [
     id: "METIS_V3",
     title: "Metis v3",
     chainId: ChainId.metis_andromeda,
-    api: "https://andromeda.metis.io/?owner=1088",
+    api: `https://metis-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER: pools.AaveV3Metis.POOL_ADDRESSES_PROVIDER,
       UI_POOL_DATA_PROVIDER: pools.AaveV3Metis.UI_POOL_DATA_PROVIDER,
@@ -332,6 +332,7 @@ export const markets: AaveMarketDataType[] = [
     explorerName: "Metis Explorer",
     subgraphUrl: 'https://andromeda.thegraph.metis.io/subgraphs/name/aave/protocol-v3-metis',
   },
+  /*
   {
     v3: true,
     id: "GNOSIS_V3",
@@ -362,12 +363,13 @@ export const markets: AaveMarketDataType[] = [
     explorerName: "Scroll Scan",
     subgraphUrl: "",
   },
+  */
   {
     v3: true,
     id: "BNB_V3",
     title: "BNB Chain v3",
     chainId: ChainId.bnb,
-    api: "https://bsc-mainnet.rpc.grove.city/v1/10ccb305",
+    api: `https://bnb-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER: pools.AaveV3BNB.POOL_ADDRESSES_PROVIDER,
       UI_POOL_DATA_PROVIDER: pools.AaveV3BNB.UI_POOL_DATA_PROVIDER,
@@ -377,7 +379,6 @@ export const markets: AaveMarketDataType[] = [
     explorerName: "BSC Scan",
     subgraphUrl: "",
   }
-
 ];
 
 /** hook to fetch user aave data
