@@ -73,25 +73,26 @@ export const getAaveData = async (address: string, market: AaveMarketDataType) =
 
   const user = (await getResolvedAddress(address)) || "0x87cCC67f0c1b67745989542152DD4acff3841CD6";
 
-  const reserves = await poolDataProviderContract.getReservesHumanized({
-    lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
-  });
-  const userReserves = await poolDataProviderContract.getUserReservesHumanized({
-    lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
-    user
-  });
+  const [reserves, userReserves, reserveIncentives, userIncentives] = await Promise.all([
+    poolDataProviderContract.getReservesHumanized({
+      lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
+    }),
+    poolDataProviderContract.getUserReservesHumanized({
+      lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
+      user
+    }),
+    incentiveDataProviderContract.getReservesIncentivesDataHumanized({
+      lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER
+    }),
+    incentiveDataProviderContract.getUserReservesIncentivesDataHumanized({
+      lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
+      user
+    })
+  ]);
+
   const reservesArray = reserves.reservesData;
   const { baseCurrencyData } = reserves;
   const userReservesArray = userReserves.userReserves;
-
-  const reserveIncentives = await incentiveDataProviderContract.getReservesIncentivesDataHumanized({
-    lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER
-  });
-
-  const userIncentives = await incentiveDataProviderContract.getUserReservesIncentivesDataHumanized({
-    lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
-    user
-  });
 
   const currentTimestamp = dayjs().unix();
 

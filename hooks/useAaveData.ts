@@ -443,7 +443,9 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
             store.addressData.nested(address).merge({ [market.id]: hfData });
           }
         };
+
         fetchData();
+
       });
     }
   }, deps);
