@@ -248,6 +248,22 @@ const aaveUserSummaryToHealthFactor = (
     .shiftedBy(-8)
     .toNumber();
 
+  const fetchedData = {
+    healthFactor: reserveData.healthFactor,
+    totalBorrowsUSD: reserveData.totalBorrowsUSD,
+    availableBorrowsUSD: reserveData.availableBorrowsUSD,
+    totalCollateralMarketReferenceCurrency:
+      reserveData.totalCollateralMarketReferenceCurrency,
+    totalBorrowsMarketReferenceCurrency:
+      reserveData.totalBorrowsMarketReferenceCurrency,
+    currentLiquidationThreshold: reserveData.currentLiquidationThreshold,
+    currentLoanToValue: reserveData.currentLoanToValue,
+    userReservesData: reserveData.userReservesData,
+    userBorrowsData: reserveData.userBorrowsData,
+    userEmodeCategoryId: reserveData.userEmodeCategoryId,
+    isInIsolationMode: reserveData.isInIsolationMode
+  };
+
   const hf: HealthFactorData = {
     address,
     resolvedAddress,
@@ -259,36 +275,8 @@ const aaveUserSummaryToHealthFactor = (
     availableAssets: userSummary.userReservesData.map((asset) =>
       getAssetDetailsFromReserveItem(asset)
     ),
-    fetchedData: {
-      healthFactor: reserveData.healthFactor,
-      totalBorrowsUSD: reserveData.totalBorrowsUSD,
-      availableBorrowsUSD: reserveData.availableBorrowsUSD,
-      totalCollateralMarketReferenceCurrency:
-        reserveData.totalCollateralMarketReferenceCurrency,
-      totalBorrowsMarketReferenceCurrency:
-        reserveData.totalBorrowsMarketReferenceCurrency,
-      currentLiquidationThreshold: reserveData.currentLiquidationThreshold,
-      currentLoanToValue: reserveData.currentLoanToValue,
-      userReservesData: reserveData.userReservesData,
-      userBorrowsData: reserveData.userBorrowsData,
-      userEmodeCategoryId: reserveData.userEmodeCategoryId,
-      isInIsolationMode: reserveData.isInIsolationMode
-    },
-    workingData: {
-      healthFactor: reserveDataCopy.healthFactor,
-      totalBorrowsUSD: reserveDataCopy.totalBorrowsUSD,
-      availableBorrowsUSD: reserveDataCopy.availableBorrowsUSD,
-      totalCollateralMarketReferenceCurrency:
-        reserveDataCopy.totalCollateralMarketReferenceCurrency,
-      totalBorrowsMarketReferenceCurrency:
-        reserveDataCopy.totalBorrowsMarketReferenceCurrency,
-      currentLiquidationThreshold: reserveDataCopy.currentLiquidationThreshold,
-      currentLoanToValue: reserveDataCopy.currentLoanToValue,
-      userReservesData: reserveDataCopy.userReservesData,
-      userBorrowsData: reserveDataCopy.userBorrowsData,
-      userEmodeCategoryId: reserveDataCopy.userEmodeCategoryId,
-      isInIsolationMode: reserveDataCopy.isInIsolationMode,
-    },
+    fetchedData,
+    workingData: JSON.parse(JSON.stringify(fetchedData)),
   };
   const liquidationScenario = getCalculatedLiquidationScenario(
     hf.workingData as AaveHealthFactorData,
