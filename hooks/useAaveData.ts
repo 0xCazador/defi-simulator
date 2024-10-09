@@ -199,8 +199,8 @@ export const markets: AaveMarketDataType[] = [
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Ethereum.POOL_ADDRESSES_PROVIDER,
-      UI_POOL_DATA_PROVIDER: pools.AaveV3Ethereum.UI_POOL_DATA_PROVIDER,
-      UI_INCENTIVE_DATA_PROVIDER: pools.AaveV3Ethereum.UI_INCENTIVE_DATA_PROVIDER
+      UI_POOL_DATA_PROVIDER: "0x194324C9Af7f56E22F1614dD82E18621cb9238E7",
+      UI_INCENTIVE_DATA_PROVIDER: "0x5a40cDe2b76Da2beD545efB3ae15708eE56aAF9c"
     },
     explorer: "https://etherscan.io/address/{{ADDRESS}}",
     explorerName: "Etherscan",
@@ -215,8 +215,8 @@ export const markets: AaveMarketDataType[] = [
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Arbitrum.POOL_ADDRESSES_PROVIDER,
-      UI_POOL_DATA_PROVIDER: pools.AaveV3Arbitrum.UI_POOL_DATA_PROVIDER,
-      UI_INCENTIVE_DATA_PROVIDER: pools.AaveV3Arbitrum.UI_INCENTIVE_DATA_PROVIDER
+      UI_POOL_DATA_PROVIDER: "0xc0179321f0825c3e0F59Fe7Ca4E40557b97797a3", // pools.AaveV3Arbitrum.UI_POOL_DATA_PROVIDER,
+      UI_INCENTIVE_DATA_PROVIDER: "0xE92cd6164CE7DC68e740765BC1f2a091B6CBc3e4" // pools.AaveV3Arbitrum.UI_INCENTIVE_DATA_PROVIDER
     },
     explorer: "https://arbiscan.io/address/{{ADDRESS}}",
     explorerName: "Arbiscan",
@@ -231,8 +231,8 @@ export const markets: AaveMarketDataType[] = [
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Optimism.POOL_ADDRESSES_PROVIDER,
-      UI_POOL_DATA_PROVIDER: pools.AaveV3Optimism.UI_POOL_DATA_PROVIDER,
-      UI_INCENTIVE_DATA_PROVIDER: pools.AaveV3Optimism.UI_INCENTIVE_DATA_PROVIDER
+      UI_POOL_DATA_PROVIDER: "0x86b0521f92a554057e54B93098BA2A6Aaa2F4ACB", // pools.AaveV3Optimism.UI_POOL_DATA_PROVIDER,
+      UI_INCENTIVE_DATA_PROVIDER: "0xc0179321f0825c3e0F59Fe7Ca4E40557b97797a3" // pools.AaveV3Optimism.UI_INCENTIVE_DATA_PROVIDER
     },
     explorer: "https://optimistic.etherscan.io/address/{{ADDRESS}}",
     explorerName: "Optimistic Etherscan",
@@ -247,8 +247,8 @@ export const markets: AaveMarketDataType[] = [
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Base.POOL_ADDRESSES_PROVIDER,
-      UI_POOL_DATA_PROVIDER: pools.AaveV3Base.UI_POOL_DATA_PROVIDER,
-      UI_INCENTIVE_DATA_PROVIDER: pools.AaveV3Base.UI_INCENTIVE_DATA_PROVIDER
+      UI_POOL_DATA_PROVIDER: "0xE92cd6164CE7DC68e740765BC1f2a091B6CBc3e4", // pools.AaveV3Base.UI_POOL_DATA_PROVIDER,
+      UI_INCENTIVE_DATA_PROVIDER: "0x5c5228aC8BC1528482514aF3e27E692495148717" // pools.AaveV3Base.UI_INCENTIVE_DATA_PROVIDER
     },
     explorer: "https://basescan.org/address/{{ADDRESS}}",
     explorerName: "BaseScan",
@@ -279,8 +279,8 @@ export const markets: AaveMarketDataType[] = [
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Polygon.POOL_ADDRESSES_PROVIDER,
-      UI_POOL_DATA_PROVIDER: pools.AaveV3Polygon.UI_POOL_DATA_PROVIDER,
-      UI_INCENTIVE_DATA_PROVIDER: pools.AaveV3Polygon.UI_INCENTIVE_DATA_PROVIDER
+      UI_POOL_DATA_PROVIDER: "0xE92cd6164CE7DC68e740765BC1f2a091B6CBc3e4", // pools.AaveV3Polygon.UI_POOL_DATA_PROVIDER,
+      UI_INCENTIVE_DATA_PROVIDER: "0x5c5228aC8BC1528482514aF3e27E692495148717" // pools.AaveV3Polygon.UI_INCENTIVE_DATA_PROVIDER
     },
     explorer: "https://polygonscan.com/address/{{ADDRESS}}",
     explorerName: "PolygonScan",
@@ -311,8 +311,8 @@ export const markets: AaveMarketDataType[] = [
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Avalanche.POOL_ADDRESSES_PROVIDER,
-      UI_POOL_DATA_PROVIDER: pools.AaveV3Avalanche.UI_POOL_DATA_PROVIDER,
-      UI_INCENTIVE_DATA_PROVIDER: pools.AaveV3Avalanche.UI_INCENTIVE_DATA_PROVIDER
+      UI_POOL_DATA_PROVIDER: "0x374a2592f0265b3bb802d75809e61b1b5BbD85B7", // pools.AaveV3Avalanche.UI_POOL_DATA_PROVIDER,
+      UI_INCENTIVE_DATA_PROVIDER: "0xC81CCebEA6A14bA007b96C0a1600D0bA0Df383a8" // pools.AaveV3Avalanche.UI_INCENTIVE_DATA_PROVIDER
     },
     explorer: "https://avascan.info/blockchain/all/address/{{ADDRESS}}",
     explorerName: "AvaScan",
@@ -326,8 +326,8 @@ export const markets: AaveMarketDataType[] = [
     api: `https://metis-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER: pools.AaveV3Metis.POOL_ADDRESSES_PROVIDER,
-      UI_POOL_DATA_PROVIDER: pools.AaveV3Metis.UI_POOL_DATA_PROVIDER,
-      UI_INCENTIVE_DATA_PROVIDER: pools.AaveV3Metis.UI_INCENTIVE_DATA_PROVIDER
+      UI_POOL_DATA_PROVIDER: "0x5d4D4007A4c6336550DdAa2a7c0d5e7972eebd16", // pools.AaveV3Metis.UI_POOL_DATA_PROVIDER,
+      UI_INCENTIVE_DATA_PROVIDER: "0xE28E2c8d240dd5eBd0adcab86fbD79df7a052034", // pools.AaveV3Metis.UI_INCENTIVE_DATA_PROVIDER
     },
     explorer: "https://andromeda-explorer.metis.io/address/{{ADDRESS}}",
     explorerName: "Metis Explorer",
@@ -373,8 +373,8 @@ export const markets: AaveMarketDataType[] = [
     api: `https://bnb-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER: pools.AaveV3BNB.POOL_ADDRESSES_PROVIDER,
-      UI_POOL_DATA_PROVIDER: pools.AaveV3BNB.UI_POOL_DATA_PROVIDER,
-      UI_INCENTIVE_DATA_PROVIDER: pools.AaveV3BNB.UI_INCENTIVE_DATA_PROVIDER
+      UI_POOL_DATA_PROVIDER: "0xb12e82DF057BF16ecFa89D7D089dc7E5C1Dc057B", // pools.AaveV3BNB.UI_POOL_DATA_PROVIDER,
+      UI_INCENTIVE_DATA_PROVIDER: "0x86b0521f92a554057e54B93098BA2A6Aaa2F4ACB" // pools.AaveV3BNB.UI_INCENTIVE_DATA_PROVIDER
     },
     explorer: "https://bscscan.com/address/{{ADDRESS}}",
     explorerName: "BSC Scan",
@@ -542,6 +542,7 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
       totalBorrows: 0,
       totalBorrowsUSD: 0,
       totalBorrowsMarketReferenceCurrency: 0,
+      stableBorrowAPY: 0
     };
 
     const workingData = store.addressData.nested(address)?.[currentMarket]
