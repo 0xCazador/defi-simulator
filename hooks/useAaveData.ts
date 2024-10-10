@@ -318,6 +318,7 @@ export const markets: AaveMarketDataType[] = [
     explorerName: "AvaScan",
     subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/protocol-v3-avalanche',
   },
+  /*
   {
     v3: true,
     id: "METIS_V3",
@@ -333,7 +334,6 @@ export const markets: AaveMarketDataType[] = [
     explorerName: "Metis Explorer",
     subgraphUrl: 'https://andromeda.thegraph.metis.io/subgraphs/name/aave/protocol-v3-metis',
   },
-  /*
   {
     v3: true,
     id: "GNOSIS_V3",
@@ -364,7 +364,6 @@ export const markets: AaveMarketDataType[] = [
     explorerName: "Scroll Scan",
     subgraphUrl: "",
   },
-  */
   {
     v3: true,
     id: "BNB_V3",
@@ -380,6 +379,7 @@ export const markets: AaveMarketDataType[] = [
     explorerName: "BSC Scan",
     subgraphUrl: "",
   }
+  */
 ];
 
 /** hook to fetch user aave data
