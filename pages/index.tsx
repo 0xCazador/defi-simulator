@@ -463,7 +463,7 @@ const ExperimentalAlert = () => {
       closeButtonLabel={t`Close alert`}
     >
       <Trans>
-        This Aave debt simulator is experimental. Don't make financial decisions
+        This Aave debt simulator and liquidation calculator is experimental. Don't make financial decisions
         based solely on the results of this app.
       </Trans>
     </Alert>

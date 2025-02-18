@@ -51,7 +51,7 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
         />
         <meta
           name="description"
-          content={t`DeFi Simulator is an unofficial, open source, community-built Aave debt simulator.`}
+          content={t`DeFi Simulator is an unofficial, open source, community-built Aave debt simulator and liquidation calculator.`}
         />
         <script
           defer

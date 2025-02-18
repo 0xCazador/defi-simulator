@@ -1,6 +1,6 @@
 # Defi Simulator
 
-Repository for [defisim.xyz](https://defisim.xyz), an unofficial, community-built Aave debt simulator.
+Repository for [defisim.xyz](https://defisim.xyz), an unofficial, community-built Aave debt simulator and liquidation calculator.
 
 Contact us on Twitter @defisim
 

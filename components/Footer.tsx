@@ -120,33 +120,12 @@ export default function FooterLinks() {
             DeFi Simulator{" "}
             <Trans>
               is an unofficial, open source, community-built Aave debt
-              simulator.
+              simulator and liquidation calculator.
             </Trans>
           </Text>
         </div>
         <Divider orientation="vertical" />
-        <Center>
-          <Text size="xs" c="dimmed" mt="lg" mx="lg" display="block">
-            <Center>
-              <Text size="md" color="red" style={{ marginTop: "5px", marginRight: "5px" }}>
-                <MdNotificationsActive />
-              </Text>
-              <Trans>
-                Looking for health factor alerts? Check out
-              </Trans>
-              &nbsp;
-              <a
-                href="https://github.com/nebolax/aavealarm"
-                target="_blank"
-                rel="noreferrer"
-                style={{ color: "#e9ecef" }}
-              >
-                Aave Alarm
-              </a>
-              .
-            </Center>
-          </Text>
-        </Center>
+
         <Center>
           <Text size="xs" c="dimmed" mt="lg" mx="lg" display="block">
             <Trans>
