@@ -370,7 +370,7 @@ export const markets: AaveMarketDataType[] = [
     id: "BNB_V3",
     title: "BNB Chain v3",
     chainId: ChainId.bnb,
-    api: `https://bscrpc.com`,
+    api: `https://bnb-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER: pools.AaveV3BNB.POOL_ADDRESSES_PROVIDER,
       UI_POOL_DATA_PROVIDER: "0xb12e82DF057BF16ecFa89D7D089dc7E5C1Dc057B", // pools.AaveV3BNB.UI_POOL_DATA_PROVIDER,
