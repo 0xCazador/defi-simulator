@@ -742,7 +742,16 @@ export const getHealthFactorColor = (hf: number = 0) => {
 };
 
 export const isStablecoinAsset = (asset: AssetDetails) => {
-  return !!["DAI", "USD", "GHO", "EUR", "MAI"].find(symbol => asset.symbol?.toUpperCase().includes(symbol));
+  const stablecoinSymbols = [
+    // Major USD stablecoins used in Aave
+    "DAI", "USDC", "USDT", "TUSD", "USDP", "BUSD", "FRAX", "LUSD", "SUSD", "GUSD", "USDD", "DUSD",
+    // Aave-specific stablecoins
+    "GHO", "USD", "EUR", "MAI", "USDE", "SUSDE", "EUSDE",
+    // Euro stablecoins used in Aave
+    "EURT", "EURS", "AGEUR", "PAR"
+  ];
+  
+  return !!stablecoinSymbols.find(symbol => asset.symbol?.toUpperCase().includes(symbol));
 };
 
 export const isActiveAsset = (asset: AssetDetails) => {
@@ -766,6 +775,16 @@ export const getEligibleLiquidationScenarioReserves = (
 ) => {
   const MINIMUM_CUMULATIVE_RESERVE_USD = 50;
   const MINIMUM_CUMULATIVE_RESERVE_PCT = 5;
+
+  // Check if there are any borrowed assets that are not stablecoins
+  // If so, exclude liquidation scenario entirely
+  const hasNonStablecoinBorrows = hfData.userBorrowsData.some((borrowItem: BorrowedAssetDataItem) => {
+    return !isStablecoinAsset(borrowItem.asset);
+  });
+
+  if (hasNonStablecoinBorrows) {
+    return [];
+  }
 
   const eligibleReserves: ReserveAssetDataItem[] =
     hfData.userReservesData.filter((reserve: ReserveAssetDataItem) => {
