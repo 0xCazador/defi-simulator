@@ -1230,12 +1230,41 @@ export const getCalculatedLiquidationScenario = (
 };
 
 export const getIconNameFromAssetSymbol = (assetSymbol: string) => {
-  return assetSymbol
-    ?.toLowerCase()
+  if (!assetSymbol) return "";
+  
+  let iconName = assetSymbol.toLowerCase();
+  
+  // Handle special PT (Principal Token) cases
+  if (iconName.includes("pt-")) {
+    // Extract the base token from PT tokens
+    // e.g., "PT-eUSDE-14AUG2025" -> "eusde"
+    // e.g., "PT-sUSDE-25SEP2025" -> "susde" 
+    // e.g., "PT-USDe-31JUL2025" -> "usde"
+    const ptMatch = iconName.match(/pt-(.+?)-/);
+    if (ptMatch) {
+      iconName = ptMatch[1];
+    }
+  }
+  
+  // Handle Ethereal/Ethena tokens
+  if (iconName.includes("ethereal") || iconName.includes("ethena")) {
+    // Extract the base token from the long name
+    // e.g., "PT Ethereal eUSDE 14AUG2025" -> "eusde"
+    // e.g., "PT Ethena sUSDE 25SEP2025" -> "susde"
+    const etherealMatch = iconName.match(/(eusde|susde|usde)/);
+    if (etherealMatch) {
+      iconName = etherealMatch[1];
+    }
+  }
+  
+  // Apply standard transformations
+  iconName = iconName
     .replace(".e", "")
     .replace(".b", "")
     .replace("m.", "")
-    .replace("btcb", "btc") || "";
+    .replace("btcb", "btc");
+  
+  return iconName;
 };
 
 export const getIconNameFromMarket = (market?: AaveMarketDataType) => {

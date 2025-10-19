@@ -19,8 +19,8 @@ import {
   BorrowedAssetDataItem,
   isBorrowableAsset,
   isSuppliableAsset,
-  getIconNameFromAssetSymbol,
 } from "../hooks/useAaveData";
+import TokenIcon from "./TokenIcon";
 
 type AddAssetDialogProps = {
   assetType: "BORROW" | "RESERVE";
@@ -137,7 +137,20 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
 
         <List>
           {assets.map((asset) => {
-            const iconName = getIconNameFromAssetSymbol(asset.symbol);
+            // Truncate very long token names for better display
+            const displayName = asset.name.length > 50 
+              ? `${asset.name.substring(0, 47)}...` 
+              : asset.name;
+            
+            // Check if this is a special PT token that shouldn't show parentheses
+            const isSpecialPTToken = asset.symbol.toLowerCase().includes('pt-') || 
+                                   asset.name.toLowerCase().includes('pt ethereal') || 
+                                   asset.name.toLowerCase().includes('pt ethena');
+            
+            const displayText = isSpecialPTToken 
+              ? displayName 
+              : `${displayName} (${asset.symbol})`;
+            
             return (
               <List.Item
                 key={`${asset.symbol}-${asset.name}`}
@@ -145,15 +158,14 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
                 style={{ cursor: "pointer " }}
                 m={5}
                 icon={
-                  <img
-                    src={`/icons/tokens/${iconName}.svg`}
-                    width="30px"
-                    height="30px"
+                  <TokenIcon
+                    symbol={asset.symbol}
+                    size="30px"
                     alt={`${asset.symbol}`}
                   />
                 }
               >
-                {`${asset.name} (${asset.symbol})`}
+                {displayText}
               </List.Item>
             );
           })}

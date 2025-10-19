@@ -51,12 +51,12 @@ import {
   BorrowedAssetDataItem,
   markets,
   getHealthFactorColor,
-  getIconNameFromAssetSymbol,
   AssetDetails,
   AaveHealthFactorData,
   getCalculatedLiquidationScenario,
   AaveMarketDataType,
 } from "../hooks/useAaveData";
+import TokenIcon from "./TokenIcon";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { FiAlertTriangle } from "react-icons/fi";
 import LocalizedFiatDisplay from "./LocalizedFiatDisplay";
@@ -1023,14 +1023,11 @@ const LiquidationScenario = ({
 
                 const change =
                   Math.round((diff * 100) / currentAssetPrice) * -1;
-                const avatarName = getIconNameFromAssetSymbol(liqAsset.symbol);
-
                 const avatar = (
-                  <Avatar
+                  <TokenIcon
+                    symbol={liqAsset.symbol}
+                    size="24px"
                     alt={`Logo for ${liqAsset.symbol}`}
-                    size={24}
-                    mr={2}
-                    src={`/icons/tokens/${avatarName}.svg`}
                   />
                 );
 
@@ -1352,16 +1349,13 @@ const UserAssetItem = memo(
     isStableBorrow = false,
     stableBorrowAPY = 0
   }: UserAssetItemProps) => {
-    const iconName = getIconNameFromAssetSymbol(assetSymbol);
-
     return (
       <Paper mt="xl" mb="xl" withBorder p="xs" bg="#282a2e">
         <Flex justify="space-between">
           <Group mb="sm">
-            <img
-              src={`/icons/tokens/${iconName}.svg`}
-              width="24px"
-              height="24px"
+            <TokenIcon
+              symbol={assetSymbol}
+              size="24px"
               alt={`${assetSymbol}`}
             />
             <Text fz="md" fw={700} span>
