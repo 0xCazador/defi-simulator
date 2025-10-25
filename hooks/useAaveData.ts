@@ -334,12 +334,13 @@ export const markets: AaveMarketDataType[] = [
     explorerName: "Metis Explorer",
     subgraphUrl: 'https://andromeda.thegraph.metis.io/subgraphs/name/aave/protocol-v3-metis',
   },
+  */
   {
     v3: true,
     id: "GNOSIS_V3",
     title: "Gnosis v3",
     chainId: ChainId.xdai,
-    api: "https://gnosischain-mainnet.rpc.grove.city/v1/10ccb305",
+    api: `https://gnosis-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER: pools.AaveV3Gnosis.POOL_ADDRESSES_PROVIDER,
       UI_POOL_DATA_PROVIDER: pools.AaveV3Gnosis.UI_POOL_DATA_PROVIDER,
@@ -347,8 +348,9 @@ export const markets: AaveMarketDataType[] = [
     },
     explorer: "https://gnosisscan.io/address/{{ADDRESS}}",
     explorerName: "Gnosis Scan",
-    subgraphUrl: "",
+    subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/protocol-v3-gnosis',
   },
+  /*
   {
     v3: true,
     id: "SCROLL_V3",
