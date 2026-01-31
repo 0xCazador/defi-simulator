@@ -335,6 +335,7 @@ export const markets: AaveMarketDataType[] = [
     subgraphUrl: 'https://andromeda.thegraph.metis.io/subgraphs/name/aave/protocol-v3-metis',
   },
   */
+  /*
   {
     v3: true,
     id: "GNOSIS_V3",
@@ -350,6 +351,7 @@ export const markets: AaveMarketDataType[] = [
     explorerName: "Gnosis Scan",
     subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/protocol-v3-gnosis',
   },
+  */
   /*
   {
     v3: true,
@@ -519,6 +521,7 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
   const createInitial = (market: AaveMarketDataType) => {
     const hf: HealthFactorData = {
       address,
+      resolvedAddress: address, // Will be resolved when data is fetched
       fetchError: "",
       isFetching: true,
       lastFetched: 0,
