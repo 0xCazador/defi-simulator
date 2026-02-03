@@ -178,7 +178,7 @@ export const markets: AaveMarketDataType[] = [
     id: "ETHEREUM_V2",
     title: "Ethereum v2",
     chainId: ChainId.mainnet,
-    api: `https://eth-mainnet.alchemyapi.io/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
+    api: `https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV2Ethereum.POOL_ADDRESSES_PROVIDER,
@@ -195,7 +195,7 @@ export const markets: AaveMarketDataType[] = [
     id: "ETHEREUM_V3",
     title: "Ethereum v3",
     chainId: ChainId.mainnet,
-    api: `https://eth-mainnet.alchemyapi.io/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
+    api: `https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Ethereum.POOL_ADDRESSES_PROVIDER,
@@ -755,7 +755,7 @@ export const isStablecoinAsset = (asset: AssetDetails) => {
     // Euro stablecoins used in Aave
     "EURT", "EURS", "AGEUR", "PAR"
   ];
-  
+
   return !!stablecoinSymbols.find(symbol => asset.symbol?.toUpperCase().includes(symbol));
 };
 
@@ -1255,9 +1255,9 @@ export const getCalculatedLiquidationScenario = (
 
 export const getIconNameFromAssetSymbol = (assetSymbol: string) => {
   if (!assetSymbol) return "";
-  
+
   let iconName = assetSymbol.toLowerCase();
-  
+
   // Handle special PT (Principal Token) cases
   if (iconName.includes("pt-")) {
     // Extract the base token from PT tokens
@@ -1269,7 +1269,7 @@ export const getIconNameFromAssetSymbol = (assetSymbol: string) => {
       iconName = ptMatch[1];
     }
   }
-  
+
   // Handle Ethereal/Ethena tokens
   if (iconName.includes("ethereal") || iconName.includes("ethena")) {
     // Extract the base token from the long name
@@ -1280,14 +1280,14 @@ export const getIconNameFromAssetSymbol = (assetSymbol: string) => {
       iconName = etherealMatch[1];
     }
   }
-  
+
   // Apply standard transformations
   iconName = iconName
     .replace(".e", "")
     .replace(".b", "")
     .replace("m.", "")
     .replace("btcb", "btc");
-  
+
   return iconName;
 };
 
