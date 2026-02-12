@@ -173,23 +173,7 @@ export type AaveMarketDataType = {
 };
 
 export const markets: AaveMarketDataType[] = [
-  {
-    v3: false,
-    id: "ETHEREUM_V2",
-    title: "Ethereum v2",
-    chainId: ChainId.mainnet,
-    api: `https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
-    addresses: {
-      LENDING_POOL_ADDRESS_PROVIDER:
-        pools.AaveV2Ethereum.POOL_ADDRESSES_PROVIDER,
-      UI_POOL_DATA_PROVIDER: pools.AaveV2Ethereum.UI_POOL_DATA_PROVIDER,
-      UI_INCENTIVE_DATA_PROVIDER: pools.AaveV2Ethereum.UI_INCENTIVE_DATA_PROVIDER
-    },
-    explorer: "https://etherscan.io/address/{{ADDRESS}}",
-    explorerName: "Etherscan",
-    subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/protocol-v2',
 
-  },
   {
     v3: true,
     id: "ETHEREUM_V3",
