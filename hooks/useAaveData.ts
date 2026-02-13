@@ -239,22 +239,6 @@ export const markets: AaveMarketDataType[] = [
     subgraphUrl: "" // Not set up yet
   },
   {
-    v3: false,
-    id: "POLYGON_V2",
-    title: "Polygon v2",
-    chainId: ChainId.polygon,
-    api: `https://polygon-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
-    addresses: {
-      LENDING_POOL_ADDRESS_PROVIDER:
-        pools.AaveV2Polygon.POOL_ADDRESSES_PROVIDER,
-      UI_POOL_DATA_PROVIDER: pools.AaveV2Polygon.UI_POOL_DATA_PROVIDER,
-      UI_INCENTIVE_DATA_PROVIDER: pools.AaveV2Polygon.UI_INCENTIVE_DATA_PROVIDER
-    },
-    explorer: "https://polygonscan.com/address/{{ADDRESS}}",
-    explorerName: "PolygonScan",
-    subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/aave-v2-matic',
-  },
-  {
     v3: true,
     id: "POLYGON_V3",
     title: "Polygon v3",
@@ -269,22 +253,6 @@ export const markets: AaveMarketDataType[] = [
     explorer: "https://polygonscan.com/address/{{ADDRESS}}",
     explorerName: "PolygonScan",
     subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/protocol-v3-polygon',
-  },
-  {
-    v3: false,
-    id: "AVALANCHE_V2",
-    title: "Avalanche v2",
-    chainId: ChainId.avalanche,
-    api: `https://avax-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
-    addresses: {
-      LENDING_POOL_ADDRESS_PROVIDER:
-        pools.AaveV2Avalanche.POOL_ADDRESSES_PROVIDER,
-      UI_POOL_DATA_PROVIDER: pools.AaveV2Avalanche.UI_POOL_DATA_PROVIDER,
-      UI_INCENTIVE_DATA_PROVIDER: pools.AaveV2Avalanche.UI_INCENTIVE_DATA_PROVIDER
-    },
-    explorer: "https://avascan.info/blockchain/all/address/{{ADDRESS}}",
-    explorerName: "AvaScan",
-    subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/protocol-v2-avalanche',
   },
   {
     v3: true,
