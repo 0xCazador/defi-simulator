@@ -37,8 +37,10 @@ import {
   Alert,
   Progress,
   Indicator,
+  Label,
 } from "@mantine/core";
 import { FaAsterisk, FaInfinity, FaInfo, FaInfoCircle, FaBolt } from "react-icons/fa";
+import { RadialBarChart, RadialBar, PolarAngleAxis, ResponsiveContainer, Text as RechartsText } from "recharts";
 import { RxReset } from "react-icons/rx";
 import { CgRemoveR } from "react-icons/cg";
 import { ImmutableArray, ImmutableObject } from "@hookstate/core";
@@ -60,6 +62,8 @@ import TokenIcon from "./TokenIcon";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { FiAlertTriangle } from "react-icons/fi";
 import LocalizedFiatDisplay from "./LocalizedFiatDisplay";
+import SuppliedAssetsPieChart from "./SuppliedAssetsPieChart";
+import BorrowedAssetsPieChart from "./BorrowedAssetsPieChart"; // Import the new chart
 import { useFiatRates } from "../hooks/useFiatData";
 import { AssetAPY } from "./AssetAPY";
 import ReserveAssetDetailsDialog from "./ReserveAssetDetailsDialog";
@@ -887,24 +891,62 @@ const ExtendedPositionDetails = ({ data }: ExtendedPositionDetailsProps) => {
                       </Trans>
                     </Popover.Dropdown>
                   </Popover>
-
-                  <Progress
+                  {/* <Progress
                     color={hfColor}
                     mt="xs"
                     radius="md"
                     size="lg"
                     value={currBorrowPowerUsed}
                     striped
-                  />
+                  /> */}
+                  <ResponsiveContainer width="100%" height={120}>
+                    <RadialBarChart
+                      cx="50%"
+                      cy="50%"
+                      innerRadius="70%"
+                      outerRadius="100%"
+                      barSize={10}
+                      data={[{ name: 'Borrowing Power', value: currBorrowPowerUsed, fill: hfColor }]}
+                      startAngle={90}
+                      endAngle={-270}
+                    >
+                      <PolarAngleAxis
+                        type="number"
+                        domain={[0, 100]}
+                        angleAxisId={0}
+                        tick={false}
+                      />
+                      <RadialBar
+                        background
+                        dataKey="value"
+                        angleAxisId={0}
+                        fill={hfColor}
+                        cornerRadius={5}
+                      />
+                       <RechartsText
+                        x="50%"
+                        y="50%"
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                        fontSize="18px" // Slightly larger for better visibility
+                        fontWeight="bold"
+                        fill="#c1c2c5" // Mantine default text color for dark theme (theme.colors.gray[5])
+                      >
+                        {currBorrowPowerUsedDisplayable}
+                      </RechartsText>
+                    </RadialBarChart>
+                  </ResponsiveContainer>
                   {borrowPowerDiffers && (
-                    <Text span fz="xs" c="dimmed">
+                    <Text span fz="xs" c="dimmed" mt={-10} style={{ display: 'block', textAlign: 'center' }}>
                       {origBorrowPowerUsedDisplayable}
                       {" ➔ "}
+                       <Text span fw={700} fz="xs" c={hfColor} >{currBorrowPowerUsedDisplayable}</Text>
                     </Text>
                   )}
-                  <Text span fw={700} fz="md">
+                  {/* The main display is now inside the chart, this can be removed or de-emphasized if not needed for comparison */}
+                  {/* <Text span fw={700} fz="md" style={{ display: 'block', textAlign: 'center' }}>
                     {currBorrowPowerUsedDisplayable}
-                  </Text>
+                  </Text> */}
                 </Paper>
               </Grid.Col>
             </Grid>
@@ -1155,6 +1197,7 @@ const UserReserveAssetList = ({ summaryOffset }: UserReserveAssetListProps) => {
         </Title>
         <AddAssetDialog assetType="RESERVE" />
       </Container>
+      <SuppliedAssetsPieChart userReservesData={items} />
       {items.length === 0 && (
         <Center>
           <Text fz="sm" m={25} align="center">
@@ -1242,6 +1285,7 @@ const UserBorrowedAssetList = ({
         </Title>
         <AddAssetDialog assetType="BORROW" />
       </Container>
+      <BorrowedAssetsPieChart userBorrowsData={items} />
       {items.length === 0 && (
         <Center>
           <Text fz="sm" m={25} align="center">
