@@ -69,7 +69,7 @@ type Props = {};
 
 const AddressCard = ({ }: Props) => {
   const { addressData, currentMarket, applyLiquidationScenario, isFetching } =
-    useAaveData("");
+    useAaveData("", true);
   const data = addressData?.[currentMarket] as HealthFactorData;
   const summaryRef = useRef<HTMLDivElement>(null);
   const summaryOffset: number = summaryRef?.current?.clientHeight || 0;
@@ -147,7 +147,7 @@ type HealthFactorAddressSummaryProps = {
 export const HealthFactorAddressSummary = ({
   addressData,
 }: HealthFactorAddressSummaryProps) => {
-  const { isFetching, currentAddress, currentMarket } = useAaveData("");
+  const { isFetching, currentAddress, currentMarket } = useAaveData("", true);
   const count = markets.filter(
     (market) => addressData?.[market.id]?.fetchedData?.healthFactor > -1
   ).length;
@@ -1077,7 +1077,7 @@ const LiquidationScenario = ({
 
 const ResetMarketButton = ({ }) => {
   const { addressData, currentMarket, resetCurrentMarketChanges } =
-    useAaveData("");
+    useAaveData("", true);
   const data = addressData?.[currentMarket];
 
   let isAnyModified: boolean = false;
@@ -1131,7 +1131,7 @@ const UserReserveAssetList = ({ summaryOffset }: UserReserveAssetListProps) => {
     setAssetPriceInUSD,
     setReserveAssetQuantity,
     setUseReserveAssetAsCollateral,
-  } = useAaveData("");
+  } = useAaveData("", true);
   const { i18n } = useLingui();
   const items: ImmutableArray<ReserveAssetDataItem> =
     addressData?.[currentMarket]?.workingData?.userReservesData || [];
@@ -1169,7 +1169,7 @@ const UserReserveAssetList = ({ summaryOffset }: UserReserveAssetListProps) => {
           </Text>
         </Center>
       )}
-      {items.map((item) => {
+      {items.map((item, idx) => {
         const originalAsset = addressData?.[
           currentMarket
         ]?.fetchedData?.userReservesData?.find(
@@ -1177,7 +1177,7 @@ const UserReserveAssetList = ({ summaryOffset }: UserReserveAssetListProps) => {
         );
         return (
           <UserAssetItem
-            key={`${item.asset.symbol}-RESERVE`}
+            key={`${item.asset.symbol}-RESERVE-${idx}`}
             assetSymbol={item.asset.symbol}
             assetDetails={item.asset}
             usageAsCollateralEnabledOnUser={item.usageAsCollateralEnabledOnUser}
@@ -1218,7 +1218,7 @@ const UserBorrowedAssetList = ({
     removeAsset,
     setAssetPriceInUSD,
     setBorrowedAssetQuantity,
-  } = useAaveData("");
+  } = useAaveData("", true);
   const { i18n } = useLingui();
   const items: ImmutableArray<BorrowedAssetDataItem> =
     addressData?.[currentMarket]?.workingData?.userBorrowsData || [];

@@ -21,6 +21,7 @@ import {
   Center,
   Indicator,
 } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import { BiGhost } from "react-icons/bi";
 import {
   getHealthFactorColor,
@@ -30,6 +31,7 @@ import {
 } from "../hooks/useAaveData";
 import { AbbreviatedEthereumAddress } from "./AddressCard";
 import { BsCheckLg } from "react-icons/bs";
+import BlockSelector from "./BlockSelector";
 
 const useStyles = createStyles((theme) => ({
   inner: {
@@ -61,9 +63,10 @@ const useStyles = createStyles((theme) => ({
 export default function AppBar() {
   const [hasMarketMenuOpened, setHasMarketMenuOpened] = React.useState(false);
   const { addressData, currentMarket, setCurrentMarket, currentAddress } =
-    useAaveData("");
+    useAaveData("", true);
   const { classes, cx } = useStyles();
   const router = useRouter();
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   const numMarketsWithHF: number = markets.filter((market) => {
     const hasHF: boolean =
@@ -105,6 +108,9 @@ export default function AppBar() {
             DeFi Simulator
           </Title>
         </Group>
+
+        {/* Block Selector - Center (hidden on mobile) */}
+        {!isMobile && <BlockSelector />}
 
         <Indicator
           inline

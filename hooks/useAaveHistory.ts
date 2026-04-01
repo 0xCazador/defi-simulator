@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import { AaveMarketDataType, TxHistory, TxHistoryItem, markets, useAaveData } from './useAaveData';
+import { useEffect } from "react";
+import { TxHistory, useAaveData } from './useAaveData';
 
 /** hook to fetch user aave tx data
  * @returns { history: TxHistory }
  */
 export function useAaveHistory(address: string, resolvedAddress: string) {
-    const { addressData, setTxHistory, currentMarket } = useAaveData(address);
+    const { addressData, setTxHistory, currentMarket } = useAaveData(address, true);
     const history = addressData?.[currentMarket]?.workingData?.txHistory;
     const isFetchingHistory: boolean = !!history?.isFetching;
 
@@ -14,28 +14,49 @@ export function useAaveHistory(address: string, resolvedAddress: string) {
         if (!!history?.lastFetched) return;
 
         const fetchData = async () => {
-            const options = {
-                method: "POST",
-                body: JSON.stringify({ address: resolvedAddress?.toLowerCase(), marketId: currentMarket }),
-            };
-            const response: Response = await fetch("/api/aave/history", options);
-
             const txHistory: TxHistory = {
                 data: [],
                 isFetching: true,
                 fetchError: "",
                 lastFetched: 0
             }
+            const controller = new AbortController();
+            const timeoutId = window.setTimeout(() => controller.abort(), 12000);
 
-            if (response?.ok) {
-                // ok, use the response data
-                const data = await response.json() || [];
-                setTxHistory(address, { ...txHistory, data, isFetching: false, lastFetched: Date.now() })
-            } else {
-                // monkey up an errored TxHistory object
-                const data = await response.json();
-                const message: string = `${response.statusText}: --- ${data?.message ?? ""}`;
-                setTxHistory(address, { ...txHistory, isFetching: false, lastFetched: Date.now(), fetchError: message })
+            try {
+                const options = {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ address: resolvedAddress?.toLowerCase(), marketId: currentMarket }),
+                };
+                const response: Response = await fetch("/api/aave/history", {
+                    ...options,
+                    signal: controller.signal,
+                });
+
+                if (response?.ok) {
+                    const data = await response.json() || [];
+                    setTxHistory(address, { ...txHistory, data, isFetching: false, lastFetched: Date.now() })
+                } else {
+                    const data = await response.json();
+                    const message: string = `${response.statusText}: --- ${data?.message ?? ""}`;
+                    setTxHistory(address, { ...txHistory, isFetching: false, lastFetched: Date.now(), fetchError: message })
+                }
+            } catch (error) {
+                const message =
+                    error instanceof DOMException && error.name === "AbortError"
+                        ? "Request timed out while loading transaction history"
+                        : `Network error: ${error}`;
+                setTxHistory(address, {
+                    ...txHistory,
+                    isFetching: false,
+                    lastFetched: Date.now(),
+                    fetchError: message,
+                })
+            } finally {
+                window.clearTimeout(timeoutId);
             }
         };
         createInitial();

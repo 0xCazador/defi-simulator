@@ -16,7 +16,7 @@ const AddressInput = ({ }: Props) => {
   const [showCopied, setShowCopied] = useState(false);
   const router = useRouter();
 
-  const { currentAddress, currentMarket } = useAaveData("");
+  const { currentAddress, currentMarket } = useAaveData("", true);
 
   const market = markets.find((market) => market.id === currentMarket);
 

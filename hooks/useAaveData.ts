@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useHookstate, State } from "@hookstate/core";
 import * as pools from "@bgd-labs/aave-address-book";
 
@@ -6,7 +6,6 @@ import { HealthFactorDataStore } from "../store/healthFactorDataStore";
 
 import { ChainId } from "@aave/contract-helpers";
 import BigNumber from "bignumber.js";
-import { getAaveData } from "../pages/api/aave";
 
 export type HealthFactorData = {
   address: string; // e.g. 0xc...123a or stani.eth
@@ -19,6 +18,8 @@ export type HealthFactorData = {
   availableAssets?: AssetDetails[];
   fetchedData?: AaveHealthFactorData;
   workingData?: AaveHealthFactorData;
+  selectedBlockNumber?: number; // Track which block this data was fetched from
+  fetchedBlockNumber?: number; // Actual chain block used for the fetch
 };
 
 export type AaveHealthFactorData = {
@@ -35,19 +36,25 @@ export type AaveHealthFactorData = {
   userEmodeCategoryId?: number;
   isInIsolationMode?: boolean;
   txHistory: TxHistory;
-}
+};
 
 export type TxHistory = {
-  data: TxHistoryItem[],
-  isFetching: boolean,
-  fetchError: string,
-  lastFetched: number
-}
+  data: TxHistoryItem[];
+  isFetching: boolean;
+  fetchError: string;
+  lastFetched: number;
+};
 
 export type TxHistoryItem = {
   id: string;
   txHash: string;
-  action: "Borrow" | "Repay" | "Supply" | "Deposit" | "RedeemUnderlying" | "LiquidationCall";
+  action:
+    | "Borrow"
+    | "Repay"
+    | "Supply"
+    | "Deposit"
+    | "RedeemUnderlying"
+    | "LiquidationCall";
   amount?: number; // absent for liquidationCall
   reserve?: TxHistoryReserveItem; // absent for liquidationCall
   timestamp: number;
@@ -61,14 +68,14 @@ export type TxHistoryItem = {
   principalAmount?: number;
   principalReserve?: TxHistoryReserveItem;
   principalPriceUSD?: string;
-}
+};
 
 export type TxHistoryReserveItem = {
   symbol: string;
   decimals: string;
   name: string;
   underlyingAsset: string;
-}
+};
 
 export type ReserveAssetDataItem = {
   asset: AssetDetails;
@@ -127,7 +134,7 @@ export type AssetDetails = {
   totalStableDebt?: number;
   totalVariableDebt?: number;
   totalLiquidity?: number;
-  flashLoanEnabled?: boolean
+  flashLoanEnabled?: boolean;
   // Incentive Data
   supplyAPY?: number;
   variableBorrowAPY?: number;
@@ -135,7 +142,6 @@ export type AssetDetails = {
   supplyAPR?: number;
   variableBorrowAPR?: number;
   stableBorrowAPR?: number;
-
 };
 
 /**
@@ -165,11 +171,11 @@ export type AaveMarketDataType = {
   addresses: {
     LENDING_POOL_ADDRESS_PROVIDER: string;
     UI_POOL_DATA_PROVIDER: string;
-    UI_INCENTIVE_DATA_PROVIDER: string
+    UI_INCENTIVE_DATA_PROVIDER: string;
   };
   explorer: string;
   explorerName: string;
-  subgraphUrl: string
+  subgraphUrl: string;
 };
 
 export const markets: AaveMarketDataType[] = [
@@ -178,33 +184,33 @@ export const markets: AaveMarketDataType[] = [
     id: "ETHEREUM_V2",
     title: "Ethereum v2",
     chainId: ChainId.mainnet,
-    api: `https://eth-mainnet.alchemyapi.io/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
+    api: `https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV2Ethereum.POOL_ADDRESSES_PROVIDER,
       UI_POOL_DATA_PROVIDER: pools.AaveV2Ethereum.UI_POOL_DATA_PROVIDER,
-      UI_INCENTIVE_DATA_PROVIDER: pools.AaveV2Ethereum.UI_INCENTIVE_DATA_PROVIDER
+      UI_INCENTIVE_DATA_PROVIDER:
+        pools.AaveV2Ethereum.UI_INCENTIVE_DATA_PROVIDER,
     },
     explorer: "https://etherscan.io/address/{{ADDRESS}}",
     explorerName: "Etherscan",
-    subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/protocol-v2',
-
+    subgraphUrl: "https://api.thegraph.com/subgraphs/name/aave/protocol-v2",
   },
   {
     v3: true,
     id: "ETHEREUM_V3",
     title: "Ethereum v3",
     chainId: ChainId.mainnet,
-    api: `https://eth-mainnet.alchemyapi.io/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
+    api: `https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Ethereum.POOL_ADDRESSES_PROVIDER,
       UI_POOL_DATA_PROVIDER: "0x194324C9Af7f56E22F1614dD82E18621cb9238E7",
-      UI_INCENTIVE_DATA_PROVIDER: "0x5a40cDe2b76Da2beD545efB3ae15708eE56aAF9c"
+      UI_INCENTIVE_DATA_PROVIDER: "0x5a40cDe2b76Da2beD545efB3ae15708eE56aAF9c",
     },
     explorer: "https://etherscan.io/address/{{ADDRESS}}",
     explorerName: "Etherscan",
-    subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/protocol-v3',
+    subgraphUrl: "https://api.thegraph.com/subgraphs/name/aave/protocol-v3",
   },
   {
     v3: true,
@@ -216,11 +222,12 @@ export const markets: AaveMarketDataType[] = [
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Arbitrum.POOL_ADDRESSES_PROVIDER,
       UI_POOL_DATA_PROVIDER: "0xc0179321f0825c3e0F59Fe7Ca4E40557b97797a3", // pools.AaveV3Arbitrum.UI_POOL_DATA_PROVIDER,
-      UI_INCENTIVE_DATA_PROVIDER: "0xE92cd6164CE7DC68e740765BC1f2a091B6CBc3e4" // pools.AaveV3Arbitrum.UI_INCENTIVE_DATA_PROVIDER
+      UI_INCENTIVE_DATA_PROVIDER: "0xE92cd6164CE7DC68e740765BC1f2a091B6CBc3e4", // pools.AaveV3Arbitrum.UI_INCENTIVE_DATA_PROVIDER
     },
     explorer: "https://arbiscan.io/address/{{ADDRESS}}",
     explorerName: "Arbiscan",
-    subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/protocol-v3-arbitrum',
+    subgraphUrl:
+      "https://api.thegraph.com/subgraphs/name/aave/protocol-v3-arbitrum",
   },
   {
     v3: true,
@@ -232,11 +239,12 @@ export const markets: AaveMarketDataType[] = [
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Optimism.POOL_ADDRESSES_PROVIDER,
       UI_POOL_DATA_PROVIDER: "0x86b0521f92a554057e54B93098BA2A6Aaa2F4ACB", // pools.AaveV3Optimism.UI_POOL_DATA_PROVIDER,
-      UI_INCENTIVE_DATA_PROVIDER: "0xc0179321f0825c3e0F59Fe7Ca4E40557b97797a3" // pools.AaveV3Optimism.UI_INCENTIVE_DATA_PROVIDER
+      UI_INCENTIVE_DATA_PROVIDER: "0xc0179321f0825c3e0F59Fe7Ca4E40557b97797a3", // pools.AaveV3Optimism.UI_INCENTIVE_DATA_PROVIDER
     },
     explorer: "https://optimistic.etherscan.io/address/{{ADDRESS}}",
     explorerName: "Optimistic Etherscan",
-    subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/protocol-v3-optimism',
+    subgraphUrl:
+      "https://api.thegraph.com/subgraphs/name/aave/protocol-v3-optimism",
   },
   {
     v3: true,
@@ -245,14 +253,13 @@ export const markets: AaveMarketDataType[] = [
     chainId: ChainId.base,
     api: `https://base-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
     addresses: {
-      LENDING_POOL_ADDRESS_PROVIDER:
-        pools.AaveV3Base.POOL_ADDRESSES_PROVIDER,
+      LENDING_POOL_ADDRESS_PROVIDER: pools.AaveV3Base.POOL_ADDRESSES_PROVIDER,
       UI_POOL_DATA_PROVIDER: "0xE92cd6164CE7DC68e740765BC1f2a091B6CBc3e4", // pools.AaveV3Base.UI_POOL_DATA_PROVIDER,
-      UI_INCENTIVE_DATA_PROVIDER: "0x5c5228aC8BC1528482514aF3e27E692495148717" // pools.AaveV3Base.UI_INCENTIVE_DATA_PROVIDER
+      UI_INCENTIVE_DATA_PROVIDER: "0x5c5228aC8BC1528482514aF3e27E692495148717", // pools.AaveV3Base.UI_INCENTIVE_DATA_PROVIDER
     },
     explorer: "https://basescan.org/address/{{ADDRESS}}",
     explorerName: "BaseScan",
-    subgraphUrl: "" // Not set up yet
+    subgraphUrl: "", // Not set up yet
   },
   {
     v3: false,
@@ -264,11 +271,12 @@ export const markets: AaveMarketDataType[] = [
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV2Polygon.POOL_ADDRESSES_PROVIDER,
       UI_POOL_DATA_PROVIDER: pools.AaveV2Polygon.UI_POOL_DATA_PROVIDER,
-      UI_INCENTIVE_DATA_PROVIDER: pools.AaveV2Polygon.UI_INCENTIVE_DATA_PROVIDER
+      UI_INCENTIVE_DATA_PROVIDER:
+        pools.AaveV2Polygon.UI_INCENTIVE_DATA_PROVIDER,
     },
     explorer: "https://polygonscan.com/address/{{ADDRESS}}",
     explorerName: "PolygonScan",
-    subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/aave-v2-matic',
+    subgraphUrl: "https://api.thegraph.com/subgraphs/name/aave/aave-v2-matic",
   },
   {
     v3: true,
@@ -280,11 +288,12 @@ export const markets: AaveMarketDataType[] = [
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Polygon.POOL_ADDRESSES_PROVIDER,
       UI_POOL_DATA_PROVIDER: "0xE92cd6164CE7DC68e740765BC1f2a091B6CBc3e4", // pools.AaveV3Polygon.UI_POOL_DATA_PROVIDER,
-      UI_INCENTIVE_DATA_PROVIDER: "0x5c5228aC8BC1528482514aF3e27E692495148717" // pools.AaveV3Polygon.UI_INCENTIVE_DATA_PROVIDER
+      UI_INCENTIVE_DATA_PROVIDER: "0x5c5228aC8BC1528482514aF3e27E692495148717", // pools.AaveV3Polygon.UI_INCENTIVE_DATA_PROVIDER
     },
     explorer: "https://polygonscan.com/address/{{ADDRESS}}",
     explorerName: "PolygonScan",
-    subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/protocol-v3-polygon',
+    subgraphUrl:
+      "https://api.thegraph.com/subgraphs/name/aave/protocol-v3-polygon",
   },
   {
     v3: false,
@@ -296,11 +305,13 @@ export const markets: AaveMarketDataType[] = [
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV2Avalanche.POOL_ADDRESSES_PROVIDER,
       UI_POOL_DATA_PROVIDER: pools.AaveV2Avalanche.UI_POOL_DATA_PROVIDER,
-      UI_INCENTIVE_DATA_PROVIDER: pools.AaveV2Avalanche.UI_INCENTIVE_DATA_PROVIDER
+      UI_INCENTIVE_DATA_PROVIDER:
+        pools.AaveV2Avalanche.UI_INCENTIVE_DATA_PROVIDER,
     },
     explorer: "https://avascan.info/blockchain/all/address/{{ADDRESS}}",
     explorerName: "AvaScan",
-    subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/protocol-v2-avalanche',
+    subgraphUrl:
+      "https://api.thegraph.com/subgraphs/name/aave/protocol-v2-avalanche",
   },
   {
     v3: true,
@@ -312,11 +323,12 @@ export const markets: AaveMarketDataType[] = [
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Avalanche.POOL_ADDRESSES_PROVIDER,
       UI_POOL_DATA_PROVIDER: "0x374a2592f0265b3bb802d75809e61b1b5BbD85B7", // pools.AaveV3Avalanche.UI_POOL_DATA_PROVIDER,
-      UI_INCENTIVE_DATA_PROVIDER: "0xC81CCebEA6A14bA007b96C0a1600D0bA0Df383a8" // pools.AaveV3Avalanche.UI_INCENTIVE_DATA_PROVIDER
+      UI_INCENTIVE_DATA_PROVIDER: "0xC81CCebEA6A14bA007b96C0a1600D0bA0Df383a8", // pools.AaveV3Avalanche.UI_INCENTIVE_DATA_PROVIDER
     },
     explorer: "https://avascan.info/blockchain/all/address/{{ADDRESS}}",
     explorerName: "AvaScan",
-    subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/protocol-v3-avalanche',
+    subgraphUrl:
+      "https://api.thegraph.com/subgraphs/name/aave/protocol-v3-avalanche",
   },
   /*
   {
@@ -374,12 +386,12 @@ export const markets: AaveMarketDataType[] = [
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER: pools.AaveV3BNB.POOL_ADDRESSES_PROVIDER,
       UI_POOL_DATA_PROVIDER: "0xb12e82DF057BF16ecFa89D7D089dc7E5C1Dc057B", // pools.AaveV3BNB.UI_POOL_DATA_PROVIDER,
-      UI_INCENTIVE_DATA_PROVIDER: "0x86b0521f92a554057e54B93098BA2A6Aaa2F4ACB" // pools.AaveV3BNB.UI_INCENTIVE_DATA_PROVIDER
+      UI_INCENTIVE_DATA_PROVIDER: "0x86b0521f92a554057e54B93098BA2A6Aaa2F4ACB", // pools.AaveV3BNB.UI_INCENTIVE_DATA_PROVIDER
     },
     explorer: "https://bscscan.com/address/{{ADDRESS}}",
     explorerName: "BSC Scan",
     subgraphUrl: "",
-  }
+  },
 ];
 
 /** hook to fetch user aave data
@@ -393,140 +405,212 @@ export const markets: AaveMarketDataType[] = [
     setCurrentMarket, }
  */
 export function useAaveData(address: string, preventFetch: boolean = false) {
-  const [isFetching, setIsFetching] = useState(false);
   const store = useHookstate(HealthFactorDataStore);
   const state = store.get({ noproxy: true });
-  const { currentAddress, addressData, currentMarket } = state;
+  const {
+    currentAddress,
+    addressData,
+    currentMarket,
+    selectedBlockNumber,
+    isHistoryMode,
+  } = state;
   const data = addressData?.[currentAddress];
+  if (address?.length === 0 || address === "DEBUG")
+    address = currentAddress || "";
   const addressProvided: boolean = !!(address && address?.length > 0);
-  if (address?.length === 0 || address === "DEBUG") address = currentAddress || "";
 
   const isLoadingAny = !!markets.find(
     (market) => data?.[market.id]?.isFetching === true
   );
-
-  const deps = [currentAddress, addressProvided, isLoadingAny];
+  const isLoadingCurrentMarket = !!data?.[currentMarket]?.isFetching;
 
   useEffect(() => {
     if (preventFetch) return;
-    if (addressProvided && !isLoadingAny) {
-      markets.map((market) => {
+    if (addressProvided && !isLoadingAny && address && address.length > 0) {
+      const marketsToFetch = isHistoryMode
+        ? markets.filter((market) => market.id === currentMarket)
+        : markets;
+
+      marketsToFetch.forEach((market) => {
         const existingData = data?.[market.id];
         const lastFetched = existingData?.lastFetched;
-        if (lastFetched) return;
-        if (existingData?.isFetching) return;
-        setIsFetching(true);
+        const existingBlockNumber = existingData?.selectedBlockNumber;
+        const shouldRefetch =
+          !lastFetched || selectedBlockNumber !== existingBlockNumber;
+
+        if (!shouldRefetch || existingData?.isFetching) return;
+
+        if (selectedBlockNumber !== existingBlockNumber && existingData) {
+          store.addressData.nested(address).nested(market.id).merge({
+            isFetching: true,
+            lastFetched: 0,
+            selectedBlockNumber,
+          });
+        }
+
         createInitial(market);
         const fetchData = async () => {
           const options = {
             method: "POST",
-            body: JSON.stringify({ address, marketId: market.id }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              address,
+              marketId: market.id,
+              blockNumber: selectedBlockNumber,
+            }),
           };
-          //const response: Response = await fetch("/api/aave", options);
-          const data: HealthFactorData = await getAaveData(address, market);
-          store.addressData.nested(address).merge({ [market.id]: data });
-          /*
-          if (response?.ok) {
-            // ok, use the response
-            const hfData: HealthFactorData = await response.json();
-            store.addressData.nested(address).merge({ [market.id]: hfData });
-          } else {
-            // monkey up an errored HealthFactorData object
-            const res = await response.json();
-            const message: string = `${response.statusText}: --- ${res?.message ?? ""
+          const controller = new AbortController();
+          const timeoutId = window.setTimeout(() => controller.abort(), 12000);
+
+          try {
+            const response: Response = await fetch("/api/aave", {
+              ...options,
+              signal: controller.signal,
+            });
+            if (response?.ok) {
+              const hfData: HealthFactorData = await response.json();
+              store.addressData.nested(address).merge({ [market.id]: hfData });
+            } else {
+              const res = await response.json();
+              const message: string = `${response.statusText}: --- ${
+                res?.message ?? ""
               }`;
+              const hfData: HealthFactorData = {
+                address,
+                resolvedAddress: address,
+                fetchError: message,
+                isFetching: false,
+                lastFetched: Date.now(),
+                market,
+                marketReferenceCurrencyPriceInUSD: 1,
+                selectedBlockNumber,
+              };
+              store.addressData.nested(address).merge({ [market.id]: hfData });
+            }
+          } catch (error) {
+            const message =
+              error instanceof DOMException && error.name === "AbortError"
+                ? "Request timed out while loading market data"
+                : `Network error: ${error}`;
+            console.error("Error fetching data:", error);
             const hfData: HealthFactorData = {
               address,
+              resolvedAddress: address,
               fetchError: message,
               isFetching: false,
               lastFetched: Date.now(),
               market,
               marketReferenceCurrencyPriceInUSD: 1,
+              selectedBlockNumber,
             };
             store.addressData.nested(address).merge({ [market.id]: hfData });
+          } finally {
+            window.clearTimeout(timeoutId);
           }
-          */
         };
 
         fetchData();
-
       });
     }
-  }, deps);
+  }, [
+    address,
+    addressProvided,
+    currentMarket,
+    isHistoryMode,
+    isLoadingAny,
+    preventFetch,
+    selectedBlockNumber,
+  ]);
 
   useEffect(() => {
     if (address) store.currentAddress.set(address);
   }, [address]);
 
-  useEffect(() => {
-    if (!isFetching) return;
-    if (!markets.find((market) => data?.[market.id]?.isFetching)) {
-      setIsFetching(false);
-    }
-  }, [isLoadingAny]);
+  // Note: We removed the aggressive history mode exit here
+  // History mode now only exits when explicitly switching markets or when errors occur
 
   // After fetching, if the current market doesn't have a position but another
   // one does, select the market that has a position (prefer highest reserve balance).
   useEffect(() => {
-    if (!isFetching && addressProvided) {
-      const currentMarketHasPosition =
-        data?.[currentMarket].workingData?.healthFactor &&
-        (data?.[currentMarket]?.workingData?.healthFactor ?? -1) > -1;
+    if (!addressProvided) return;
 
-      const currentMarketHasEdits =
-        data?.[currentMarket]?.workingData?.healthFactor?.toFixed(2) !==
-        data?.[currentMarket]?.fetchedData?.healthFactor?.toFixed(2);
+    const currentMarketHasPosition =
+      (data?.[currentMarket]?.workingData?.healthFactor ?? -1) > -1;
 
-      // Don't perform the auto-select if the user is actively editing the current market.
-      if (currentMarketHasPosition && currentMarketHasEdits) return;
+    const currentMarketHasEdits =
+      data?.[currentMarket]?.workingData?.healthFactor?.toFixed(2) !==
+      data?.[currentMarket]?.fetchedData?.healthFactor?.toFixed(2);
 
-      const marketWithPosition = markets
-        .sort((marketA, marketB) => {
-          const marketDataA = data?.[marketA.id];
-          const marketDataB = data?.[marketB.id];
+    // Don't perform the auto-select if the user is actively editing the current market.
+    if (currentMarketHasPosition && currentMarketHasEdits) return;
 
-          const totalCollA =
-            marketDataA?.workingData?.totalCollateralMarketReferenceCurrency ||
-            0;
-          const totalCollB =
-            marketDataB?.workingData?.totalCollateralMarketReferenceCurrency ||
-            0;
+    // Don't auto-switch markets when in history mode - user explicitly selected a chain
+    if (isHistoryMode) return;
 
-          const priceA = marketDataA?.marketReferenceCurrencyPriceInUSD || 0;
-          const priceB = marketDataB?.marketReferenceCurrencyPriceInUSD || 0;
+    // Don't auto-switch markets if we're currently fetching historical data
+    if (selectedBlockNumber !== undefined) return;
 
-          return totalCollB * priceB - totalCollA * priceA;
-        })
-        .find(
-          (market) =>
-            data?.[market.id]?.workingData?.healthFactor &&
-            (data?.[market.id]?.workingData?.healthFactor ?? -1) > -1
-        );
-      // This guard doesn't make much sense but for some reason this useEffect was being triggered
-      // sometimes even when the markets hadn't just finished loading. We only want to apply
-      // this logic right after loading.
-      const didFetchRecently = !!markets.find(
-        (market) => data?.[market.id]?.lastFetched > Date.now() - 1000
+    if (currentMarketHasPosition) return;
+
+    const marketWithPosition = [...markets]
+      .sort((marketA, marketB) => {
+        const marketDataA = data?.[marketA.id];
+        const marketDataB = data?.[marketB.id];
+
+        const totalCollA =
+          marketDataA?.workingData?.totalCollateralMarketReferenceCurrency || 0;
+        const totalCollB =
+          marketDataB?.workingData?.totalCollateralMarketReferenceCurrency || 0;
+
+        const priceA = marketDataA?.marketReferenceCurrencyPriceInUSD || 0;
+        const priceB = marketDataB?.marketReferenceCurrencyPriceInUSD || 0;
+
+        return totalCollB * priceB - totalCollA * priceA;
+      })
+      .find(
+        (market) => (data?.[market.id]?.workingData?.healthFactor ?? -1) > -1
       );
-      if (marketWithPosition && didFetchRecently) {
-        setCurrentMarket(marketWithPosition.id);
-      }
+
+    if (marketWithPosition && currentMarket !== marketWithPosition.id) {
+      setCurrentMarket(marketWithPosition.id);
     }
-  }, [isFetching]);
+  }, [
+    addressProvided,
+    currentMarket,
+    data,
+    isHistoryMode,
+    selectedBlockNumber,
+  ]);
 
   const createInitial = (market: AaveMarketDataType) => {
     const hf: HealthFactorData = {
       address,
+      resolvedAddress: address, // Use address as resolved address initially
       fetchError: "",
       isFetching: true,
       lastFetched: 0,
       market,
       marketReferenceCurrencyPriceInUSD: 0,
+      selectedBlockNumber: selectedBlockNumber,
+      fetchedBlockNumber: undefined,
     };
     store.addressData.nested(address).merge({ [market.id]: hf });
   };
 
   const setCurrentMarket = (marketId: string) => {
+    if (currentMarket !== marketId && isHistoryMode) {
+      const oldMarket = markets.find((market) => market.id === currentMarket);
+      const newMarket = markets.find((market) => market.id === marketId);
+      const isSameChain = oldMarket?.chainId === newMarket?.chainId;
+
+      if (!isSameChain) {
+        store.isHistoryMode.set(false);
+        store.selectedBlockNumber.set(undefined);
+      }
+    }
+
     store.currentMarket.set(marketId);
   };
 
@@ -542,7 +626,7 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
       totalBorrows: 0,
       totalBorrowsUSD: 0,
       totalBorrowsMarketReferenceCurrency: 0,
-      stableBorrowAPY: 0
+      stableBorrowAPY: 0,
     };
 
     const workingData = store.addressData.nested(address)?.[currentMarket]
@@ -586,13 +670,13 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
 
     assetType === "RESERVE"
       ? reserves.set((p) => {
-        p.splice(itemIndex, 1);
-        return p;
-      })
+          p.splice(itemIndex, 1);
+          return p;
+        })
       : borrows.set((p) => {
-        p.splice(itemIndex, 1);
-        return p;
-      });
+          p.splice(itemIndex, 1);
+          return p;
+        });
 
     updateAllDerivedHealthFactorData();
   };
@@ -649,11 +733,13 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
     );
     if (borrowItem && borrowItem?.asset.priceInUSD.get() !== price)
       borrowItem.asset.priceInUSD.set(price);
+
     updateAllDerivedHealthFactorData();
   };
 
   const setTxHistory = (address: string, history: TxHistory) => {
-    const workingData = store.addressData.nested(address)?.[currentMarket]?.workingData as State<AaveHealthFactorData>;
+    const workingData = store.addressData.nested(address)?.[currentMarket]
+      ?.workingData as State<AaveHealthFactorData>;
     if (workingData) workingData.txHistory?.set(history);
   };
 
@@ -689,7 +775,7 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
   const updateAllDerivedHealthFactorData = () => {
     const currentMarketReferenceCurrencyPriceInUSD: number = store.addressData
       .nested(address)
-    [currentMarket].marketReferenceCurrencyPriceInUSD.get();
+      [currentMarket].marketReferenceCurrencyPriceInUSD.get();
 
     const healthFactorItem = store.addressData.nested(address)?.[
       currentMarket
@@ -708,10 +794,31 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
     healthFactorItem.workingData.set(updatedWorkingData);
   };
 
-  //console.log({ data })
+  const setSelectedBlockNumber = (blockNumber?: number) => {
+    store.selectedBlockNumber.set(blockNumber);
+    store.isHistoryMode.set(blockNumber !== undefined);
+  };
+
+  const setHistoryMode = (enabled: boolean) => {
+    store.isHistoryMode.set(enabled);
+    if (!enabled) {
+      store.selectedBlockNumber.set(undefined);
+    }
+  };
+
+  const goToLatestBlock = () => {
+    // Clear the last fetched timestamp to force a refetch at latest block
+    if (data?.[currentMarket]) {
+      store.addressData.nested(address).nested(currentMarket).merge({
+        lastFetched: 0,
+        selectedBlockNumber: undefined,
+      });
+    }
+    setSelectedBlockNumber(undefined);
+  };
 
   return {
-    isFetching: isLoadingAny,
+    isFetching: isLoadingCurrentMarket,
     currentAddress,
     currentMarket,
     addressData: data,
@@ -727,7 +834,13 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
     setAssetPriceInUSD,
     applyLiquidationScenario,
     setUseReserveAssetAsCollateral,
-    setTxHistory
+    setTxHistory,
+    // Block number functionality
+    selectedBlockNumber,
+    isHistoryMode,
+    setSelectedBlockNumber,
+    setHistoryMode,
+    goToLatestBlock,
   };
 }
 
@@ -742,7 +855,9 @@ export const getHealthFactorColor = (hf: number = 0) => {
 };
 
 export const isStablecoinAsset = (asset: AssetDetails) => {
-  return !!["DAI", "USD", "GHO", "EUR", "MAI"].find(symbol => asset.symbol?.toUpperCase().includes(symbol));
+  return !!["DAI", "USD", "GHO", "EUR", "MAI"].find((symbol) =>
+    asset.symbol?.toUpperCase().includes(symbol)
+  );
 };
 
 export const isActiveAsset = (asset: AssetDetails) => {
@@ -786,7 +901,7 @@ export const getEligibleLiquidationScenarioReserves = (
   const exceedsMinResPct: boolean =
     cumulativeReserveMRCValue >
     hfData.totalCollateralMarketReferenceCurrency *
-    (MINIMUM_CUMULATIVE_RESERVE_PCT / 100);
+      (MINIMUM_CUMULATIVE_RESERVE_PCT / 100);
   const exceedsMinResUSD: boolean =
     cumulativeReserveUSDValue > MINIMUM_CUMULATIVE_RESERVE_USD;
 
@@ -906,17 +1021,23 @@ export const updateDerivedHealthFactorData = (
         updatedUnderlyingBalanceMarketReferenceCurrency
       );
 
-      const isEmode: boolean = !!reserveItem.asset.eModeCategoryId && (reserveItem.asset.eModeCategoryId === data.userEmodeCategoryId);
+      const isEmode: boolean =
+        !!reserveItem.asset.eModeCategoryId &&
+        reserveItem.asset.eModeCategoryId === data.userEmodeCategoryId;
       const lt: number = isEmode
         ? reserveItem.asset.eModeLiquidationThreshold || 0
-        : reserveItem.asset.reserveLiquidationThreshold || 0
+        : reserveItem.asset.reserveLiquidationThreshold || 0;
 
       const ltv: number = isEmode
         ? reserveItem.asset.eModeLtv || 0
-        : reserveItem.asset.baseLTVasCollateral || 0
+        : reserveItem.asset.baseLTVasCollateral || 0;
 
-      const itemReserveLiquidationThreshold: BigNumber = new BigNumber(lt).dividedBy(10000);
-      const itemBaseLoanToValue: BigNumber = new BigNumber(ltv).dividedBy(10000);
+      const itemReserveLiquidationThreshold: BigNumber = new BigNumber(
+        lt
+      ).dividedBy(10000);
+      const itemBaseLoanToValue: BigNumber = new BigNumber(ltv).dividedBy(
+        10000
+      );
 
       weightedReservesETH = weightedReservesETH.plus(
         itemReserveLiquidationThreshold.multipliedBy(
@@ -1169,15 +1290,15 @@ export const getCalculatedLiquidationScenario = (
 
       let priceDecrement = decrementPercentage
         ? // Use the uniform percentage, if we  have it
-        Math.max(0.01, (decrementPercentage * asset.priceInUSD) / 100)
+          Math.max(0.01, (decrementPercentage * asset.priceInUSD) / 100)
         : // Else use an approximation based on the difference between current hf and HF_LIMIT
-        Math.max(
-          0.01,
-          Math.min(
-            asset.priceInUSD * ((hf - HF_LIMIT) * 0.45),
-            asset.priceInUSD * 0.5
-          )
-        );
+          Math.max(
+            0.01,
+            Math.min(
+              asset.priceInUSD * ((hf - HF_LIMIT) * 0.45),
+              asset.priceInUSD * 0.5
+            )
+          );
 
       priceDecrement =
         Math.round((priceDecrement + Number.EPSILON) * 100) / 100;
@@ -1230,17 +1351,21 @@ export const getCalculatedLiquidationScenario = (
 };
 
 export const getIconNameFromAssetSymbol = (assetSymbol: string) => {
-  return assetSymbol
-    ?.toLowerCase()
-    .replace(".e", "")
-    .replace(".b", "")
-    .replace("m.", "")
-    .replace("btcb", "btc") || "";
+  return (
+    assetSymbol
+      ?.toLowerCase()
+      .replace(".e", "")
+      .replace(".b", "")
+      .replace("m.", "")
+      .replace("btcb", "btc") || ""
+  );
 };
 
 export const getIconNameFromMarket = (market?: AaveMarketDataType) => {
-  return market?.id
-    ?.split("_")[0]
-    .replace("BNB", "binance") // special case... follow aave interface convention
-    .toLowerCase() || "";
+  return (
+    market?.id
+      ?.split("_")[0]
+      .replace("BNB", "binance") // special case... follow aave interface convention
+      .toLowerCase() || ""
+  );
 };
