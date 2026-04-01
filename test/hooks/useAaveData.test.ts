@@ -6,6 +6,10 @@ import {
   AaveHealthFactorData,
   getCalculatedLiquidationScenario,
 } from "../../hooks/useAaveData";
+import {
+  createDefaultHealthFactorStoreState,
+  HealthFactorDataStore,
+} from "../../store/healthFactorDataStore";
 import testDataItems from "../fixtures/aave/AaveHealthFactorData.json";
 import fetchMock from "jest-fetch-mock";
 
@@ -34,6 +38,7 @@ describe.each(testDataItems)(`useAaveData ()`, (testDataItem) => {
   if (!reserveDataItem) return;
 
   beforeEach(() => {
+    (HealthFactorDataStore as any).set(createDefaultHealthFactorStoreState());
     fetchMock.resetMocks();
     const testHF = getHFDataFromAaveDataSeed(testDataItem);
     fetchMock.mockResponse(JSON.stringify(testHF));
@@ -54,6 +59,39 @@ describe.each(testDataItems)(`useAaveData ()`, (testDataItem) => {
       expect(result.current.currentAddress).toEqual(testDataItem.address);
       expect(data.workingData).not.toBeUndefined();
       expect(fetch).toHaveBeenCalledTimes(markets.length);
+    });
+
+    test("it refetches the selected protocol when switching markets in history mode on the same chain", async () => {
+      const { result } = renderHook(() => useAaveData(testDataItem.address));
+
+      await waitFor(() => {
+        expect(fetch).toHaveBeenCalledTimes(markets.length);
+      });
+
+      act(() => {
+        result.current.setSelectedBlockNumber(123);
+      });
+
+      await waitFor(() => {
+        expect(fetch).toHaveBeenCalledTimes(markets.length + 1);
+      });
+
+      act(() => {
+        result.current.setCurrentMarket("ETHEREUM_V2");
+      });
+
+      await waitFor(() => {
+        expect(fetch).toHaveBeenCalledTimes(markets.length + 2);
+      });
+
+      const lastCall = fetchMock.mock.calls[fetchMock.mock.calls.length - 1];
+      const body = JSON.parse(String(lastCall?.[1]?.body ?? "{}"));
+
+      expect(body).toMatchObject({
+        address: testDataItem.address,
+        marketId: "ETHEREUM_V2",
+        blockNumber: 123,
+      });
     });
 
     describe("when a supplied asset quantity is changed", () => {
@@ -149,7 +187,7 @@ describe.each(testDataItems)(`useAaveData ()`, (testDataItem) => {
           testDataItem.userReservesData.length === 1 &&
           testDataItem.userBorrowsData.length === 1 &&
           testDataItem.userReservesData[0].asset.symbol ===
-          testDataItem.userBorrowsData[0].asset.symbol
+            testDataItem.userBorrowsData[0].asset.symbol
         ) {
           expect(data.workingData?.healthFactor).toEqual(originalHealthFactor);
         } else {
@@ -276,12 +314,26 @@ describe.each(testDataItems)(`useAaveData ()`, (testDataItem) => {
   });
 });
 
-const getHFDataFromAaveDataSeed = (aaveData: AaveHealthFactorData) => {
+type AaveHealthFactorDataSeed = Omit<AaveHealthFactorData, "txHistory"> & {
+  txHistory?: AaveHealthFactorData["txHistory"];
+};
+
+const getHFDataFromAaveDataSeed = (aaveData: AaveHealthFactorDataSeed) => {
+  const dataWithHistory: AaveHealthFactorData = {
+    ...aaveData,
+    txHistory: aaveData.txHistory || {
+      data: [],
+      isFetching: false,
+      fetchError: "",
+      lastFetched: 0,
+    },
+  };
+
   return {
-    address: aaveData.address,
+    address: dataWithHistory.address,
     marketReferenceCurrencyPriceInUSD: 10000,
-    fetchedData: aaveData,
-    workingData: aaveData,
+    fetchedData: dataWithHistory,
+    workingData: dataWithHistory,
     lastFetched: Date.now(),
   };
 };

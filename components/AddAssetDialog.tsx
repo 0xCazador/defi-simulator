@@ -30,7 +30,7 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
   const [open, setOpen] = React.useState(false);
   const [searchText, setSearchText] = React.useState("");
   const { addressData, currentMarket, addBorrowAsset, addReserveAsset } =
-    useAaveData("");
+    useAaveData("", true);
 
   const handleClose = () => {
     setSearchText("");
