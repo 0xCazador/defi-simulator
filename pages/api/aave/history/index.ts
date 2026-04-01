@@ -1,5 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { AaveMarketDataType, markets, TxHistoryItem } from '../../../../hooks/useAaveData';
+import {
+  AaveMarketDataType,
+  markets,
+  TxHistoryItem,
+} from "../../../../hooks/useAaveData";
+import { parseRequestBody } from "../../_utils/parseRequestBody";
 
 const allowedMethods = ["POST", "OPTIONS"];
 
@@ -8,8 +13,17 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
     if (!allowedMethods.includes(_req.method!)) {
       return res.status(405).send({ message: "Method not allowed." });
     }
-    const { address } = JSON.parse(_req.body);
-    const { marketId } = JSON.parse(_req.body);
+    const { address, marketId } = parseRequestBody<{
+      address?: string;
+      marketId?: string;
+    }>(_req.body);
+
+    if (!address || !marketId) {
+      return res.status(400).json({
+        statusCode: 400,
+        message: "Address and marketId are required",
+      });
+    }
 
     const market = markets.find(
       (m: AaveMarketDataType) => m.id === marketId
@@ -21,7 +35,6 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
 
     const data: TxHistoryItem[] = await getTxData(address, market);
     res.status(200).json(data);
-
   } catch (err: any) {
     console.error(err);
     res.status(500).json({ statusCode: 500, message: err.message });
@@ -47,7 +60,7 @@ export const getTxData = async (address: string, market: AaveMarketDataType) => 
   }
 
   const data = await res.json();
-  return data.data.userTransactions || [];
+  return data?.data?.userTransactions || [];
 };
 
 export default handler;

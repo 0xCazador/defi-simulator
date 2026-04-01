@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { ethers } from "ethers";
 
 import { Alchemy, Network } from "alchemy-sdk";
+import { parseRequestBody } from "../_utils/parseRequestBody";
 
 const allowedMethods = ["POST", "OPTIONS"];
 
@@ -11,7 +12,15 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
       return res.status(405).send({ message: "Method not allowed." });
     }
 
-    const { address } = JSON.parse(_req.body);
+    const { address } = parseRequestBody<{ address?: string }>(_req.body);
+
+    if (!address) {
+      return res.status(400).json({
+        statusCode: 400,
+        message: "Address is required",
+      });
+    }
+
     let resolvedAddress = address;
     if (!ethers.utils.isAddress(address)) {
       resolvedAddress =

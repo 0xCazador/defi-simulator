@@ -4,7 +4,7 @@ import {
   UiPoolDataProvider,
   UiPoolDataProviderContext,
   UiIncentiveDataProvider,
-  UiIncentiveDataProviderContext
+  UiIncentiveDataProviderContext,
 } from "@aave/contract-helpers";
 import dayjs from "dayjs";
 import {
@@ -26,6 +26,7 @@ import {
   getCalculatedLiquidationScenario,
   markets,
 } from "../../../hooks/useAaveData";
+import { parseRequestBody } from "../_utils/parseRequestBody";
 import { getResolvedAddress } from "../resolver";
 
 const allowedMethods = ["POST", "OPTIONS"];
@@ -36,13 +37,44 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
       return res.status(405).send({ message: "Method not allowed." });
     }
 
-    const { address } = JSON.parse(_req.body);
-    const { marketId } = JSON.parse(_req.body);
+    const { address, marketId, blockNumber } = parseRequestBody<{
+      address?: string;
+      marketId?: string;
+      blockNumber?: number;
+    }>(_req.body);
 
-    const market = markets.find(
-      (m: AaveMarketDataType) => m.id === marketId
-    ) as AaveMarketDataType;
-    const data: HealthFactorData = await getAaveData(address, market);
+    // Validate required parameters
+    if (!address || !marketId) {
+      return res.status(400).json({
+        statusCode: 400,
+        message: "Address and marketId are required",
+      });
+    }
+
+    // Validate block number if provided
+    if (blockNumber !== undefined && blockNumber !== null) {
+      if (!Number.isInteger(blockNumber) || blockNumber < 0) {
+        return res.status(400).json({
+          statusCode: 400,
+          message: "Block number must be a non-negative integer",
+        });
+      }
+    }
+
+    const market = markets.find((m: AaveMarketDataType) => m.id === marketId);
+
+    if (!market) {
+      return res.status(400).json({
+        statusCode: 400,
+        message: `Market not found: ${marketId}`,
+      });
+    }
+
+    const data: HealthFactorData = await getAaveData(
+      address,
+      market,
+      blockNumber
+    );
     res.status(200).json(data);
   } catch (err: any) {
     console.error(err);
@@ -50,45 +82,73 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export const getAaveData = async (address: string, market: AaveMarketDataType) => {
+export const getAaveData = async (
+  address: string,
+  market: AaveMarketDataType,
+  blockNumber?: number
+) => {
   const provider = new ethers.providers.StaticJsonRpcProvider(
     market.api,
     market.chainId
   );
+  const hasHistoricalBlock = blockNumber !== undefined && blockNumber !== null;
+
+  const effectiveProvider = hasHistoricalBlock
+    ? Object.assign(Object.create(provider), {
+        call: (
+          transaction: ethers.providers.TransactionRequest,
+          _blockTag?: ethers.providers.BlockTag
+        ) => provider.call(transaction, blockNumber),
+      })
+    : provider;
 
   const UiPoolDataCtx: UiPoolDataProviderContext = {
     uiPoolDataProviderAddress: market.addresses.UI_POOL_DATA_PROVIDER,
-    provider,
+    provider: effectiveProvider,
     chainId: market.chainId,
   };
   const poolDataProviderContract = new UiPoolDataProvider(UiPoolDataCtx);
 
   const UiIncentiveDataCtx: UiIncentiveDataProviderContext = {
     uiIncentiveDataProviderAddress: market.addresses.UI_INCENTIVE_DATA_PROVIDER,
-    provider,
+    provider: effectiveProvider,
     chainId: market.chainId,
   };
 
-  const incentiveDataProviderContract = new UiIncentiveDataProvider(UiIncentiveDataCtx);
+  const incentiveDataProviderContract = new UiIncentiveDataProvider(
+    UiIncentiveDataCtx
+  );
 
-  const user = (await getResolvedAddress(address)) || "0x87cCC67f0c1b67745989542152DD4acff3841CD6";
+  const user =
+    (await getResolvedAddress(address)) ||
+    "0x87cCC67f0c1b67745989542152DD4acff3841CD6";
 
-  const [reserves, userReserves, reserveIncentives, userIncentives] = await Promise.all([
-    poolDataProviderContract.getReservesHumanized({
-      lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
-    }),
-    poolDataProviderContract.getUserReservesHumanized({
-      lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
-      user
-    }),
-    incentiveDataProviderContract.getReservesIncentivesDataHumanized({
-      lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER
-    }),
-    incentiveDataProviderContract.getUserReservesIncentivesDataHumanized({
-      lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
-      user
-    })
-  ]);
+  let currentBlockNumber = blockNumber;
+  if (!hasHistoricalBlock) {
+    currentBlockNumber = await provider.getBlockNumber();
+  }
+
+  const [reserves, userReserves, reserveIncentives, userIncentives] =
+    await Promise.all([
+      poolDataProviderContract.getReservesHumanized({
+        lendingPoolAddressProvider:
+          market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
+      }),
+      poolDataProviderContract.getUserReservesHumanized({
+        lendingPoolAddressProvider:
+          market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
+        user,
+      }),
+      incentiveDataProviderContract.getReservesIncentivesDataHumanized({
+        lendingPoolAddressProvider:
+          market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
+      }),
+      incentiveDataProviderContract.getUserReservesIncentivesDataHumanized({
+        lendingPoolAddressProvider:
+          market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
+        user,
+      }),
+    ]);
 
   const reservesArray = reserves.reservesData;
   const { baseCurrencyData } = reserves;
@@ -103,7 +163,7 @@ export const getAaveData = async (address: string, market: AaveMarketDataType) =
       baseCurrencyData.marketReferenceCurrencyDecimals,
     marketReferencePriceInUsd:
       baseCurrencyData.marketReferenceCurrencyPriceInUsd,
-    reserveIncentives
+    reserveIncentives,
   });
 
   const userSummary = formatUserSummaryAndIncentives({
@@ -116,7 +176,7 @@ export const getAaveData = async (address: string, market: AaveMarketDataType) =
     formattedReserves: formattedPoolReserves,
     userEmodeCategoryId: userReserves.userEmodeCategoryId,
     reserveIncentives,
-    userIncentives
+    userIncentives,
   });
 
   const hf: HealthFactorData = aaveUserSummaryToHealthFactor(
@@ -125,7 +185,9 @@ export const getAaveData = async (address: string, market: AaveMarketDataType) =
     user, // if address is an ens, user will point to the resolved address.
     market,
     baseCurrencyData,
-    userReserves.userEmodeCategoryId
+    userReserves.userEmodeCategoryId,
+    hasHistoricalBlock ? currentBlockNumber : undefined,
+    currentBlockNumber
   );
   return hf;
 };
@@ -136,7 +198,9 @@ const aaveUserSummaryToHealthFactor = (
   resolvedAddress: string,
   market: AaveMarketDataType,
   baseCurrencyData: any,
-  userEmodeCategoryId: number
+  userEmodeCategoryId: number,
+  blockNumber?: number,
+  fetchedBlockNumber?: number
 ) => {
   const getAssetDetailsFromReserveItem = (reserveItem: ComputedUserReserve) => {
     const { reserve } = reserveItem;
@@ -152,9 +216,7 @@ const aaveUserSummaryToHealthFactor = (
       baseLTVasCollateral: Number(reserve.baseLTVasCollateral),
       reserveFactor: Number(reserve.reserveFactor),
       usageAsCollateralEnabled: reserve.usageAsCollateralEnabled,
-      reserveLiquidationThreshold: Number(
-        reserve.reserveLiquidationThreshold
-      ),
+      reserveLiquidationThreshold: Number(reserve.reserveLiquidationThreshold),
       initialPriceInUSD: Number(reserve.priceInUSD),
       aTokenAddress: reserve.aTokenAddress,
       stableDebtTokenAddress: reserve.stableDebtTokenAddress,
@@ -179,7 +241,7 @@ const aaveUserSummaryToHealthFactor = (
       eModeCategoryId: Number(reserve.eModeCategoryId),
       eModeLabel: reserve.eModeLabel,
       borrowableInIsolation: Boolean(reserve.borrowableInIsolation),
-      isSiloedBorrowing: Boolean(reserve.isSiloedBorrowing)
+      isSiloedBorrowing: Boolean(reserve.isSiloedBorrowing),
     };
     return details;
   };
@@ -261,7 +323,13 @@ const aaveUserSummaryToHealthFactor = (
     userReservesData: reserveData.userReservesData,
     userBorrowsData: reserveData.userBorrowsData,
     userEmodeCategoryId: reserveData.userEmodeCategoryId,
-    isInIsolationMode: reserveData.isInIsolationMode
+    isInIsolationMode: reserveData.isInIsolationMode,
+    txHistory: {
+      data: [],
+      isFetching: false,
+      fetchError: "",
+      lastFetched: 0,
+    },
   };
 
   const hf: HealthFactorData = {
@@ -277,12 +345,16 @@ const aaveUserSummaryToHealthFactor = (
     ),
     fetchedData,
     workingData: JSON.parse(JSON.stringify(fetchedData)),
+    selectedBlockNumber: blockNumber,
+    fetchedBlockNumber,
   };
   const liquidationScenario = getCalculatedLiquidationScenario(
     hf.workingData as AaveHealthFactorData,
     marketReferenceCurrencyPriceInUSD
   );
-  hf.workingData.liquidationScenario = liquidationScenario;
+  if (hf.workingData) {
+    (hf.workingData as any).liquidationScenario = liquidationScenario;
+  }
   return hf;
 };
 
