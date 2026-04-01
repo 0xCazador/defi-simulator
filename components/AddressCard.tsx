@@ -1166,7 +1166,7 @@ const UserReserveAssetList = ({ summaryOffset }: UserReserveAssetListProps) => {
           </Text>
         </Center>
       )}
-      {items.map((item) => {
+      {items.map((item, idx) => {
         const originalAsset = addressData?.[
           currentMarket
         ]?.fetchedData?.userReservesData?.find(
@@ -1174,7 +1174,7 @@ const UserReserveAssetList = ({ summaryOffset }: UserReserveAssetListProps) => {
         );
         return (
           <UserAssetItem
-            key={`${item.asset.symbol}-RESERVE`}
+            key={`${item.asset.symbol}-RESERVE-${idx}`}
             assetSymbol={item.asset.symbol}
             assetDetails={item.asset}
             usageAsCollateralEnabledOnUser={item.usageAsCollateralEnabledOnUser}
