@@ -238,7 +238,6 @@ export const markets: AaveMarketDataType[] = [
     explorerName: "BaseScan",
     subgraphUrl: "" // Not set up yet
   },
-  /*
   {
     v3: true,
     id: "POLYGON_V3",
@@ -255,7 +254,6 @@ export const markets: AaveMarketDataType[] = [
     explorerName: "PolygonScan",
     subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/protocol-v3-polygon',
   },
-  */
   {
     v3: true,
     id: "AVALANCHE_V3",

@@ -4,7 +4,9 @@ import {
   UiPoolDataProvider,
   UiPoolDataProviderContext,
   UiIncentiveDataProvider,
-  UiIncentiveDataProviderContext
+  UiIncentiveDataProviderContext,
+  ReservesIncentiveDataHumanized,
+  UserReservesIncentivesDataHumanized
 } from "@aave/contract-helpers";
 import dayjs from "dayjs";
 import {
@@ -73,22 +75,35 @@ export const getAaveData = async (address: string, market: AaveMarketDataType) =
 
   const user = (await getResolvedAddress(address)) || "0x87cCC67f0c1b67745989542152DD4acff3841CD6";
 
-  const [reserves, userReserves, reserveIncentives, userIncentives] = await Promise.all([
+  const [reserves, userReserves] = await Promise.all([
     poolDataProviderContract.getReservesHumanized({
       lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
     }),
     poolDataProviderContract.getUserReservesHumanized({
       lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
       user
-    }),
-    incentiveDataProviderContract.getReservesIncentivesDataHumanized({
-      lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER
-    }),
-    incentiveDataProviderContract.getUserReservesIncentivesDataHumanized({
-      lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
-      user
     })
   ]);
+
+  // Incentive data is non-critical for health factor calculations, and the
+  // on-chain UiIncentiveDataProvider can revert if any reward's price oracle
+  // is dead (e.g. the deprecated stMATIC feed on Polygon after the MATIC->POL
+  // migration). Degrade to "no incentives" instead of failing the market.
+  let reserveIncentives: ReservesIncentiveDataHumanized[] = [];
+  let userIncentives: UserReservesIncentivesDataHumanized[] = [];
+  try {
+    [reserveIncentives, userIncentives] = await Promise.all([
+      incentiveDataProviderContract.getReservesIncentivesDataHumanized({
+        lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER
+      }),
+      incentiveDataProviderContract.getUserReservesIncentivesDataHumanized({
+        lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
+        user
+      })
+    ]);
+  } catch (err) {
+    console.error(`Unable to fetch incentive data for ${market.id}, continuing without it:`, err);
+  }
 
   const reservesArray = reserves.reservesData;
   const { baseCurrencyData } = reserves;
