@@ -47,25 +47,25 @@ export type TxHistory = {
 export type TxHistoryItem = {
   id: string;
   txHash: string;
-  action: "Borrow" | "Repay" | "Supply" | "Deposit" | "RedeemUnderlying" | "LiquidationCall";
-  amount?: number; // absent for liquidationCall
+  action: "Borrow" | "Repay" | "Supply" | "Deposit" | "RedeemUnderlying" | "Withdraw" | "LiquidationCall" | "UsageAsCollateral";
+  amount?: string; // raw base units, absent for liquidationCall
   reserve?: TxHistoryReserveItem; // absent for liquidationCall
-  timestamp: number;
+  timestamp: number; // unix seconds
   assetPriceUSD?: string; // absent for liquidationCall
   // vvv liquidationCall formatting, only present on that action type
   // collateral i.e. the reserve used to repay the borrowed debt
-  collateralAmount?: number;
+  collateralAmount?: string; // raw base units
   collateralReserve?: TxHistoryReserveItem;
   collateralPriceUSD?: string;
   // principal i.e. the borrowed debt that's getting repaid
-  principalAmount?: number;
+  principalAmount?: string; // raw base units
   principalReserve?: TxHistoryReserveItem;
   principalPriceUSD?: string;
 }
 
 export type TxHistoryReserveItem = {
   symbol: string;
-  decimals: string;
+  decimals: number;
   name: string;
   underlyingAsset: string;
 }
@@ -169,8 +169,16 @@ export type AaveMarketDataType = {
   };
   explorer: string;
   explorerName: string;
-  subgraphUrl: string
+  /** The Aave Pool contract address, used to query tx history from the official Aave API */
+  poolAddress: string;
 };
+
+/**
+ * Maximum number of tx history items fetched by the history API. If an address has
+ * this many items, its history was likely truncated and accrued interest math
+ * can't be trusted.
+ */
+export const MAX_TX_HISTORY_ITEMS = 500;
 
 export const markets: AaveMarketDataType[] = [
 
@@ -188,7 +196,7 @@ export const markets: AaveMarketDataType[] = [
     },
     explorer: "https://etherscan.io/address/{{ADDRESS}}",
     explorerName: "Etherscan",
-    subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/protocol-v3',
+    poolAddress: pools.AaveV3Ethereum.POOL,
   },
   {
     v3: true,
@@ -204,7 +212,7 @@ export const markets: AaveMarketDataType[] = [
     },
     explorer: "https://arbiscan.io/address/{{ADDRESS}}",
     explorerName: "Arbiscan",
-    subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/protocol-v3-arbitrum',
+    poolAddress: pools.AaveV3Arbitrum.POOL,
   },
   {
     v3: true,
@@ -220,7 +228,7 @@ export const markets: AaveMarketDataType[] = [
     },
     explorer: "https://optimistic.etherscan.io/address/{{ADDRESS}}",
     explorerName: "Optimistic Etherscan",
-    subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/protocol-v3-optimism',
+    poolAddress: pools.AaveV3Optimism.POOL,
   },
   {
     v3: true,
@@ -236,7 +244,7 @@ export const markets: AaveMarketDataType[] = [
     },
     explorer: "https://basescan.org/address/{{ADDRESS}}",
     explorerName: "BaseScan",
-    subgraphUrl: "" // Not set up yet
+    poolAddress: pools.AaveV3Base.POOL,
   },
   {
     v3: true,
@@ -252,7 +260,7 @@ export const markets: AaveMarketDataType[] = [
     },
     explorer: "https://polygonscan.com/address/{{ADDRESS}}",
     explorerName: "PolygonScan",
-    subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/protocol-v3-polygon',
+    poolAddress: pools.AaveV3Polygon.POOL,
   },
   {
     v3: true,
@@ -268,7 +276,7 @@ export const markets: AaveMarketDataType[] = [
     },
     explorer: "https://avascan.info/blockchain/all/address/{{ADDRESS}}",
     explorerName: "AvaScan",
-    subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/protocol-v3-avalanche',
+    poolAddress: pools.AaveV3Avalanche.POOL,
   },
   /*
   {
@@ -284,7 +292,7 @@ export const markets: AaveMarketDataType[] = [
     },
     explorer: "https://andromeda-explorer.metis.io/address/{{ADDRESS}}",
     explorerName: "Metis Explorer",
-    subgraphUrl: 'https://andromeda.thegraph.metis.io/subgraphs/name/aave/protocol-v3-metis',
+    poolAddress: pools.AaveV3Metis.POOL,
   },
   */
   /*
@@ -301,7 +309,7 @@ export const markets: AaveMarketDataType[] = [
     },
     explorer: "https://gnosisscan.io/address/{{ADDRESS}}",
     explorerName: "Gnosis Scan",
-    subgraphUrl: 'https://api.thegraph.com/subgraphs/name/aave/protocol-v3-gnosis',
+    poolAddress: pools.AaveV3Gnosis.POOL,
   },
   */
   /*
@@ -318,7 +326,7 @@ export const markets: AaveMarketDataType[] = [
     },
     explorer: "https://scrollscan.com/address/{{ADDRESS}}",
     explorerName: "Scroll Scan",
-    subgraphUrl: "",
+    poolAddress: pools.AaveV3Scroll.POOL,
   },
   */
   {
@@ -334,7 +342,7 @@ export const markets: AaveMarketDataType[] = [
     },
     explorer: "https://bscscan.com/address/{{ADDRESS}}",
     explorerName: "BSC Scan",
-    subgraphUrl: "",
+    poolAddress: pools.AaveV3BNB.POOL,
   }
 ];
 

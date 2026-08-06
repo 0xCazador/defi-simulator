@@ -12,6 +12,8 @@ export function useAaveHistory(address: string, resolvedAddress: string) {
     useEffect(() => {
         if (isFetchingHistory) return;
         if (!!history?.lastFetched) return;
+        // wait until the address is resolved (e.g. ENS) before fetching history
+        if (!resolvedAddress?.length) return;
 
         const fetchData = async () => {
             const options = {
@@ -40,7 +42,7 @@ export function useAaveHistory(address: string, resolvedAddress: string) {
         };
         createInitial();
         fetchData();
-    }, [address, history, isFetchingHistory, currentMarket]);
+    }, [address, resolvedAddress, history, isFetchingHistory, currentMarket]);
 
     const createInitial = () => {
         const txHistory: TxHistory = {
