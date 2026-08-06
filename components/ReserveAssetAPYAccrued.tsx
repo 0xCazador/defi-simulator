@@ -1,8 +1,6 @@
-import react from "react";
-import { formatUnits } from 'ethers/lib/utils';
-
-import { MAX_TX_HISTORY_ITEMS, ReserveAssetDataItem, TxHistoryItem } from "../hooks/useAaveData";
+import { MAX_TX_HISTORY_ITEMS, ReserveAssetDataItem } from "../hooks/useAaveData";
 import { useAaveHistory } from "../hooks/useAaveHistory";
+import { getAccruedSupplyInterest } from "../utils/accruedInterest";
 import { Loader } from "@mantine/core";
 import LocalizedFiatDisplay from "./LocalizedFiatDisplay";
 import { Trans } from "@lingui/macro";
@@ -28,62 +26,24 @@ export const ReserveAssetAPYAccrued = ({
 
     if (!asset) return <span>---</span>;
 
-    let principalValue: number = asset.underlyingBalance;
-    let accruedValue: number = 0;
+    const { accruedValue, oldestPrincipalTx } = getAccruedSupplyInterest(
+        asset.underlyingBalance,
+        asset.asset,
+        history.data
+    );
 
-    const historyItems: TxHistoryItem[] = history.data
-        .filter(item => {
-            const assetSymbol = asset.asset.symbol?.toUpperCase();
-            return item.reserve?.symbol?.toUpperCase() === assetSymbol ||
-                item.collateralReserve?.symbol?.toUpperCase() === assetSymbol ||
-                item.principalReserve?.symbol?.toUpperCase() === assetSymbol;
-
-        })
-        .sort((a, b) => a.timestamp - b.timestamp);
-
-    historyItems.forEach(txItem => {
-
-        if (txItem.action === "RedeemUnderlying" || txItem.action === "Withdraw") {
-            const amount: number = Number(formatUnits(txItem.amount ?? "0", txItem.reserve?.decimals));
-            principalValue += amount;
-        }
-
-        if (txItem.action === "Supply" || txItem.action === "Deposit") {
-            const amount: number = Number(formatUnits(txItem.amount ?? "0", txItem.reserve?.decimals));
-            principalValue -= amount;
-        }
-
-        if (txItem.action === "LiquidationCall") {
-
-            // isCollateral means the asset is being used to repay a different liquidated asset.
-            const isCollateral: boolean = txItem.collateralReserve?.symbol?.toUpperCase() === asset.asset.symbol?.toUpperCase();
-
-            if (isCollateral) {
-                const amount: number = Number(formatUnits(txItem.collateralAmount ?? "0", txItem.collateralReserve?.decimals));
-                principalValue += amount;
-
-            } else {
-                const amount: number = Number(formatUnits(txItem.principalAmount ?? "0", txItem.principalReserve?.decimals));
-                principalValue -= amount;
-            }
-
-        }
-    });
-
-    accruedValue = principalValue;
-
-    // Unfortunately, the tx history logic is not perfect. We currently don't have a way to account for 
-    // assets that are switched *from* in the UI, and we don't have a reliable way of determining whether
-    // an asset has undergone one of these switch operations. Also, the history API truncates at
-    // MAX_TX_HISTORY_ITEMS, so a maxed-out history is likely incomplete. For now, we'll perform some
-    // sanity logic on the value and if the value fails that check, we won't display it. We can consider
-    // this accrual logic experimental.
+    // The accrual math is only correct when we have the complete principal flow history.
+    // Flows we can't see (aToken transfers, collateral switches, repay-with-aTokens,
+    // truncated history) distort the value, so sanity-check it and hide it when it's
+    // implausible. We can consider this accrual logic experimental.
     let isInvalidValue: boolean = false;
     if (accruedValue < 0) isInvalidValue = true;
     if (history.data.length >= MAX_TX_HISTORY_ITEMS) isInvalidValue = true;
     if (accruedValue > (asset.underlyingBalance * .25)) isInvalidValue = true;
     if (history.fetchError?.length > 0) isInvalidValue = true;
     if (!history?.data?.length) isInvalidValue = true;
+    // without a Supply tx establishing the position, the "accrued" value is meaningless
+    if (!oldestPrincipalTx) isInvalidValue = true;
 
     if (isInvalidValue) {
         return (
@@ -91,10 +51,9 @@ export const ReserveAssetAPYAccrued = ({
         )
     }
 
-    const oldestTx: TxHistoryItem | undefined = historyItems.find(item => item.action === "Supply" || item.action === "Deposit");
     const valueDisplay: string = `${accruedValue?.toFixed(3)} ${asset.asset.symbol} `;
-    const dateDisplay: string = oldestTx?.timestamp
-        ? ` since ${new Date(oldestTx.timestamp * 1000).toLocaleDateString()}`
+    const dateDisplay: string = oldestPrincipalTx?.timestamp
+        ? ` since ${new Date(oldestPrincipalTx.timestamp * 1000).toLocaleDateString()}`
         : "";
 
     return (

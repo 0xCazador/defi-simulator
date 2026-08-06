@@ -1,7 +1,6 @@
-import { formatUnits } from 'ethers/lib/utils';
-
-import { BorrowedAssetDataItem, MAX_TX_HISTORY_ITEMS, TxHistoryItem } from "../hooks/useAaveData";
+import { BorrowedAssetDataItem, MAX_TX_HISTORY_ITEMS } from "../hooks/useAaveData";
 import { useAaveHistory } from "../hooks/useAaveHistory";
+import { getAccruedBorrowInterest } from "../utils/accruedInterest";
 import { Loader } from "@mantine/core";
 import LocalizedFiatDisplay from "./LocalizedFiatDisplay";
 import { Trans } from "@lingui/macro";
@@ -27,54 +26,24 @@ export const BorrowedAssetAPYAccrued = ({
 
     if (!asset) return <span>---</span>;
 
-    let principalValue: number = asset.totalBorrows;
-    let accruedValue: number = 0;
+    const { accruedValue, oldestPrincipalTx } = getAccruedBorrowInterest(
+        asset.totalBorrows,
+        asset.asset,
+        history.data
+    );
 
-    const historyItems: TxHistoryItem[] = history.data
-        .filter(item => (item.reserve?.symbol?.toUpperCase() || item.collateralReserve?.symbol?.toUpperCase() || item.principalReserve?.symbol?.toUpperCase()) === asset.asset.symbol?.toUpperCase())
-        .sort((a, b) => a.timestamp - b.timestamp);
-
-    historyItems.forEach(txItem => {
-
-        if (txItem.action === "Repay") {
-            const amount: number = Number(formatUnits(txItem.amount ?? "0", txItem.reserve?.decimals));
-            principalValue += amount;
-        }
-
-        if (txItem.action === "Borrow") {
-            const amount: number = Number(formatUnits(txItem.amount ?? "0", txItem.reserve?.decimals));
-            principalValue -= amount;
-        }
-
-        if (txItem.action === "LiquidationCall") {
-            // isCollateral means the asset is being used to repay a different liquidated asset.
-            const isCollateral: boolean = txItem.collateralReserve?.symbol?.toUpperCase() === asset.asset.symbol?.toUpperCase();
-
-            if (isCollateral) {
-                const amount: number = Number(formatUnits(txItem.collateralAmount ?? "0", txItem.collateralReserve?.decimals));
-                principalValue += amount;
-
-            } else {
-                const amount: number = Number(formatUnits(txItem.principalAmount ?? "0", txItem.principalReserve?.decimals));
-                principalValue -= amount;
-            }
-
-        }
-    });
-
-    accruedValue = principalValue;
-
-    // Unfortunately, the tx history logic is not perfect. We currently don't have a way to account for 
-    // assets that are switched *from* in the UI, and we don't have a reliable way of determining whether
-    // an asset has undergone one of these switch operations. Also, the history API truncates at
-    // MAX_TX_HISTORY_ITEMS, so a maxed-out history is likely incomplete. For now, we'll perform some
-    // sanity logic on the value and if the value fails that check, we won't display it. We can consider
-    // this accrual logic experimental.
+    // The accrual math is only correct when we have the complete principal flow history.
+    // Flows we can't see (debt switches, truncated history) distort the value, so
+    // sanity-check it and hide it when it's implausible. We can consider this accrual
+    // logic experimental.
     let isInvalidValue: boolean = false;
     if (accruedValue < 0) isInvalidValue = true;
     if (history.data.length >= MAX_TX_HISTORY_ITEMS) isInvalidValue = true;
     if (history.fetchError?.length > 0) isInvalidValue = true;
     if (!history?.data?.length) isInvalidValue = true;
+    // without a Borrow tx establishing the position, the "accrued" value is meaningless
+    // (e.g. debt acquired via a debt-switch adapter would show the entire debt as interest)
+    if (!oldestPrincipalTx) isInvalidValue = true;
 
     if (isInvalidValue) {
         return (
@@ -82,10 +51,9 @@ export const BorrowedAssetAPYAccrued = ({
         )
     }
 
-    const oldestTx: TxHistoryItem | undefined = historyItems.find(item => item.action === "Borrow");
     const valueDisplay: string = `${accruedValue?.toFixed(3)} ${asset.asset.symbol} `;
-    const dateDisplay: string = oldestTx?.timestamp
-        ? ` since ${new Date(oldestTx.timestamp * 1000).toLocaleDateString()}`
+    const dateDisplay: string = oldestPrincipalTx?.timestamp
+        ? ` since ${new Date(oldestPrincipalTx.timestamp * 1000).toLocaleDateString()}`
         : "";
 
     return (
