@@ -1,0 +1,562 @@
+[
+  {
+    "address": "0x46db0650645f7c9a29783c89171a62240ccc35cf",
+    "marketId": "ARBITRUM_V3",
+    "collateralUsd": 28183980,
+    "debtUsd": 26153112,
+    "netWorthUsd": 2030868,
+    "healthFactor": 1.024
+  },
+  {
+    "address": "0x0f8dd218ee17eee03d254805f84c7ba613e45e62",
+    "marketId": "ARBITRUM_V3",
+    "collateralUsd": 23032233,
+    "debtUsd": 21151838,
+    "netWorthUsd": 1880395,
+    "healthFactor": 1.034
+  },
+  {
+    "address": "0x9cbf099ff424979439dfba03f00b5961784c06ce",
+    "marketId": "ARBITRUM_V3",
+    "collateralUsd": 10971838,
+    "debtUsd": 10192577,
+    "netWorthUsd": 779261,
+    "healthFactor": 1.023
+  },
+  {
+    "address": "0xf7462251c14d2fb83c7ab96367a7985423c83010",
+    "marketId": "ARBITRUM_V3",
+    "collateralUsd": 7774438,
+    "debtUsd": 7113201,
+    "netWorthUsd": 661237,
+    "healthFactor": 1.038
+  },
+  {
+    "address": "0x96c9487af21d18ac5f4c841af44a011968445709",
+    "marketId": "ARBITRUM_V3",
+    "collateralUsd": 6172464,
+    "debtUsd": 5792436,
+    "netWorthUsd": 380028,
+    "healthFactor": 1.012
+  },
+  {
+    "address": "0x72655b3926db3afbe914a53b0604905af7ce11a5",
+    "marketId": "ARBITRUM_V3",
+    "collateralUsd": 7519708,
+    "debtUsd": 2280387,
+    "netWorthUsd": 5239321,
+    "healthFactor": 2.766
+  },
+  {
+    "address": "0xfdab4d4fd0f6fbe4033955faad0e9dd00ec00407",
+    "marketId": "ARBITRUM_V3",
+    "collateralUsd": 6490513,
+    "debtUsd": 1608492,
+    "netWorthUsd": 4882021,
+    "healthFactor": 3.344
+  },
+  {
+    "address": "0xa3d843b6a057504284006bef6f34a2e9bc80fb6b",
+    "marketId": "ARBITRUM_V3",
+    "collateralUsd": 4913294,
+    "debtUsd": 2969498,
+    "netWorthUsd": 1943795,
+    "healthFactor": 1.274
+  },
+  {
+    "address": "0xb329504622bd79329c6f82cf8c60c807df2090c4",
+    "marketId": "ARBITRUM_V3",
+    "collateralUsd": 4796515,
+    "debtUsd": 3062053,
+    "netWorthUsd": 1734462,
+    "healthFactor": 1.488
+  },
+  {
+    "address": "0x3f60008dfd0efc03f476d9b489d6c5b13b3ebf2c",
+    "marketId": "ARBITRUM_V3",
+    "collateralUsd": 3511145,
+    "debtUsd": 3284273,
+    "netWorthUsd": 226872,
+    "healthFactor": 1.016
+  },
+  {
+    "address": "0x57b0266f2836f5244f5906d62486fe93d5fa210b",
+    "marketId": "BASE_V3",
+    "collateralUsd": 1061061,
+    "debtUsd": 407981,
+    "netWorthUsd": 653080,
+    "healthFactor": 2.144
+  },
+  {
+    "address": "0xbfef061243c3da14d20aa9cb054350a9192d3a93",
+    "marketId": "BASE_V3",
+    "collateralUsd": 913916,
+    "debtUsd": 484319,
+    "netWorthUsd": 429596,
+    "healthFactor": 1.475
+  },
+  {
+    "address": "0xb7a0c5813a5e4eacc49e1095d2329e9b277fab5f",
+    "marketId": "BASE_V3",
+    "collateralUsd": 384370,
+    "debtUsd": 183439,
+    "netWorthUsd": 200931,
+    "healthFactor": 1.634
+  },
+  {
+    "address": "0x47ec0f9a416106f953f91ebab103c8b81fa50d6d",
+    "marketId": "BASE_V3",
+    "collateralUsd": 317758,
+    "debtUsd": 239293,
+    "netWorthUsd": 78465,
+    "healthFactor": 1.163
+  },
+  {
+    "address": "0xb32cb14f2a5b17d1f1343749e302316be5133321",
+    "marketId": "OPTIMISM_V3",
+    "collateralUsd": 2302384,
+    "debtUsd": 936617,
+    "netWorthUsd": 1365767,
+    "healthFactor": 1.966
+  },
+  {
+    "address": "0xfb74196eccf35a260dd5cfd300baa37ae058b6c0",
+    "marketId": "OPTIMISM_V3",
+    "collateralUsd": 1566221,
+    "debtUsd": 1461711,
+    "netWorthUsd": 104510,
+    "healthFactor": 1.018
+  },
+  {
+    "address": "0xa6fbeaac65de6d6fc900d95932d9320aad9128f0",
+    "marketId": "OPTIMISM_V3",
+    "collateralUsd": 1628359,
+    "debtUsd": 971883,
+    "netWorthUsd": 656476,
+    "healthFactor": 1.313
+  },
+  {
+    "address": "0xf03e3440f5f382dd65467784bd5411a0c1378d4d",
+    "marketId": "OPTIMISM_V3",
+    "collateralUsd": 1107120,
+    "debtUsd": 1029874,
+    "netWorthUsd": 77246,
+    "healthFactor": 1.021
+  },
+  {
+    "address": "0x481c7823e54f000aa278bab4c001971177737aec",
+    "marketId": "OPTIMISM_V3",
+    "collateralUsd": 1147914,
+    "debtUsd": 614213,
+    "netWorthUsd": 533701,
+    "healthFactor": 1.505
+  },
+  {
+    "address": "0x5a67a213718769e85ef8000c90e14708721f381c",
+    "marketId": "OPTIMISM_V3",
+    "collateralUsd": 754774,
+    "debtUsd": 689763,
+    "netWorthUsd": 65011,
+    "healthFactor": 1.04
+  },
+  {
+    "address": "0x3d6c8c147d0033d1615cfab698e4f9a55f273206",
+    "marketId": "OPTIMISM_V3",
+    "collateralUsd": 630991,
+    "debtUsd": 354608,
+    "netWorthUsd": 276383,
+    "healthFactor": 1.477
+  },
+  {
+    "address": "0xe894575004113373d68535ee8e0b7e880278dcf9",
+    "marketId": "OPTIMISM_V3",
+    "collateralUsd": 591418,
+    "debtUsd": 329721,
+    "netWorthUsd": 261697,
+    "healthFactor": 1.404
+  },
+  {
+    "address": "0xad9d3a03648dbcc27aa458238474a1ff88234acf",
+    "marketId": "POLYGON_V3",
+    "collateralUsd": 5463338,
+    "debtUsd": 3531103,
+    "netWorthUsd": 1932236,
+    "healthFactor": 1.207
+  },
+  {
+    "address": "0x03b99c3d4ea494551b8c02709b006a0b71fefcad",
+    "marketId": "POLYGON_V3",
+    "collateralUsd": 4052082,
+    "debtUsd": 2269567,
+    "netWorthUsd": 1782515,
+    "healthFactor": 1.393
+  },
+  {
+    "address": "0x856565db827588a88780454863f98a4a323e13aa",
+    "marketId": "POLYGON_V3",
+    "collateralUsd": 1531393,
+    "debtUsd": 897651,
+    "netWorthUsd": 633742,
+    "healthFactor": 1.338
+  },
+  {
+    "address": "0x24a2535c39242c11fe99fd8b690bf81ab23d9576",
+    "marketId": "POLYGON_V3",
+    "collateralUsd": 1666288,
+    "debtUsd": 575993,
+    "netWorthUsd": 1090294,
+    "healthFactor": 2.256
+  },
+  {
+    "address": "0x04903c4c148dd276555df99fb16fbf1708a43a19",
+    "marketId": "POLYGON_V3",
+    "collateralUsd": 1100044,
+    "debtUsd": 733983,
+    "netWorthUsd": 366061,
+    "healthFactor": 1.169
+  },
+  {
+    "address": "0xc1e01fb99823de3c28174fcdb7e3556758c9b02d",
+    "marketId": "POLYGON_V3",
+    "collateralUsd": 1175483,
+    "debtUsd": 514947,
+    "netWorthUsd": 660536,
+    "healthFactor": 1.781
+  },
+  {
+    "address": "0xc8d0003a00bdee07eeaa4dded0fc590fb9a6bae4",
+    "marketId": "POLYGON_V3",
+    "collateralUsd": 944913,
+    "debtUsd": 530850,
+    "netWorthUsd": 414063,
+    "healthFactor": 1.388
+  },
+  {
+    "address": "0x25175bb03c8384dcf83a17a857cafa08eb94c2de",
+    "marketId": "POLYGON_V3",
+    "collateralUsd": 770779,
+    "debtUsd": 538967,
+    "netWorthUsd": 231811,
+    "healthFactor": 1.115
+  },
+  {
+    "address": "0xf0bb20865277abd641a307ece5ee04e79073416c",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 610731584,
+    "debtUsd": 559843423,
+    "netWorthUsd": 50899725,
+    "healthFactor": 1.036
+  },
+  {
+    "address": "0x9600a48ed0f931d0c422d574e3275a90d8b22745",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 608895072,
+    "debtUsd": 560920806,
+    "netWorthUsd": 47974488,
+    "healthFactor": 1.031
+  },
+  {
+    "address": "0xabdbbd00fad79b257e7313b398a1ea10d9eef8d6",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 470643979,
+    "debtUsd": 188026337,
+    "netWorthUsd": 282617643,
+    "healthFactor": 1.952
+  },
+  {
+    "address": "0x893aa69fbaa1ee81b536f0fbe3a3453e86290080",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 317464506,
+    "debtUsd": 288446481,
+    "netWorthUsd": 29018025,
+    "healthFactor": 1.046
+  },
+  {
+    "address": "0x7cd0b7ed790f626ef1bd42db63b5ebeb5970c912",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 402944511,
+    "debtUsd": 190297495,
+    "netWorthUsd": 212647016,
+    "healthFactor": 1.652
+  },
+  {
+    "address": "0xf34d97c680803358a468e3c56337defaf85ca6da",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 255704436,
+    "debtUsd": 234272765,
+    "netWorthUsd": 21431671,
+    "healthFactor": 1.037
+  },
+  {
+    "address": "0xc468315a2df54f9c076bd5cfe5002ba211f74ca6",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 242992099,
+    "debtUsd": 209944259,
+    "netWorthUsd": 33047840,
+    "healthFactor": 1.076
+  },
+  {
+    "address": "0x99926ab8e1b589500ae87977632f13cf7f70f242",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 271284799,
+    "debtUsd": 169090320,
+    "netWorthUsd": 102194479,
+    "healthFactor": 1.325
+  },
+  {
+    "address": "0x28a55c4b4f9615fde3cdaddf6cc01fcf2e38a6b0",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 286398272,
+    "debtUsd": 130038184,
+    "netWorthUsd": 156360088,
+    "healthFactor": 1.826
+  },
+  {
+    "address": "0x741aa7cfb2c7bf2a1e7d4da2e3df6a56ca4131f3",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 265077826,
+    "debtUsd": 125166616,
+    "netWorthUsd": 139911210,
+    "healthFactor": 1.758
+  },
+  {
+    "address": "0x7ee29373f075ee1d83b1b93b4fe94ae242df5178",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 295817061,
+    "debtUsd": 84971164,
+    "netWorthUsd": 210845896,
+    "healthFactor": 2.82
+  },
+  {
+    "address": "0xe40d278afd00e6187db21ff8c96d572359ef03bf",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 159717544,
+    "debtUsd": 96391867,
+    "netWorthUsd": 63325677,
+    "healthFactor": 1.329
+  },
+  {
+    "address": "0x34780c209d5c575cc1c1ceb57af95d4d2a69ddcf",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 182454050,
+    "debtUsd": 69749468,
+    "netWorthUsd": 112704582,
+    "healthFactor": 2.171
+  },
+  {
+    "address": "0x40e93a52f6af9fcd3b476aedadd7feabd9f7aba8",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 109273522,
+    "debtUsd": 98075924,
+    "netWorthUsd": 11197598,
+    "healthFactor": 1.058
+  },
+  {
+    "address": "0x7bee8d37fba61a6251a08b957d502c56e2a50fab",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 100123663,
+    "debtUsd": 91074291,
+    "netWorthUsd": 9049409,
+    "healthFactor": 1.022
+  },
+  {
+    "address": "0xe84a061897afc2e7ff5fb7e3686717c528617487",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 133231389,
+    "debtUsd": 52842474,
+    "netWorthUsd": 80388915,
+    "healthFactor": 2.037
+  },
+  {
+    "address": "0xd848f54280f8fe8661b796e3bb8d8922c87af452",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 112311106,
+    "debtUsd": 45122910,
+    "netWorthUsd": 67188195,
+    "healthFactor": 2.016
+  },
+  {
+    "address": "0xcf0a12cbd8088fc5f84ad431e71787157041cd69",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 80130596,
+    "debtUsd": 73705196,
+    "netWorthUsd": 6425400,
+    "healthFactor": 1.022
+  },
+  {
+    "address": "0x7055b17a1b911b6b971172c01ff0cc27881aea94",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 126919485,
+    "debtUsd": 23405087,
+    "netWorthUsd": 103514397,
+    "healthFactor": 4.23
+  },
+  {
+    "address": "0xda43cce1263c1b8c8bfacf517fc7dd19d7dd41bd",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 79063571,
+    "debtUsd": 70759681,
+    "netWorthUsd": 8303890,
+    "healthFactor": 1.039
+  },
+  {
+    "address": "0x0a0fa2b02ae73bd9eb4c1e086458099eca42476e",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 96385761,
+    "debtUsd": 39676016,
+    "netWorthUsd": 56709745,
+    "healthFactor": 1.917
+  },
+  {
+    "address": "0x973ddb8ee2c9cc87e853c8d46253840c63951683",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 69804023,
+    "debtUsd": 65590053,
+    "netWorthUsd": 4213970,
+    "healthFactor": 1.011
+  },
+  {
+    "address": "0xdc3abf85e090528669cf1b44ef4082b269c21a95",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 90858231,
+    "debtUsd": 40405189,
+    "netWorthUsd": 50453042,
+    "healthFactor": 1.866
+  },
+  {
+    "address": "0xc3fe8b63ea05e8e27b3f3358d646915d7ed931e4",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 78369242,
+    "debtUsd": 50588573,
+    "netWorthUsd": 27780669,
+    "healthFactor": 1.286
+  },
+  {
+    "address": "0x755013a759c6c56d95b687ef4b2b9864f3654e60",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 65961018,
+    "debtUsd": 59645680,
+    "netWorthUsd": 6315339,
+    "healthFactor": 1.051
+  },
+  {
+    "address": "0x2bd72f8fb377337c9cc16da4dd2dd274537ffb82",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 78495286,
+    "debtUsd": 46661414,
+    "netWorthUsd": 31833872,
+    "healthFactor": 1.396
+  },
+  {
+    "address": "0xabbd5b2b0b034781e58434736728b9d0673de7f1",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 78021562,
+    "debtUsd": 44710118,
+    "netWorthUsd": 33311444,
+    "healthFactor": 1.448
+  },
+  {
+    "address": "0x0591926d5d3b9cc48ae6efb8db68025ddc3adfa5",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 64469747,
+    "debtUsd": 57867335,
+    "netWorthUsd": 6603056,
+    "healthFactor": 1.025
+  },
+  {
+    "address": "0x6142eb927529974c5cded66dafc57cb5aaaf73ab",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 56727354,
+    "debtUsd": 52047820,
+    "netWorthUsd": 4679534,
+    "healthFactor": 1.025
+  },
+  {
+    "address": "0xba20c11a14c7f41589785cd6fc1809b03bd58ecb",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 55793919,
+    "debtUsd": 51943833,
+    "netWorthUsd": 3850086,
+    "healthFactor": 1.02
+  },
+  {
+    "address": "0x34d1231f15da58762a84ead35242896e7fec4ac1",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 60037442,
+    "debtUsd": 38404774,
+    "netWorthUsd": 21632668,
+    "healthFactor": 1.298
+  },
+  {
+    "address": "0x42715ba91deda3c692b9f540cee2fbb4dae78bbb",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 48988235,
+    "debtUsd": 45065078,
+    "netWorthUsd": 3923158,
+    "healthFactor": 1.022
+  },
+  {
+    "address": "0x2269ce2753e2967dd5322a56188c3d24435b3588",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 54649327,
+    "debtUsd": 33595454,
+    "netWorthUsd": 21053872,
+    "healthFactor": 1.35
+  },
+  {
+    "address": "0xed0c6079229e2d407672a117c22b62064f4a4312",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 58819531,
+    "debtUsd": 26874214,
+    "netWorthUsd": 31945317,
+    "healthFactor": 1.817
+  },
+  {
+    "address": "0x28355886a65848488cf0a3646fca395db0a762b1",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 51668727,
+    "debtUsd": 33429499,
+    "netWorthUsd": 18239228,
+    "healthFactor": 1.206
+  },
+  {
+    "address": "0xd8495b95a3a6a85f4e3baa003e8b7ed1ed85562d",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 43938277,
+    "debtUsd": 40802757,
+    "netWorthUsd": 3135519,
+    "healthFactor": 1.023
+  },
+  {
+    "address": "0x0a42b2f3a0d54157dbd7cc346335a4f1909fc02c",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 55930486,
+    "debtUsd": 27551419,
+    "netWorthUsd": 28379068,
+    "healthFactor": 1.624
+  },
+  {
+    "address": "0x26a58af72eff53ddaa064a9df86e8ec3184bee95",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 48609371,
+    "debtUsd": 31564879,
+    "netWorthUsd": 17046032,
+    "healthFactor": 1.201
+  },
+  {
+    "address": "0x1b36972588d214aea7b8f5322f349246bf571cd6",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 49229695,
+    "debtUsd": 30771915,
+    "netWorthUsd": 18457779,
+    "healthFactor": 1.281
+  },
+  {
+    "address": "0x7f6d23e436099ec78a73c430b16782b0d68585bd",
+    "marketId": "ETHEREUM_V3",
+    "collateralUsd": 54542115,
+    "debtUsd": 24226503,
+    "netWorthUsd": 30315613,
+    "healthFactor": 1.801
+  }
+]
