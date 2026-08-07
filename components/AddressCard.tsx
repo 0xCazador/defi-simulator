@@ -1775,16 +1775,38 @@ const Slider = ({ defaultValue, onChange }: SliderProps) => {
       node.noUiSlider = null;
     }
 
+    // Non-linear track centered on the current value, with progressively
+    // finer resolution toward the middle: the inner 20% of the track spans
+    // only ±2% of the value (a pixel of movement ≈ 0.05–0.1%), the next band
+    // spans ±20%, and the edges still reach 0 and 20x for big swings. The
+    // slider re-centers on the new value after each drag, so repeated small
+    // adjustments stay precise.
+    const pivot = (multiplier: number) =>
+      [Math.max(defaultValue * multiplier, multiplier)] as [number];
+
     noUiSlider
       .create(node, {
         start: [defaultValue],
         range: {
           min: [0],
-          "15%": [Math.max(defaultValue * 0.5, 0.5)],
-          "50%": [Math.max(defaultValue, 1)],
-          "85%": [Math.max(defaultValue * 2, 2)],
-          max: [Math.max(defaultValue * 20, 20)],
-        }
+          "8%": pivot(0.25),
+          "25%": pivot(0.8),
+          "40%": pivot(0.98),
+          "50%": pivot(1),
+          "60%": pivot(1.02),
+          "75%": pivot(1.2),
+          "92%": pivot(2),
+          max: pivot(20),
+        },
+        // Arrow keys move by (segment span / keyboardDefaultStep); with the
+        // ±2% center segments this is 0.1% of the value per keypress.
+        keyboardDefaultStep: 20,
+        // Default format rounds to 2 decimals, which would cap precision for
+        // small values (e.g. sub-dollar prices); pass raw numbers through.
+        format: {
+          to: (v: number) => v,
+          from: (v: string) => Number(v),
+        },
       })
       .on("slide", handleChange);
 
@@ -1792,16 +1814,14 @@ const Slider = ({ defaultValue, onChange }: SliderProps) => {
     node?.noUiSlider.on("end", () => setIsDragging(false));
   };
 
-  const handleChange = (val: number[]) => {
-    let rounded = val[0];
-    if (rounded >= 10) rounded = Math.round(rounded);
-    if (rounded >= 100) rounded = Math.round(rounded / 5) * 5;
-    if (rounded >= 1000) rounded = Math.round(rounded / 50) * 50;
-    if (rounded >= 2000) rounded = Math.round(rounded / 100) * 100;
-    if (rounded >= 10000) rounded = Math.round(rounded / 500) * 500;
-    if (rounded >= 20000) rounded = Math.round(rounded / 1000) * 1000;
-    onChange(Number(rounded));
-    setValue(Number(rounded));
+  const handleChange = (val: (number | string)[]) => {
+    const raw = Number(val[0]); // noUiSlider emits formatted strings
+    // Round relative to magnitude (5 significant digits ≈ 0.01% granularity)
+    // rather than fixed absolute steps, so the ultra-fine center-zone moves
+    // register even on large prices/quantities.
+    const rounded = Number.isFinite(raw) && raw > 0 ? Number(raw.toPrecision(5)) : 0;
+    onChange(rounded);
+    setValue(rounded);
   };
 
   return <div ref={divRef} />;
