@@ -7,6 +7,12 @@ import { HealthFactorDataStore } from "../store/healthFactorDataStore";
 import { ChainId } from "@aave/contract-helpers";
 import BigNumber from "bignumber.js";
 import { getAaveData } from "../pages/api/aave";
+import {
+  EModeCategoryData,
+  resolveEffectiveRiskParams,
+} from "../utils/liquidEMode";
+
+export type { EModeCategoryData };
 
 export type HealthFactorData = {
   address: string; // e.g. 0xc...123a or stani.eth
@@ -33,6 +39,10 @@ export type AaveHealthFactorData = {
   userReservesData: ReserveAssetDataItem[];
   userBorrowsData: BorrowedAssetDataItem[];
   userEmodeCategoryId?: number;
+  /** Label of the user's active liquid eMode category, if any */
+  userEmodeLabel?: string;
+  /** All eMode categories configured on this market (liquid eModes) */
+  eModes?: EModeCategoryData[];
   isInIsolationMode?: boolean;
 }
 
@@ -87,6 +97,16 @@ export type AssetDetails = {
   eModeLiquidationThreshold?: number;
   eModeLabel?: string;
   eModeCategoryId?: number;
+  /** Aave reserve id used as the bit index in eMode collateral/borrowable bitmaps */
+  reserveId?: number;
+  /**
+   * Effective LTV / LT for this asset under the current user's eMode
+   * (basis points). When set, these supersede base / legacy eMode fields.
+   */
+  effectiveLtv?: number;
+  effectiveLiquidationThreshold?: number;
+  /** True when this asset is eMode collateral for the user's active category */
+  isEModeCollateral?: boolean;
   borrowableInIsolation?: boolean;
   isSiloedBorrowing?: boolean;
   totalDebt?: number;
@@ -831,17 +851,24 @@ export const updateDerivedHealthFactorData = (
         updatedUnderlyingBalanceMarketReferenceCurrency
       );
 
-      const isEmode: boolean = !!reserveItem.asset.eModeCategoryId && (reserveItem.asset.eModeCategoryId === data.userEmodeCategoryId);
-      const lt: number = isEmode
-        ? reserveItem.asset.eModeLiquidationThreshold || 0
-        : reserveItem.asset.reserveLiquidationThreshold || 0
+      const risk = resolveEffectiveRiskParams({
+        userEmodeCategoryId: data.userEmodeCategoryId,
+        eModes: data.eModes,
+        reserveId: reserveItem.asset.reserveId,
+        baseLtv: reserveItem.asset.baseLTVasCollateral || 0,
+        baseLiquidationThreshold: reserveItem.asset.reserveLiquidationThreshold || 0,
+        legacyEModeCategoryId: reserveItem.asset.eModeCategoryId,
+        legacyEModeLtv: reserveItem.asset.eModeLtv,
+        legacyEModeLiquidationThreshold: reserveItem.asset.eModeLiquidationThreshold,
+      });
+      reserveItem.asset.effectiveLtv = risk.ltv;
+      reserveItem.asset.effectiveLiquidationThreshold = risk.liquidationThreshold;
+      reserveItem.asset.isEModeCollateral = risk.isEMode;
 
-      const ltv: number = isEmode
-        ? reserveItem.asset.eModeLtv || 0
-        : reserveItem.asset.baseLTVasCollateral || 0
-
-      const itemReserveLiquidationThreshold: BigNumber = new BigNumber(lt).dividedBy(10000);
-      const itemBaseLoanToValue: BigNumber = new BigNumber(ltv).dividedBy(10000);
+      const itemReserveLiquidationThreshold: BigNumber = new BigNumber(
+        risk.liquidationThreshold
+      ).dividedBy(10000);
+      const itemBaseLoanToValue: BigNumber = new BigNumber(risk.ltv).dividedBy(10000);
 
       weightedReservesETH = weightedReservesETH.plus(
         itemReserveLiquidationThreshold.multipliedBy(

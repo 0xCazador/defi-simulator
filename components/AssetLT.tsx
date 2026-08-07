@@ -7,7 +7,11 @@ type AssetLTProps = {
 export const AssetLT = ({
     assetDetails
 }: AssetLTProps) => {
-    const lt: number = assetDetails.reserveLiquidationThreshold;
-    let display: string = `${(lt / 100).toFixed(1)}%`;
-    return <span>{display}</span>
+    // Prefer liquid-eMode-resolved effective LT when present; otherwise base.
+    const ltBps: number =
+        assetDetails.effectiveLiquidationThreshold ??
+        assetDetails.reserveLiquidationThreshold;
+    const display: string = `${(ltBps / 100).toFixed(1)}%`;
+    const suffix = assetDetails.isEModeCollateral ? " (E-Mode)" : "";
+    return <span>{display}{suffix}</span>
 };

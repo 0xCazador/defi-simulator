@@ -153,7 +153,12 @@ export const HealthFactorAddressSummary = ({
   ).length;
 
   const market: AaveMarketDataType = markets.find(mkts => mkts.id === currentMarket);
-  const isEmode: boolean = (addressData?.[currentMarket]?.workingData?.userEmodeCategoryId || 0) !== 0;
+  const workingData = addressData?.[currentMarket]?.workingData;
+  const isEmode: boolean = (workingData?.userEmodeCategoryId || 0) !== 0;
+  const eModeLabel: string =
+    workingData?.userEmodeLabel ||
+    workingData?.userReservesData?.find((r) => r.asset.isEModeCollateral)?.asset.eModeLabel ||
+    "";
 
   if (isFetching) {
     return (
@@ -189,7 +194,14 @@ export const HealthFactorAddressSummary = ({
         <Text span size="sm" mt="md" style={{ display: "inline-block" }}>
           {market && ` ${market.title} `}
           {market && <Trans>market selected.</Trans>}
-          {isEmode && <Trans> <Text ml="xs" span><FaBolt />E-mode is enabled by user.</Text></Trans>}
+          {isEmode && (
+            <Text ml="xs" span>
+              <FaBolt />{" "}
+              {eModeLabel
+                ? <Trans>E-Mode: {eModeLabel}</Trans>
+                : <Trans>E-Mode is enabled</Trans>}
+            </Text>
+          )}
         </Text>
       </Center>
 

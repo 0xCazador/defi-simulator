@@ -27,8 +27,16 @@ import {
   ReserveAssetDataItem,
   getCalculatedLiquidationScenario,
   markets,
+  updateDerivedHealthFactorData,
 } from "../../../hooks/useAaveData";
 import { getResolvedAddress } from "../resolver";
+import {
+  EModeCategoryData,
+  fetchEModeCategories,
+  fetchPoolAddress,
+  fetchReserveIds,
+  resolveEffectiveRiskParams,
+} from "../../../utils/liquidEMode";
 
 const allowedMethods = ["POST", "OPTIONS"];
 
@@ -134,13 +142,37 @@ export const getAaveData = async (address: string, market: AaveMarketDataType) =
     userIncentives
   });
 
+  // Liquid eModes (Aave v3.2+): category LTV/LT + bitmaps live on the Pool.
+  // Legacy UiPool/SDK only expose a single per-reserve eModeCategoryId, which
+  // is 0 for most assets that participate via bitmaps — so HF/LTV from
+  // formatUserSummary alone is wrong for many eMode positions.
+  let eModes: EModeCategoryData[] = [];
+  let reserveIds = new Map<string, number>();
+  try {
+    const poolAddress = await fetchPoolAddress(
+      provider,
+      market.addresses.LENDING_POOL_ADDRESS_PROVIDER
+    );
+    const underlyings = userSummary.userReservesData
+      .map((r) => r.reserve.underlyingAsset)
+      .filter(Boolean) as string[];
+    [eModes, reserveIds] = await Promise.all([
+      fetchEModeCategories(provider, poolAddress),
+      fetchReserveIds(provider, poolAddress, underlyings),
+    ]);
+  } catch (err) {
+    console.error(`Unable to fetch liquid eMode data for ${market.id}:`, err);
+  }
+
   const hf: HealthFactorData = aaveUserSummaryToHealthFactor(
     userSummary,
     address,
     user, // if address is an ens, user will point to the resolved address.
     market,
     baseCurrencyData,
-    userReserves.userEmodeCategoryId
+    userReserves.userEmodeCategoryId,
+    eModes,
+    reserveIds
   );
   return hf;
 };
@@ -151,10 +183,27 @@ const aaveUserSummaryToHealthFactor = (
   resolvedAddress: string,
   market: AaveMarketDataType,
   baseCurrencyData: any,
-  userEmodeCategoryId: number
+  userEmodeCategoryId: number,
+  eModes: EModeCategoryData[] = [],
+  reserveIds: Map<string, number> = new Map()
 ) => {
+  const activeEMode = eModes.find((e) => e.id === userEmodeCategoryId);
+  const userEmodeLabel = activeEMode?.label || undefined;
+
   const getAssetDetailsFromReserveItem = (reserveItem: ComputedUserReserve) => {
     const { reserve } = reserveItem;
+    const underlying = (reserve.underlyingAsset || "").toLowerCase();
+    const reserveId = reserveIds.get(underlying);
+    const risk = resolveEffectiveRiskParams({
+      userEmodeCategoryId,
+      eModes,
+      reserveId,
+      baseLtv: Number(reserve.baseLTVasCollateral),
+      baseLiquidationThreshold: Number(reserve.reserveLiquidationThreshold),
+      legacyEModeCategoryId: Number(reserve.eModeCategoryId),
+      legacyEModeLtv: Number(reserve.eModeLtv),
+      legacyEModeLiquidationThreshold: Number(reserve.eModeLiquidationThreshold),
+    });
     const details: AssetDetails = {
       symbol: reserve.symbol,
       name: reserve.name,
@@ -192,7 +241,11 @@ const aaveUserSummaryToHealthFactor = (
       eModeLtv: Number(reserve.eModeLtv),
       eModeLiquidationThreshold: Number(reserve.eModeLiquidationThreshold),
       eModeCategoryId: Number(reserve.eModeCategoryId),
-      eModeLabel: reserve.eModeLabel,
+      eModeLabel: reserve.eModeLabel || userEmodeLabel,
+      reserveId,
+      effectiveLtv: risk.ltv,
+      effectiveLiquidationThreshold: risk.liquidationThreshold,
+      isEModeCollateral: risk.isEMode,
       borrowableInIsolation: Boolean(reserve.borrowableInIsolation),
       isSiloedBorrowing: Boolean(reserve.isSiloedBorrowing)
     };
@@ -253,9 +306,10 @@ const aaveUserSummaryToHealthFactor = (
         return item;
       }),
     userEmodeCategoryId,
+    userEmodeLabel,
+    eModes,
     isInIsolationMode: userSummary.isInIsolationMode,
   };
-  const reserveDataCopy = { ...reserveData };
 
   const marketReferenceCurrencyPriceInUSD = new BigNumber(
     baseCurrencyData.marketReferenceCurrencyPriceInUsd
@@ -263,21 +317,28 @@ const aaveUserSummaryToHealthFactor = (
     .shiftedBy(-8)
     .toNumber();
 
-  const fetchedData = {
-    healthFactor: reserveData.healthFactor,
-    totalBorrowsUSD: reserveData.totalBorrowsUSD,
-    availableBorrowsUSD: reserveData.availableBorrowsUSD,
-    totalCollateralMarketReferenceCurrency:
-      reserveData.totalCollateralMarketReferenceCurrency,
-    totalBorrowsMarketReferenceCurrency:
-      reserveData.totalBorrowsMarketReferenceCurrency,
-    currentLiquidationThreshold: reserveData.currentLiquidationThreshold,
-    currentLoanToValue: reserveData.currentLoanToValue,
-    userReservesData: reserveData.userReservesData,
-    userBorrowsData: reserveData.userBorrowsData,
-    userEmodeCategoryId: reserveData.userEmodeCategoryId,
-    isInIsolationMode: reserveData.isInIsolationMode
-  };
+  // Recompute HF/LTV/LT with liquid eMode bitmaps. The SDK summary above still
+  // uses legacy per-reserve eModeCategoryId matching, which misses most categories.
+  const fetchedData = updateDerivedHealthFactorData(
+    {
+      healthFactor: reserveData.healthFactor,
+      totalBorrowsUSD: reserveData.totalBorrowsUSD,
+      availableBorrowsUSD: reserveData.availableBorrowsUSD,
+      totalCollateralMarketReferenceCurrency:
+        reserveData.totalCollateralMarketReferenceCurrency,
+      totalBorrowsMarketReferenceCurrency:
+        reserveData.totalBorrowsMarketReferenceCurrency,
+      currentLiquidationThreshold: reserveData.currentLiquidationThreshold,
+      currentLoanToValue: reserveData.currentLoanToValue,
+      userReservesData: reserveData.userReservesData,
+      userBorrowsData: reserveData.userBorrowsData,
+      userEmodeCategoryId: reserveData.userEmodeCategoryId,
+      userEmodeLabel: reserveData.userEmodeLabel,
+      eModes: reserveData.eModes,
+      isInIsolationMode: reserveData.isInIsolationMode,
+    },
+    marketReferenceCurrencyPriceInUSD
+  );
 
   const hf: HealthFactorData = {
     address,

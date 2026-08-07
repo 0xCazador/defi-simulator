@@ -7,7 +7,10 @@ type AssetLTVProps = {
 export const AssetLTV = ({
     assetDetails
 }: AssetLTVProps) => {
-    const lt: number = assetDetails.baseLTVasCollateral;
-    let display: string = `${(lt / 100).toFixed(1)}%`;
-    return <span>{display}</span>
+    // Prefer liquid-eMode-resolved effective LTV when present; otherwise base.
+    const ltvBps: number =
+        assetDetails.effectiveLtv ?? assetDetails.baseLTVasCollateral;
+    const display: string = `${(ltvBps / 100).toFixed(1)}%`;
+    const suffix = assetDetails.isEModeCollateral ? " (E-Mode)" : "";
+    return <span>{display}{suffix}</span>
 };
