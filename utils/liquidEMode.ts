@@ -99,6 +99,24 @@ export const fetchReserveIds = async (
   return new Map(entries.filter(([, id]) => id >= 0));
 };
 
+/**
+ * On-chain labels for newer governance-created categories are raw
+ * underscore-formatted strings like "rsETH__ETH_wstETH_ETHx" ("__" separates
+ * the collateral side from the borrowable side, "_" separates words/tokens).
+ * Beautify for display and cap the length.
+ */
+export const formatEModeLabel = (label?: string, maxLength = 32): string => {
+  if (!label) return "";
+  const pretty = label
+    .split("__")
+    .map((side) => side.split("_").filter(Boolean).join(" "))
+    .join(" / ")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (pretty.length <= maxLength) return pretty;
+  return `${pretty.slice(0, maxLength - 1).trimEnd()}…`;
+};
+
 export type RiskParams = {
   /** basis points */
   ltv: number;

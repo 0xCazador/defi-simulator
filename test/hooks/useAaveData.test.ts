@@ -7,7 +7,16 @@ import {
   getCalculatedLiquidationScenario,
 } from "../../hooks/useAaveData";
 import testDataItems from "../fixtures/aave/AaveHealthFactorData.json";
-import fetchMock from "jest-fetch-mock";
+import { getAaveData } from "../../pages/api/aave";
+
+// The hook calls getAaveData directly (not the /api/aave route), so mock the
+// module. The factory avoids loading the real implementation, which pulls in
+// ethers providers and other heavy server-side dependencies.
+jest.mock("../../pages/api/aave", () => ({
+  getAaveData: jest.fn(),
+}));
+
+const mockGetAaveData = getAaveData as jest.Mock;
 
 const PRECISION = 6;
 
@@ -34,9 +43,13 @@ describe.each(testDataItems)(`useAaveData ()`, (testDataItem) => {
   if (!reserveDataItem) return;
 
   beforeEach(() => {
-    fetchMock.resetMocks();
+    mockGetAaveData.mockReset();
     const testHF = getHFDataFromAaveDataSeed(testDataItem);
-    fetchMock.mockResponse(JSON.stringify(testHF));
+    // Deep-clone per call (like the old response.json() did) so each market
+    // gets distinct objects and fetchedData/workingData aren't shared refs.
+    mockGetAaveData.mockImplementation(async () =>
+      JSON.parse(JSON.stringify(testHF))
+    );
   });
 
   describe(`when an address is passed in (${testDataItem.address})`, () => {
@@ -46,14 +59,14 @@ describe.each(testDataItems)(`useAaveData ()`, (testDataItem) => {
       await waitFor(() => {
         const data = result.current.addressData?.[result.current.currentMarket];
         expect(data.workingData).not.toBeUndefined();
-        expect(fetch).toHaveBeenCalledTimes(markets.length);
+        expect(mockGetAaveData).toHaveBeenCalledTimes(markets.length);
       });
 
       const data = result.current.addressData?.[result.current.currentMarket];
 
       expect(result.current.currentAddress).toEqual(testDataItem.address);
       expect(data.workingData).not.toBeUndefined();
-      expect(fetch).toHaveBeenCalledTimes(markets.length);
+      expect(mockGetAaveData).toHaveBeenCalledTimes(markets.length);
     });
 
     describe("when a supplied asset quantity is changed", () => {

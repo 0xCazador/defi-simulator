@@ -64,6 +64,7 @@ import { useFiatRates } from "../hooks/useFiatData";
 import { AssetAPY } from "./AssetAPY";
 import ReserveAssetDetailsDialog from "./ReserveAssetDetailsDialog";
 import BorrowedAssetDetailsDialog from "./BorrowedAssetDetailsDialog";
+import { formatEModeLabel } from "../utils/liquidEMode";
 
 type Props = {};
 
@@ -155,10 +156,11 @@ export const HealthFactorAddressSummary = ({
   const market: AaveMarketDataType = markets.find(mkts => mkts.id === currentMarket);
   const workingData = addressData?.[currentMarket]?.workingData;
   const isEmode: boolean = (workingData?.userEmodeCategoryId || 0) !== 0;
-  const eModeLabel: string =
+  const eModeLabel: string = formatEModeLabel(
     workingData?.userEmodeLabel ||
     workingData?.userReservesData?.find((r) => r.asset.isEModeCollateral)?.asset.eModeLabel ||
-    "";
+    ""
+  );
 
   if (isFetching) {
     return (

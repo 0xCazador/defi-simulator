@@ -3,19 +3,13 @@ import { ethers } from "ethers";
 import {
   UiPoolDataProvider,
   UiPoolDataProviderContext,
-  UiIncentiveDataProvider,
-  UiIncentiveDataProviderContext,
-  ReservesIncentiveDataHumanized,
-  UserReservesIncentivesDataHumanized
 } from "@aave/contract-helpers";
 import dayjs from "dayjs";
 import {
   ComputedUserReserve,
   FormatUserSummaryResponse,
   formatReserves,
-  formatReservesAndIncentives,
   formatUserSummary,
-  formatUserSummaryAndIncentives,
 } from "@aave/math-utils";
 import BigNumber from "bignumber.js";
 import {
@@ -73,14 +67,6 @@ export const getAaveData = async (address: string, market: AaveMarketDataType) =
   };
   const poolDataProviderContract = new UiPoolDataProvider(UiPoolDataCtx);
 
-  const UiIncentiveDataCtx: UiIncentiveDataProviderContext = {
-    uiIncentiveDataProviderAddress: market.addresses.UI_INCENTIVE_DATA_PROVIDER,
-    provider,
-    chainId: market.chainId,
-  };
-
-  const incentiveDataProviderContract = new UiIncentiveDataProvider(UiIncentiveDataCtx);
-
   const user = (await getResolvedAddress(address)) || "0x87cCC67f0c1b67745989542152DD4acff3841CD6";
 
   const [reserves, userReserves] = await Promise.all([
@@ -93,43 +79,22 @@ export const getAaveData = async (address: string, market: AaveMarketDataType) =
     })
   ]);
 
-  // Incentive data is non-critical for health factor calculations, and the
-  // on-chain UiIncentiveDataProvider can revert if any reward's price oracle
-  // is dead (e.g. the deprecated stMATIC feed on Polygon after the MATIC->POL
-  // migration). Degrade to "no incentives" instead of failing the market.
-  let reserveIncentives: ReservesIncentiveDataHumanized[] = [];
-  let userIncentives: UserReservesIncentivesDataHumanized[] = [];
-  try {
-    [reserveIncentives, userIncentives] = await Promise.all([
-      incentiveDataProviderContract.getReservesIncentivesDataHumanized({
-        lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER
-      }),
-      incentiveDataProviderContract.getUserReservesIncentivesDataHumanized({
-        lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
-        user
-      })
-    ]);
-  } catch (err) {
-    console.error(`Unable to fetch incentive data for ${market.id}, continuing without it:`, err);
-  }
-
   const reservesArray = reserves.reservesData;
   const { baseCurrencyData } = reserves;
   const userReservesArray = userReserves.userReserves;
 
   const currentTimestamp = dayjs().unix();
 
-  const formattedPoolReserves = formatReservesAndIncentives({
+  const formattedPoolReserves = formatReserves({
     reserves: reservesArray,
     currentTimestamp,
     marketReferenceCurrencyDecimals:
       baseCurrencyData.marketReferenceCurrencyDecimals,
     marketReferencePriceInUsd:
       baseCurrencyData.marketReferenceCurrencyPriceInUsd,
-    reserveIncentives
   });
 
-  const userSummary = formatUserSummaryAndIncentives({
+  const userSummary = formatUserSummary({
     currentTimestamp,
     marketReferencePriceInUsd:
       baseCurrencyData.marketReferenceCurrencyPriceInUsd,
@@ -138,8 +103,6 @@ export const getAaveData = async (address: string, market: AaveMarketDataType) =
     userReserves: userReservesArray,
     formattedReserves: formattedPoolReserves,
     userEmodeCategoryId: userReserves.userEmodeCategoryId,
-    reserveIncentives,
-    userIncentives
   });
 
   // Liquid eModes (Aave v3.2+): category LTV/LT + bitmaps live on the Pool.
@@ -339,6 +302,14 @@ const aaveUserSummaryToHealthFactor = (
     },
     marketReferenceCurrencyPriceInUSD
   );
+
+  // formatUserSummary reports healthFactor as -1 when the user has no debt,
+  // but the recompute above turns that into Infinity — which JSON-serializes
+  // to null, and `null > -1` is true, so every empty wallet looked like an
+  // open position on the client. Restore the SDK sentinel when there's no debt.
+  if (!(fetchedData.totalBorrowsMarketReferenceCurrency > 0)) {
+    fetchedData.healthFactor = reserveData.healthFactor;
+  }
 
   const hf: HealthFactorData = {
     address,

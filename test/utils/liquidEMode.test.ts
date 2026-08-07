@@ -1,7 +1,39 @@
 import {
+  formatEModeLabel,
   isReserveInBitmap,
   resolveEffectiveRiskParams,
 } from "../../utils/liquidEMode";
+
+describe("formatEModeLabel", () => {
+  it("returns empty string for missing labels", () => {
+    expect(formatEModeLabel(undefined)).toBe("");
+    expect(formatEModeLabel("")).toBe("");
+  });
+
+  it("leaves human-readable labels unchanged", () => {
+    expect(formatEModeLabel("ETH correlated")).toBe("ETH correlated");
+    expect(formatEModeLabel("eBTC/WBTC")).toBe("eBTC/WBTC");
+  });
+
+  it("beautifies underscore-formatted labels", () => {
+    expect(formatEModeLabel("rsETH__ETH_wstETH_ETHx")).toBe(
+      "rsETH / ETH wstETH ETHx"
+    );
+    expect(formatEModeLabel("LINK__USDC_USDT")).toBe("LINK / USDC USDT");
+    expect(formatEModeLabel("LBTC_WBTC")).toBe("LBTC WBTC");
+    expect(formatEModeLabel("PT_USDG_28MAY2026__Stablecoins")).toBe(
+      "PT USDG 28MAY2026 / Stablecoins"
+    );
+  });
+
+  it("truncates long labels with an ellipsis", () => {
+    const formatted = formatEModeLabel(
+      "PT_srUSDe_2APR2026_sUSDe__USDT_USDe_USDC"
+    );
+    expect(formatted.length).toBeLessThanOrEqual(32);
+    expect(formatted.endsWith("…")).toBe(true);
+  });
+});
 
 describe("isReserveInBitmap", () => {
   // ETH correlated collateralBitmap 2952790659 includes reserve ids 0 and 1 (WETH, wstETH)
