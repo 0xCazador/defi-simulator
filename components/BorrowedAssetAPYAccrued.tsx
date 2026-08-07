@@ -1,9 +1,10 @@
-import { BorrowedAssetDataItem, MAX_TX_HISTORY_ITEMS } from "../hooks/useAaveData";
-import { useAaveHistory } from "../hooks/useAaveHistory";
-import { getAccruedBorrowInterest } from "../utils/accruedInterest";
+import { BorrowedAssetDataItem, useAaveData } from "../hooks/useAaveData";
+import { useAccruedInterest } from "../hooks/useAccruedInterest";
 import { Loader } from "@mantine/core";
 import LocalizedFiatDisplay from "./LocalizedFiatDisplay";
 import { Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
+import { formatTokenAmount } from "../utils/formatTokenAmount";
 
 type BorrowedAssetAPYAccruedProps = {
     asset: BorrowedAssetDataItem
@@ -16,34 +17,32 @@ export const BorrowedAssetAPYAccrued = ({
     address,
     resolvedAddress
 }: BorrowedAssetAPYAccruedProps) => {
-    const { history } = useAaveHistory(address, resolvedAddress);
+    const { i18n } = useLingui();
+    const { currentMarket } = useAaveData(address, true);
+    const accrual = useAccruedInterest(
+        currentMarket,
+        resolvedAddress,
+        asset?.asset?.variableDebtTokenAddress,
+        "borrow"
+    );
 
-    if (!history || history.isFetching) {
+    if (!asset) return <span>---</span>;
+
+    if (accrual.isFetching) {
         return (
             <span><Loader variant="dots" color="dimmed" /></span>
         )
     }
 
-    if (!asset) return <span>---</span>;
+    const accruedValue: number = Number(accrual.accruedValue ?? "0");
 
-    const { accruedValue, oldestPrincipalTx } = getAccruedBorrowInterest(
-        asset.totalBorrows,
-        asset.asset,
-        history.data
-    );
-
-    // The accrual math is only correct when we have the complete principal flow history.
-    // Flows we can't see (debt switches, truncated history) distort the value, so
-    // sanity-check it and hide it when it's implausible. We can consider this accrual
-    // logic experimental.
-    let isInvalidValue: boolean = false;
-    if (accruedValue < 0) isInvalidValue = true;
-    if (history.data.length >= MAX_TX_HISTORY_ITEMS) isInvalidValue = true;
-    if (history.fetchError?.length > 0) isInvalidValue = true;
-    if (!history?.data?.length) isInvalidValue = true;
-    // without a Borrow tx establishing the position, the "accrued" value is meaningless
-    // (e.g. debt acquired via a debt-switch adapter would show the entire debt as interest)
-    if (!oldestPrincipalTx) isInvalidValue = true;
+    // The accrual math over token events is exact, so a negative value indicates a
+    // token with non-standard accounting (e.g. GHO's discounted debt) or an RPC
+    // inconsistency; hide the value rather than display a wrong number.
+    const isInvalidValue: boolean =
+        !!accrual.fetchError?.length ||
+        accrual.accruedValue === undefined ||
+        accruedValue < 0;
 
     if (isInvalidValue) {
         return (
@@ -51,9 +50,9 @@ export const BorrowedAssetAPYAccrued = ({
         )
     }
 
-    const valueDisplay: string = `${accruedValue?.toFixed(3)} ${asset.asset.symbol} `;
-    const dateDisplay: string = oldestPrincipalTx?.timestamp
-        ? ` since ${new Date(oldestPrincipalTx.timestamp * 1000).toLocaleDateString()}`
+    const valueDisplay: string = `${formatTokenAmount(accruedValue, i18n.locale)} ${asset.asset.symbol} `;
+    const dateDisplay: string = accrual.sinceTimestamp
+        ? ` since ${i18n.date(new Date(accrual.sinceTimestamp * 1000), { dateStyle: "medium" })}`
         : "";
 
     return (

@@ -34,40 +34,6 @@ export type AaveHealthFactorData = {
   userBorrowsData: BorrowedAssetDataItem[];
   userEmodeCategoryId?: number;
   isInIsolationMode?: boolean;
-  txHistory: TxHistory;
-}
-
-export type TxHistory = {
-  data: TxHistoryItem[],
-  isFetching: boolean,
-  fetchError: string,
-  lastFetched: number
-}
-
-export type TxHistoryItem = {
-  id: string;
-  txHash: string;
-  action: "Borrow" | "Repay" | "Supply" | "Deposit" | "RedeemUnderlying" | "Withdraw" | "LiquidationCall" | "UsageAsCollateral";
-  amount?: string; // raw base units, absent for liquidationCall
-  reserve?: TxHistoryReserveItem; // absent for liquidationCall
-  timestamp: number; // unix seconds
-  assetPriceUSD?: string; // absent for liquidationCall
-  // vvv liquidationCall formatting, only present on that action type
-  // collateral i.e. the reserve used to repay the borrowed debt
-  collateralAmount?: string; // raw base units
-  collateralReserve?: TxHistoryReserveItem;
-  collateralPriceUSD?: string;
-  // principal i.e. the borrowed debt that's getting repaid
-  principalAmount?: string; // raw base units
-  principalReserve?: TxHistoryReserveItem;
-  principalPriceUSD?: string;
-}
-
-export type TxHistoryReserveItem = {
-  symbol: string;
-  decimals: number;
-  name: string;
-  underlyingAsset: string;
 }
 
 export type ReserveAssetDataItem = {
@@ -169,16 +135,7 @@ export type AaveMarketDataType = {
   };
   explorer: string;
   explorerName: string;
-  /** The Aave Pool contract address, used to query tx history from the official Aave API */
-  poolAddress: string;
 };
-
-/**
- * Maximum number of tx history items fetched by the history API. If an address has
- * this many items, its history was likely truncated and accrued interest math
- * can't be trusted.
- */
-export const MAX_TX_HISTORY_ITEMS = 500;
 
 export const markets: AaveMarketDataType[] = [
 
@@ -196,7 +153,6 @@ export const markets: AaveMarketDataType[] = [
     },
     explorer: "https://etherscan.io/address/{{ADDRESS}}",
     explorerName: "Etherscan",
-    poolAddress: pools.AaveV3Ethereum.POOL,
   },
   {
     v3: true,
@@ -212,7 +168,6 @@ export const markets: AaveMarketDataType[] = [
     },
     explorer: "https://arbiscan.io/address/{{ADDRESS}}",
     explorerName: "Arbiscan",
-    poolAddress: pools.AaveV3Arbitrum.POOL,
   },
   {
     v3: true,
@@ -228,7 +183,6 @@ export const markets: AaveMarketDataType[] = [
     },
     explorer: "https://optimistic.etherscan.io/address/{{ADDRESS}}",
     explorerName: "Optimistic Etherscan",
-    poolAddress: pools.AaveV3Optimism.POOL,
   },
   {
     v3: true,
@@ -244,7 +198,6 @@ export const markets: AaveMarketDataType[] = [
     },
     explorer: "https://basescan.org/address/{{ADDRESS}}",
     explorerName: "BaseScan",
-    poolAddress: pools.AaveV3Base.POOL,
   },
   {
     v3: true,
@@ -260,7 +213,6 @@ export const markets: AaveMarketDataType[] = [
     },
     explorer: "https://polygonscan.com/address/{{ADDRESS}}",
     explorerName: "PolygonScan",
-    poolAddress: pools.AaveV3Polygon.POOL,
   },
   {
     v3: true,
@@ -276,7 +228,6 @@ export const markets: AaveMarketDataType[] = [
     },
     explorer: "https://avascan.info/blockchain/all/address/{{ADDRESS}}",
     explorerName: "AvaScan",
-    poolAddress: pools.AaveV3Avalanche.POOL,
   },
   /*
   {
@@ -292,7 +243,6 @@ export const markets: AaveMarketDataType[] = [
     },
     explorer: "https://andromeda-explorer.metis.io/address/{{ADDRESS}}",
     explorerName: "Metis Explorer",
-    poolAddress: pools.AaveV3Metis.POOL,
   },
   */
   /*
@@ -309,7 +259,6 @@ export const markets: AaveMarketDataType[] = [
     },
     explorer: "https://gnosisscan.io/address/{{ADDRESS}}",
     explorerName: "Gnosis Scan",
-    poolAddress: pools.AaveV3Gnosis.POOL,
   },
   */
   /*
@@ -326,7 +275,6 @@ export const markets: AaveMarketDataType[] = [
     },
     explorer: "https://scrollscan.com/address/{{ADDRESS}}",
     explorerName: "Scroll Scan",
-    poolAddress: pools.AaveV3Scroll.POOL,
   },
   */
   {
@@ -342,7 +290,6 @@ export const markets: AaveMarketDataType[] = [
     },
     explorer: "https://bscscan.com/address/{{ADDRESS}}",
     explorerName: "BSC Scan",
-    poolAddress: pools.AaveV3BNB.POOL,
   }
 ];
 
@@ -617,11 +564,6 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
     updateAllDerivedHealthFactorData();
   };
 
-  const setTxHistory = (address: string, history: TxHistory) => {
-    const workingData = store.addressData.nested(address)?.[currentMarket]?.workingData as State<AaveHealthFactorData>;
-    if (workingData) workingData.txHistory?.set(history);
-  };
-
   const applyLiquidationScenario = () => {
     const liquidationScenario = getCalculatedLiquidationScenario(
       data?.[currentMarket]?.workingData as AaveHealthFactorData,
@@ -692,7 +634,6 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
     setAssetPriceInUSD,
     applyLiquidationScenario,
     setUseReserveAssetAsCollateral,
-    setTxHistory
   };
 }
 
