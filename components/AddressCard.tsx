@@ -196,39 +196,47 @@ export const HealthFactorAddressSummary = ({
   return (
     <>
       <Center>
-        {count ? (
-          <Text size="sm" style={{ display: "inline-block" }}>
-            <AbbreviatedEthereumAddress address={currentAddress} />
-            {":  "}
-            <Trans>Found</Trans> Aave{" "}
-            <Plural value={Number(count)} one="position" other="positions" />{" "}
-            <Trans>in</Trans> {count}{" "}
-            <Plural value={Number(count)} one="market" other="markets" />
-            .
-          </Text>
-        ) : isFetching ? (
-          <Text size="sm" style={{ display: "inline-block" }}>
-            <AbbreviatedEthereumAddress address={currentAddress} />
-            {": "}
-            <Trans>Checking Aave markets for positions…</Trans>
-          </Text>
-        ) : (
-          <Text size="sm" style={{ display: "inline-block" }}>
-            <AbbreviatedEthereumAddress address={currentAddress} />
-            {": "}
-            <Trans>No Aave positions found.</Trans>
-          </Text>
-        )}
+        {/* The loader is absolutely positioned (out of document flow) so it
+            appears and disappears without shifting the layout. */}
+        <div style={{ position: "relative", display: "inline-block" }}>
+          {count ? (
+            <Text size="sm" style={{ display: "inline-block" }}>
+              <AbbreviatedEthereumAddress address={currentAddress} />
+              {":  "}
+              <Trans>Found</Trans> Aave{" "}
+              <Plural value={Number(count)} one="position" other="positions" />{" "}
+              <Trans>in</Trans> {count}{" "}
+              <Plural value={Number(count)} one="market" other="markets" />
+              .
+            </Text>
+          ) : isFetching ? (
+            <Text size="sm" style={{ display: "inline-block" }}>
+              <AbbreviatedEthereumAddress address={currentAddress} />
+              {": "}
+              <Trans>Checking Aave markets for positions…</Trans>
+            </Text>
+          ) : (
+            <Text size="sm" style={{ display: "inline-block" }}>
+              <AbbreviatedEthereumAddress address={currentAddress} />
+              {": "}
+              <Trans>No Aave positions found.</Trans>
+            </Text>
+          )}
+          {isFetching && (
+            <Loader
+              size="xs"
+              variant="dots"
+              style={{
+                position: "absolute",
+                left: "100%",
+                top: "50%",
+                transform: "translateY(-50%)",
+                marginLeft: "8px",
+              }}
+            />
+          )}
+        </div>
       </Center>
-
-      {isFetching && (
-        <Center mt={4}>
-          <Loader size="xs" variant="dots" mr={8} />
-          <Text size="xs" c="dimmed" span>
-            <Trans>Still checking other markets…</Trans>
-          </Text>
-        </Center>
-      )}
 
       <Center>
         <Text span size="sm" mt="md" style={{ display: "inline-block" }}>
