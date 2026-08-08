@@ -1,7 +1,9 @@
 import * as React from "react";
 import { t, Trans } from "@lingui/macro";
+import { useRouter } from "next/router";
 
 import {
+  Anchor,
   Button,
   Group,
   Modal,
@@ -40,6 +42,7 @@ export default function ReserveAssetDetailsDialog({
   assetDetails,
 }: ReserveAssetDetailsDialogProps) {
   const [open, setOpen] = React.useState(false);
+  const router = useRouter();
   const { addressData, currentMarket, currentAddress } = useAaveData("", true);
 
   const market = markets.find(
@@ -131,6 +134,20 @@ export default function ReserveAssetDetailsDialog({
             }
           />
         </SimpleGrid>
+
+        <Space h="xs" />
+
+        <Group justify="center">
+          <Anchor
+            size="xs"
+            onClick={() => {
+              setOpen(false);
+              router.push(`/interest?address=${currentAddress}`);
+            }}
+          >
+            <Trans>View full interest history</Trans>
+          </Anchor>
+        </Group>
 
         <Divider
           label={t`Contract Information`}

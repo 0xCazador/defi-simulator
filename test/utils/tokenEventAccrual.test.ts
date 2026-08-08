@@ -2,11 +2,15 @@ import { BigNumber } from "ethers";
 
 import {
   TokenFlowEvent,
+  buildLedger,
   clampRoundingDust,
+  classifyEvent,
   findFirstPrincipalEvent,
   getAccruedInterest,
   getNetPrincipal,
+  getPendingInterest,
   getPrincipalFlow,
+  getRealizedInterest,
 } from "../../utils/tokenEventAccrual";
 
 let eventOrder = 0;
@@ -145,6 +149,160 @@ describe("findFirstPrincipalEvent", () => {
     expect(
       findFirstPrincipalEvent([event({ kind: "TransferOut", value: usdc(1) })])
     ).toBeUndefined();
+  });
+});
+
+describe("classifyEvent", () => {
+  it("classifies supply-side events", () => {
+    expect(
+      classifyEvent(
+        event({ kind: "Mint", value: usdc(102), balanceIncrease: usdc(2) }),
+        "supply"
+      )
+    ).toBe("Supply");
+    // withdrawal smaller than accrued interest emits a Mint with negative principal
+    expect(
+      classifyEvent(
+        event({ kind: "Mint", value: usdc(3), balanceIncrease: usdc(8) }),
+        "supply"
+      )
+    ).toBe("Withdraw");
+    expect(
+      classifyEvent(
+        event({ kind: "Burn", value: usdc(98), balanceIncrease: usdc(2) }),
+        "supply"
+      )
+    ).toBe("Withdraw");
+    expect(
+      classifyEvent(event({ kind: "TransferIn", value: usdc(50) }), "supply")
+    ).toBe("TransferIn");
+    expect(
+      classifyEvent(event({ kind: "TransferOut", value: usdc(50) }), "supply")
+    ).toBe("TransferOut");
+  });
+
+  it("classifies borrow-side events", () => {
+    expect(
+      classifyEvent(
+        event({ kind: "Mint", value: usdc(102), balanceIncrease: usdc(2) }),
+        "borrow"
+      )
+    ).toBe("Borrow");
+    // repayment smaller than accrued interest emits a Mint with negative principal
+    expect(
+      classifyEvent(
+        event({ kind: "Mint", value: usdc(3), balanceIncrease: usdc(8) }),
+        "borrow"
+      )
+    ).toBe("Repay");
+    expect(
+      classifyEvent(
+        event({ kind: "Burn", value: usdc(45), balanceIncrease: usdc(5) }),
+        "borrow"
+      )
+    ).toBe("Repay");
+  });
+
+  it("marks zero-principal index updates as interest application", () => {
+    const pureInterest = event({
+      kind: "Mint",
+      value: usdc(2),
+      balanceIncrease: usdc(2),
+    });
+    expect(classifyEvent(pureInterest, "supply")).toBe("InterestApplied");
+    expect(classifyEvent(pureInterest, "borrow")).toBe("InterestApplied");
+  });
+});
+
+describe("buildLedger", () => {
+  it("orders entries by chain order and carries event metadata", () => {
+    const later = event({
+      kind: "Burn",
+      value: usdc(28),
+      balanceIncrease: usdc(2),
+      blockNumber: 200,
+      logIndex: 3,
+      transactionHash: "0xbbb",
+      timestamp: 2000,
+    });
+    const earlier = event({
+      kind: "Mint",
+      value: usdc(100),
+      balanceIncrease: usdc(0),
+      blockNumber: 100,
+      logIndex: 1,
+      transactionHash: "0xaaa",
+      timestamp: 1000,
+    });
+
+    const ledger = buildLedger([later, earlier], "supply");
+
+    expect(ledger.map((entry) => entry.action)).toEqual(["Supply", "Withdraw"]);
+    expect(ledger[0]).toMatchObject({
+      principalDelta: usdc(100),
+      interestRealized: usdc(0),
+      blockNumber: 100,
+      transactionHash: "0xaaa",
+      timestamp: 1000,
+    });
+    expect(ledger[1]).toMatchObject({
+      principalDelta: usdc(-30),
+      interestRealized: usdc(2),
+      blockNumber: 200,
+      transactionHash: "0xbbb",
+      timestamp: 2000,
+    });
+  });
+
+  it("orders same-block entries by log index", () => {
+    const second = event({
+      kind: "Mint",
+      value: usdc(50),
+      balanceIncrease: usdc(0),
+      blockNumber: 100,
+      logIndex: 7,
+    });
+    const first = event({
+      kind: "TransferIn",
+      value: usdc(10),
+      blockNumber: 100,
+      logIndex: 2,
+    });
+
+    const ledger = buildLedger([second, first], "supply");
+
+    expect(ledger.map((entry) => entry.action)).toEqual([
+      "TransferIn",
+      "Supply",
+    ]);
+  });
+});
+
+describe("getRealizedInterest / getPendingInterest", () => {
+  it("splits lifetime interest into realized and pending parts", () => {
+    const events = [
+      event({ kind: "Mint", value: usdc(100), balanceIncrease: usdc(0) }), // supply 100
+      event({ kind: "Burn", value: usdc(28), balanceIncrease: usdc(2) }), // withdraw 30 after accruing 2
+    ];
+    // lifetime interest is 5 (see getAccruedInterest suite): 2 realized + 3 pending
+    expect(getRealizedInterest(events).toString()).toBe(usdc(2));
+    expect(getPendingInterest(usdc(75), events).toString()).toBe(usdc(3));
+  });
+
+  it("reports zero pending interest for a fully closed position", () => {
+    const events = [
+      event({ kind: "Mint", value: usdc(100), balanceIncrease: usdc(0) }),
+      // withdrew everything (108): Burn value = amount - balanceIncrease
+      event({ kind: "Burn", value: usdc(100), balanceIncrease: usdc(8) }),
+    ];
+    expect(getRealizedInterest(events).toString()).toBe(usdc(8));
+    expect(getPendingInterest(usdc(0), events).toString()).toBe("0");
+  });
+
+  it("treats transfers as realizing no interest", () => {
+    const events = [event({ kind: "TransferIn", value: usdc(100) })];
+    expect(getRealizedInterest(events).toString()).toBe("0");
+    expect(getPendingInterest(usdc(103), events).toString()).toBe(usdc(3));
   });
 });
 

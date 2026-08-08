@@ -25,6 +25,8 @@ import { BigNumber } from "ethers";
 
 export type TokenFlowEventKind = "Mint" | "Burn" | "TransferIn" | "TransferOut";
 
+export type AccrualSide = "supply" | "borrow";
+
 export type TokenFlowEvent = {
   kind: TokenFlowEventKind;
   /** the event's `value` in underlying token base units */
@@ -33,6 +35,9 @@ export type TokenFlowEvent = {
   balanceIncrease?: string;
   blockNumber: number;
   logIndex: number;
+  transactionHash?: string;
+  /** unix seconds of the event's block, present once resolved */
+  timestamp?: number;
 };
 
 /** The signed principal delta (base units) contributed by a single event */
@@ -98,3 +103,88 @@ export const findFirstPrincipalEvent = (
         (event.kind === "Mint" || event.kind === "TransferIn") &&
         getPrincipalFlow(event).gt(0)
     );
+
+/**
+ * The user-facing meaning of a single token event. TransferIn / TransferOut
+ * cover aToken transfers between wallets, collateral swaps, and liquidation
+ * seizures. InterestApplied marks index updates that credited accrued interest
+ * to the balance without moving any principal.
+ */
+export type LedgerAction =
+  | "Supply"
+  | "Withdraw"
+  | "Borrow"
+  | "Repay"
+  | "TransferIn"
+  | "TransferOut"
+  | "InterestApplied";
+
+export type LedgerEntry = {
+  action: LedgerAction;
+  /** signed principal change in base units (positive = added to the position) */
+  principalDelta: string;
+  /** interest credited to the balance at this event, in base units */
+  interestRealized: string;
+  blockNumber: number;
+  logIndex: number;
+  transactionHash?: string;
+  /** unix seconds of the event's block */
+  timestamp?: number;
+};
+
+export const classifyEvent = (
+  event: TokenFlowEvent,
+  side: AccrualSide
+): LedgerAction => {
+  switch (event.kind) {
+    case "Mint": {
+      const principal = getPrincipalFlow(event);
+      if (principal.isZero()) return "InterestApplied";
+      // A withdrawal/repayment smaller than the interest accrued since the
+      // previous index update emits a Mint with a negative principal flow.
+      if (principal.gt(0)) return side === "borrow" ? "Borrow" : "Supply";
+      return side === "borrow" ? "Repay" : "Withdraw";
+    }
+    case "Burn":
+      return side === "borrow" ? "Repay" : "Withdraw";
+    case "TransferIn":
+      return "TransferIn";
+    case "TransferOut":
+    default:
+      return "TransferOut";
+  }
+};
+
+/** The chronological, classified accounting of every balance-changing event */
+export const buildLedger = (
+  events: TokenFlowEvent[],
+  side: AccrualSide
+): LedgerEntry[] =>
+  [...events].sort(byChainOrder).map((event) => ({
+    action: classifyEvent(event, side),
+    principalDelta: getPrincipalFlow(event).toString(),
+    interestRealized: BigNumber.from(event.balanceIncrease ?? 0).toString(),
+    blockNumber: event.blockNumber,
+    logIndex: event.logIndex,
+    transactionHash: event.transactionHash,
+    timestamp: event.timestamp,
+  }));
+
+/** Interest that was credited to the balance at past events, in base units */
+export const getRealizedInterest = (events: TokenFlowEvent[]): BigNumber =>
+  events.reduce(
+    (sum, event) => sum.add(BigNumber.from(event.balanceIncrease ?? 0)),
+    BigNumber.from(0)
+  );
+
+/**
+ * Interest accrued since the user's last balance-changing event, in base units:
+ * the part of the lifetime total not yet credited by any Mint/Burn.
+ */
+export const getPendingInterest = (
+  currentBalanceRaw: string,
+  events: TokenFlowEvent[]
+): BigNumber =>
+  getAccruedInterest(currentBalanceRaw, events).sub(
+    getRealizedInterest(events)
+  );
