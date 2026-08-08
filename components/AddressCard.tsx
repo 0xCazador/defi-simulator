@@ -70,6 +70,7 @@ import {
   RiskOverridesChip,
   RiskParamsDialog,
 } from "./RiskParamsEditor";
+import { ConfiguratorButton } from "./ConfiguratorDialog";
 
 type Props = {};
 
@@ -926,6 +927,9 @@ const ExtendedPositionDetails = ({ data }: ExtendedPositionDetailsProps) => {
                     {currBorrowPowerUsedDisplayable}
                   </Text>
                 </Paper>
+              </Grid.Col>
+              <Grid.Col span={12} style={{ textAlign: "center" }}>
+                <ConfiguratorButton />
               </Grid.Col>
             </Grid>
           );

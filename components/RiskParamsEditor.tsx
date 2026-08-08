@@ -33,8 +33,10 @@ import {
 import {
   RiskOverrideEntry,
   RiskParamOverrides,
+  encodeRiskConfig,
   flattenRiskOverrides,
   hasAnyRiskOverrides,
+  sanitizeRiskOverrides,
 } from "../utils/riskOverrides";
 import { formatEModeLabel } from "../utils/liquidEMode";
 import { formatNumber } from "accounting";
@@ -135,7 +137,7 @@ export const resolveOriginalRiskFieldValue = (
 };
 
 /** Collect every asset we know about (position + available) for diffing. */
-const getKnownAssets = (marketData: any): AssetDetails[] => {
+export const getKnownAssets = (marketData: any): AssetDetails[] => {
   const assets: AssetDetails[] = [];
   marketData?.workingData?.userReservesData?.forEach(
     (item: ReserveAssetDataItem) => assets.push(item.asset)
@@ -818,15 +820,28 @@ export const RiskOverridesChip = () => {
   const {
     addressData,
     currentMarket,
+    currentAddress,
     effectiveRiskOverrides,
     riskOverrides,
     clearAllRiskOverrides,
   } = useAaveData("", true);
+  const [showCopied, setShowCopied] = React.useState(false);
 
   const marketData = addressData?.[currentMarket];
   const entries = flattenRiskOverrides(effectiveRiskOverrides);
 
   if (!entries.length) return null;
+
+  const handleShare = () => {
+    const overrides = sanitizeRiskOverrides(effectiveRiskOverrides);
+    if (!hasAnyRiskOverrides(overrides)) return;
+    const encoded = encodeRiskConfig({ marketId: currentMarket, overrides });
+    const url = `${window.location.origin}/?${currentAddress ? `address=${currentAddress}&` : ""
+      }config=${encoded}`;
+    navigator.clipboard.writeText(url);
+    setShowCopied(true);
+    setTimeout(() => setShowCopied(false), 2500);
+  };
 
   const knownAssets = getKnownAssets(marketData);
   const eModes = marketData?.workingData?.eModes as
@@ -889,18 +904,33 @@ export const RiskOverridesChip = () => {
             );
           })}
         </ScrollArea.Autosize>
-        {hasManualOverrides && (
-          <Group position="center" mt="sm">
+        <Group position="center" mt="sm" spacing="xs">
+          <Tooltip
+            label={t`Link copied to clipboard!`}
+            opened={showCopied}
+            color="green"
+            withArrow
+          >
+            <Button
+              variant="subtle"
+              color="gray"
+              compact
+              onClick={handleShare}
+            >
+              <Trans>Copy shareable link</Trans>
+            </Button>
+          </Tooltip>
+          {hasManualOverrides && (
             <Button
               variant="subtle"
               color="gray"
               compact
               onClick={clearAllRiskOverrides}
             >
-              <Trans>Clear all risk parameter changes</Trans>
+              <Trans>Clear all</Trans>
             </Button>
-          </Group>
-        )}
+          )}
+        </Group>
       </Popover.Dropdown>
     </Popover>
   );

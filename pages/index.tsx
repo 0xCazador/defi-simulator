@@ -19,21 +19,24 @@ import { NextRouter, useRouter } from "next/router";
 import { ethers } from "ethers";
 import { Trans, t } from "@lingui/macro";
 
-import { useAaveData } from "../hooks/useAaveData";
+import { useAaveData, markets } from "../hooks/useAaveData";
+import { decodeRiskConfig } from "../utils/riskOverrides";
 import AppBar from "../components/AppBar";
 import AddressInput, { isValidENSAddress } from "../components/AddressInput";
 import AddressCard from "../components/AddressCard";
+import ConfigBanner from "../components/ConfigBanner";
 import Footer from "../components/Footer";
 import { activateLocale } from "./_app";
 
 export default function HomePage() {
   const router: NextRouter = useRouter();
   const address = router?.query?.address as string;
+  const configParam = router?.query?.config as string;
   const isValidAddress: boolean =
     ethers.utils.isAddress(address) || isValidENSAddress(address);
-  const { currentAddress, setCurrentAddress } = useAaveData(
-    isValidAddress ? address : ""
-  );
+  const { currentAddress, setCurrentAddress, setSharedRiskConfig } =
+    useAaveData(isValidAddress ? address : "");
+  const [configInvalid, setConfigInvalid] = useState(false);
 
   const locale = router?.locale;
 
@@ -50,12 +53,48 @@ export default function HomePage() {
   }, [address]);
 
   useEffect(() => {
+    // apply a shared risk parameter config from the url, if present
+    if (!router.isReady || !configParam) return;
+    const decoded = decodeRiskConfig(
+      configParam,
+      markets.map((market) => market.id)
+    );
+    if (decoded) {
+      setConfigInvalid(false);
+      setSharedRiskConfig(decoded);
+    } else {
+      // Malformed/unknown payload: surface a notice and drop the param.
+      setConfigInvalid(true);
+      const { config, ...remainingQuery } = router.query;
+      router.replace({ query: remainingQuery }, undefined, { shallow: true });
+    }
+  }, [router.isReady, configParam]);
+
+  useEffect(() => {
     // ensure current locale is correctly set from url
     if (locale) activateLocale(locale);
   }, [locale]);
 
   return (
     <Container px="xs" style={{ contain: "paint" }}>
+      <ConfigBanner />
+      {configInvalid && (
+        <Alert
+          mt={15}
+          icon={<FiAlertTriangle size="1rem" />}
+          title={<Trans>Invalid Config Link</Trans>}
+          color="red"
+          variant="outline"
+          withCloseButton
+          onClose={() => setConfigInvalid(false)}
+          closeButtonLabel={t`Close alert`}
+        >
+          <Trans>
+            The risk parameter config in this link could not be read, so it
+            was ignored. Ask the sender for a fresh link.
+          </Trans>
+        </Alert>
+      )}
       <AppBar />
       <AddressInput />
       {currentAddress && <AddressCard />}
