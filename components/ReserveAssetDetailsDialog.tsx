@@ -31,6 +31,7 @@ import { ReserveAssetAPYAccrued } from "./ReserveAssetAPYAccrued";
 import { forwardRef } from "react";
 import { AssetLT } from "./AssetLT";
 import { AssetLTV } from "./AssetLTV";
+import { RiskParamsEditor } from "./RiskParamsEditor";
 
 type ReserveAssetDetailsDialogProps = {
     assetDetails: AssetDetails
@@ -124,17 +125,19 @@ export default function ReserveAssetDetailsDialog({ assetDetails }: ReserveAsset
 
                 <Divider label="Risk Parameters" mb={20} mt={20} labelPosition="center" />
 
-                <SimpleGrid cols={2} mb="xl">
+                <SimpleGrid cols={2} mb="md">
                     <AssetDetailsItem
                         title="Liquidation Threshold: "
                         description="The Liquidation Threshold refers to the loan to value percentage that makes the position subject to liquidation. This value represents the Liquidation Threshold provided by this asset."
-                        node={<AssetLT assetDetails={assetDetails} />} />
+                        node={<AssetLT assetDetails={asset.asset} />} />
                     <AssetDetailsItem
                         title="Max Loan to Value: "
                         description="Maximum Loan to Value refers to the loan to value percentage where new loans may not be initiated. This value represents the Maximum Loan to Value provided by this asset."
-                        node={<AssetLTV assetDetails={assetDetails} />} />
+                        node={<AssetLTV assetDetails={asset.asset} />} />
 
                 </SimpleGrid>
+
+                <RiskParamsEditor assetSymbol={assetDetails.symbol} assetType="RESERVE" />
 
                 <Space h="xl" />
 

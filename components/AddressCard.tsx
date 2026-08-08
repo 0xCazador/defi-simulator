@@ -65,6 +65,11 @@ import { AssetAPY } from "./AssetAPY";
 import ReserveAssetDetailsDialog from "./ReserveAssetDetailsDialog";
 import BorrowedAssetDetailsDialog from "./BorrowedAssetDetailsDialog";
 import { formatEModeLabel } from "../utils/liquidEMode";
+import {
+  AssetCapWarning,
+  RiskOverridesChip,
+  RiskParamsDialog,
+} from "./RiskParamsEditor";
 
 type Props = {};
 
@@ -462,6 +467,7 @@ const HealthFactorSummary = ({
                 </Text>
               </Mark>
               <ResetMarketButton />
+              <RiskOverridesChip />
             </Title>
           }
         />
@@ -1385,6 +1391,8 @@ const UserAssetItem = memo(
               ? <ReserveAssetDetailsDialog assetDetails={assetDetails} />
               : <BorrowedAssetDetailsDialog assetDetails={assetDetails} isStableBorrow={isStableBorrow} stableBorrowAPY={stableBorrowAPY} />
             }
+            <RiskParamsDialog assetSymbol={assetSymbol} assetType={assetType} />
+            <AssetCapWarning assetSymbol={assetSymbol} assetType={assetType} />
           </Group>
 
           <Tooltip
