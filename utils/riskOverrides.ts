@@ -372,11 +372,15 @@ const COMPACT_TO_ASSET_FIELD: Record<string, keyof AssetRiskOverride> =
 
 const toBase64Url = (value: string): string => {
   const base64 =
-    typeof window !== "undefined" && typeof window.btoa === "function"
-      ? window.btoa(
-        String.fromCharCode(...new TextEncoder().encode(value))
-      )
-      : Buffer.from(value, "utf8").toString("base64");
+    typeof Buffer !== "undefined"
+      ? Buffer.from(value, "utf8").toString("base64")
+      : // UTF-8 encode via percent-escapes so btoa only sees byte values
+      window.btoa(
+        encodeURIComponent(value).replace(
+          /%([0-9A-F]{2})/g,
+          (_match, hex: string) => String.fromCharCode(parseInt(hex, 16))
+        )
+      );
   return base64.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 };
 
@@ -384,12 +388,18 @@ const fromBase64Url = (value: string): string => {
   const base64 =
     value.replace(/-/g, "+").replace(/_/g, "/") +
     "=".repeat((4 - (value.length % 4)) % 4);
-  if (typeof window !== "undefined" && typeof window.atob === "function") {
-    const binary = window.atob(base64);
-    const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
-    return new TextDecoder().decode(bytes);
+  if (typeof Buffer !== "undefined") {
+    return Buffer.from(base64, "base64").toString("utf8");
   }
-  return Buffer.from(base64, "base64").toString("utf8");
+  const binary = window.atob(base64);
+  return decodeURIComponent(
+    binary
+      .split("")
+      .map(
+        (char) => `%${char.charCodeAt(0).toString(16).padStart(2, "0")}`
+      )
+      .join("")
+  );
 };
 
 /** Encode a market-scoped override config into a URL-safe string. */
