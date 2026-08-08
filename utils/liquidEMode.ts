@@ -55,12 +55,18 @@ export const fetchEModeCategories = async (
     start += EMODE_SCAN_BATCH_SIZE
   ) {
     const ids: number[] = [];
-    for (let id = start; id < Math.min(start + EMODE_SCAN_BATCH_SIZE, 256); id++) {
+    for (
+      let id = start;
+      id < Math.min(start + EMODE_SCAN_BATCH_SIZE, 256);
+      id++
+    ) {
       ids.push(id);
     }
 
     const configs = await Promise.all(
-      ids.map((id) => pool.getEModeCategoryCollateralConfig(id).catch(() => null))
+      ids.map((id) =>
+        pool.getEModeCategoryCollateralConfig(id).catch(() => null)
+      )
     );
 
     const hits: { id: number; cfg: any }[] = [];
@@ -78,11 +84,13 @@ export const fetchEModeCategories = async (
     const details = await Promise.all(
       hits.map(async ({ id, cfg }) => {
         try {
-          const [label, collateralBitmap, borrowableBitmap] = await Promise.all([
-            pool.getEModeCategoryLabel(id).catch(() => ""),
-            pool.getEModeCategoryCollateralBitmap(id),
-            pool.getEModeCategoryBorrowableBitmap(id),
-          ]);
+          const [label, collateralBitmap, borrowableBitmap] = await Promise.all(
+            [
+              pool.getEModeCategoryLabel(id).catch(() => ""),
+              pool.getEModeCategoryCollateralBitmap(id),
+              pool.getEModeCategoryBorrowableBitmap(id),
+            ]
+          );
           const category: EModeCategoryData = {
             id,
             label: String(label || ""),
@@ -109,7 +117,11 @@ export const fetchPoolAddress = async (
   provider: ethers.providers.Provider,
   poolAddressesProvider: string
 ): Promise<string> => {
-  const pap = new ethers.Contract(poolAddressesProvider, PROVIDER_ABI, provider);
+  const pap = new ethers.Contract(
+    poolAddressesProvider,
+    PROVIDER_ABI,
+    provider
+  );
   return pap.getPool();
 };
 
@@ -186,7 +198,12 @@ export const resolveEffectiveRiskParams = (args: {
     legacyEModeLiquidationThreshold,
   } = args;
 
-  if (userEmodeCategoryId && eModes?.length && reserveId !== undefined && reserveId >= 0) {
+  if (
+    userEmodeCategoryId &&
+    eModes?.length &&
+    reserveId !== undefined &&
+    reserveId >= 0
+  ) {
     const cat = eModes.find((e) => e.id === userEmodeCategoryId);
     if (cat && isReserveInBitmap(cat.collateralBitmap, reserveId)) {
       return {
@@ -196,7 +213,11 @@ export const resolveEffectiveRiskParams = (args: {
       };
     }
     // In an eMode but this asset is not collateral in it → base params
-    return { ltv: baseLtv, liquidationThreshold: baseLiquidationThreshold, isEMode: false };
+    return {
+      ltv: baseLtv,
+      liquidationThreshold: baseLiquidationThreshold,
+      isEMode: false,
+    };
   }
 
   // Legacy fallback (pre-liquid eModes / missing bitmap data)
@@ -207,10 +228,15 @@ export const resolveEffectiveRiskParams = (args: {
   ) {
     return {
       ltv: legacyEModeLtv || baseLtv,
-      liquidationThreshold: legacyEModeLiquidationThreshold || baseLiquidationThreshold,
+      liquidationThreshold:
+        legacyEModeLiquidationThreshold || baseLiquidationThreshold,
       isEMode: true,
     };
   }
 
-  return { ltv: baseLtv, liquidationThreshold: baseLiquidationThreshold, isEMode: false };
+  return {
+    ltv: baseLtv,
+    liquidationThreshold: baseLiquidationThreshold,
+    isEMode: false,
+  };
 };

@@ -1,23 +1,25 @@
 import { AppProps } from "next/app";
 import Head from "next/head";
-import {
-  MantineProvider,
-  ColorScheme,
-  MantineThemeOverride,
-} from "@mantine/core";
+import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 
 import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
 import { t } from "@lingui/macro";
 
+import "@mantine/core/styles.css";
+import "@mantine/notifications/styles.css";
+
 // Styles specific to noUI slider
 import "nouislider/dist/nouislider.css";
 import "../css/slider.css";
+import "../css/global.css";
+
+import { theme } from "../theme";
+import languages from "../src/languages/index.json";
 
 const defaultLocale = "en";
 const { messages } = await import(`../src/locales/${defaultLocale}/messages`);
-import languages from "../src/languages/index.json";
 
 i18n.load(defaultLocale, messages);
 i18n.activate(defaultLocale);
@@ -33,12 +35,14 @@ console.log({ langs })
  * @param locale any locale string
  */
 export async function activateLocale(locale: string) {
-  const { messages } = await import(`../src/locales/${locale}/messages`);
-  i18n.load(locale, messages);
+  const { messages: localeMessages } = await import(
+    `../src/locales/${locale}/messages`
+  );
+  i18n.load(locale, localeMessages);
   i18n.activate(locale);
 }
 
-export default function App(props: AppProps & { colorScheme: ColorScheme }) {
+export default function App(props: AppProps) {
   const { Component, pageProps } = props;
 
   return (
@@ -59,19 +63,17 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
           data-cf-beacon='{"token": "42f927fda7404332a3720866ad63795f"}'
         />
         <link rel="shortcut icon" href="/favicon.ico" />
-        {languages.map((language) => {
-          return (
-            <link
-              key={language.code}
-              rel="alternate"
-              hrefLang={language.code}
-              href={`https://defisim.xyz/${language.code}`}
-            />
-          );
-        })}
+        {languages.map((language) => (
+          <link
+            key={language.code}
+            rel="alternate"
+            hrefLang={language.code}
+            href={`https://defisim.xyz/${language.code}`}
+          />
+        ))}
       </Head>
       <I18nProvider i18n={i18n}>
-        <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
+        <MantineProvider theme={theme} forceColorScheme="dark">
           <Component {...pageProps} />
           <Notifications />
         </MantineProvider>
@@ -79,14 +81,3 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
     </>
   );
 }
-
-const theme: MantineThemeOverride = {
-  colorScheme: "dark",
-  breakpoints: {
-    xs: "0",
-    sm: "576",
-    md: "768",
-    lg: "992",
-    xl: "1200",
-  },
-};

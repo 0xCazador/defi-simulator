@@ -61,7 +61,9 @@ describe("useAaveData market resilience", () => {
   beforeEach(() => {
     mockGetAaveData.mockReset();
     mockGetResolvedAddress.mockReset();
-    mockGetResolvedAddress.mockImplementation(async (address: string) => address);
+    mockGetResolvedAddress.mockImplementation(
+      async (address: string) => address
+    );
     jest.spyOn(console, "error").mockImplementation(() => {});
   });
 
@@ -74,7 +76,9 @@ describe("useAaveData market resilience", () => {
   }) => {
     await waitFor(() => {
       markets.forEach((market) => {
-        expect(result.current.addressData?.[market.id]?.lastFetched).toBeTruthy();
+        expect(
+          result.current.addressData?.[market.id]?.lastFetched
+        ).toBeTruthy();
       });
     });
   };

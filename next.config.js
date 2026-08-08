@@ -10,12 +10,6 @@ module.exports = withBundleAnalyzer({
     locales: linguiConfig.locales,
     defaultLocale: "en",
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
   productionBrowserSourceMaps: true,
   webpack: (config) => {
     config.experiments.topLevelAwait = true 

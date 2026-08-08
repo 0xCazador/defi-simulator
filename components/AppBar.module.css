@@ -1,0 +1,54 @@
+.header {
+  height: 56px;
+  padding-left: 0;
+  padding-right: 0;
+  border-bottom: 1px solid var(--mantine-color-dark-4);
+}
+
+.inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 56px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.market {
+  display: flex;
+  align-items: center;
+  color: var(--mantine-color-dark-0);
+  padding: 6px 8px;
+  border-radius: var(--mantine-radius-sm);
+  transition: background-color 100ms ease;
+}
+
+.market:hover {
+  background-color: var(--mantine-color-dark-8);
+}
+
+.marketActive {
+  background-color: var(--mantine-color-dark-8);
+}
+
+.brand {
+  color: var(--mantine-color-dark-0);
+  border-radius: var(--mantine-radius-sm);
+}
+
+.brand:focus-visible {
+  outline: 2px solid var(--mantine-color-brand-5);
+  outline-offset: 2px;
+}
+
+.brandTitle {
+  background: linear-gradient(
+    45deg,
+    var(--mantine-color-brand-4),
+    var(--mantine-color-cyan-4)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}

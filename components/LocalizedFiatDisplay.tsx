@@ -1,33 +1,31 @@
-import { forwardRef } from "react";
-import { Group, Avatar, Text, Select } from "@mantine/core";
-import { t, Trans } from "@lingui/macro";
-import { i18n } from "@lingui/core";
+import { i18n as globalI18n } from "@lingui/core";
 
-import langItems from "../src/languages/index.json";
-import { NextRouter, useRouter } from "next/router";
-import { useFiatRates } from "../hooks/useFiatData";
-
-import currencies from "../src/currencies/index.json";
 import { useLingui } from "@lingui/react";
+import { useFiatRates } from "../hooks/useFiatData";
 
 type LocalizedFiatDisplayProps = {
   valueUSD: number;
   includeCurrencyCode?: boolean;
+  /** Round to whole units, for summary figures where cents add noise */
+  hideFractionDigits?: boolean;
 };
 
 export const getLocalizedFiatString = (
   valueUSD: number,
   currentRate: number,
-  selectedCurrency: string,
-  locale: string = "en"
+  selectedCurrency: string
 ) => {
   const value = currentRate * valueUSD;
-  return i18n.number(value, { style: "currency", currency: selectedCurrency });
+  return globalI18n.number(value, {
+    style: "currency",
+    currency: selectedCurrency,
+  });
 };
 
 export default function LocalizedFiatDisplay({
   valueUSD,
   includeCurrencyCode = false,
+  hideFractionDigits = false,
 }: LocalizedFiatDisplayProps) {
   const { i18n } = useLingui();
   const { selectedCurrency, currentRate } = useFiatRates(false);
@@ -37,6 +35,9 @@ export default function LocalizedFiatDisplay({
   let currencyString = i18n.number(convertedValue, {
     style: "currency",
     currency: selectedCurrency,
+    ...(hideFractionDigits
+      ? { minimumFractionDigits: 0, maximumFractionDigits: 0 }
+      : {}),
   });
 
   if (includeCurrencyCode) currencyString += ` (${selectedCurrency})`;

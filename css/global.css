@@ -1,0 +1,54 @@
+/* Global web3 dark-theme chrome. The app is dark-only. */
+
+:root {
+  /* Accent used to flag values the user has changed in the simulation. */
+  --sim-changed: #fcc419;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--mantine-color-dark-7);
+  /* Subtle brand glows anchoring the corners of the viewport. */
+  background-image:
+    radial-gradient(
+      1200px 600px at 15% -10%,
+      rgba(47, 116, 245, 0.16),
+      transparent 60%
+    ),
+    radial-gradient(
+      1000px 500px at 110% 110%,
+      rgba(34, 211, 238, 0.09),
+      transparent 60%
+    );
+  background-attachment: fixed;
+  font-feature-settings: "cv05", "cv11";
+}
+
+::selection {
+  background: rgba(47, 116, 245, 0.45);
+}
+
+/* Numeric alignment for financial figures. */
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Thin, theme-colored scrollbars (WebKit + Firefox). */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--mantine-color-dark-4) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--mantine-color-dark-4);
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}

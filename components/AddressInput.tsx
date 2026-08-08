@@ -3,22 +3,21 @@ import { useRouter } from "next/router";
 import { ethers } from "ethers";
 import { t } from "@lingui/macro";
 
-import { ActionIcon, Center, Divider, TextInput, Tooltip } from "@mantine/core";
+import { ActionIcon, Center, TextInput, Tooltip } from "@mantine/core";
 import { FaCopy, FaExternalLinkAlt } from "react-icons/fa";
 import { GiDiceSixFacesFive } from "react-icons/gi";
 import { markets, useAaveData } from "../hooks/useAaveData";
 import { RandomAddressButton } from "../pages";
+import classes from "./AddressInput.module.css";
 
-type Props = {};
-
-const AddressInput = ({ }: Props) => {
+const AddressInput = () => {
   const [inputAddress, setInputAddress] = useState("");
   const [showCopied, setShowCopied] = useState(false);
   const router = useRouter();
 
   const { currentAddress, currentMarket } = useAaveData("");
 
-  const market = markets.find((market) => market.id === currentMarket);
+  const market = markets.find((mkt) => mkt.id === currentMarket);
 
   useEffect(() => {
     if (
@@ -59,15 +58,23 @@ const AddressInput = ({ }: Props) => {
     <TextInput
       value={inputAddress || ""}
       size="lg"
+      radius="md"
       placeholder="0x...1234 or bobloblaw.eth"
+      aria-label={t`Ethereum address or ENS name`}
+      classNames={{ input: classes.input }}
       onChange={(event) => setInputAddress(event.target.value?.trim())}
       inputWrapperOrder={["label", "error", "input", "description"]}
       rightSection={
         <Center>
           <RandomAddressButton>
             <Tooltip label={t`Use Random Address`} position="left" withArrow>
-              <ActionIcon bg="#25262b" pr={4} pl={4}>
-                <GiDiceSixFacesFive title={t`Use Random Address`} size={16} />
+              <ActionIcon
+                bg="var(--mantine-color-dark-6)"
+                pr={4}
+                pl={4}
+                aria-label={t`Use Random Address`}
+              >
+                <GiDiceSixFacesFive size={16} />
               </ActionIcon>
             </Tooltip>
           </RandomAddressButton>
@@ -82,12 +89,13 @@ const AddressInput = ({ }: Props) => {
             position="left"
             withArrow
           >
-            <ActionIcon bg="#25262b" pr={8}>
-              <FaCopy
-                title={t`Copy address to clipboard`}
-                size={16}
-                onClick={handleCopy}
-              />
+            <ActionIcon
+              bg="var(--mantine-color-dark-6)"
+              pr={8}
+              aria-label={t`Copy address to clipboard`}
+              onClick={handleCopy}
+            >
+              <FaCopy size={16} />
             </ActionIcon>
           </Tooltip>
           <Tooltip
@@ -100,7 +108,7 @@ const AddressInput = ({ }: Props) => {
               target="_blank"
               href={market?.explorer.replace("{{ADDRESS}}", inputAddress)}
               style={{
-                color: "#e9ecef",
+                color: "var(--mantine-color-dark-0)",
                 marginRight: "44px",
                 marginTop: "2px",
               }}

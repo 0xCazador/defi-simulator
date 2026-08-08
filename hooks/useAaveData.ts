@@ -2,10 +2,9 @@ import { useEffect } from "react";
 import { useHookstate, State } from "@hookstate/core";
 import * as pools from "@bgd-labs/aave-address-book";
 
-import { HealthFactorDataStore } from "../store/healthFactorDataStore";
-
 import { ChainId } from "@aave/contract-helpers";
 import BigNumber from "bignumber.js";
+import { HealthFactorDataStore } from "../store/healthFactorDataStore";
 import { getAaveData } from "../pages/api/aave";
 import { getResolvedAddress } from "../pages/api/resolver";
 import {
@@ -21,14 +20,15 @@ export const MARKET_FETCH_TIMEOUT_MS = 20_000;
 const FALLBACK_RESOLVED_ADDRESS = "0x87cCC67f0c1b67745989542152DD4acff3841CD6";
 
 /** Reject if the promise doesn't settle within `ms`. */
-export const withTimeout = <T,>(
+export const withTimeout = <T>(
   promise: Promise<T>,
   ms: number,
   label: string
 ): Promise<T> =>
   new Promise<T>((resolve, reject) => {
     const timer = setTimeout(
-      () => reject(new Error(`Timed out after ${Math.round(ms / 1000)}s ${label}`)),
+      () =>
+        reject(new Error(`Timed out after ${Math.round(ms / 1000)}s ${label}`)),
       ms
     );
     promise.then(
@@ -75,7 +75,9 @@ export type AaveHealthFactorData = {
   /** All eMode categories configured on this market (liquid eModes) */
   eModes?: EModeCategoryData[];
   isInIsolationMode?: boolean;
-}
+  /** Asset prices at which the position would be liquidated (computed server-side) */
+  liquidationScenario?: AssetDetails[];
+};
 
 export type ReserveAssetDataItem = {
   asset: AssetDetails;
@@ -144,7 +146,7 @@ export type AssetDetails = {
   totalStableDebt?: number;
   totalVariableDebt?: number;
   totalLiquidity?: number;
-  flashLoanEnabled?: boolean
+  flashLoanEnabled?: boolean;
   // Rate data (derived from base pool rates, not incentives)
   supplyAPY?: number;
   variableBorrowAPY?: number;
@@ -152,7 +154,6 @@ export type AssetDetails = {
   supplyAPR?: number;
   variableBorrowAPR?: number;
   stableBorrowAPR?: number;
-
 };
 
 /**
@@ -188,7 +189,6 @@ export type AaveMarketDataType = {
 };
 
 export const markets: AaveMarketDataType[] = [
-
   {
     v3: true,
     id: "ETHEREUM_V3",
@@ -238,8 +238,7 @@ export const markets: AaveMarketDataType[] = [
     chainId: ChainId.base,
     api: `https://base-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
     addresses: {
-      LENDING_POOL_ADDRESS_PROVIDER:
-        pools.AaveV3Base.POOL_ADDRESSES_PROVIDER,
+      LENDING_POOL_ADDRESS_PROVIDER: pools.AaveV3Base.POOL_ADDRESSES_PROVIDER,
       UI_POOL_DATA_PROVIDER: "0xE92cd6164CE7DC68e740765BC1f2a091B6CBc3e4", // pools.AaveV3Base.UI_POOL_DATA_PROVIDER,
     },
     explorer: "https://basescan.org/address/{{ADDRESS}}",
@@ -330,7 +329,7 @@ export const markets: AaveMarketDataType[] = [
     },
     explorer: "https://bscscan.com/address/{{ADDRESS}}",
     explorerName: "BSC Scan",
-  }
+  },
 ];
 
 /** hook to fetch user aave data
@@ -349,7 +348,10 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
   const { currentAddress, addressData, currentMarket } = state;
   const data = addressData?.[currentAddress];
   const addressProvided: boolean = !!(address && address?.length > 0);
-  if (address?.length === 0 || address === "DEBUG") address = currentAddress || "";
+  if (address?.length === 0 || address === "DEBUG") {
+    // eslint-disable-next-line no-param-reassign
+    address = currentAddress || "";
+  }
 
   const isLoadingAny = !!markets.find(
     (market) => data?.[market.id]?.isFetching === true
@@ -405,7 +407,9 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
             `resolving address "${address}"`
           )) || FALLBACK_RESOLVED_ADDRESS;
       } catch (err: any) {
-        const message = `Unable to resolve address "${address}": ${err?.message ?? err}`;
+        const message = `Unable to resolve address "${address}": ${
+          err?.message ?? err
+        }`;
         console.error(message);
         marketsToFetch.forEach((market) => applyFetchError(market, message));
         return;
@@ -480,11 +484,9 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
         const marketDataB = data?.[marketB.id];
 
         const totalCollA =
-          marketDataA?.workingData?.totalCollateralMarketReferenceCurrency ||
-          0;
+          marketDataA?.workingData?.totalCollateralMarketReferenceCurrency || 0;
         const totalCollB =
-          marketDataB?.workingData?.totalCollateralMarketReferenceCurrency ||
-          0;
+          marketDataB?.workingData?.totalCollateralMarketReferenceCurrency || 0;
 
         const priceA = marketDataA?.marketReferenceCurrencyPriceInUSD || 0;
         const priceB = marketDataB?.marketReferenceCurrencyPriceInUSD || 0;
@@ -526,7 +528,7 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
       totalBorrows: 0,
       totalBorrowsUSD: 0,
       totalBorrowsMarketReferenceCurrency: 0,
-      stableBorrowAPY: 0
+      stableBorrowAPY: 0,
     };
 
     const workingData = store.addressData.nested(address)?.[currentMarket]
@@ -570,13 +572,13 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
 
     assetType === "RESERVE"
       ? reserves.set((p) => {
-        p.splice(itemIndex, 1);
-        return p;
-      })
+          p.splice(itemIndex, 1);
+          return p;
+        })
       : borrows.set((p) => {
-        p.splice(itemIndex, 1);
-        return p;
-      });
+          p.splice(itemIndex, 1);
+          return p;
+        });
 
     updateAllDerivedHealthFactorData();
   };
@@ -598,7 +600,7 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
     const workingData = store.addressData.nested(address)[currentMarket]
       .workingData as State<AaveHealthFactorData>;
     const item = workingData?.userBorrowsData.find(
-      (item) => item.asset.symbol.get() === symbol
+      (borrowItem) => borrowItem.asset.symbol.get() === symbol
     );
     if (item?.totalBorrows.get() !== quantity) {
       item?.totalBorrows.set(quantity);
@@ -610,7 +612,7 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
     const workingData = store.addressData.nested(address)[currentMarket]
       .workingData as State<AaveHealthFactorData>;
     const item = workingData?.userReservesData.find(
-      (item) => item.asset.symbol.get() === symbol
+      (reserveItem) => reserveItem.asset.symbol.get() === symbol
     );
 
     if (item?.underlyingBalance.get() !== quantity) {
@@ -661,14 +663,14 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
     updateAllDerivedHealthFactorData();
   };
 
-  const setCurrentAddress = (address: string) => {
-    store.currentAddress.set(address);
+  const setCurrentAddress = (newAddress: string) => {
+    store.currentAddress.set(newAddress);
   };
 
   const updateAllDerivedHealthFactorData = () => {
     const currentMarketReferenceCurrencyPriceInUSD: number = store.addressData
       .nested(address)
-    [currentMarket].marketReferenceCurrencyPriceInUSD.get();
+      [currentMarket].marketReferenceCurrencyPriceInUSD.get();
 
     const healthFactorItem = store.addressData.nested(address)?.[
       currentMarket
@@ -716,38 +718,55 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
  *
  */
 
-export const getHealthFactorColor = (hf: number = 0) => {
-  return hf < 1.1 ? "red" : hf > 3 ? "green" : "yellow";
-};
+export const getHealthFactorColor = (hf: number = 0) =>
+  hf < 1.1 ? "red" : hf > 3 ? "green" : "yellow";
 
 export const isStablecoinAsset = (asset: AssetDetails) => {
   const stablecoinSymbols = [
     // Major USD stablecoins used in Aave
-    "DAI", "USDC", "USDT", "TUSD", "USDP", "BUSD", "FRAX", "LUSD", "SUSD", "GUSD", "USDD", "DUSD",
+    "DAI",
+    "USDC",
+    "USDT",
+    "TUSD",
+    "USDP",
+    "BUSD",
+    "FRAX",
+    "LUSD",
+    "SUSD",
+    "GUSD",
+    "USDD",
+    "DUSD",
     // Aave-specific stablecoins
-    "GHO", "USD", "EUR", "MAI", "USDE", "SUSDE", "EUSDE",
+    "GHO",
+    "USD",
+    "EUR",
+    "MAI",
+    "USDE",
+    "SUSDE",
+    "EUSDE",
     // Euro stablecoins used in Aave
-    "EURT", "EURS", "AGEUR", "PAR"
+    "EURT",
+    "EURS",
+    "AGEUR",
+    "PAR",
   ];
 
-  return !!stablecoinSymbols.find(symbol => asset.symbol?.toUpperCase().includes(symbol));
+  return !!stablecoinSymbols.find((symbol) =>
+    asset.symbol?.toUpperCase().includes(symbol)
+  );
 };
 
-export const isActiveAsset = (asset: AssetDetails) => {
-  return asset.isActive && !asset.isPaused && !asset.isFrozen;
-};
+export const isActiveAsset = (asset: AssetDetails) =>
+  asset.isActive && !asset.isPaused && !asset.isFrozen;
 
-export const isBorrowableAsset = (asset: AssetDetails) => {
-  return isActiveAsset(asset) && asset.borrowingEnabled;
-};
+export const isBorrowableAsset = (asset: AssetDetails) =>
+  isActiveAsset(asset) && asset.borrowingEnabled;
 
-export const isSuppliableAsset = (asset: AssetDetails) => {
-  return isActiveAsset(asset) && asset.usageAsCollateralEnabled;
-};
+export const isSuppliableAsset = (asset: AssetDetails) =>
+  isActiveAsset(asset) && asset.usageAsCollateralEnabled;
 
-export const isFlashloanableAsset = (asset: AssetDetails) => {
-  return isActiveAsset(asset) && asset.flashLoanEnabled;
-};
+export const isFlashloanableAsset = (asset: AssetDetails) =>
+  isActiveAsset(asset) && asset.flashLoanEnabled;
 
 export const getEligibleLiquidationScenarioReserves = (
   hfData: AaveHealthFactorData
@@ -757,9 +776,9 @@ export const getEligibleLiquidationScenarioReserves = (
 
   // Check if there are any borrowed assets that are not stablecoins
   // If so, exclude liquidation scenario entirely
-  const hasNonStablecoinBorrows = hfData.userBorrowsData.some((borrowItem: BorrowedAssetDataItem) => {
-    return !isStablecoinAsset(borrowItem.asset);
-  });
+  const hasNonStablecoinBorrows = hfData.userBorrowsData.some(
+    (borrowItem: BorrowedAssetDataItem) => !isStablecoinAsset(borrowItem.asset)
+  );
 
   if (hasNonStablecoinBorrows) {
     return [];
@@ -784,7 +803,7 @@ export const getEligibleLiquidationScenarioReserves = (
   const exceedsMinResPct: boolean =
     cumulativeReserveMRCValue >
     hfData.totalCollateralMarketReferenceCurrency *
-    (MINIMUM_CUMULATIVE_RESERVE_PCT / 100);
+      (MINIMUM_CUMULATIVE_RESERVE_PCT / 100);
   const exceedsMinResUSD: boolean =
     cumulativeReserveUSDValue > MINIMUM_CUMULATIVE_RESERVE_USD;
 
@@ -799,9 +818,10 @@ export const getEligibleLiquidationScenarioReserves = (
     !!hfData.userBorrowsData.length &&
     !!hfData.userBorrowsData.find(
       (borrowItem: BorrowedAssetDataItem) =>
-        !eligibleReserves.find((reserveItem: ReserveAssetDataItem) => {
-          return reserveItem.asset.symbol === borrowItem.asset.symbol;
-        })
+        !eligibleReserves.find(
+          (reserveItem: ReserveAssetDataItem) =>
+            reserveItem.asset.symbol === borrowItem.asset.symbol
+        )
     );
 
   return hasDifferentBorrowedAsset ? eligibleReserves : [];
@@ -909,19 +929,24 @@ export const updateDerivedHealthFactorData = (
         eModes: data.eModes,
         reserveId: reserveItem.asset.reserveId,
         baseLtv: reserveItem.asset.baseLTVasCollateral || 0,
-        baseLiquidationThreshold: reserveItem.asset.reserveLiquidationThreshold || 0,
+        baseLiquidationThreshold:
+          reserveItem.asset.reserveLiquidationThreshold || 0,
         legacyEModeCategoryId: reserveItem.asset.eModeCategoryId,
         legacyEModeLtv: reserveItem.asset.eModeLtv,
-        legacyEModeLiquidationThreshold: reserveItem.asset.eModeLiquidationThreshold,
+        legacyEModeLiquidationThreshold:
+          reserveItem.asset.eModeLiquidationThreshold,
       });
       reserveItem.asset.effectiveLtv = risk.ltv;
-      reserveItem.asset.effectiveLiquidationThreshold = risk.liquidationThreshold;
+      reserveItem.asset.effectiveLiquidationThreshold =
+        risk.liquidationThreshold;
       reserveItem.asset.isEModeCollateral = risk.isEMode;
 
       const itemReserveLiquidationThreshold: BigNumber = new BigNumber(
         risk.liquidationThreshold
       ).dividedBy(10000);
-      const itemBaseLoanToValue: BigNumber = new BigNumber(risk.ltv).dividedBy(10000);
+      const itemBaseLoanToValue: BigNumber = new BigNumber(risk.ltv).dividedBy(
+        10000
+      );
 
       weightedReservesETH = weightedReservesETH.plus(
         itemReserveLiquidationThreshold.multipliedBy(
@@ -972,9 +997,9 @@ export const updateDerivedHealthFactorData = (
 
     // Update borrowItem.totalBorrowsUSD
     const existingTotalBorrowsUSD = new BigNumber(borrowItem.totalBorrowsUSD);
-    const updatedTotalBorrowsUSD = totalBorrows.multipliedBy(priceInUSD);
-    if (!existingTotalBorrowsUSD.isEqualTo(updatedTotalBorrowsUSD)) {
-      borrowItem.totalBorrowsUSD = updatedTotalBorrowsUSD.toNumber();
+    const itemTotalBorrowsUSD = totalBorrows.multipliedBy(priceInUSD);
+    if (!existingTotalBorrowsUSD.isEqualTo(itemTotalBorrowsUSD)) {
+      borrowItem.totalBorrowsUSD = itemTotalBorrowsUSD.toNumber();
     }
 
     // Update the necessary accumulated values for updating healthFactor etc.
@@ -1093,6 +1118,7 @@ export const getCalculatedLiquidationScenario = (
 ) => {
   if (!hfData) return [];
   // deep clone to avoid mutating state
+  // eslint-disable-next-line no-param-reassign
   hfData = JSON.parse(JSON.stringify(hfData)) as AaveHealthFactorData;
 
   const reserves: ReserveAssetDataItem[] =
@@ -1125,15 +1151,17 @@ export const getCalculatedLiquidationScenario = (
 
   // First, if we're below the HF_LIMIT, iteratively increase the price until hf > HF_LIMIT
   while (hf < HF_LIMIT && i < SHORT_CIRCUIT_LOOP_LIMIT) {
-    i++;
+    i += 1;
 
+    // The closure intentionally reads/writes the loop-carried `hf` accumulator.
+    // eslint-disable-next-line @typescript-eslint/no-loop-func
     assets.forEach((asset) => {
       let priceIncrement = (asset.priceInUSD || 1) * 0.1;
 
       priceIncrement =
         Math.round((priceIncrement + Number.EPSILON) * 100) / 100;
 
-      asset.priceInUSD = asset.priceInUSD + priceIncrement;
+      asset.priceInUSD += priceIncrement;
 
       const reserveItemAsset = hfData.userReservesData.find(
         (item) => item.asset.symbol === asset.symbol
@@ -1161,12 +1189,14 @@ export const getCalculatedLiquidationScenario = (
 
   // Next, uniformly decrement the asset prices until we approach the liquidation threshold.
   while (hf > HF_LIMIT && i < SHORT_CIRCUIT_LOOP_LIMIT && !shortCircuit) {
-    i++;
+    i += 1;
 
     // Track a uniform percentage to decrement asset prices, so that the overall decrement percentage
     // for all assets will be approximately the same.
     let decrementPercentage = 0;
 
+    // The closure intentionally reads/writes the loop-carried accumulators.
+    // eslint-disable-next-line @typescript-eslint/no-loop-func
     assets.forEach((asset) => {
       if (hf < HF_LIMIT) return;
 
@@ -1174,15 +1204,15 @@ export const getCalculatedLiquidationScenario = (
 
       let priceDecrement = decrementPercentage
         ? // Use the uniform percentage, if we  have it
-        Math.max(0.01, (decrementPercentage * asset.priceInUSD) / 100)
+          Math.max(0.01, (decrementPercentage * asset.priceInUSD) / 100)
         : // Else use an approximation based on the difference between current hf and HF_LIMIT
-        Math.max(
-          0.01,
-          Math.min(
-            asset.priceInUSD * ((hf - HF_LIMIT) * 0.45),
-            asset.priceInUSD * 0.5
-          )
-        );
+          Math.max(
+            0.01,
+            Math.min(
+              asset.priceInUSD * ((hf - HF_LIMIT) * 0.45),
+              asset.priceInUSD * 0.5
+            )
+          );
 
       priceDecrement =
         Math.round((priceDecrement + Number.EPSILON) * 100) / 100;
@@ -1197,7 +1227,7 @@ export const getCalculatedLiquidationScenario = (
       // short circuit the operation and assume there is no viable price liquidation scenario for this
       // position.
       if (asset.priceInUSD === 0.01) {
-        if (!assets.find((asset) => asset.priceInUSD > 0.01)) {
+        if (!assets.find((other) => other.priceInUSD > 0.01)) {
           shortCircuit = true;
         }
       }
@@ -1243,11 +1273,11 @@ export const getIconNameFromAssetSymbol = (assetSymbol: string) => {
   if (iconName.includes("pt-")) {
     // Extract the base token from PT tokens
     // e.g., "PT-eUSDE-14AUG2025" -> "eusde"
-    // e.g., "PT-sUSDE-25SEP2025" -> "susde" 
+    // e.g., "PT-sUSDE-25SEP2025" -> "susde"
     // e.g., "PT-USDe-31JUL2025" -> "usde"
     const ptMatch = iconName.match(/pt-(.+?)-/);
     if (ptMatch) {
-      iconName = ptMatch[1];
+      [, iconName] = ptMatch;
     }
   }
 
@@ -1258,7 +1288,7 @@ export const getIconNameFromAssetSymbol = (assetSymbol: string) => {
     // e.g., "PT Ethena sUSDE 25SEP2025" -> "susde"
     const etherealMatch = iconName.match(/(eusde|susde|usde)/);
     if (etherealMatch) {
-      iconName = etherealMatch[1];
+      [, iconName] = etherealMatch;
     }
   }
 
@@ -1272,9 +1302,8 @@ export const getIconNameFromAssetSymbol = (assetSymbol: string) => {
   return iconName;
 };
 
-export const getIconNameFromMarket = (market?: AaveMarketDataType) => {
-  return market?.id
+export const getIconNameFromMarket = (market?: AaveMarketDataType) =>
+  market?.id
     ?.split("_")[0]
     .replace("BNB", "binance") // special case... follow aave interface convention
     .toLowerCase() || "";
-};

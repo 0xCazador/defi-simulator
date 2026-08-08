@@ -1,0 +1,16 @@
+/* Hero treatment for the app's primary control: raised surface with a
+   brand-colored glow when focused. */
+.input {
+  background-color: var(--mantine-color-dark-6);
+  border-color: var(--mantine-color-dark-4);
+  transition:
+    border-color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.input:focus,
+.input:focus-within {
+  border-color: var(--mantine-color-brand-5);
+  box-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--mantine-color-brand-5) 25%, transparent);
+}

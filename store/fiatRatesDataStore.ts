@@ -1,4 +1,3 @@
-import React from "react";
 import { hookstate } from "@hookstate/core";
 
 interface FiatRatesStore {

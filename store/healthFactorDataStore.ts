@@ -1,5 +1,4 @@
-import React from "react";
-import { hookstate, State } from "@hookstate/core";
+import { hookstate } from "@hookstate/core";
 import { HealthFactorData } from "../hooks/useAaveData";
 
 interface HealthFactorStore {

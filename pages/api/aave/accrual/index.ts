@@ -45,8 +45,15 @@ export const getLogsChunked = async (
   try {
     return await provider.getLogs({ ...filter, fromBlock, toBlock });
   } catch (err: any) {
-    const text = `${err?.message ?? ""} ${err?.error?.message ?? ""} ${err?.body ?? ""}`;
-    if (!LOG_CAP_ERROR.test(text) || budget.calls <= 0 || toBlock - fromBlock < 2) throw err;
+    const text = `${err?.message ?? ""} ${err?.error?.message ?? ""} ${
+      err?.body ?? ""
+    }`;
+    if (
+      !LOG_CAP_ERROR.test(text) ||
+      budget.calls <= 0 ||
+      toBlock - fromBlock < 2
+    )
+      throw err;
     const mid = fromBlock + Math.floor((toBlock - fromBlock) / 2);
     const [lower, upper] = await Promise.all([
       getLogsChunked(provider, filter, fromBlock, mid, budget),
@@ -72,9 +79,11 @@ const allowedMethods = ["POST", "OPTIONS"];
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
     if (!allowedMethods.includes(_req.method!)) {
-      return res.status(405).send({ message: "Method not allowed." });
+      res.status(405).send({ message: "Method not allowed." });
+      return;
     }
-    const body = typeof _req.body === "string" ? JSON.parse(_req.body) : _req.body;
+    const body =
+      typeof _req.body === "string" ? JSON.parse(_req.body) : _req.body;
     const { marketId, user, tokenAddress, side } = body as {
       marketId: string;
       user: string;
@@ -90,10 +99,16 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
       !ethers.utils.isAddress(tokenAddress ?? "") ||
       (side !== "supply" && side !== "borrow")
     ) {
-      return res.status(400).json({ message: "Invalid accrual request." });
+      res.status(400).json({ message: "Invalid accrual request." });
+      return;
     }
 
-    const data: AccrualResponse = await getAccrualData(market, user, tokenAddress, side);
+    const data: AccrualResponse = await getAccrualData(
+      market,
+      user,
+      tokenAddress,
+      side
+    );
     res.status(200).json(data);
   } catch (err: any) {
     console.error(err);
@@ -107,7 +122,10 @@ export const getAccrualData = async (
   tokenAddress: string,
   side: AccrualSide
 ): Promise<AccrualResponse> => {
-  const provider = new ethers.providers.StaticJsonRpcProvider(market.api, market.chainId);
+  const provider = new ethers.providers.StaticJsonRpcProvider(
+    market.api,
+    market.chainId
+  );
   const token = new ethers.Contract(tokenAddress, TOKEN_ABI, provider);
   const iface = token.interface;
 
@@ -119,19 +137,25 @@ export const getAccrualData = async (
   // Filtered by the indexed user address, these return the complete event history
   // for this user/token (chunked only if the provider's log cap is hit).
   // Debt tokens are non-transferable, so Transfer queries only apply to the supply side.
-  const [balance, decimals, mintLogs, burnLogs, transferInLogs, transferOutLogs] =
-    await Promise.all([
-      token.balanceOf(user) as Promise<ethers.BigNumber>,
-      token.decimals() as Promise<number>,
-      userLogs([iface.getEventTopic("Mint"), null, userTopic]),
-      userLogs([iface.getEventTopic("Burn"), userTopic]),
-      side === "supply"
-        ? userLogs([iface.getEventTopic("Transfer"), null, userTopic])
-        : Promise.resolve([]),
-      side === "supply"
-        ? userLogs([iface.getEventTopic("Transfer"), userTopic])
-        : Promise.resolve([]),
-    ]);
+  const [
+    balance,
+    decimals,
+    mintLogs,
+    burnLogs,
+    transferInLogs,
+    transferOutLogs,
+  ] = await Promise.all([
+    token.balanceOf(user) as Promise<ethers.BigNumber>,
+    token.decimals() as Promise<number>,
+    userLogs([iface.getEventTopic("Mint"), null, userTopic]),
+    userLogs([iface.getEventTopic("Burn"), userTopic]),
+    side === "supply"
+      ? userLogs([iface.getEventTopic("Transfer"), null, userTopic])
+      : Promise.resolve([]),
+    side === "supply"
+      ? userLogs([iface.getEventTopic("Transfer"), userTopic])
+      : Promise.resolve([]),
+  ]);
 
   const events: TokenFlowEvent[] = [];
 

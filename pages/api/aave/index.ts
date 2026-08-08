@@ -1,12 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { ethers } from "ethers";
 import {
+  ReserveDataHumanized,
   UiPoolDataProvider,
   UiPoolDataProviderContext,
 } from "@aave/contract-helpers";
 import dayjs from "dayjs";
 import {
   ComputedUserReserve,
+  FormatReserveUSDResponse,
   FormatUserSummaryResponse,
   formatReserves,
   formatUserSummary,
@@ -37,7 +39,8 @@ const allowedMethods = ["POST", "OPTIONS"];
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
     if (!allowedMethods.includes(_req.method!)) {
-      return res.status(405).send({ message: "Method not allowed." });
+      res.status(405).send({ message: "Method not allowed." });
+      return;
     }
 
     const { address } = JSON.parse(_req.body);
@@ -97,12 +100,14 @@ export const getAaveData = async (
 
   const [reserves, userReserves] = await Promise.all([
     poolDataProviderContract.getReservesHumanized({
-      lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
+      lendingPoolAddressProvider:
+        market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
     }),
     poolDataProviderContract.getUserReservesHumanized({
-      lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
-      user
-    })
+      lendingPoolAddressProvider:
+        market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
+      user,
+    }),
   ]);
 
   const reservesArray = reserves.reservesData;
@@ -137,7 +142,9 @@ export const getAaveData = async (
   const [eModes, reserveIds] = await Promise.all([
     eModesPromise,
     poolAddressPromise
-      .then((poolAddress) => fetchReserveIds(provider, poolAddress, underlyings))
+      .then((poolAddress) =>
+        fetchReserveIds(provider, poolAddress, underlyings)
+      )
       .catch((err) => {
         console.error(`Unable to fetch reserve ids for ${market.id}:`, err);
         return new Map<string, number>();
@@ -157,8 +164,12 @@ export const getAaveData = async (
   return hf;
 };
 
+/** Reserve shape as it exists at runtime: the humanized on-chain reserve
+ * fields are preserved through formatReserves/formatUserSummary. */
+type ReserveData = FormatReserveUSDResponse & ReserveDataHumanized;
+
 const aaveUserSummaryToHealthFactor = (
-  userSummary: FormatUserSummaryResponse,
+  userSummary: FormatUserSummaryResponse<ReserveData>,
   address: string,
   resolvedAddress: string,
   market: AaveMarketDataType,
@@ -170,7 +181,9 @@ const aaveUserSummaryToHealthFactor = (
   const activeEMode = eModes.find((e) => e.id === userEmodeCategoryId);
   const userEmodeLabel = activeEMode?.label || undefined;
 
-  const getAssetDetailsFromReserveItem = (reserveItem: ComputedUserReserve) => {
+  const getAssetDetailsFromReserveItem = (
+    reserveItem: ComputedUserReserve<ReserveData>
+  ) => {
     const { reserve } = reserveItem;
     const underlying = (reserve.underlyingAsset || "").toLowerCase();
     const reserveId = reserveIds.get(underlying);
@@ -182,7 +195,9 @@ const aaveUserSummaryToHealthFactor = (
       baseLiquidationThreshold: Number(reserve.reserveLiquidationThreshold),
       legacyEModeCategoryId: Number(reserve.eModeCategoryId),
       legacyEModeLtv: Number(reserve.eModeLtv),
-      legacyEModeLiquidationThreshold: Number(reserve.eModeLiquidationThreshold),
+      legacyEModeLiquidationThreshold: Number(
+        reserve.eModeLiquidationThreshold
+      ),
     });
     const details: AssetDetails = {
       symbol: reserve.symbol,
@@ -196,9 +211,7 @@ const aaveUserSummaryToHealthFactor = (
       baseLTVasCollateral: Number(reserve.baseLTVasCollateral),
       reserveFactor: Number(reserve.reserveFactor),
       usageAsCollateralEnabled: reserve.usageAsCollateralEnabled,
-      reserveLiquidationThreshold: Number(
-        reserve.reserveLiquidationThreshold
-      ),
+      reserveLiquidationThreshold: Number(reserve.reserveLiquidationThreshold),
       initialPriceInUSD: Number(reserve.priceInUSD),
       aTokenAddress: reserve.aTokenAddress,
       stableDebtTokenAddress: reserve.stableDebtTokenAddress,
@@ -227,7 +240,7 @@ const aaveUserSummaryToHealthFactor = (
       effectiveLiquidationThreshold: risk.liquidationThreshold,
       isEModeCollateral: risk.isEMode,
       borrowableInIsolation: Boolean(reserve.borrowableInIsolation),
-      isSiloedBorrowing: Boolean(reserve.isSiloedBorrowing)
+      isSiloedBorrowing: Boolean(reserve.isSiloedBorrowing),
     };
     return details;
   };
@@ -248,11 +261,11 @@ const aaveUserSummaryToHealthFactor = (
     currentLoanToValue: Number(userSummary?.currentLoanToValue),
     userReservesData: userSummary?.userReservesData
       ?.filter(
-        (reserveItem: ComputedUserReserve) =>
+        (reserveItem) =>
           reserveItem?.underlyingBalance &&
           reserveItem.underlyingBalance !== "0"
       )
-      .map((reserveItem: ComputedUserReserve) => {
+      .map((reserveItem) => {
         const item: ReserveAssetDataItem = {
           asset: getAssetDetailsFromReserveItem(reserveItem),
           underlyingBalance: Number(reserveItem.underlyingBalance),
@@ -267,10 +280,10 @@ const aaveUserSummaryToHealthFactor = (
       }),
     userBorrowsData: userSummary?.userReservesData
       ?.filter(
-        (reserveItem: ComputedUserReserve) =>
+        (reserveItem) =>
           reserveItem?.totalBorrows && reserveItem.totalBorrows !== "0"
       )
-      .map((reserveItem: ComputedUserReserve) => {
+      .map((reserveItem) => {
         const item: BorrowedAssetDataItem = {
           asset: getAssetDetailsFromReserveItem(reserveItem),
           stableBorrows: Number(reserveItem.stableBorrows),
@@ -328,6 +341,14 @@ const aaveUserSummaryToHealthFactor = (
     fetchedData.healthFactor = reserveData.healthFactor;
   }
 
+  const workingData: AaveHealthFactorData = JSON.parse(
+    JSON.stringify(fetchedData)
+  );
+  workingData.liquidationScenario = getCalculatedLiquidationScenario(
+    workingData,
+    marketReferenceCurrencyPriceInUSD
+  );
+
   const hf: HealthFactorData = {
     address,
     resolvedAddress,
@@ -340,13 +361,8 @@ const aaveUserSummaryToHealthFactor = (
       getAssetDetailsFromReserveItem(asset)
     ),
     fetchedData,
-    workingData: JSON.parse(JSON.stringify(fetchedData)),
+    workingData,
   };
-  const liquidationScenario = getCalculatedLiquidationScenario(
-    hf.workingData as AaveHealthFactorData,
-    marketReferenceCurrencyPriceInUSD
-  );
-  hf.workingData.liquidationScenario = liquidationScenario;
   return hf;
 };
 

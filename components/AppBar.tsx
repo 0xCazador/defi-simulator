@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { useRouter } from "next/router";
+import Link from "next/link";
 
 import { formatNumber } from "accounting";
 
@@ -9,12 +9,11 @@ import { FaChevronDown, FaInfinity } from "react-icons/fa";
 import { Trans } from "@lingui/macro";
 
 import {
+  Box,
   Container,
   Group,
-  Header,
   Menu,
   UnstyledButton,
-  createStyles,
   Text,
   Badge,
   Title,
@@ -23,48 +22,20 @@ import {
   Loader,
 } from "@mantine/core";
 import { BiGhost } from "react-icons/bi";
+import { BsCheckLg } from "react-icons/bs";
 import {
   getHealthFactorColor,
   getIconNameFromMarket,
   markets,
   useAaveData,
 } from "../hooks/useAaveData";
-import { AbbreviatedEthereumAddress } from "./AddressCard";
-import { BsCheckLg } from "react-icons/bs";
-
-const useStyles = createStyles((theme) => ({
-  inner: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    height: 56,
-    paddingLeft: "0px",
-    paddingRight: "0px",
-  },
-  market: {
-    color: theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.black,
-    padding: "0px",
-    borderRadius: theme.radius.sm,
-    transition: "background-color 100ms ease",
-
-    "&:hover": {
-      backgroundColor:
-        theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.white,
-    },
-  },
-
-  marketActive: {
-    backgroundColor:
-      theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.white,
-  },
-}));
+import { AbbreviatedEthereumAddress } from "./position/AbbreviatedEthereumAddress";
+import classes from "./AppBar.module.css";
 
 export default function AppBar() {
   const [hasMarketMenuOpened, setHasMarketMenuOpened] = React.useState(false);
   const { addressData, currentMarket, setCurrentMarket, currentAddress } =
     useAaveData("");
-  const { classes, cx } = useStyles();
-  const router = useRouter();
 
   const numMarketsWithHF: number = markets.filter((market) => {
     const hasHF: boolean =
@@ -84,28 +55,26 @@ export default function AppBar() {
       src={`/icons/networks/${getIconNameFromMarket(currentMarketData)}.svg`}
       width="20px"
       height="20px"
-      alt={`${currentMarketData?.title}`}
-      style={{ marginRight: "4px" }}
+      alt=""
+      // Block, so it centers as a flex item instead of sitting on the
+      // adjacent text's baseline.
+      style={{ display: "block" }}
     />
   );
 
   return (
-    <Header height={56} mb={16} pl={0} pr={0}>
+    <Box component="header" className={classes.header} mb={16}>
       <Container className={classes.inner}>
-        <Group
-          spacing={7}
-          style={{ cursor: "pointer" }}
-          onClick={() => router.push("/")}
-        >
-          <BiGhost size={32} />
-          <Title
-            order={3}
-            variant="gradient"
-            gradient={{ from: "#339af0", to: "#339af0", deg: 90 }}
-          >
-            DeFi Simulator
-          </Title>
-        </Group>
+        {/* A real link (not a click handler) so the home control is
+            keyboard-focusable and announced as navigation. */}
+        <UnstyledButton component={Link} href="/" className={classes.brand}>
+          <Group gap={7}>
+            <BiGhost size={32} />
+            <Title order={3} className={classes.brandTitle}>
+              DeFi Simulator
+            </Title>
+          </Group>
+        </UnstyledButton>
 
         <Indicator
           inline
@@ -116,21 +85,21 @@ export default function AppBar() {
           <Menu
             width={260}
             position="bottom-end"
-            onClose={() => { }}
-            onOpen={() => { }}
+            onClose={() => setHasMarketMenuOpened(false)}
+            onOpen={() => setHasMarketMenuOpened(true)}
           >
             <Menu.Target>
               <UnstyledButton
-                className={cx(classes.market, {
-                  [classes.marketActive]: hasMarketMenuOpened,
-                })}
+                className={`${classes.market}${
+                  hasMarketMenuOpened ? ` ${classes.marketActive}` : ""
+                }`}
               >
-                <Group spacing={7}>
-                  <Text weight={500} size="sm" sx={{ lineHeight: 1 }} mr={2}>
-                    {currentMarketIcon}
+                <Group gap={7} align="center" wrap="nowrap">
+                  {currentMarketIcon}
+                  <Text fw={500} size="sm" lh={1}>
                     {currentMarketData?.title}
                   </Text>
-                  <FaChevronDown size={10} />
+                  <FaChevronDown size={10} style={{ display: "block" }} />
                 </Group>
               </UnstyledButton>
             </Menu.Target>
@@ -181,13 +150,13 @@ export default function AppBar() {
                   <Menu.Item
                     key={market.id}
                     id={market.id}
-                    icon={icon}
+                    leftSection={icon}
                     onClick={() => handleSelectMarket(market.id)}
                   >
                     {market.title}
                     {isMarketFetching ? (
                       <Badge color="gray" radius="sm" variant="filled" ml={10}>
-                        <Loader variant="dots" size="xs" color="gray" />
+                        <Loader type="dots" size="xs" color="gray" />
                       </Badge>
                     ) : hasMarketError ? (
                       <Badge color="red" radius="sm" variant="outline" ml={10}>
@@ -230,6 +199,6 @@ export default function AppBar() {
           </Menu>
         </Indicator>
       </Container>
-    </Header>
+    </Box>
   );
 }

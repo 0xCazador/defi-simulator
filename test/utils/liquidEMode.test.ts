@@ -89,9 +89,27 @@ describe("fetchEModeCategories", () => {
 
   it("returns all configured categories, tolerating small id gaps", async () => {
     const pool = makePool({
-      1: { ltv: 9300, liquidationThreshold: 9500, label: "ETH correlated", collateralBitmap: "3", borrowableBitmap: "1" },
-      2: { ltv: 9000, liquidationThreshold: 9200, label: "Stablecoins", collateralBitmap: "264", borrowableBitmap: "8" },
-      4: { ltv: 8500, liquidationThreshold: 8800, label: "LST", collateralBitmap: "16", borrowableBitmap: "2" },
+      1: {
+        ltv: 9300,
+        liquidationThreshold: 9500,
+        label: "ETH correlated",
+        collateralBitmap: "3",
+        borrowableBitmap: "1",
+      },
+      2: {
+        ltv: 9000,
+        liquidationThreshold: 9200,
+        label: "Stablecoins",
+        collateralBitmap: "264",
+        borrowableBitmap: "8",
+      },
+      4: {
+        ltv: 8500,
+        liquidationThreshold: 8800,
+        label: "LST",
+        collateralBitmap: "16",
+        borrowableBitmap: "2",
+      },
     });
     mockContract.mockImplementation(() => pool);
 
@@ -224,7 +242,11 @@ describe("resolveEffectiveRiskParams", () => {
       legacyEModeLtv: 9300,
       legacyEModeLiquidationThreshold: 9500,
     });
-    expect(risk).toEqual({ ltv: 9300, liquidationThreshold: 9500, isEMode: true });
+    expect(risk).toEqual({
+      ltv: 9300,
+      liquidationThreshold: 9500,
+      isEMode: true,
+    });
   });
 
   it("falls back to base params when asset is not in the active eMode bitmap", () => {
@@ -236,7 +258,11 @@ describe("resolveEffectiveRiskParams", () => {
       baseLiquidationThreshold: 7800,
       legacyEModeCategoryId: 0,
     });
-    expect(risk).toEqual({ ltv: 7500, liquidationThreshold: 7800, isEMode: false });
+    expect(risk).toEqual({
+      ltv: 7500,
+      liquidationThreshold: 7800,
+      isEMode: false,
+    });
   });
 
   it("uses liquid eMode even when legacy eModeCategoryId is 0", () => {
@@ -254,7 +280,11 @@ describe("resolveEffectiveRiskParams", () => {
       baseLiquidationThreshold: 7000,
       legacyEModeCategoryId: 0,
     });
-    expect(risk).toEqual({ ltv: 9000, liquidationThreshold: 9200, isEMode: true });
+    expect(risk).toEqual({
+      ltv: 9000,
+      liquidationThreshold: 9200,
+      isEMode: true,
+    });
   });
 
   it("falls back to legacy per-reserve eMode fields when bitmaps are unavailable", () => {
@@ -267,7 +297,11 @@ describe("resolveEffectiveRiskParams", () => {
       legacyEModeLtv: 9300,
       legacyEModeLiquidationThreshold: 9500,
     });
-    expect(risk).toEqual({ ltv: 9300, liquidationThreshold: 9500, isEMode: true });
+    expect(risk).toEqual({
+      ltv: 9300,
+      liquidationThreshold: 9500,
+      isEMode: true,
+    });
   });
 
   it("uses base params when user is not in eMode", () => {
@@ -281,6 +315,10 @@ describe("resolveEffectiveRiskParams", () => {
       legacyEModeLtv: 9300,
       legacyEModeLiquidationThreshold: 9500,
     });
-    expect(risk).toEqual({ ltv: 7850, liquidationThreshold: 8100, isEMode: false });
+    expect(risk).toEqual({
+      ltv: 7850,
+      liquidationThreshold: 8100,
+      isEMode: false,
+    });
   });
 });

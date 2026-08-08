@@ -3,7 +3,8 @@ import {
   Button,
   Center,
   Container,
-  Divider,
+  Paper,
+  SimpleGrid,
   Space,
   Text,
 } from "@mantine/core";
@@ -70,43 +71,52 @@ const SplashSection = () => {
   const router: NextRouter = useRouter();
   return (
     <>
-      <Center mt={15}>
-        <Text fz="md" ta="center" span>
+      <Center mt={30}>
+        <Text fz="lg" ta="center" maw={620} span>
           <Trans>
             Paste an address with an Aave debt position in the box above to
-            visualize how changes to borrow/supplied assets affect the position's
-            health factor and borrowing power.
+            visualize how changes to borrow/supplied assets affect the
+            position&apos;s health factor and borrowing power.
           </Trans>
         </Text>
       </Center>
 
-      <Divider my="sm" variant="dashed" labelPosition="center" label={t`OR`} />
+      <Space h="xl" />
 
-      <Center mt={15}>
-        <Text fz="md" ta="center">
-          <Trans>Want to go for a quick spin?</Trans>
-        </Text>
-      </Center>
+      <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg" maw={680} mx="auto">
+        <Paper
+          withBorder
+          p="xl"
+          ta="center"
+          style={{ display: "flex", flexDirection: "column", gap: "16px" }}
+        >
+          <Text fz="md" style={{ flexGrow: 1 }}>
+            <Trans>Want to go for a quick spin?</Trans>
+          </Text>
+          <Center>
+            <RandomAddressButton />
+          </Center>
+        </Paper>
 
-      <Space h="md" />
-
-      <Center>
-        <RandomAddressButton />
-      </Center>
-
-      <Center mt={15}>
-        <Text fz="md" ta="center">
-          <Trans>Create a new simulated position in any Aave market:</Trans>
-        </Text>
-      </Center>
-
-      <Space h="md" />
-
-      <Center>
-        <Button onClick={() => router.push("?address=sandbox.eth")}>
-          <Trans>Build from Scratch</Trans>
-        </Button>
-      </Center>
+        <Paper
+          withBorder
+          p="xl"
+          ta="center"
+          style={{ display: "flex", flexDirection: "column", gap: "16px" }}
+        >
+          <Text fz="md" style={{ flexGrow: 1 }}>
+            <Trans>Create a new simulated position in any Aave market:</Trans>
+          </Text>
+          <Center>
+            <Button
+              variant="gradient"
+              onClick={() => router.push("?address=sandbox.eth")}
+            >
+              <Trans>Build from Scratch</Trans>
+            </Button>
+          </Center>
+        </Paper>
+      </SimpleGrid>
     </>
   );
 };
@@ -119,9 +129,9 @@ export const RandomAddressButton = ({ children }: RandomAddressButtonProps) => {
   const router = useRouter();
 
   const getRandomInt = (min: number, max: number) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
+    const lower = Math.ceil(min);
+    const upper = Math.floor(max);
+    return Math.floor(Math.random() * (upper - lower) + lower); // The maximum is exclusive and the minimum is inclusive
   };
 
   // Random Aave CDP addresses — refreshed via `node scripts/refreshRandomAddresses.js`
@@ -199,8 +209,6 @@ export const RandomAddressButton = ({ children }: RandomAddressButtonProps) => {
     "0x7f6d23e436099ec78a73c430b16782b0d68585bd",
   ];
 
-
-
   const address = addresses[getRandomInt(0, addresses.length)];
 
   const renderChildren = () =>
@@ -237,8 +245,9 @@ const ExperimentalAlert = () => {
       closeButtonLabel={t`Close alert`}
     >
       <Trans>
-        This Aave debt simulator and liquidation calculator is experimental. Don't make financial decisions
-        based solely on the results of this app.
+        This Aave debt simulator and liquidation calculator is experimental.
+        Don&apos;t make financial decisions based solely on the results of this
+        app.
       </Trans>
     </Alert>
   );

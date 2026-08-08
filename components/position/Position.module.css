@@ -1,0 +1,50 @@
+/* Sticky position summary: translucent, blurred surface so asset rows
+   scrolling underneath stay legible without a hard opaque block. */
+.heroWrapper {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.heroCard {
+  background: color-mix(in srgb, var(--mantine-color-dark-7) 82%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--mantine-color-dark-5);
+  border-radius: var(--mantine-radius-lg);
+  padding: var(--mantine-spacing-md) var(--mantine-spacing-lg);
+}
+
+/* Below sm the hero stacks, so the health factor block takes the full row and
+   centers over the stats grid instead of hugging the left edge. */
+@media (max-width: 35.99em) {
+  /* Both children take the full row, so each centers within the card and the
+     stats grid's two columns stay symmetric about the health factor above. */
+  .hfBlock,
+  .statsGrid {
+    width: 100%;
+  }
+
+  /* The label row and the value row are both flex containers. */
+  .hfBlock > * {
+    justify-content: center;
+  }
+}
+
+.hfValue {
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  font-family: var(--mantine-font-family-headings);
+}
+
+.statValue {
+  font-variant-numeric: tabular-nums;
+}
+
+.statLabel {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  color: var(--mantine-color-dark-2);
+}

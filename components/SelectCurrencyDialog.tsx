@@ -10,30 +10,26 @@ import {
   ActionIcon,
   Text,
   Center,
+  UnstyledButton,
 } from "@mantine/core";
 import { RxReset } from "react-icons/rx";
 
-import flags from "../src/currencies/emoji.json";
+import { NextRouter, useRouter } from "next/router";
+import flagsJson from "../src/currencies/emoji.json";
 import currencyItems from "../src/currencies/index.json";
 
-import { NextRouter, useRouter } from "next/router";
 import { useFiatRates } from "../hooks/useFiatData";
+
+const flags: Record<string, string> = flagsJson;
 
 type Currency = {
   code: string;
   description: string;
 };
 
-type SelectCurrencyDialogProps = {};
-
-export default function SelectCurrencyDialog({ }: SelectCurrencyDialogProps) {
-  const {
-    isFetching,
-    currencyData,
-    isError,
-    selectedCurrency,
-    setSelectedCurrency,
-  } = useFiatRates(true);
+export default function SelectCurrencyDialog() {
+  const { isFetching, currencyData, selectedCurrency, setSelectedCurrency } =
+    useFiatRates(true);
   const [open, setOpen] = React.useState(false);
   const [searchText, setSearchText] = React.useState("");
   const router: NextRouter = useRouter();
@@ -58,13 +54,13 @@ export default function SelectCurrencyDialog({ }: SelectCurrencyDialogProps) {
 
   currencies = open
     ? new Array(...currencies).filter((currency) => {
-      // filter currency by search text, if there is any
-      if (!searchText.length) return true;
-      const { code, description } = currency as Currency;
-      const token = `${code}-${description};`;
-      if (token.toUpperCase().includes(searchText.toUpperCase())) return true;
-      return false;
-    })
+        // filter currency by search text, if there is any
+        if (!searchText.length) return true;
+        const { code, description } = currency as Currency;
+        const token = `${code}-${description};`;
+        if (token.toUpperCase().includes(searchText.toUpperCase())) return true;
+        return false;
+      })
     : new Array(...currencyItems);
 
   return (
@@ -93,12 +89,11 @@ export default function SelectCurrencyDialog({ }: SelectCurrencyDialogProps) {
                 position="top-end"
                 withArrow
               >
-                <ActionIcon>
-                  <RxReset
-                    size={18}
-                    style={{ display: "block" }}
-                    onClick={() => setSearchText("")}
-                  />
+                <ActionIcon
+                  aria-label={t`Reset search query`}
+                  onClick={() => setSearchText("")}
+                >
+                  <RxReset size={18} style={{ display: "block" }} />
                 </ActionIcon>
               </Tooltip>
             )
@@ -116,9 +111,11 @@ export default function SelectCurrencyDialog({ }: SelectCurrencyDialogProps) {
           </Center>
         ) : (
           <Text mb={8}>
-            {t`Select ${currencies.length === 1 ? "the" : "one of the"} (${currencies.length
-              }) ${currencies.length === 1 ? "currency" : "currencies"
-              } below. After selecting a currency the app will display asset prices, liquidation scenario, and position summary in the selected currency.`}
+            {t`Select ${currencies.length === 1 ? "the" : "one of the"} (${
+              currencies.length
+            }) ${
+              currencies.length === 1 ? "currency" : "currencies"
+            } below. After selecting a currency the app will display asset prices, liquidation scenario, and position summary in the selected currency.`}
           </Text>
         )}
 
@@ -127,26 +124,31 @@ export default function SelectCurrencyDialog({ }: SelectCurrencyDialogProps) {
             const flag = flags[currency.code];
 
             return (
-              <List.Item
-                key={currency.code}
-                onClick={() => handleSelectCurrency(currency.code)}
-                style={{ cursor: "pointer" }}
-                m={5}
-              >
-                {`${currency.code.toLocaleUpperCase(
-                  router.locale
-                )} - ${currency.description.toLocaleUpperCase(
-                  router.locale
-                )}  ${flag ?? ""}`}
+              <List.Item key={currency.code} m={5}>
+                <UnstyledButton
+                  onClick={() => handleSelectCurrency(currency.code)}
+                  style={{
+                    cursor: "pointer",
+                    font: "inherit",
+                    color: "inherit",
+                  }}
+                >
+                  {`${currency.code.toLocaleUpperCase(
+                    router.locale
+                  )} - ${currency.description.toLocaleUpperCase(
+                    router.locale
+                  )}  ${flag ?? ""}`}
+                </UnstyledButton>
               </List.Item>
             );
           })}
         </List>
       </Modal>
 
-      <Button compact variant="light" onClick={() => setOpen(true)}>
-        {`${selectedCurrencyData?.code.toLocaleUpperCase(router.locale)}  ${selectedFlag ?? ""
-          }`}
+      <Button size="compact-sm" variant="light" onClick={() => setOpen(true)}>
+        {`${selectedCurrencyData?.code.toLocaleUpperCase(router.locale)}  ${
+          selectedFlag ?? ""
+        }`}
       </Button>
     </>
   );

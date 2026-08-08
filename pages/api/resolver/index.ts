@@ -8,7 +8,8 @@ const allowedMethods = ["POST", "OPTIONS"];
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
     if (!allowedMethods.includes(_req.method!)) {
-      return res.status(405).send({ message: "Method not allowed." });
+      res.status(405).send({ message: "Method not allowed." });
+      return;
     }
 
     const { address } = JSON.parse(_req.body);

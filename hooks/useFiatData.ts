@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useHookstate, State } from "@hookstate/core";
+import { useEffect } from "react";
+import { useHookstate } from "@hookstate/core";
 
 import { FiatRatesDataStore } from "../store/fiatRatesDataStore";
 
@@ -31,12 +31,12 @@ export function useFiatRates(shouldFetch: boolean = false) {
         const responseData = await response.json();
         const rateData = responseData.data.rates;
         const symbols = Object.keys(rateData);
-        const cleanedRateData = {};
+        const cleanedRateData: Record<string, number> = {};
         symbols
           .filter((symbol) => currencies.find((curr) => curr.code === symbol))
-          .forEach(
-            (symbol) => (cleanedRateData[symbol] = Number(rateData[symbol]))
-          ); // cast values to num
+          .forEach((symbol) => {
+            cleanedRateData[symbol] = Number(rateData[symbol]); // cast values to num
+          });
         store.currencyData.set(cleanedRateData);
         store.lastFetched.set(Date.now());
         store.isFetching.set(false);

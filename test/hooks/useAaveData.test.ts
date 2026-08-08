@@ -25,10 +25,6 @@ const mockGetAaveData = getAaveData as jest.Mock;
 
 const PRECISION = 6;
 
-const items = testDataItems.filter(
-  (item) => item.address === "0x6b993dd11995a88e6e8d60f21401344e166cb231"
-);
-
 describe.each(testDataItems)(`useAaveData ()`, (testDataItem) => {
   /**
    * find a reserve item with a relatively high balance that is not also borrowed.
@@ -167,7 +163,7 @@ describe.each(testDataItems)(`useAaveData ()`, (testDataItem) => {
           testDataItem.userReservesData.length === 1 &&
           testDataItem.userBorrowsData.length === 1 &&
           testDataItem.userReservesData[0].asset.symbol ===
-          testDataItem.userBorrowsData[0].asset.symbol
+            testDataItem.userBorrowsData[0].asset.symbol
         ) {
           expect(data.workingData?.healthFactor).toEqual(originalHealthFactor);
         } else {
@@ -294,7 +290,11 @@ describe.each(testDataItems)(`useAaveData ()`, (testDataItem) => {
   });
 });
 
-const getHFDataFromAaveDataSeed = (aaveData: AaveHealthFactorData) => {
+const getHFDataFromAaveDataSeed = (
+  seedItem: (typeof testDataItems)[number]
+) => {
+  // Fixture JSON predates some optional fields on AaveHealthFactorData.
+  const aaveData = seedItem as unknown as AaveHealthFactorData;
   return {
     address: aaveData.address,
     marketReferenceCurrencyPriceInUSD: 10000,

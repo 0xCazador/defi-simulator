@@ -10,12 +10,13 @@ import {
   ActionIcon,
   Text,
   Center,
+  UnstyledButton,
 } from "@mantine/core";
 import { RxReset } from "react-icons/rx";
 import { MdLanguage } from "react-icons/md";
 
-import languages from "../src/languages/index.json";
 import { NextRouter, useRouter } from "next/router";
+import languages from "../src/languages/index.json";
 
 type Language = {
   code: string;
@@ -24,9 +25,7 @@ type Language = {
   native: string;
 };
 
-type SelectLanguageDialogProps = {};
-
-export default function SelectLanguageDialog({ }: SelectLanguageDialogProps) {
+export default function SelectLanguageDialog() {
   const [open, setOpen] = React.useState(false);
   const [searchText, setSearchText] = React.useState("");
   const router: NextRouter = useRouter();
@@ -46,13 +45,13 @@ export default function SelectLanguageDialog({ }: SelectLanguageDialogProps) {
 
   const langs: Language[] = open
     ? new Array(...languages).filter((language: Language) => {
-      // filter lang by search text, if there is any
-      if (!searchText.length) return true;
-      const { code, name, region, native } = language;
-      const token = `${code}-${name}-${region}-${native};`;
-      if (token.toUpperCase().includes(searchText.toUpperCase())) return true;
-      return false;
-    })
+        // filter lang by search text, if there is any
+        if (!searchText.length) return true;
+        const { code, name, region, native } = language;
+        const token = `${code}-${name}-${region}-${native};`;
+        if (token.toUpperCase().includes(searchText.toUpperCase())) return true;
+        return false;
+      })
     : new Array(...languages);
 
   return (
@@ -80,12 +79,11 @@ export default function SelectLanguageDialog({ }: SelectLanguageDialogProps) {
                 position="top-end"
                 withArrow
               >
-                <ActionIcon>
-                  <RxReset
-                    size={18}
-                    style={{ display: "block" }}
-                    onClick={() => setSearchText("")}
-                  />
+                <ActionIcon
+                  aria-label={t`Reset search query`}
+                  onClick={() => setSearchText("")}
+                >
+                  <RxReset size={18} style={{ display: "block" }} />
                 </ActionIcon>
               </Tooltip>
             )
@@ -103,29 +101,34 @@ export default function SelectLanguageDialog({ }: SelectLanguageDialogProps) {
           </Center>
         ) : (
           <Text mb={8}>
-            {t`Select ${langs.length === 1 ? "the" : "one of the"} (${langs.length
-              }) ${langs.length === 1 ? "language" : "languages"
-              } below to translate the app.`}
+            {t`Select ${langs.length === 1 ? "the" : "one of the"} (${
+              langs.length
+            }) ${
+              langs.length === 1 ? "language" : "languages"
+            } below to translate the app.`}
           </Text>
         )}
 
         <List listStyleType="none">
-          {langs.map((language: Language) => {
-            return (
-              <List.Item
-                key={language.code}
+          {langs.map((language: Language) => (
+            <List.Item key={language.code} m={5}>
+              <UnstyledButton
                 onClick={() => handleSelectLanguage(language.code)}
-                style={{ cursor: "pointer " }}
-                m={5}
+                style={{ cursor: "pointer", font: "inherit", color: "inherit" }}
               >
                 {`${language.native.toLocaleUpperCase(router.locale)}`}
-              </List.Item>
-            );
-          })}
+              </UnstyledButton>
+            </List.Item>
+          ))}
         </List>
       </Modal>
 
-      <Button compact variant="light" onClick={() => setOpen(true)} mr="sm">
+      <Button
+        size="compact-sm"
+        variant="light"
+        onClick={() => setOpen(true)}
+        mr="sm"
+      >
         <MdLanguage style={{ marginRight: "5px" }} />
         {activeLanguage?.native.toLocaleUpperCase(router.locale)}
       </Button>

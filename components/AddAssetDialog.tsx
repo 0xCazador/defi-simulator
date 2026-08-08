@@ -11,6 +11,7 @@ import {
   ActionIcon,
   Text,
   Center,
+  UnstyledButton,
 } from "@mantine/core";
 import { RxReset } from "react-icons/rx";
 import {
@@ -44,39 +45,41 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
 
   const assets = open
     ? new Array(...(addressData?.[currentMarket]?.availableAssets || []))
-      .sort((a, b) => {
-        // alpha sort by symbol
-        if (a.symbol.toUpperCase() < b.symbol.toUpperCase()) {
-          return -1;
-        }
-        if (a.symbol.toUpperCase() > b.symbol.toUpperCase()) {
-          return 1;
-        }
-        return 0;
-      })
-      .filter((asset) => {
-        // filter name/symbol by search text, if there is any
-        if (!searchText.length) return true;
-        if (
-          asset.name.toUpperCase().includes(searchText.toUpperCase()) ||
-          asset.symbol.toUpperCase().includes(searchText.toUpperCase())
+        .sort((a, b) => {
+          // alpha sort by symbol
+          if (a.symbol.toUpperCase() < b.symbol.toUpperCase()) {
+            return -1;
+          }
+          if (a.symbol.toUpperCase() > b.symbol.toUpperCase()) {
+            return 1;
+          }
+          return 0;
+        })
+        .filter((asset) => {
+          // filter name/symbol by search text, if there is any
+          if (!searchText.length) return true;
+          if (
+            asset.name.toUpperCase().includes(searchText.toUpperCase()) ||
+            asset.symbol.toUpperCase().includes(searchText.toUpperCase())
+          )
+            return true;
+          return false;
+        })
+        .filter((asset) => {
+          // filter out assets that are already in the CDP
+          const reserves = addressData?.[currentMarket]?.workingData
+            ?.userReservesData as ReserveAssetDataItem[];
+          const borrows = addressData?.[currentMarket]?.workingData
+            ?.userBorrowsData as BorrowedAssetDataItem[];
+          return assetType === "RESERVE"
+            ? !reserves.find((item) => item.asset.symbol === asset.symbol)
+            : !borrows.find((item) => item.asset.symbol === asset.symbol);
+        })
+        .filter((asset) =>
+          assetType === "BORROW"
+            ? isBorrowableAsset(asset)
+            : isSuppliableAsset(asset)
         )
-          return true;
-        return false;
-      })
-      .filter((asset) => {
-        // filter out assets that are already in the CDP
-        const reserves = addressData?.[currentMarket]?.workingData
-          ?.userReservesData as ReserveAssetDataItem[];
-        const borrows = addressData?.[currentMarket]?.workingData
-          ?.userBorrowsData as BorrowedAssetDataItem[];
-        return assetType === "RESERVE"
-          ? !reserves.find((item) => item.asset.symbol === asset.symbol)
-          : !borrows.find((item) => item.asset.symbol === asset.symbol);
-      })
-      .filter((asset) => {
-        return assetType === "BORROW" ? isBorrowableAsset(asset) : isSuppliableAsset(asset);
-      })
     : new Array(...(addressData?.[currentMarket]?.availableAssets || []));
 
   return (
@@ -91,8 +94,9 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
       >
         <TextInput
           value={searchText}
-          label={t`Search for ${assetType === "BORROW" ? "Borrow" : "Supply"
-            } Assets`}
+          label={t`Search for ${
+            assetType === "BORROW" ? "Borrow" : "Supply"
+          } Assets`}
           onChange={(e) => setSearchText(e.target.value)}
           size="md"
           mb={8}
@@ -105,12 +109,11 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
                 position="top-end"
                 withArrow
               >
-                <ActionIcon>
-                  <RxReset
-                    size={18}
-                    style={{ display: "block" }}
-                    onClick={() => setSearchText("")}
-                  />
+                <ActionIcon
+                  aria-label={t`Reset search query`}
+                  onClick={() => setSearchText("")}
+                >
+                  <RxReset size={18} style={{ display: "block" }} />
                 </ActionIcon>
               </Tooltip>
             )
@@ -128,51 +131,63 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
           </Center>
         ) : (
           <Text mb={8}>
-            {t`Select ${assets.length === 1 ? "the" : "one of the"} (${assets.length
-              }) ${assets.length === 1 ? "asset" : "assets"
-              } below to add it as a ${assetType === "BORROW" ? "borrow" : "supply"
-              } asset to the debt position.`}
+            {t`Select ${assets.length === 1 ? "the" : "one of the"} (${
+              assets.length
+            }) ${
+              assets.length === 1 ? "asset" : "assets"
+            } below to add it as a ${
+              assetType === "BORROW" ? "borrow" : "supply"
+            } asset to the debt position.`}
           </Text>
         )}
 
-        <List>
+        <List listStyleType="none">
           {assets.map((asset) => {
             // Truncate very long token names for better display
-            const displayName = asset.name.length > 50 
-              ? `${asset.name.substring(0, 47)}...` 
-              : asset.name;
-            
+            const displayName =
+              asset.name.length > 50
+                ? `${asset.name.substring(0, 47)}...`
+                : asset.name;
+
             // Check if this is a special PT token that shouldn't show parentheses
-            const isSpecialPTToken = asset.symbol.toLowerCase().includes('pt-') || 
-                                   asset.name.toLowerCase().includes('pt ethereal') || 
-                                   asset.name.toLowerCase().includes('pt ethena');
-            
-            const displayText = isSpecialPTToken 
-              ? displayName 
+            const isSpecialPTToken =
+              asset.symbol.toLowerCase().includes("pt-") ||
+              asset.name.toLowerCase().includes("pt ethereal") ||
+              asset.name.toLowerCase().includes("pt ethena");
+
+            const displayText = isSpecialPTToken
+              ? displayName
               : `${displayName} (${asset.symbol})`;
-            
+
             return (
-              <List.Item
-                key={`${asset.symbol}-${asset.name}`}
-                onClick={() => handleAddAsset(asset.symbol)}
-                style={{ cursor: "pointer " }}
-                m={5}
-                icon={
-                  <TokenIcon
-                    symbol={asset.symbol}
-                    size="30px"
-                    alt={`${asset.symbol}`}
-                  />
-                }
-              >
-                {displayText}
+              <List.Item key={`${asset.symbol}-${asset.name}`} m={5}>
+                {/* The whole row is one button: a second handler on List.Item
+                    would also fire via bubbling and add the asset twice. */}
+                <UnstyledButton
+                  onClick={() => handleAddAsset(asset.symbol)}
+                  style={{
+                    cursor: "pointer",
+                    font: "inherit",
+                    color: "inherit",
+                    width: "100%",
+                  }}
+                >
+                  <Group gap="sm" wrap="nowrap">
+                    <TokenIcon
+                      symbol={asset.symbol}
+                      size="30px"
+                      alt={`${asset.symbol}`}
+                    />
+                    {displayText}
+                  </Group>
+                </UnstyledButton>
               </List.Item>
             );
           })}
         </List>
       </Modal>
 
-      <Group position="center">
+      <Group justify="center">
         <Button variant="outline" onClick={() => setOpen(true)}>
           {assetType === "BORROW" ? t`Borrow Asset` : t`Supply Asset`}
         </Button>
