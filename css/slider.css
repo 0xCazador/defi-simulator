@@ -1,3 +1,12 @@
+/* nouislider.css sets `touch-action: none` on the track and everything inside
+   it, so on touch devices every swipe that starts in the slider area is a
+   drag and the page can't be scrolled from there. `pan-y` hands vertical
+   gestures back to the browser; horizontal ones still reach the slider. */
+.noUi-target,
+.noUi-target * {
+  touch-action: pan-y;
+}
+
 .noUi-target {
   background: var(--mantine-color-dark-8);
   background-color: var(--mantine-color-dark-8);

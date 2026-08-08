@@ -23,12 +23,47 @@ export const AssetSlider = ({ defaultValue, onChange }: AssetSliderProps) => {
   const [isDragging, setIsDragging] = useState(false);
   const [value, setValue] = useState(defaultValue);
   const divRef = useRef<NoUiSliderElement>(null);
+  const dragStartValueRef = useRef<number | null>(null);
 
   useEffect(() => {
     // initialize the slider
     if (divRef.current?.noUiSlider) return; // already initialized
     createSlider();
   }, []);
+
+  useEffect(() => {
+    const node = divRef.current;
+    if (!node) return undefined;
+
+    // With `touch-action: pan-y` (see css/slider.css) the browser can take a
+    // gesture over as a scroll once it sees which way the finger is going,
+    // firing pointercancel. Two things to undo: noUiSlider only ends a drag on
+    // pointerup, so its document-level move listener would stay attached and
+    // the next touch anywhere on the page would keep moving this handle; and
+    // the handle may already have shifted slightly during the few pixels
+    // before the browser committed to scrolling. A synthetic pointerup on the
+    // element noUiSlider binds to tears the drag down normally, then the value
+    // goes back to where the aborted drag started.
+    const handlePointerCancel = () => {
+      // Read before the dispatch below: it fires "end", which clears the ref.
+      const startValue = dragStartValueRef.current;
+
+      document.documentElement.dispatchEvent(new PointerEvent("pointerup"));
+      setIsDragging(false);
+
+      if (startValue == null) return;
+      // `set` fires "update"/"set" but not "slide", so this won't re-enter
+      // handleChange.
+      node.noUiSlider?.set(startValue);
+      setValue(startValue);
+      onChange(startValue);
+    };
+
+    node.addEventListener("pointercancel", handlePointerCancel);
+    return () => node.removeEventListener("pointercancel", handlePointerCancel);
+    // Callers pass a fresh closure each render; rebind so the revert reports
+    // the value through the current one.
+  }, [onChange]);
 
   useEffect(() => {
     // handle external reset or change
@@ -84,8 +119,14 @@ export const AssetSlider = ({ defaultValue, onChange }: AssetSliderProps) => {
     });
 
     slider.on("slide", handleChange);
-    slider.on("start", () => setIsDragging(true));
-    slider.on("end", () => setIsDragging(false));
+    slider.on("start", (val) => {
+      dragStartValueRef.current = Number(val[0]);
+      setIsDragging(true);
+    });
+    slider.on("end", () => {
+      dragStartValueRef.current = null;
+      setIsDragging(false);
+    });
   };
 
   const handleChange = (val: (number | string)[]) => {
