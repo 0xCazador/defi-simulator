@@ -237,9 +237,35 @@ export const HealthFactorAddressSummary = ({
           {isEmode && (
             <Text ml="xs" span>
               <FaBolt />{" "}
-              {eModeLabel
-                ? <Trans>E-Mode: {eModeLabel}</Trans>
-                : <Trans>E-Mode is enabled</Trans>}
+              <Popover width="250px" withArrow shadow="md">
+                <Popover.Target>
+                  <Text
+                    span
+                    underline
+                    style={{ textDecorationStyle: "dotted", cursor: "pointer" }}
+                  >
+                    <Trans>E-Mode</Trans>
+                  </Text>
+                </Popover.Target>
+                <Popover.Dropdown>
+                  <Text size="sm">
+                    <Trans>
+                      Efficiency Mode (E-Mode) is enabled for this position.
+                      E-Mode allows higher loan-to-value and liquidation
+                      thresholds when the supplied and borrowed assets belong
+                      to the same category.
+                    </Trans>
+                    {eModeLabel && (
+                      <Text size="sm" mt="xs">
+                        <Trans>Active E-Mode category:</Trans>{" "}
+                        <Text span fw={700}>
+                          {eModeLabel}
+                        </Text>
+                      </Text>
+                    )}
+                  </Text>
+                </Popover.Dropdown>
+              </Popover>
             </Text>
           )}
         </Text>
