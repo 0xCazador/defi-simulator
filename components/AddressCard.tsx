@@ -37,6 +37,7 @@ import {
   Alert,
   Progress,
   Indicator,
+  Loader,
 } from "@mantine/core";
 import { FaAsterisk, FaInfinity, FaInfo, FaInfoCircle, FaBolt } from "react-icons/fa";
 import { RxReset } from "react-icons/rx";
@@ -69,13 +70,20 @@ import { formatEModeLabel } from "../utils/liquidEMode";
 type Props = {};
 
 const AddressCard = ({ }: Props) => {
-  const { addressData, currentMarket, applyLiquidationScenario, isFetching } =
-    useAaveData("");
+  const {
+    addressData,
+    currentMarket,
+    applyLiquidationScenario,
+    retryFetchMarket,
+  } = useAaveData("");
   const data = addressData?.[currentMarket] as HealthFactorData;
   const summaryRef = useRef<HTMLDivElement>(null);
   const summaryOffset: number = summaryRef?.current?.clientHeight || 0;
   const isIsolationMode: boolean = !!data?.workingData?.isInIsolationMode;
   const isError: boolean = !!data?.fetchError?.length;
+  // Each market renders as soon as its own data arrives; other markets may
+  // still be loading (or have failed) without blocking this one.
+  const isLoadingCurrentMarket: boolean = !data?.lastFetched;
   const marketName =
     markets.find((market) => market.id === currentMarket)?.title ||
     "Unknown Market";
@@ -85,18 +93,28 @@ const AddressCard = ({ }: Props) => {
       <HealthFactorAddressSummary addressData={addressData} />
       <div style={{ zIndex: "6", backgroundColor: "#1A1B1E" }}>
         {isError && (
-          <Trans>
-            <Alert
-              mb={15}
-              mt={45}
-              icon={<FiAlertTriangle size="1rem" />}
-              title="Error Loading Market Data!"
-              color="red"
-              variant="outline"
-            >
+          <Alert
+            mb={15}
+            mt={45}
+            icon={<FiAlertTriangle size="1rem" />}
+            title={<Trans>Error Loading Market Data!</Trans>}
+            color="red"
+            variant="outline"
+          >
+            <Trans>
               {`An error occurred while loading data for this market (${marketName}). Try again later, or select a different market.`}
-            </Alert>
-          </Trans>
+            </Trans>
+            <div style={{ marginTop: "10px" }}>
+              <Button
+                size="xs"
+                color="red"
+                variant="outline"
+                onClick={() => retryFetchMarket(currentMarket)}
+              >
+                <Trans>Retry</Trans>
+              </Button>
+            </div>
+          </Alert>
         )}
         {isIsolationMode && (
           <Trans>
@@ -116,7 +134,7 @@ const AddressCard = ({ }: Props) => {
         )}
         {!isIsolationMode && !isError && (
           <>
-            {isFetching ? (
+            {isLoadingCurrentMarket ? (
               <HealthFactorSkeleton animate />
             ) : (
               <>
@@ -162,7 +180,12 @@ export const HealthFactorAddressSummary = ({
     ""
   );
 
-  if (isFetching) {
+  // Only block on the currently selected market; while other markets are
+  // still loading, show progressive results with a "checking" indicator.
+  const isLoadingCurrentMarket: boolean =
+    !addressData?.[currentMarket]?.lastFetched;
+
+  if (isLoadingCurrentMarket) {
     return (
       <Center>
         <Skeleton height={50} />
@@ -183,6 +206,12 @@ export const HealthFactorAddressSummary = ({
             <Plural value={Number(count)} one="market" other="markets" />
             .
           </Text>
+        ) : isFetching ? (
+          <Text size="sm" style={{ display: "inline-block" }}>
+            <AbbreviatedEthereumAddress address={currentAddress} />
+            {": "}
+            <Trans>Checking Aave markets for positions…</Trans>
+          </Text>
         ) : (
           <Text size="sm" style={{ display: "inline-block" }}>
             <AbbreviatedEthereumAddress address={currentAddress} />
@@ -191,6 +220,15 @@ export const HealthFactorAddressSummary = ({
           </Text>
         )}
       </Center>
+
+      {isFetching && (
+        <Center mt={4}>
+          <Loader size="xs" variant="dots" mr={8} />
+          <Text size="xs" c="dimmed" span>
+            <Trans>Still checking other markets…</Trans>
+          </Text>
+        </Center>
+      )}
 
       <Center>
         <Text span size="sm" mt="md" style={{ display: "inline-block" }}>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useHookstate, State } from "@hookstate/core";
 import * as pools from "@bgd-labs/aave-address-book";
 
@@ -7,10 +7,41 @@ import { HealthFactorDataStore } from "../store/healthFactorDataStore";
 import { ChainId } from "@aave/contract-helpers";
 import BigNumber from "bignumber.js";
 import { getAaveData } from "../pages/api/aave";
+import { getResolvedAddress } from "../pages/api/resolver";
 import {
   EModeCategoryData,
   resolveEffectiveRiskParams,
 } from "../utils/liquidEMode";
+
+/** Max time a single market fetch (or ENS resolution) may take before it is
+ * treated as failed. Keeps one hung RPC from blocking the UI forever. */
+export const MARKET_FETCH_TIMEOUT_MS = 20_000;
+
+/** Address used when ENS resolution yields no result (e.g. sandbox.eth). */
+const FALLBACK_RESOLVED_ADDRESS = "0x87cCC67f0c1b67745989542152DD4acff3841CD6";
+
+/** Reject if the promise doesn't settle within `ms`. */
+export const withTimeout = <T,>(
+  promise: Promise<T>,
+  ms: number,
+  label: string
+): Promise<T> =>
+  new Promise<T>((resolve, reject) => {
+    const timer = setTimeout(
+      () => reject(new Error(`Timed out after ${Math.round(ms / 1000)}s ${label}`)),
+      ms
+    );
+    promise.then(
+      (value) => {
+        clearTimeout(timer);
+        resolve(value);
+      },
+      (err) => {
+        clearTimeout(timer);
+        reject(err);
+      }
+    );
+  });
 
 export type { EModeCategoryData };
 
@@ -313,7 +344,6 @@ export const markets: AaveMarketDataType[] = [
     setCurrentMarket, }
  */
 export function useAaveData(address: string, preventFetch: boolean = false) {
-  const [isFetching, setIsFetching] = useState(false);
   const store = useHookstate(HealthFactorDataStore);
   const state = store.get({ noproxy: true });
   const { currentAddress, addressData, currentMarket } = state;
@@ -325,114 +355,12 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
     (market) => data?.[market.id]?.isFetching === true
   );
 
+  // Number of markets that have finished (successfully or with an error).
+  const loadedCount = markets.filter(
+    (market) => data?.[market.id]?.lastFetched
+  ).length;
+
   const deps = [currentAddress, addressProvided, isLoadingAny];
-
-  useEffect(() => {
-    if (preventFetch) return;
-    if (addressProvided && !isLoadingAny) {
-      markets.map((market) => {
-        const existingData = data?.[market.id];
-        const lastFetched = existingData?.lastFetched;
-        if (lastFetched) return;
-        if (existingData?.isFetching) return;
-        setIsFetching(true);
-        createInitial(market);
-        const fetchData = async () => {
-          const options = {
-            method: "POST",
-            body: JSON.stringify({ address, marketId: market.id }),
-          };
-          //const response: Response = await fetch("/api/aave", options);
-          const data: HealthFactorData = await getAaveData(address, market);
-          store.addressData.nested(address).merge({ [market.id]: data });
-          /*
-          if (response?.ok) {
-            // ok, use the response
-            const hfData: HealthFactorData = await response.json();
-            store.addressData.nested(address).merge({ [market.id]: hfData });
-          } else {
-            // monkey up an errored HealthFactorData object
-            const res = await response.json();
-            const message: string = `${response.statusText}: --- ${res?.message ?? ""
-              }`;
-            const hfData: HealthFactorData = {
-              address,
-              fetchError: message,
-              isFetching: false,
-              lastFetched: Date.now(),
-              market,
-              marketReferenceCurrencyPriceInUSD: 1,
-            };
-            store.addressData.nested(address).merge({ [market.id]: hfData });
-          }
-          */
-        };
-
-        fetchData();
-
-      });
-    }
-  }, deps);
-
-  useEffect(() => {
-    if (address) store.currentAddress.set(address);
-  }, [address]);
-
-  useEffect(() => {
-    if (!isFetching) return;
-    if (!markets.find((market) => data?.[market.id]?.isFetching)) {
-      setIsFetching(false);
-    }
-  }, [isLoadingAny]);
-
-  // After fetching, if the current market doesn't have a position but another
-  // one does, select the market that has a position (prefer highest reserve balance).
-  useEffect(() => {
-    if (!isFetching && addressProvided) {
-      const currentMarketHasPosition =
-        data?.[currentMarket].workingData?.healthFactor &&
-        (data?.[currentMarket]?.workingData?.healthFactor ?? -1) > -1;
-
-      const currentMarketHasEdits =
-        data?.[currentMarket]?.workingData?.healthFactor?.toFixed(2) !==
-        data?.[currentMarket]?.fetchedData?.healthFactor?.toFixed(2);
-
-      // Don't perform the auto-select if the user is actively editing the current market.
-      if (currentMarketHasPosition && currentMarketHasEdits) return;
-
-      const marketWithPosition = markets
-        .sort((marketA, marketB) => {
-          const marketDataA = data?.[marketA.id];
-          const marketDataB = data?.[marketB.id];
-
-          const totalCollA =
-            marketDataA?.workingData?.totalCollateralMarketReferenceCurrency ||
-            0;
-          const totalCollB =
-            marketDataB?.workingData?.totalCollateralMarketReferenceCurrency ||
-            0;
-
-          const priceA = marketDataA?.marketReferenceCurrencyPriceInUSD || 0;
-          const priceB = marketDataB?.marketReferenceCurrencyPriceInUSD || 0;
-
-          return totalCollB * priceB - totalCollA * priceA;
-        })
-        .find(
-          (market) =>
-            data?.[market.id]?.workingData?.healthFactor &&
-            (data?.[market.id]?.workingData?.healthFactor ?? -1) > -1
-        );
-      // This guard doesn't make much sense but for some reason this useEffect was being triggered
-      // sometimes even when the markets hadn't just finished loading. We only want to apply
-      // this logic right after loading.
-      const didFetchRecently = !!markets.find(
-        (market) => data?.[market.id]?.lastFetched > Date.now() - 1000
-      );
-      if (marketWithPosition && didFetchRecently) {
-        setCurrentMarket(marketWithPosition.id);
-      }
-    }
-  }, [isFetching]);
 
   const createInitial = (market: AaveMarketDataType) => {
     const hf: HealthFactorData = {
@@ -445,6 +373,141 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
       marketReferenceCurrencyPriceInUSD: 0,
     };
     store.addressData.nested(address).merge({ [market.id]: hf });
+  };
+
+  const applyFetchError = (market: AaveMarketDataType, message: string) => {
+    const hfData: HealthFactorData = {
+      address,
+      resolvedAddress: address,
+      fetchError: message,
+      isFetching: false,
+      lastFetched: Date.now(),
+      market,
+      marketReferenceCurrencyPriceInUSD: 1,
+    };
+    store.addressData.nested(address).merge({ [market.id]: hfData });
+  };
+
+  /** Fetch the given markets in parallel. Each market succeeds or fails
+   * independently, so one bad RPC never blocks the others. */
+  const fetchMarkets = (marketsToFetch: AaveMarketDataType[]) => {
+    if (!marketsToFetch.length) return;
+    marketsToFetch.forEach((market) => createInitial(market));
+
+    const run = async () => {
+      // Resolve ENS once for all markets instead of once per market fetch.
+      let resolvedAddress: string;
+      try {
+        resolvedAddress =
+          (await withTimeout(
+            getResolvedAddress(address),
+            MARKET_FETCH_TIMEOUT_MS,
+            `resolving address "${address}"`
+          )) || FALLBACK_RESOLVED_ADDRESS;
+      } catch (err: any) {
+        const message = `Unable to resolve address "${address}": ${err?.message ?? err}`;
+        console.error(message);
+        marketsToFetch.forEach((market) => applyFetchError(market, message));
+        return;
+      }
+
+      marketsToFetch.forEach(async (market) => {
+        try {
+          const hfData: HealthFactorData = await withTimeout(
+            getAaveData(address, market, resolvedAddress),
+            MARKET_FETCH_TIMEOUT_MS,
+            `fetching ${market.title} market data`
+          );
+          store.addressData.nested(address).merge({ [market.id]: hfData });
+        } catch (err: any) {
+          console.error(`Failed to load ${market.id} market data:`, err);
+          applyFetchError(market, String(err?.message ?? err));
+        }
+      });
+    };
+
+    run();
+  };
+
+  useEffect(() => {
+    if (preventFetch) return;
+    if (!addressProvided || isLoadingAny) return;
+    const marketsToFetch = markets.filter((market) => {
+      const existingData = data?.[market.id];
+      return !existingData?.lastFetched && !existingData?.isFetching;
+    });
+    fetchMarkets(marketsToFetch);
+  }, deps);
+
+  useEffect(() => {
+    if (address) store.currentAddress.set(address);
+  }, [address]);
+
+  // Progressive market auto-select: as each market resolves, if the currently
+  // selected market has finished loading and another loaded market has a
+  // bigger position, switch to it (prefer highest collateral value). Runs on
+  // every market completion so users see a market with a position as soon as
+  // one is found, instead of waiting for the slowest market.
+  useEffect(() => {
+    if (!addressProvided || !loadedCount) return;
+
+    const current = data?.[currentMarket];
+    // Wait until the selected market itself has resolved so we don't yank the
+    // UI while its skeleton is still up.
+    if (!current?.lastFetched) return;
+
+    const currentMarketHasPosition =
+      current.workingData?.healthFactor &&
+      (current.workingData?.healthFactor ?? -1) > -1;
+
+    const currentMarketHasEdits =
+      current.workingData?.healthFactor?.toFixed(2) !==
+      current.fetchedData?.healthFactor?.toFixed(2);
+
+    // Don't perform the auto-select if the user is actively editing the current market.
+    if (currentMarketHasPosition && currentMarketHasEdits) return;
+
+    // Only auto-select in response to fresh fetches, not e.g. on remount with
+    // cached data (which would override a manual market selection).
+    const didFetchRecently = !!markets.find(
+      (market) => (data?.[market.id]?.lastFetched || 0) > Date.now() - 1000
+    );
+    if (!didFetchRecently) return;
+
+    const marketWithPosition = [...markets]
+      .sort((marketA, marketB) => {
+        const marketDataA = data?.[marketA.id];
+        const marketDataB = data?.[marketB.id];
+
+        const totalCollA =
+          marketDataA?.workingData?.totalCollateralMarketReferenceCurrency ||
+          0;
+        const totalCollB =
+          marketDataB?.workingData?.totalCollateralMarketReferenceCurrency ||
+          0;
+
+        const priceA = marketDataA?.marketReferenceCurrencyPriceInUSD || 0;
+        const priceB = marketDataB?.marketReferenceCurrencyPriceInUSD || 0;
+
+        return totalCollB * priceB - totalCollA * priceA;
+      })
+      .find(
+        (market) =>
+          data?.[market.id]?.workingData?.healthFactor &&
+          (data?.[market.id]?.workingData?.healthFactor ?? -1) > -1
+      );
+
+    if (marketWithPosition && marketWithPosition.id !== currentMarket) {
+      setCurrentMarket(marketWithPosition.id);
+    }
+  }, [loadedCount, addressProvided]);
+
+  /** Re-fetch a single market (e.g. after a fetch error). */
+  const retryFetchMarket = (marketId: string) => {
+    const market = markets.find((m) => m.id === marketId);
+    if (!market || !address) return;
+    if (data?.[market.id]?.isFetching) return;
+    fetchMarkets([market]);
   };
 
   const setCurrentMarket = (marketId: string) => {
@@ -632,6 +695,7 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
     currentMarket,
     addressData: data,
     addressDataStore: store.addressData?.[currentAddress],
+    retryFetchMarket,
     removeAsset,
     resetCurrentMarketChanges,
     addBorrowAsset,

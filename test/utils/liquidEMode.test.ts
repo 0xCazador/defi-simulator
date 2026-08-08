@@ -1,8 +1,26 @@
+import { ethers } from "ethers";
 import {
+  EMODE_SCAN_BATCH_SIZE,
+  fetchEModeCategories,
   formatEModeLabel,
   isReserveInBitmap,
   resolveEffectiveRiskParams,
 } from "../../utils/liquidEMode";
+
+// fetchEModeCategories constructs an ethers Contract internally; replace the
+// constructor so tests can supply an in-memory pool.
+jest.mock("ethers", () => {
+  const actual = jest.requireActual("ethers");
+  return {
+    ...actual,
+    ethers: {
+      ...actual.ethers,
+      Contract: jest.fn(),
+    },
+  };
+});
+
+const mockContract = ethers.Contract as unknown as jest.Mock;
 
 describe("formatEModeLabel", () => {
   it("returns empty string for missing labels", () => {
@@ -32,6 +50,131 @@ describe("formatEModeLabel", () => {
     );
     expect(formatted.length).toBeLessThanOrEqual(32);
     expect(formatted.endsWith("…")).toBe(true);
+  });
+});
+
+describe("fetchEModeCategories", () => {
+  type MockCategory = {
+    ltv: number;
+    liquidationThreshold: number;
+    label?: string;
+    collateralBitmap?: string;
+    borrowableBitmap?: string;
+  };
+
+  // Unconfigured category ids return zeroed config structs on-chain (they
+  // don't revert), which the scanner treats as a miss.
+  const makePool = (categories: Record<number, MockCategory>) => ({
+    getEModeCategoryCollateralConfig: jest.fn(async (id: number) => ({
+      ltv: categories[id]?.ltv ?? 0,
+      liquidationThreshold: categories[id]?.liquidationThreshold ?? 0,
+      liquidationBonus: 0,
+    })),
+    getEModeCategoryLabel: jest.fn(
+      async (id: number) => categories[id]?.label ?? ""
+    ),
+    getEModeCategoryCollateralBitmap: jest.fn(async (id: number) =>
+      BigInt(categories[id]?.collateralBitmap ?? "0")
+    ),
+    getEModeCategoryBorrowableBitmap: jest.fn(async (id: number) =>
+      BigInt(categories[id]?.borrowableBitmap ?? "0")
+    ),
+  });
+
+  const provider = {} as any;
+
+  beforeEach(() => {
+    mockContract.mockReset();
+  });
+
+  it("returns all configured categories, tolerating small id gaps", async () => {
+    const pool = makePool({
+      1: { ltv: 9300, liquidationThreshold: 9500, label: "ETH correlated", collateralBitmap: "3", borrowableBitmap: "1" },
+      2: { ltv: 9000, liquidationThreshold: 9200, label: "Stablecoins", collateralBitmap: "264", borrowableBitmap: "8" },
+      4: { ltv: 8500, liquidationThreshold: 8800, label: "LST", collateralBitmap: "16", borrowableBitmap: "2" },
+    });
+    mockContract.mockImplementation(() => pool);
+
+    const categories = await fetchEModeCategories(provider, "0xpool");
+
+    expect(categories.map((c) => c.id)).toEqual([1, 2, 4]);
+    expect(categories[0]).toEqual({
+      id: 1,
+      label: "ETH correlated",
+      ltv: 9300,
+      liquidationThreshold: 9500,
+      collateralBitmap: "3",
+      borrowableBitmap: "1",
+    });
+  });
+
+  it("stops scanning after three consecutive empty slots", async () => {
+    const pool = makePool({
+      1: { ltv: 9300, liquidationThreshold: 9500 },
+    });
+    mockContract.mockImplementation(() => pool);
+
+    const categories = await fetchEModeCategories(provider, "0xpool");
+
+    expect(categories.map((c) => c.id)).toEqual([1]);
+    // Only the first batch of ids should have been probed.
+    const probedIds = pool.getEModeCategoryCollateralConfig.mock.calls.map(
+      (call) => call[0]
+    );
+    expect(Math.max(...probedIds)).toBeLessThanOrEqual(EMODE_SCAN_BATCH_SIZE);
+  });
+
+  it("resets the miss counter on a hit, including across batch boundaries", async () => {
+    const pool = makePool({
+      1: { ltv: 9300, liquidationThreshold: 9500 },
+      2: { ltv: 9000, liquidationThreshold: 9200 },
+      3: { ltv: 8000, liquidationThreshold: 8300 },
+      4: { ltv: 8100, liquidationThreshold: 8400 },
+      5: { ltv: 8200, liquidationThreshold: 8500 },
+      6: { ltv: 8300, liquidationThreshold: 8600 },
+      7: { ltv: 8400, liquidationThreshold: 8700 },
+      // 8 unset (1 miss), then hits continue in the second batch
+      9: { ltv: 8500, liquidationThreshold: 8800 },
+      10: { ltv: 8600, liquidationThreshold: 8900 },
+    });
+    mockContract.mockImplementation(() => pool);
+
+    const categories = await fetchEModeCategories(provider, "0xpool");
+
+    expect(categories.map((c) => c.id)).toEqual([1, 2, 3, 4, 5, 6, 7, 9, 10]);
+    // Scan should stop within the second batch (ids 11-13 are 3 misses).
+    const probedIds = pool.getEModeCategoryCollateralConfig.mock.calls.map(
+      (call) => call[0]
+    );
+    expect(Math.max(...probedIds)).toBeLessThanOrEqual(
+      EMODE_SCAN_BATCH_SIZE * 2
+    );
+  });
+
+  it("treats config call failures as misses", async () => {
+    const pool = makePool({});
+    pool.getEModeCategoryCollateralConfig.mockRejectedValue(
+      new Error("execution reverted")
+    );
+    mockContract.mockImplementation(() => pool);
+
+    const categories = await fetchEModeCategories(provider, "0xpool");
+
+    expect(categories).toEqual([]);
+  });
+
+  it("tolerates label fetch failures", async () => {
+    const pool = makePool({
+      1: { ltv: 9300, liquidationThreshold: 9500, collateralBitmap: "3" },
+    });
+    pool.getEModeCategoryLabel.mockRejectedValue(new Error("no label getter"));
+    mockContract.mockImplementation(() => pool);
+
+    const categories = await fetchEModeCategories(provider, "0xpool");
+
+    expect(categories).toHaveLength(1);
+    expect(categories[0].label).toBe("");
+    expect(categories[0].collateralBitmap).toBe("3");
   });
 });
 

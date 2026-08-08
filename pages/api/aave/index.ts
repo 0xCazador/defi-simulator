@@ -54,7 +54,11 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export const getAaveData = async (address: string, market: AaveMarketDataType) => {
+export const getAaveData = async (
+  address: string,
+  market: AaveMarketDataType,
+  resolvedAddress?: string
+) => {
   const provider = new ethers.providers.StaticJsonRpcProvider(
     market.api,
     market.chainId
@@ -67,7 +71,29 @@ export const getAaveData = async (address: string, market: AaveMarketDataType) =
   };
   const poolDataProviderContract = new UiPoolDataProvider(UiPoolDataCtx);
 
-  const user = (await getResolvedAddress(address)) || "0x87cCC67f0c1b67745989542152DD4acff3841CD6";
+  // Liquid eModes (Aave v3.2+): category LTV/LT + bitmaps live on the Pool.
+  // Legacy UiPool/SDK only expose a single per-reserve eModeCategoryId, which
+  // is 0 for most assets that participate via bitmaps — so HF/LTV from
+  // formatUserSummary alone is wrong for many eMode positions.
+  // These don't depend on the user or reserve data, so start them immediately
+  // and let them run concurrently with the main reserve queries below.
+  const poolAddressPromise = fetchPoolAddress(
+    provider,
+    market.addresses.LENDING_POOL_ADDRESS_PROVIDER
+  );
+  const eModesPromise: Promise<EModeCategoryData[]> = poolAddressPromise
+    .then((poolAddress) => fetchEModeCategories(provider, poolAddress))
+    .catch((err) => {
+      console.error(`Unable to fetch liquid eMode data for ${market.id}:`, err);
+      return [];
+    });
+
+  // Callers that fetch multiple markets resolve ENS once and pass the result
+  // in; fall back to resolving here for single-market callers (API routes).
+  const user =
+    resolvedAddress ||
+    (await getResolvedAddress(address)) ||
+    "0x87cCC67f0c1b67745989542152DD4acff3841CD6";
 
   const [reserves, userReserves] = await Promise.all([
     poolDataProviderContract.getReservesHumanized({
@@ -105,27 +131,18 @@ export const getAaveData = async (address: string, market: AaveMarketDataType) =
     userEmodeCategoryId: userReserves.userEmodeCategoryId,
   });
 
-  // Liquid eModes (Aave v3.2+): category LTV/LT + bitmaps live on the Pool.
-  // Legacy UiPool/SDK only expose a single per-reserve eModeCategoryId, which
-  // is 0 for most assets that participate via bitmaps — so HF/LTV from
-  // formatUserSummary alone is wrong for many eMode positions.
-  let eModes: EModeCategoryData[] = [];
-  let reserveIds = new Map<string, number>();
-  try {
-    const poolAddress = await fetchPoolAddress(
-      provider,
-      market.addresses.LENDING_POOL_ADDRESS_PROVIDER
-    );
-    const underlyings = userSummary.userReservesData
-      .map((r) => r.reserve.underlyingAsset)
-      .filter(Boolean) as string[];
-    [eModes, reserveIds] = await Promise.all([
-      fetchEModeCategories(provider, poolAddress),
-      fetchReserveIds(provider, poolAddress, underlyings),
-    ]);
-  } catch (err) {
-    console.error(`Unable to fetch liquid eMode data for ${market.id}:`, err);
-  }
+  const underlyings = userSummary.userReservesData
+    .map((r) => r.reserve.underlyingAsset)
+    .filter(Boolean) as string[];
+  const [eModes, reserveIds] = await Promise.all([
+    eModesPromise,
+    poolAddressPromise
+      .then((poolAddress) => fetchReserveIds(provider, poolAddress, underlyings))
+      .catch((err) => {
+        console.error(`Unable to fetch reserve ids for ${market.id}:`, err);
+        return new Map<string, number>();
+      }),
+  ]);
 
   const hf: HealthFactorData = aaveUserSummaryToHealthFactor(
     userSummary,

@@ -20,6 +20,7 @@ import {
   Title,
   Center,
   Indicator,
+  Loader,
 } from "@mantine/core";
 import { BiGhost } from "react-icons/bi";
 import {
@@ -162,6 +163,10 @@ export default function AppBar() {
                 const hasHF: boolean = hf > -1;
                 const isCurrentMarket: boolean = currentMarket === market.id;
                 const hfColor: string = getHealthFactorColor(hf);
+                const isMarketFetching: boolean =
+                  !!addressData?.[market.id]?.isFetching;
+                const hasMarketError: boolean =
+                  !!addressData?.[market.id]?.fetchError?.length;
 
                 const icon = (
                   <img
@@ -180,7 +185,15 @@ export default function AppBar() {
                     onClick={() => handleSelectMarket(market.id)}
                   >
                     {market.title}
-                    {hasHF ? (
+                    {isMarketFetching ? (
+                      <Badge color="gray" radius="sm" variant="filled" ml={10}>
+                        <Loader variant="dots" size="xs" color="gray" />
+                      </Badge>
+                    ) : hasMarketError ? (
+                      <Badge color="red" radius="sm" variant="outline" ml={10}>
+                        !
+                      </Badge>
+                    ) : hasHF ? (
                       <Badge
                         color={hfColor}
                         radius="sm"

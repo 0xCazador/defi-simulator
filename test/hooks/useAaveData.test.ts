@@ -16,6 +16,11 @@ jest.mock("../../pages/api/aave", () => ({
   getAaveData: jest.fn(),
 }));
 
+// The hook resolves ENS once (per address) before fetching markets.
+jest.mock("../../pages/api/resolver", () => ({
+  getResolvedAddress: jest.fn(async (address: string) => address),
+}));
+
 const mockGetAaveData = getAaveData as jest.Mock;
 
 const PRECISION = 6;

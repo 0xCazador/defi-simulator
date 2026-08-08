@@ -31,6 +31,12 @@ const PROVIDER_ABI = ["function getPool() view returns (address)"];
 export const isReserveInBitmap = (bitmap: string, reserveId: number): boolean =>
   (BigInt(bitmap) & (1n << BigInt(reserveId))) !== 0n;
 
+/** How many category ids to probe concurrently when scanning for eModes. */
+export const EMODE_SCAN_BATCH_SIZE = 8;
+
+/** Stop scanning for categories after this many consecutive empty slots. */
+const MAX_CONSECUTIVE_MISSES = 3;
+
 /** Fetch all configured liquid eMode categories from an Aave v3 Pool. */
 export const fetchEModeCategories = async (
   provider: ethers.providers.Provider,
@@ -39,32 +45,61 @@ export const fetchEModeCategories = async (
   const pool = new ethers.Contract(poolAddress, POOL_ABI, provider);
   const categories: EModeCategoryData[] = [];
 
-  // Categories are dense from 1 with small gaps; stop after a few empty slots.
+  // Categories are dense from 1 with small gaps; stop after a few empty
+  // slots. Probe ids in parallel batches instead of one round-trip per id —
+  // a pool with N categories costs ~ceil(N / batch) round-trips instead of N.
   let misses = 0;
-  for (let id = 1; id < 256 && misses < 3; id++) {
-    try {
-      const cfg = await pool.getEModeCategoryCollateralConfig(id);
-      if (cfg.liquidationThreshold === 0) {
-        misses += 1;
-        continue;
-      }
-      misses = 0;
-      const [label, collateralBitmap, borrowableBitmap] = await Promise.all([
-        pool.getEModeCategoryLabel(id).catch(() => ""),
-        pool.getEModeCategoryCollateralBitmap(id),
-        pool.getEModeCategoryBorrowableBitmap(id),
-      ]);
-      categories.push({
-        id,
-        label: String(label || ""),
-        ltv: Number(cfg.ltv),
-        liquidationThreshold: Number(cfg.liquidationThreshold),
-        collateralBitmap: collateralBitmap.toString(),
-        borrowableBitmap: borrowableBitmap.toString(),
-      });
-    } catch {
-      misses += 1;
+  for (
+    let start = 1;
+    start < 256 && misses < MAX_CONSECUTIVE_MISSES;
+    start += EMODE_SCAN_BATCH_SIZE
+  ) {
+    const ids: number[] = [];
+    for (let id = start; id < Math.min(start + EMODE_SCAN_BATCH_SIZE, 256); id++) {
+      ids.push(id);
     }
+
+    const configs = await Promise.all(
+      ids.map((id) => pool.getEModeCategoryCollateralConfig(id).catch(() => null))
+    );
+
+    const hits: { id: number; cfg: any }[] = [];
+    for (let i = 0; i < ids.length; i += 1) {
+      const cfg = configs[i];
+      if (!cfg || Number(cfg.liquidationThreshold) === 0) {
+        misses += 1;
+        if (misses >= MAX_CONSECUTIVE_MISSES) break;
+      } else {
+        misses = 0;
+        hits.push({ id: ids[i], cfg });
+      }
+    }
+
+    const details = await Promise.all(
+      hits.map(async ({ id, cfg }) => {
+        try {
+          const [label, collateralBitmap, borrowableBitmap] = await Promise.all([
+            pool.getEModeCategoryLabel(id).catch(() => ""),
+            pool.getEModeCategoryCollateralBitmap(id),
+            pool.getEModeCategoryBorrowableBitmap(id),
+          ]);
+          const category: EModeCategoryData = {
+            id,
+            label: String(label || ""),
+            ltv: Number(cfg.ltv),
+            liquidationThreshold: Number(cfg.liquidationThreshold),
+            collateralBitmap: collateralBitmap.toString(),
+            borrowableBitmap: borrowableBitmap.toString(),
+          };
+          return category;
+        } catch {
+          return null;
+        }
+      })
+    );
+    categories.push(
+      ...details.filter((c): c is EModeCategoryData => c !== null)
+    );
   }
   return categories;
 };
