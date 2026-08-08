@@ -20,6 +20,7 @@ import {
   isBorrowableAsset,
   isSuppliableAsset,
 } from "../hooks/useAaveData";
+import { applyRiskOverridesToAsset } from "../utils/riskOverrides";
 import TokenIcon from "./TokenIcon";
 
 type AddAssetDialogProps = {
@@ -29,8 +30,13 @@ type AddAssetDialogProps = {
 export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
   const [open, setOpen] = React.useState(false);
   const [searchText, setSearchText] = React.useState("");
-  const { addressData, currentMarket, addBorrowAsset, addReserveAsset } =
-    useAaveData("");
+  const {
+    addressData,
+    currentMarket,
+    addBorrowAsset,
+    addReserveAsset,
+    effectiveRiskOverrides,
+  } = useAaveData("");
 
   const handleClose = () => {
     setSearchText("");
@@ -75,7 +81,15 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
           : !borrows.find((item) => item.asset.symbol === asset.symbol);
       })
       .filter((asset) => {
-        return assetType === "BORROW" ? isBorrowableAsset(asset) : isSuppliableAsset(asset);
+        // Apply simulated risk parameter overrides (e.g. frozen/paused or
+        // borrowable/collateral flags) before deciding availability.
+        const effectiveAsset = applyRiskOverridesToAsset(
+          asset,
+          effectiveRiskOverrides
+        );
+        return assetType === "BORROW"
+          ? isBorrowableAsset(effectiveAsset)
+          : isSuppliableAsset(effectiveAsset);
       })
     : new Array(...(addressData?.[currentMarket]?.availableAssets || []));
 
