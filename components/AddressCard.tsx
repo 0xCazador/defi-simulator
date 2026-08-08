@@ -65,6 +65,12 @@ import { AssetAPY } from "./AssetAPY";
 import ReserveAssetDetailsDialog from "./ReserveAssetDetailsDialog";
 import BorrowedAssetDetailsDialog from "./BorrowedAssetDetailsDialog";
 import { formatEModeLabel } from "../utils/liquidEMode";
+import {
+  AssetCapWarning,
+  RiskOverridesChip,
+  RiskParamsDialog,
+} from "./RiskParamsEditor";
+import { ConfiguratorButton } from "./ConfiguratorDialog";
 
 type Props = {};
 
@@ -462,6 +468,7 @@ const HealthFactorSummary = ({
                 </Text>
               </Mark>
               <ResetMarketButton />
+              <RiskOverridesChip />
             </Title>
           }
         />
@@ -920,6 +927,9 @@ const ExtendedPositionDetails = ({ data }: ExtendedPositionDetailsProps) => {
                     {currBorrowPowerUsedDisplayable}
                   </Text>
                 </Paper>
+              </Grid.Col>
+              <Grid.Col span={12} style={{ textAlign: "center" }}>
+                <ConfiguratorButton />
               </Grid.Col>
             </Grid>
           );
@@ -1385,6 +1395,8 @@ const UserAssetItem = memo(
               ? <ReserveAssetDetailsDialog assetDetails={assetDetails} />
               : <BorrowedAssetDetailsDialog assetDetails={assetDetails} isStableBorrow={isStableBorrow} stableBorrowAPY={stableBorrowAPY} />
             }
+            <RiskParamsDialog assetSymbol={assetSymbol} assetType={assetType} />
+            <AssetCapWarning assetSymbol={assetSymbol} assetType={assetType} />
           </Group>
 
           <Tooltip

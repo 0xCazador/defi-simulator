@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useHookstate, State } from "@hookstate/core";
 import * as pools from "@bgd-labs/aave-address-book";
 
@@ -11,8 +11,20 @@ import {
   EModeCategoryData,
   resolveEffectiveRiskParams,
 } from "../utils/liquidEMode";
+import {
+  AssetRiskOverride,
+  EModeCategoryOverride,
+  RiskParamOverrides,
+  SharedRiskConfig,
+  applyEModeCategoryOverrides,
+  createEmptyRiskOverrides,
+  hasAnyRiskOverrides,
+  mergeRiskOverrides,
+  sanitizeRiskOverrides,
+} from "../utils/riskOverrides";
 
 export type { EModeCategoryData };
+export type { RiskParamOverrides, SharedRiskConfig };
 
 export type HealthFactorData = {
   address: string; // e.g. 0xc...123a or stani.eth
@@ -321,6 +333,19 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
   const addressProvided: boolean = !!(address && address?.length > 0);
   if (address?.length === 0 || address === "DEBUG") address = currentAddress || "";
 
+  const riskOverrides: RiskParamOverrides | undefined =
+    state.riskOverrides?.[address]?.[currentMarket];
+  const sharedRiskConfig: SharedRiskConfig | null =
+    state.sharedRiskConfig ?? null;
+  const sharedRiskConfigEnabled: boolean = !!state.sharedRiskConfigEnabled;
+
+  const effectiveRiskOverrides: RiskParamOverrides = mergeRiskOverrides(
+    sharedRiskConfigEnabled && sharedRiskConfig?.marketId === currentMarket
+      ? sharedRiskConfig.overrides
+      : undefined,
+    riskOverrides
+  );
+
   const isLoadingAny = !!markets.find(
     (market) => data?.[market.id]?.isFetching === true
   );
@@ -433,6 +458,36 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
       }
     }
   }, [isFetching]);
+
+  // Reconcile risk parameter overrides with derived position data. Overrides
+  // are applied at recompute time (never baked into fetched values), so this
+  // recomputes whenever the effective override set changes (including back to
+  // empty, which restores on-chain parameters) or freshly-fetched market data
+  // needs overrides applied.
+  const effectiveOverridesKey = JSON.stringify(effectiveRiskOverrides);
+  const currentMarketLastFetched = data?.[currentMarket]?.lastFetched || 0;
+  const hasWorkingData = !!data?.[currentMarket]?.workingData;
+  const lastAppliedOverridesKeyRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!hasWorkingData) {
+      lastAppliedOverridesKeyRef.current = null;
+      return;
+    }
+    const overridesPresent = hasAnyRiskOverrides(effectiveRiskOverrides);
+    const keyChanged =
+      lastAppliedOverridesKeyRef.current !== null &&
+      lastAppliedOverridesKeyRef.current !== effectiveOverridesKey;
+    lastAppliedOverridesKeyRef.current = effectiveOverridesKey;
+    if (overridesPresent || keyChanged) {
+      updateAllDerivedHealthFactorData();
+    }
+  }, [
+    effectiveOverridesKey,
+    currentMarketLastFetched,
+    currentMarket,
+    hasWorkingData,
+  ]);
 
   const createInitial = (market: AaveMarketDataType) => {
     const hf: HealthFactorData = {
@@ -574,9 +629,11 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
   };
 
   const applyLiquidationScenario = () => {
+    const overrides = getEffectiveRiskOverridesFresh();
     const liquidationScenario = getCalculatedLiquidationScenario(
       data?.[currentMarket]?.workingData as AaveHealthFactorData,
-      data?.[currentMarket]?.marketReferenceCurrencyPriceInUSD
+      data?.[currentMarket]?.marketReferenceCurrencyPriceInUSD,
+      hasAnyRiskOverrides(overrides) ? overrides : undefined
     ) as AssetDetails[];
     liquidationScenario?.forEach((asset) =>
       setAssetPriceInUSD(asset.symbol, asset.priceInUSD)
@@ -602,6 +659,156 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
     store.currentAddress.set(address);
   };
 
+  /**
+   * Effective overrides read fresh from the store (not the render closure),
+   * so recomputes triggered inside mutators always see the latest values.
+   */
+  const getEffectiveRiskOverridesFresh = (): RiskParamOverrides => {
+    const freshState = store.get({ noproxy: true });
+    const manual = freshState.riskOverrides?.[address]?.[currentMarket];
+    const shared =
+      freshState.sharedRiskConfigEnabled &&
+        freshState.sharedRiskConfig?.marketId === currentMarket
+        ? freshState.sharedRiskConfig.overrides
+        : undefined;
+    return mergeRiskOverrides(shared, manual);
+  };
+
+  const setManualRiskOverrides = (
+    updater: (prev: RiskParamOverrides) => RiskParamOverrides
+  ) => {
+    const all = store.riskOverrides.get({ noproxy: true }) || {};
+    const prev: RiskParamOverrides = all?.[address]?.[currentMarket]
+      ? JSON.parse(JSON.stringify(all[address][currentMarket]))
+      : createEmptyRiskOverrides();
+    const next = updater(prev);
+
+    store.riskOverrides.set((current) => {
+      const draft = { ...(current || {}) };
+      const byMarket = { ...(draft[address] || {}) };
+      if (hasAnyRiskOverrides(next)) {
+        byMarket[currentMarket] = next;
+      } else {
+        delete byMarket[currentMarket];
+      }
+      if (Object.keys(byMarket).length) {
+        draft[address] = byMarket;
+      } else {
+        delete draft[address];
+      }
+      return draft;
+    });
+
+    updateAllDerivedHealthFactorData();
+  };
+
+  /**
+   * Set (or update fields of) the simulated risk parameter override for an
+   * asset in the current market. Passing `undefined` for a field removes
+   * that field's override; an entry with no remaining fields is dropped.
+   */
+  const setAssetRiskOverride = (
+    symbol: string,
+    override: Partial<AssetRiskOverride>
+  ) => {
+    setManualRiskOverrides((prev) => {
+      const existing: Record<string, number | boolean | undefined> = {
+        ...(prev.assets[symbol] || {}),
+      };
+      Object.entries(override).forEach(([field, value]) => {
+        if (value === undefined) {
+          delete existing[field];
+        } else {
+          existing[field] = value;
+        }
+      });
+      return sanitizeRiskOverrides({
+        ...prev,
+        assets: { ...prev.assets, [symbol]: existing },
+      });
+    });
+  };
+
+  /** Remove all simulated risk parameter overrides for an asset. */
+  const clearAssetRiskOverride = (symbol: string) => {
+    setManualRiskOverrides((prev) => {
+      const assets = { ...prev.assets };
+      delete assets[symbol];
+      return { ...prev, assets };
+    });
+  };
+
+  /**
+   * Set (or update fields of) the simulated override for an eMode category.
+   * Category LTV/LT apply to every asset that is collateral in the category.
+   */
+  const setEModeCategoryRiskOverride = (
+    categoryId: number,
+    override: Partial<EModeCategoryOverride>
+  ) => {
+    setManualRiskOverrides((prev) => {
+      const existing: Record<string, number | undefined> = {
+        ...(prev.eModeCategories?.[String(categoryId)] || {}),
+      };
+      Object.entries(override).forEach(([field, value]) => {
+        if (value === undefined) {
+          delete existing[field];
+        } else {
+          existing[field] = value;
+        }
+      });
+      return sanitizeRiskOverrides({
+        ...prev,
+        eModeCategories: {
+          ...(prev.eModeCategories || {}),
+          [String(categoryId)]: existing,
+        },
+      });
+    });
+  };
+
+  /** Remove the simulated override for an eMode category. */
+  const clearEModeCategoryRiskOverride = (categoryId: number) => {
+    setManualRiskOverrides((prev) => {
+      const eModeCategories = { ...(prev.eModeCategories || {}) };
+      delete eModeCategories[String(categoryId)];
+      return { ...prev, eModeCategories };
+    });
+  };
+
+  /** Remove all manual risk parameter overrides for the current market. */
+  const clearAllRiskOverrides = () => {
+    setManualRiskOverrides(() => createEmptyRiskOverrides());
+  };
+
+  /**
+   * Install (or remove, with null) a shared risk config decoded from a URL.
+   * Selects the config's market so its effect is immediately visible.
+   */
+  const setSharedRiskConfig = (
+    config: SharedRiskConfig | null,
+    enabled: boolean = true
+  ) => {
+    store.sharedRiskConfig.set(
+      config ? JSON.parse(JSON.stringify(config)) : null
+    );
+    store.sharedRiskConfigEnabled.set(enabled);
+    if (config && store.currentMarket.get() !== config.marketId) {
+      store.currentMarket.set(config.marketId);
+    }
+    // The override reconciliation effect recomputes derived data once the
+    // config's market data is available.
+  };
+
+  /** Toggle whether the shared config is applied to the simulation. */
+  const setSharedRiskConfigEnabled = (enabled: boolean) => {
+    if (store.sharedRiskConfigEnabled.get() === enabled) return;
+    store.sharedRiskConfigEnabled.set(enabled);
+    if (data?.[currentMarket]?.workingData) {
+      updateAllDerivedHealthFactorData();
+    }
+  };
+
   const updateAllDerivedHealthFactorData = () => {
     const currentMarketReferenceCurrencyPriceInUSD: number = store.addressData
       .nested(address)
@@ -615,10 +822,13 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
       noproxy: true,
     }) as AaveHealthFactorData;
 
+    const overrides = getEffectiveRiskOverridesFresh();
+
     const updatedWorkingData: AaveHealthFactorData =
       updateDerivedHealthFactorData(
         workingData,
-        currentMarketReferenceCurrencyPriceInUSD
+        currentMarketReferenceCurrencyPriceInUSD,
+        hasAnyRiskOverrides(overrides) ? overrides : undefined
       );
 
     healthFactorItem.workingData.set(updatedWorkingData);
@@ -643,6 +853,17 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
     setAssetPriceInUSD,
     applyLiquidationScenario,
     setUseReserveAssetAsCollateral,
+    riskOverrides,
+    effectiveRiskOverrides,
+    sharedRiskConfig,
+    sharedRiskConfigEnabled,
+    setAssetRiskOverride,
+    clearAssetRiskOverride,
+    setEModeCategoryRiskOverride,
+    clearEModeCategoryRiskOverride,
+    clearAllRiskOverrides,
+    setSharedRiskConfig,
+    setSharedRiskConfigEnabled,
   };
 }
 
@@ -768,11 +989,15 @@ export const getEligibleLiquidationScenarioReserves = (
  * availableBorrowsUSD
  *
  * @param hfData the healthFactorData to update
+ * @param currentMarketReferenceCurrencyPriceInUSD the market reference currency price
+ * @param riskOverrides optional simulated risk parameter overrides, applied at
+ *   compute time (never written into the position data itself)
  * @returns hfData the updated healthFactorData
  */
 export const updateDerivedHealthFactorData = (
   data: AaveHealthFactorData,
-  currentMarketReferenceCurrencyPriceInUSD: number
+  currentMarketReferenceCurrencyPriceInUSD: number,
+  riskOverrides?: RiskParamOverrides
 ) => {
   let updatedCurrentLiquidationThreshold: BigNumber = new BigNumber(0);
   let updatedCurrentLoanToValue: BigNumber = new BigNumber(0);
@@ -787,6 +1012,13 @@ export const updateDerivedHealthFactorData = (
   let weightedReservesETH: BigNumber = new BigNumber(0);
   let weightedLTVETH: BigNumber = new BigNumber(0);
   let totalBorrowsETH: BigNumber = new BigNumber(0);
+
+  // eMode category overrides apply to the categories themselves (governance
+  // changes them category-wide), so resolve them once up front.
+  const effectiveEModes = applyEModeCategoryOverrides(
+    data.eModes,
+    riskOverrides
+  );
 
   data.userReservesData.forEach((reserveItem) => {
     const underlyingBalance: BigNumber = new BigNumber(
@@ -834,25 +1066,41 @@ export const updateDerivedHealthFactorData = (
       reserveItem.underlyingBalanceUSD = updatedUnderlyingBalanceUSD.toNumber();
     }
 
+    // Resolve effective risk params (with any simulated overrides applied)
+    // for every reserve so display stays consistent even for non-collateral
+    // assets.
+    const assetOverride = riskOverrides?.assets?.[reserveItem.asset.symbol];
+
+    const risk = resolveEffectiveRiskParams({
+      userEmodeCategoryId: data.userEmodeCategoryId,
+      eModes: effectiveEModes,
+      reserveId: reserveItem.asset.reserveId,
+      baseLtv:
+        assetOverride?.ltv ?? (reserveItem.asset.baseLTVasCollateral || 0),
+      baseLiquidationThreshold:
+        assetOverride?.liquidationThreshold ??
+        (reserveItem.asset.reserveLiquidationThreshold || 0),
+      legacyEModeCategoryId: reserveItem.asset.eModeCategoryId,
+      legacyEModeLtv: assetOverride?.eModeLtv ?? reserveItem.asset.eModeLtv,
+      legacyEModeLiquidationThreshold:
+        assetOverride?.eModeLiquidationThreshold ??
+        reserveItem.asset.eModeLiquidationThreshold,
+    });
+    reserveItem.asset.effectiveLtv = risk.ltv;
+    reserveItem.asset.effectiveLiquidationThreshold = risk.liquidationThreshold;
+    reserveItem.asset.isEModeCollateral = risk.isEMode;
+
+    // An override can simulate the reserve being disabled as collateral
+    // market-wide (e.g. a governance action), which drops its contribution
+    // regardless of the user-level collateral toggle.
+    const collateralDisabledByOverride =
+      assetOverride?.usageAsCollateralEnabled === false;
+
     // Update the necessary accumulated values for updating healthFactor etc.
-    if (reserveItem.usageAsCollateralEnabledOnUser) {
+    if (reserveItem.usageAsCollateralEnabledOnUser && !collateralDisabledByOverride) {
       updatedCollateral = updatedCollateral.plus(
         updatedUnderlyingBalanceMarketReferenceCurrency
       );
-
-      const risk = resolveEffectiveRiskParams({
-        userEmodeCategoryId: data.userEmodeCategoryId,
-        eModes: data.eModes,
-        reserveId: reserveItem.asset.reserveId,
-        baseLtv: reserveItem.asset.baseLTVasCollateral || 0,
-        baseLiquidationThreshold: reserveItem.asset.reserveLiquidationThreshold || 0,
-        legacyEModeCategoryId: reserveItem.asset.eModeCategoryId,
-        legacyEModeLtv: reserveItem.asset.eModeLtv,
-        legacyEModeLiquidationThreshold: reserveItem.asset.eModeLiquidationThreshold,
-      });
-      reserveItem.asset.effectiveLtv = risk.ltv;
-      reserveItem.asset.effectiveLiquidationThreshold = risk.liquidationThreshold;
-      reserveItem.asset.isEModeCollateral = risk.isEMode;
 
       const itemReserveLiquidationThreshold: BigNumber = new BigNumber(
         risk.liquidationThreshold
@@ -1025,7 +1273,8 @@ export const updateDerivedHealthFactorData = (
  */
 export const getCalculatedLiquidationScenario = (
   hfData: AaveHealthFactorData,
-  currentMarketReferenceCurrencyPriceInUSD: number
+  currentMarketReferenceCurrencyPriceInUSD: number,
+  riskOverrides?: RiskParamOverrides
 ) => {
   if (!hfData) return [];
   // deep clone to avoid mutating state
@@ -1086,7 +1335,8 @@ export const getCalculatedLiquidationScenario = (
 
       const updatedWorkingData = updateDerivedHealthFactorData(
         hfData,
-        currentMarketReferenceCurrencyPriceInUSD
+        currentMarketReferenceCurrencyPriceInUSD,
+        riskOverrides
       );
 
       hf = updatedWorkingData.healthFactor;
@@ -1153,7 +1403,8 @@ export const getCalculatedLiquidationScenario = (
 
       const updatedWorkingData = updateDerivedHealthFactorData(
         hfData,
-        currentMarketReferenceCurrencyPriceInUSD
+        currentMarketReferenceCurrencyPriceInUSD,
+        riskOverrides
       );
 
       if (updatedWorkingData.healthFactor < 1.0) {
