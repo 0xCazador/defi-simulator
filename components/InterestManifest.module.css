@@ -1,0 +1,75 @@
+/* The interest figures are the reason to visit this page, so they get headline
+   treatment. Tabular figures keep the right-hand column from shifting as rows
+   expand and collapse. */
+
+.summaryCard {
+  background: color-mix(in srgb, var(--mantine-color-dark-6) 70%, transparent);
+  border: 1px solid var(--mantine-color-dark-4);
+}
+
+.summaryValue {
+  font-family: var(--mantine-font-family-headings);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--mantine-font-size-xl);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.interestValue {
+  font-family: var(--mantine-font-family-headings);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--mantine-font-size-lg);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.earned {
+  color: var(--mantine-color-green-4);
+}
+
+.paid {
+  color: var(--mantine-color-orange-4);
+}
+
+.neutral {
+  color: var(--mantine-color-gray-4);
+}
+
+/* Right-aligned so the amounts line up down the page regardless of symbol
+   length, and never wrapped mid-figure. */
+.amountBlock {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.assetHeader {
+  width: 100%;
+  border-radius: var(--mantine-radius-sm);
+}
+
+.assetHeader:focus-visible {
+  outline: 2px solid var(--mantine-color-brand-5);
+  outline-offset: 3px;
+}
+
+.chevron {
+  flex-shrink: 0;
+  color: var(--mantine-color-dark-2);
+  transition: transform 150ms ease;
+}
+
+.chevronOpen {
+  transform: rotate(90deg);
+}
+
+/* Keeps the scope note from stretching into an unreadable single line next to
+   the scan control on wide screens. */
+.scopeNote {
+  max-width: 52ch;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chevron {
+    transition: none;
+  }
+}

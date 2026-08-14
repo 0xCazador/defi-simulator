@@ -1,5 +1,6 @@
 import * as React from "react";
 import { t, Trans } from "@lingui/macro";
+import { useRouter } from "next/router";
 
 import {
   Button,
@@ -16,7 +17,6 @@ import {
   Popover,
 } from "@mantine/core";
 import { TbListDetails } from "react-icons/tb";
-import { AiTwotoneExperiment } from "react-icons/ai";
 import { FaCopy } from "react-icons/fa";
 import { forwardRef } from "react";
 import {
@@ -30,7 +30,7 @@ import { AbbreviatedEthereumAddress } from "./position/AbbreviatedEthereumAddres
 import { AssetAPY } from "./AssetAPY";
 import { AssetLT } from "./AssetLT";
 import { AssetLTV } from "./AssetLTV";
-import { BorrowedAssetAPYAccrued } from "./BorrowedAssetAPYAccrued";
+import { AccruedInterestStat, AssetStatCard } from "./AccruedInterestStat";
 
 type BorrowedAssetDetailsDialogProps = {
   assetDetails: AssetDetails;
@@ -44,6 +44,7 @@ export default function BorrowedAssetDetailsDialog({
   stableBorrowAPY,
 }: BorrowedAssetDetailsDialogProps) {
   const [open, setOpen] = React.useState(false);
+  const router = useRouter();
   const { addressData, currentMarket, currentAddress } = useAaveData("", true);
 
   const market = markets.find(
@@ -104,43 +105,35 @@ export default function BorrowedAssetDetailsDialog({
           labelPosition="center"
         />
 
-        <SimpleGrid cols={2}>
-          <AssetDetailsItem
-            title={t`Current Borrow Interest Rate: `}
-            description={t`The Current Borrow Interest Rate represents the annual percentage yield rate incurred by this asset.`}
-            node={
-              <AssetAPY
-                assetType="BORROW"
-                assetDetails={assetDetails}
-                isStableBorrow={isStableBorrow}
-                stableBorrowAPY={stableBorrowAPY}
-              />
-            }
-          />
-          <AssetDetailsItem
-            title={t`Accrued Interest: `}
-            description={t`Experimental. The Accrued Interest refers to the total interest accrued by this borrowed asset since it was first borrowed in the current market by the user. This feature is experimental, there may be miscalculations, or it may not be available for all assets.`}
-            node={
-              <BorrowedAssetAPYAccrued
-                asset={fetchedAsset}
-                address={currentAddress}
-                resolvedAddress={resolvedAddress}
-              />
-            }
-            titleIcon={
-              <Tooltip
-                label={t`Experimental Feature`}
-                position="right"
-                withArrow
-              >
-                <IconForTooltip>
-                  <Text span mr="xs" c="blue">
-                    <AiTwotoneExperiment />
-                  </Text>
-                </IconForTooltip>
-              </Tooltip>
-            }
-          />
+        <SimpleGrid cols={2} spacing="sm">
+          <AssetStatCard>
+            <AssetDetailsItem
+              title={t`Current Borrow Interest Rate: `}
+              description={t`The Current Borrow Interest Rate represents the annual percentage yield rate incurred by this asset.`}
+              node={
+                <AssetAPY
+                  assetType="BORROW"
+                  assetDetails={assetDetails}
+                  isStableBorrow={isStableBorrow}
+                  stableBorrowAPY={stableBorrowAPY}
+                />
+              }
+            />
+          </AssetStatCard>
+          <AssetStatCard>
+            <AccruedInterestStat
+              side="borrow"
+              symbol={fetchedAsset?.asset?.symbol}
+              priceInUSD={fetchedAsset?.asset?.priceInUSD}
+              tokenAddress={fetchedAsset?.asset?.variableDebtTokenAddress}
+              address={currentAddress}
+              resolvedAddress={resolvedAddress}
+              onViewHistory={() => {
+                setOpen(false);
+                router.push(`/interest?address=${currentAddress}`);
+              }}
+            />
+          </AssetStatCard>
         </SimpleGrid>
 
         <Divider
@@ -290,14 +283,6 @@ const CopyButtonForTooltip = forwardRef<
     </ActionIcon>
   </span>
 ));
-
-type IconForTooltipProps = {
-  children: React.ReactNode;
-};
-
-export const IconForTooltip = forwardRef<HTMLSpanElement, IconForTooltipProps>(
-  (props, ref) => <span ref={ref}>{props.children}</span>
-);
 
 type AssetDetailsItemProps = {
   title: string;

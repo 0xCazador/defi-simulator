@@ -1,0 +1,35 @@
+/* Matching surfaces for the two cells in the modal's Interest Information row,
+   so the yield and the accrued total read as a pair of stats. Full height keeps
+   both cards level when one wraps onto more lines than the other. */
+.card {
+  height: 100%;
+  background: color-mix(in srgb, var(--mantine-color-dark-6) 60%, transparent);
+  border: 1px solid var(--mantine-color-dark-4);
+}
+
+/* The dotted-underline explainer label used by the position stats. */
+.label {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  color: var(--mantine-color-dark-2);
+}
+
+/* The accrued figure is the point of this section, so it gets the heading font
+   and tabular figures rather than sitting inline with its fiat value. */
+.amount {
+  font-family: var(--mantine-font-family-headings);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--mantine-font-size-lg);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.earned {
+  color: var(--mantine-color-green-4);
+}
+
+.paid {
+  color: var(--mantine-color-orange-4);
+}

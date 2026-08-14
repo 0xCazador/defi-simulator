@@ -1,5 +1,6 @@
 import * as React from "react";
 import { t, Trans } from "@lingui/macro";
+import { useRouter } from "next/router";
 
 import {
   Button,
@@ -16,7 +17,6 @@ import {
   Popover,
 } from "@mantine/core";
 import { TbListDetails } from "react-icons/tb";
-import { AiTwotoneExperiment } from "react-icons/ai";
 import { FaCopy } from "react-icons/fa";
 import { forwardRef } from "react";
 import {
@@ -28,7 +28,7 @@ import {
 } from "../hooks/useAaveData";
 import { AbbreviatedEthereumAddress } from "./position/AbbreviatedEthereumAddress";
 import { AssetAPY } from "./AssetAPY";
-import { ReserveAssetAPYAccrued } from "./ReserveAssetAPYAccrued";
+import { AccruedInterestStat, AssetStatCard } from "./AccruedInterestStat";
 import { AssetLT } from "./AssetLT";
 import { AssetLTV } from "./AssetLTV";
 
@@ -40,6 +40,7 @@ export default function ReserveAssetDetailsDialog({
   assetDetails,
 }: ReserveAssetDetailsDialogProps) {
   const [open, setOpen] = React.useState(false);
+  const router = useRouter();
   const { addressData, currentMarket, currentAddress } = useAaveData("", true);
 
   const market = markets.find(
@@ -100,36 +101,30 @@ export default function ReserveAssetDetailsDialog({
           labelPosition="center"
         />
 
-        <SimpleGrid cols={2}>
-          <AssetDetailsItem
-            title={t`Current Supply Yield: `}
-            description={t`The Current Supply Yield represents the current annual percentage yield accrued by the supplied asset.`}
-            node={<AssetAPY assetType="RESERVE" assetDetails={assetDetails} />}
-          />
-          <AssetDetailsItem
-            title={t`Accrued Interest: `}
-            description={t`Experimental. The Accrued Interest refers to the total interest accrued by this supplied asset since it was first supplied in the current market by the user. This feature is experimental, there may be miscalculations, or it may not be available for all assets.`}
-            node={
-              <ReserveAssetAPYAccrued
-                asset={fetchedAsset}
-                address={currentAddress}
-                resolvedAddress={resolvedAddress}
-              />
-            }
-            titleIcon={
-              <Tooltip
-                label={t`Experimental Feature`}
-                position="right"
-                withArrow
-              >
-                <IconForTooltip>
-                  <Text span mr="xs" c="blue">
-                    <AiTwotoneExperiment />
-                  </Text>
-                </IconForTooltip>
-              </Tooltip>
-            }
-          />
+        <SimpleGrid cols={2} spacing="sm">
+          <AssetStatCard>
+            <AssetDetailsItem
+              title={t`Current Supply Yield: `}
+              description={t`The Current Supply Yield represents the current annual percentage yield accrued by the supplied asset.`}
+              node={
+                <AssetAPY assetType="RESERVE" assetDetails={assetDetails} />
+              }
+            />
+          </AssetStatCard>
+          <AssetStatCard>
+            <AccruedInterestStat
+              side="supply"
+              symbol={fetchedAsset?.asset?.symbol}
+              priceInUSD={fetchedAsset?.asset?.priceInUSD}
+              tokenAddress={fetchedAsset?.asset?.aTokenAddress}
+              address={currentAddress}
+              resolvedAddress={resolvedAddress}
+              onViewHistory={() => {
+                setOpen(false);
+                router.push(`/interest?address=${currentAddress}`);
+              }}
+            />
+          </AssetStatCard>
         </SimpleGrid>
 
         <Divider
@@ -271,14 +266,6 @@ const CopyButtonForTooltip = forwardRef<
     </ActionIcon>
   </span>
 ));
-
-type IconForTooltipProps = {
-  children: React.ReactNode;
-};
-
-export const IconForTooltip = forwardRef<HTMLSpanElement, IconForTooltipProps>(
-  (props, ref) => <span ref={ref}>{props.children}</span>
-);
 
 type AssetDetailsItemProps = {
   title: string;
