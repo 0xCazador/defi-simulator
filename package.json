@@ -23,9 +23,9 @@
     "sync_and_purge": "lingui extract --overwrite --clean && lingui compile"
   },
   "dependencies": {
+    "@aave-dao/aave-address-book": "^4.65.5",
     "@aave/contract-helpers": "1.30.3",
     "@aave/math-utils": "1.30.3",
-    "@bgd-labs/aave-address-book": "3.7.0",
     "@hookstate/core": "^4.0.1",
     "@lingui/react": "^4.3.0",
     "@mantine/core": "^8.3.18",

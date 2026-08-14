@@ -2,8 +2,9 @@
  * Refresh the "random address" CDP list used by the home page.
  *
  * Pipeline:
- *  1. Pull current top holders of major aTokens (collateral) and variable debt
- *     tokens (borrows) via Blockscout — these are live positions, not historical txs.
+ *  1. Collect candidate participants per market, either from Blockscout's token
+ *     holders index or, on chains Blockscout does not cover, from the Aave
+ *     tokens' own Mint events.
  *  2. Seed with a few known-good demo addresses.
  *  3. Score every candidate via api.v3.aave.com userMarketState across markets.
  *  4. Keep active CDPs (collateral AND debt) ranked by total position size,
@@ -14,13 +15,35 @@
  */
 const fs = require("fs");
 const path = require("path");
+const { ethers } = require("ethers");
 const {
   AaveV3Ethereum,
   AaveV3Arbitrum,
   AaveV3Optimism,
   AaveV3Base,
   AaveV3Polygon,
-} = require("@bgd-labs/aave-address-book");
+  AaveV3Avalanche,
+  AaveV3BNB,
+  AaveV3Monad,
+} = require("@aave-dao/aave-address-book");
+
+/** Read the Alchemy key from the environment, falling back to .env.local so the
+ * script works the same way `next dev` does. */
+function alchemyKey() {
+  if (process.env.NEXT_PUBLIC_ALCHEMY_API_KEY) {
+    return process.env.NEXT_PUBLIC_ALCHEMY_API_KEY;
+  }
+  try {
+    const envFile = fs.readFileSync(
+      path.join(__dirname, "..", ".env.local"),
+      "utf8"
+    );
+    const match = envFile.match(/NEXT_PUBLIC_ALCHEMY_API_KEY=(\S+)/);
+    return match ? match[1] : null;
+  } catch {
+    return null;
+  }
+}
 
 const MARKETS = [
   {
@@ -64,12 +87,48 @@ const MARKETS = [
     book: AaveV3Polygon,
     assets: ["WETH", "wstETH", "WBTC", "USDC", "USDT", "USDCn", "DAI"],
   },
+  // Scored but not harvested. The home page auto-selects whichever market holds
+  // an address's largest position, so every market the app supports has to be
+  // scored or an address gets labelled with a market it will not open on.
+  {
+    id: "AVALANCHE_V3",
+    chainId: 43114,
+    pool: AaveV3Avalanche.POOL,
+    book: AaveV3Avalanche,
+  },
+  {
+    id: "BNB_V3",
+    chainId: 56,
+    pool: AaveV3BNB.POOL,
+    book: AaveV3BNB,
+  },
+  {
+    id: "MONAD_V3",
+    chainId: 143,
+    pool: AaveV3Monad.POOL,
+    book: AaveV3Monad,
+    // Blockscout has no Monad instance, so candidates come from Mint events on
+    // the Aave tokens themselves. Aave launched here at ~block 85,000,000, so
+    // there is nothing to find before that.
+    logHarvest: { rpcHost: "monad-mainnet.g.alchemy.com", startBlock: 85_000_000 },
+    assets: ["USDC", "USDT0", "WETH", "cbBTC", "syrupUSDC", "sUSDe", "wstETH", "GHO"],
+  },
 ];
+
+/** Mint(address caller, address onBehalfOf, uint256 value, uint256 balanceIncrease, uint256 index)
+ * — emitted by both aTokens and variable debt tokens, with onBehalfOf indexed
+ * as the position owner. */
+const MINT_TOPIC = ethers.utils.id(
+  "Mint(address,address,uint256,uint256,uint256)"
+);
 
 const KNOWN_GOOD = [
   "0x3ee301d27fd556eca7aaa8c50cdbd461577c42a6",
   "0x0591926d5d3b9cc48ae6efb8db68025ddc3adfa5",
   "0x65c4c0517025ec0843c9146af266a2c5a2d148a2",
+  // Largest Monad position; its last mint is old enough to fall outside the
+  // per-token recency window, so seed it rather than rely on the harvest.
+  "0x3145cb0695416effe6ec9585e706f47b6c3c6599",
 ];
 
 const HOLDERS_PER_TOKEN = 40;
@@ -112,9 +171,57 @@ async function getTopHolders(blockscout, token) {
     .filter((a) => /^0x[a-f0-9]{40}$/.test(a));
 }
 
+/** Addresses that most recently received a mint of this token. Logs arrive in
+ * ascending block order, so walking from the end favours positions that are
+ * still open, and caps the candidate count the same way the Blockscout path
+ * does with its top-N holders. */
+async function getMintRecipients(rpcUrl, token, fromBlock) {
+  const d = await fetchJson(rpcUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      jsonrpc: "2.0",
+      id: 1,
+      method: "eth_getLogs",
+      params: [
+        {
+          address: token,
+          topics: [MINT_TOPIC],
+          fromBlock: ethers.utils.hexValue(fromBlock),
+          toBlock: "latest",
+        },
+      ],
+    }),
+  });
+  if (d.error) throw new Error(d.error.message || "eth_getLogs failed");
+
+  const logs = d.result || [];
+  const recent = new Set();
+  for (let i = logs.length - 1; i >= 0 && recent.size < HOLDERS_PER_TOKEN; i--) {
+    const owner = `0x${logs[i].topics[2].slice(26)}`.toLowerCase();
+    if (/^0x[a-f0-9]{40}$/.test(owner)) recent.add(owner);
+  }
+  return [...recent];
+}
+
 async function harvestMarket(market) {
   const users = new Set();
   let tokensQueried = 0;
+
+  if (!market.blockscout && !market.logHarvest) return users;
+
+  let rpcUrl = null;
+  if (market.logHarvest) {
+    const key = alchemyKey();
+    if (!key) {
+      console.warn(
+        `  ${market.id}: skipped — NEXT_PUBLIC_ALCHEMY_API_KEY is required to read logs`
+      );
+      return users;
+    }
+    rpcUrl = `https://${market.logHarvest.rpcHost}/v2/${key}`;
+  }
+
   for (const symbol of market.assets) {
     const toks = tokenAddresses(market, symbol);
     if (!toks) continue;
@@ -125,8 +232,14 @@ async function harvestMarket(market) {
       if (!addr) continue;
       try {
         await sleep(150);
-        const holders = await getTopHolders(market.blockscout, addr);
-        holders.forEach((h) => users.add(h));
+        const found = market.logHarvest
+          ? await getMintRecipients(
+              rpcUrl,
+              addr,
+              market.logHarvest.startBlock
+            )
+          : await getTopHolders(market.blockscout, addr);
+        found.forEach((h) => users.add(h));
         tokensQueried += 1;
       } catch (e) {
         console.warn(
@@ -241,7 +354,13 @@ async function mapPool(items, concurrency, fn) {
   // Diversify across markets, then fill remaining by size.
   const picked = [];
   const used = new Set();
-  const quotas = { ARBITRUM_V3: 10, BASE_V3: 10, OPTIMISM_V3: 8, POLYGON_V3: 8 };
+  const quotas = {
+    ARBITRUM_V3: 10,
+    BASE_V3: 10,
+    OPTIMISM_V3: 8,
+    POLYGON_V3: 8,
+    MONAD_V3: 8,
+  };
   for (const [marketId, n] of Object.entries(quotas)) {
     let added = 0;
     for (const row of cdps) {

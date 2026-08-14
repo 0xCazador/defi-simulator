@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useHookstate, State } from "@hookstate/core";
-import * as pools from "@bgd-labs/aave-address-book";
+import * as pools from "@aave-dao/aave-address-book";
 
 import { ChainId } from "@aave/contract-helpers";
 import BigNumber from "bignumber.js";
@@ -186,6 +186,14 @@ export type AaveMarketDataType = {
   };
   explorer: string;
   explorerName: string;
+  /** Earliest block that can contain Aave events for this market. Omit to scan
+   * from genesis. Set it on chains whose history long predates the Aave
+   * deployment, so event scans skip a range that cannot hold a match. */
+  startBlock?: number;
+  /** True when UI_POOL_DATA_PROVIDER is an Aave v3.7 deployment. Its reserve
+   * and user structs differ from the layout the pinned @aave/contract-helpers
+   * decodes, so these markets read through utils/uiPoolDataProviderV37. */
+  v37?: boolean;
 };
 
 export const markets: AaveMarketDataType[] = [
@@ -329,6 +337,26 @@ export const markets: AaveMarketDataType[] = [
     },
     explorer: "https://bscscan.com/address/{{ADDRESS}}",
     explorerName: "BSC Scan",
+  },
+  {
+    v3: true,
+    id: "MONAD_V3",
+    title: "Monad v3",
+    // Monad (143) postdates the ChainId enum in @aave/contract-helpers 1.30.3.
+    // The value only ever reaches a display id, so the cast is inert.
+    chainId: 143 as ChainId,
+    api: `https://monad-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
+    addresses: {
+      LENDING_POOL_ADDRESS_PROVIDER: pools.AaveV3Monad.POOL_ADDRESSES_PROVIDER,
+      UI_POOL_DATA_PROVIDER: pools.AaveV3Monad.UI_POOL_DATA_PROVIDER,
+    },
+    // Monadscan is Etherscan-derived, so it accepts the /address/ to /tx/ swap
+    // that transaction links rely on. MonadVision does not.
+    explorer: "https://monadscan.com/address/{{ADDRESS}}",
+    explorerName: "Monadscan",
+    // Aave v3.7 launched here 2026-07-02, ~85M blocks into the chain.
+    startBlock: 85_000_000,
+    v37: true,
   },
 ];
 

@@ -186,8 +186,14 @@ export const getAccrualData = async (
 
   const userTopic = ethers.utils.hexZeroPad(user, 32);
   const latestBlock = await provider.getBlockNumber();
+  const firstBlock = market.startBlock ?? 0;
   const userLogs = (topics: (string | null)[]) =>
-    getLogsChunked(provider, { address: tokenAddress, topics }, 0, latestBlock);
+    getLogsChunked(
+      provider,
+      { address: tokenAddress, topics },
+      firstBlock,
+      latestBlock
+    );
 
   // Filtered by the indexed user address, these return the complete event history
   // for this user/token (chunked only if the provider's log cap is hit).

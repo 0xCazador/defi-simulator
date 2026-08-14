@@ -33,6 +33,11 @@ import {
   fetchReserveIds,
   resolveEffectiveRiskParams,
 } from "../../../utils/liquidEMode";
+import {
+  V37Context,
+  getReservesHumanizedV37,
+  getUserReservesHumanizedV37,
+} from "../../../utils/uiPoolDataProviderV37";
 
 const allowedMethods = ["POST", "OPTIONS"];
 
@@ -98,16 +103,27 @@ export const getAaveData = async (
     (await getResolvedAddress(address)) ||
     "0x87cCC67f0c1b67745989542152DD4acff3841CD6";
 
+  const v37Ctx: V37Context = {
+    provider,
+    uiPoolDataProviderAddress: market.addresses.UI_POOL_DATA_PROVIDER,
+    lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
+    chainId: market.chainId,
+  };
+
   const [reserves, userReserves] = await Promise.all([
-    poolDataProviderContract.getReservesHumanized({
-      lendingPoolAddressProvider:
-        market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
-    }),
-    poolDataProviderContract.getUserReservesHumanized({
-      lendingPoolAddressProvider:
-        market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
-      user,
-    }),
+    market.v37
+      ? getReservesHumanizedV37(v37Ctx)
+      : poolDataProviderContract.getReservesHumanized({
+          lendingPoolAddressProvider:
+            market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
+        }),
+    market.v37
+      ? getUserReservesHumanizedV37(v37Ctx, user)
+      : poolDataProviderContract.getUserReservesHumanized({
+          lendingPoolAddressProvider:
+            market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
+          user,
+        }),
   ]);
 
   const reservesArray = reserves.reservesData;
