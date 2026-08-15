@@ -1,5 +1,6 @@
 import { AppProps } from "next/app";
 import Head from "next/head";
+import Script from "next/script";
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 
@@ -17,29 +18,7 @@ import "../css/global.css";
 
 import { theme } from "../theme";
 import languages from "../src/languages/index.json";
-import { messages } from "../src/locales/en/messages";
-
-const defaultLocale = "en";
-i18n.load(defaultLocale, messages);
-i18n.activate(defaultLocale);
-
-/*
-import langItems from "../src/languages/index.json";
-const langs = langItems.map(item => item.code)
-console.log({ langs })
-*/
-
-/**
- * We do a dynamic import of just the catalog that we need
- * @param locale any locale string
- */
-export async function activateLocale(locale: string) {
-  const { messages: localeMessages } = await import(
-    `../src/locales/${locale}/messages`
-  );
-  i18n.load(locale, localeMessages);
-  i18n.activate(locale);
-}
+import "../utils/i18n";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -56,11 +35,6 @@ export default function App(props: AppProps) {
           name="description"
           content={t`DeFi Simulator is an unofficial, open source, community-built Aave debt simulator and liquidation calculator.`}
         />
-        <script
-          defer
-          src="https://static.cloudflareinsights.com/beacon.min.js"
-          data-cf-beacon='{"token": "42f927fda7404332a3720866ad63795f"}'
-        />
         <link rel="shortcut icon" href="/favicon.ico" />
         {languages.map((language) => (
           <link
@@ -71,6 +45,13 @@ export default function App(props: AppProps) {
           />
         ))}
       </Head>
+      {process.env.NODE_ENV === "production" && (
+        <Script
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          strategy="afterInteractive"
+          data-cf-beacon='{"token": "42f927fda7404332a3720866ad63795f"}'
+        />
+      )}
       <I18nProvider i18n={i18n}>
         <MantineProvider theme={theme} forceColorScheme="dark">
           <Component {...pageProps} />

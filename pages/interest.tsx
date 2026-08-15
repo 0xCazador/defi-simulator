@@ -9,7 +9,7 @@ import AppBar from "../components/AppBar";
 import { isValidENSAddress } from "../components/AddressInput";
 import InterestManifest from "../components/InterestManifest";
 import Footer from "../components/Footer";
-import { activateLocale } from "./_app";
+import { activateLocale } from "../utils/i18n";
 
 export default function InterestPage() {
   const router: NextRouter = useRouter();

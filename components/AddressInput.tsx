@@ -7,7 +7,7 @@ import { ActionIcon, Center, TextInput, Tooltip } from "@mantine/core";
 import { FaCopy, FaExternalLinkAlt } from "react-icons/fa";
 import { GiDiceSixFacesFive } from "react-icons/gi";
 import { markets, useAaveData } from "../hooks/useAaveData";
-import { RandomAddressButton } from "../pages";
+import { RandomAddressButton } from "./RandomAddressButton";
 import classes from "./AddressInput.module.css";
 
 const AddressInput = () => {

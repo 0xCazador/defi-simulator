@@ -81,7 +81,7 @@ export default function BorrowedAssetDetailsDialog({
             setOpen(true);
           }}
         >
-          <Text size="xs">
+          <Text size="xs" span>
             <Trans>Details</Trans>
           </Text>
         </Button>
@@ -300,7 +300,7 @@ export const AssetDetailsItem = ({
 }: AssetDetailsItemProps) => (
   <Center>
     <Paper>
-      <Text size="xs" ta="center">
+      <Text size="xs" ta="center" component="div">
         {titleIcon}
         <Popover width="250px" withArrow shadow="md">
           <Popover.Target>
@@ -319,7 +319,9 @@ export const AssetDetailsItem = ({
             </Trans>
           </Popover.Dropdown>
         </Popover>
-        <Text fw="600">{node}</Text>
+        <Text fw="600" span>
+          {node}
+        </Text>
       </Text>
     </Paper>
   </Center>
