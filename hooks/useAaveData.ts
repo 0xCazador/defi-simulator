@@ -194,6 +194,13 @@ export type AaveMarketDataType = {
    * and user structs differ from the layout the pinned @aave/contract-helpers
    * decodes, so these markets read through utils/uiPoolDataProviderV37. */
   v37?: boolean;
+  /** Etherscan-compatible logs API (Blockscout / Routescan / Etherscan) used
+   * instead of RPC eth_getLogs for interest-accrual event scans. Set it on
+   * chains whose RPC caps getLogs to a block range too small to cover the
+   * market's history in a reasonable number of calls (Alchemy allows only
+   * 10k-block windows on Plasma and MegaETH); the explorers serve the same
+   * filter over the full range in one request. */
+  logApi?: string;
 };
 
 export const markets: AaveMarketDataType[] = [
@@ -357,6 +364,47 @@ export const markets: AaveMarketDataType[] = [
     // Aave v3.7 launched here 2026-07-02, ~85M blocks into the chain.
     startBlock: 85_000_000,
     v37: true,
+  },
+  {
+    v3: true,
+    id: "PLASMA_V3",
+    title: "Plasma v3",
+    // Plasma (9745) postdates the ChainId enum in @aave/contract-helpers
+    // 1.30.3. The value only ever reaches a display id, so the cast is inert.
+    chainId: 9745 as ChainId,
+    api: `https://plasma-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
+    addresses: {
+      LENDING_POOL_ADDRESS_PROVIDER: pools.AaveV3Plasma.POOL_ADDRESSES_PROVIDER,
+      UI_POOL_DATA_PROVIDER: pools.AaveV3Plasma.UI_POOL_DATA_PROVIDER,
+    },
+    // Plasmascan is Routescan-based and keeps the Etherscan-style /address/
+    // and /tx/ path segments that transaction links rely on.
+    explorer: "https://plasmascan.to/address/{{ADDRESS}}",
+    explorerName: "Plasmascan",
+    // POOL_ADDRESSES_PROVIDER deployed at block 489,196 (verified on-chain).
+    startBlock: 489_000,
+    v37: true,
+    logApi: "https://api.routescan.io/v2/network/mainnet/evm/9745/etherscan/api",
+  },
+  {
+    v3: true,
+    id: "MEGAETH_V3",
+    title: "MegaETH v3",
+    // MegaETH (4326) postdates the ChainId enum in @aave/contract-helpers
+    // 1.30.3. The value only ever reaches a display id, so the cast is inert.
+    chainId: 4326 as ChainId,
+    api: `https://megaeth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
+    addresses: {
+      LENDING_POOL_ADDRESS_PROVIDER:
+        pools.AaveV3MegaEth.POOL_ADDRESSES_PROVIDER,
+      UI_POOL_DATA_PROVIDER: pools.AaveV3MegaEth.UI_POOL_DATA_PROVIDER,
+    },
+    explorer: "https://mega.etherscan.io/address/{{ADDRESS}}",
+    explorerName: "Etherscan",
+    // POOL_ADDRESSES_PROVIDER deployed at block 6,657,947 (verified on-chain).
+    startBlock: 6_650_000,
+    v37: true,
+    logApi: "https://megaeth.blockscout.com/api",
   },
 ];
 

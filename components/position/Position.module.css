@@ -1,18 +1,22 @@
 /* Sticky position summary: translucent, blurred surface so asset rows
-   scrolling underneath stay legible without a hard opaque block. */
+   scrolling underneath stay legible without a hard opaque block. Stuck a few
+   pixels below the viewport edge (with a shadow) so it reads as a floating
+   glass panel instead of a card wedged against the top. Keep the top offset
+   in sync with HERO_STICKY_TOP in AddressCard.tsx. */
 .heroWrapper {
   position: sticky;
-  top: 0;
+  top: 8px;
   z-index: 5;
 }
 
 .heroCard {
-  background: color-mix(in srgb, var(--mantine-color-dark-7) 82%, transparent);
+  background: color-mix(in srgb, var(--mantine-color-dark-7) 88%, transparent);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--mantine-color-dark-5);
   border-radius: var(--mantine-radius-lg);
   padding: var(--mantine-spacing-md) var(--mantine-spacing-lg);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
 /* Below sm the hero stacks, so the health factor block takes the full row and

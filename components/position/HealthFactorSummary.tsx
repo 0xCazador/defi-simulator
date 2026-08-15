@@ -17,7 +17,10 @@ import classes from "./Position.module.css";
 
 type HealthFactorSummaryProps = {
   data: ImmutableObject<HealthFactorData>;
-  summaryRef: RefObject<HTMLDivElement>;
+  /** Mantine's useElementSize types its ref as RefObject<T | null> (React 19
+   * style); under React 18 typings RefObject<T>.current is already T | null,
+   * so the shapes match and the render-site cast below is inert. */
+  summaryRef: RefObject<HTMLDivElement | null>;
 };
 
 /**
@@ -125,7 +128,10 @@ export const HealthFactorSummary = ({
       );
 
   return (
-    <div ref={summaryRef} className={classes.heroWrapper}>
+    <div
+      ref={summaryRef as RefObject<HTMLDivElement>}
+      className={classes.heroWrapper}
+    >
       <div className={classes.heroCard}>
         <Flex
           justify="space-between"

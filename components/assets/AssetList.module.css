@@ -1,0 +1,31 @@
+/* Sticky section header ("Supplied Assets" / "Borrowed Assets"): the same
+   translucent blurred veil as the hero card, so asset rows scrolling
+   underneath dim softly instead of vanishing behind an opaque block.
+
+   The header tucks up under the hero card by the card's border radius
+   (--section-overlap): the notches outside the card's rounded bottom corners
+   are then filled by this veil rather than by raw scrolling content, which
+   previously read as a darker squared background poking out of the corners.
+   The tucked strip is compensated with top padding so the title always sits
+   fully below the hero. --summary-offset is the hero's live, resize-observed
+   bottom edge, provided inline by the list components. */
+.sectionHeader {
+  --section-overlap: var(--mantine-radius-lg);
+  position: sticky;
+  top: calc(var(--summary-offset, 0px) - var(--section-overlap));
+  z-index: 4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: calc(var(--section-overlap) + 8px) 0 6px 0;
+  background: color-mix(in srgb, var(--mantine-color-dark-7) 82%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* The borrowed header sits under the supplied header while both are pinned
+   during the handoff between sections. */
+.sectionHeaderBorrowed {
+  composes: sectionHeader;
+  z-index: 3;
+}

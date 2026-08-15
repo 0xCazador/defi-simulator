@@ -25,6 +25,8 @@ const {
   AaveV3Avalanche,
   AaveV3BNB,
   AaveV3Monad,
+  AaveV3Plasma,
+  AaveV3MegaEth,
 } = require("@aave-dao/aave-address-book");
 
 /** Read the Alchemy key from the environment, falling back to .env.local so the
@@ -112,6 +114,18 @@ const MARKETS = [
     // there is nothing to find before that.
     logHarvest: { rpcHost: "monad-mainnet.g.alchemy.com", startBlock: 85_000_000 },
     assets: ["USDC", "USDT0", "WETH", "cbBTC", "syrupUSDC", "sUSDe", "wstETH", "GHO"],
+  },
+  {
+    id: "PLASMA_V3",
+    chainId: 9745,
+    pool: AaveV3Plasma.POOL,
+    book: AaveV3Plasma,
+  },
+  {
+    id: "MEGAETH_V3",
+    chainId: 4326,
+    pool: AaveV3MegaEth.POOL,
+    book: AaveV3MegaEth,
   },
 ];
 

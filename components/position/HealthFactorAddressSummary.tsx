@@ -1,10 +1,19 @@
-import { Center, Loader, Popover, Skeleton, Text } from "@mantine/core";
+import {
+  Badge,
+  Center,
+  Group,
+  Loader,
+  Popover,
+  Skeleton,
+  Text,
+} from "@mantine/core";
 import { Trans, Plural } from "@lingui/macro";
 import { FaBolt } from "react-icons/fa";
 
 import {
   useAaveData,
   markets,
+  getIconNameFromMarket,
   ReserveAssetDataItem,
   AaveMarketDataType,
 } from "../../hooks/useAaveData";
@@ -49,66 +58,83 @@ export const HealthFactorAddressSummary = ({
     );
   }
 
+  const separator = (
+    <Text size="sm" c="dimmed" span>
+      ·
+    </Text>
+  );
+
   return (
     <>
       <Center>
         {/* The loader is absolutely positioned (out of document flow) so it
             appears and disappears without shifting the layout. */}
         <div style={{ position: "relative", display: "inline-block" }}>
-          {count ? (
-            <Text size="sm" style={{ display: "inline-block" }}>
+          <Group justify="center" gap={10} wrap="wrap">
+            {market && (
+              <Group gap={6} wrap="nowrap">
+                <img
+                  src={`/icons/networks/${getIconNameFromMarket(market)}.svg`}
+                  width="18px"
+                  height="18px"
+                  alt=""
+                  // Block, so it centers as a flex item instead of sitting on
+                  // the adjacent text's baseline.
+                  style={{ display: "block" }}
+                />
+                <Text size="sm" fw={600}>
+                  {market.title}
+                </Text>
+              </Group>
+            )}
+            {market && separator}
+            <Text size="sm" c="dimmed" ff="monospace">
               <AbbreviatedEthereumAddress address={currentAddress} />
-              {":  "}
-              <Trans>Found</Trans> Aave{" "}
-              <Plural value={Number(count)} one="position" other="positions" />{" "}
-              <Trans>in</Trans> {count}{" "}
-              <Plural value={Number(count)} one="market" other="markets" />.
             </Text>
-          ) : isFetching ? (
-            <Text size="sm" style={{ display: "inline-block" }}>
-              <AbbreviatedEthereumAddress address={currentAddress} />
-              {": "}
-              <Trans>Checking Aave markets for positions…</Trans>
-            </Text>
-          ) : (
-            <Text size="sm" style={{ display: "inline-block" }}>
-              <AbbreviatedEthereumAddress address={currentAddress} />
-              {": "}
-              <Trans>No Aave positions found.</Trans>
-            </Text>
-          )}
-          {isFetching && (
-            <Loader
-              size="xs"
-              type="dots"
-              style={{
-                position: "absolute",
-                left: "100%",
-                top: "50%",
-                transform: "translateY(-50%)",
-                marginLeft: "8px",
-              }}
-            />
-          )}
-        </div>
-      </Center>
-
-      <Center>
-        <Text span size="sm" mt="md" style={{ display: "inline-block" }}>
-          {market && ` ${market.title} `}
-          {market && <Trans>market selected.</Trans>}
-          {isEmode && (
-            <Text ml="xs" span>
-              <FaBolt />{" "}
+            {separator}
+            {count ? (
+              <Badge
+                variant="light"
+                color="green"
+                radius="sm"
+                tt="none"
+                fw={500}
+              >
+                <Plural
+                  value={Number(count)}
+                  one="Aave position in # market"
+                  other="Aave positions in # markets"
+                />
+              </Badge>
+            ) : isFetching ? (
+              <Text size="sm" c="dimmed">
+                <Trans>Checking Aave markets…</Trans>
+              </Text>
+            ) : (
+              <Badge
+                variant="light"
+                color="gray"
+                radius="sm"
+                tt="none"
+                fw={500}
+              >
+                <Trans>No Aave positions found</Trans>
+              </Badge>
+            )}
+            {isEmode && (
               <Popover width="250px" withArrow shadow="md">
                 <Popover.Target>
-                  <Text
-                    span
-                    td="underline"
-                    style={{ textDecorationStyle: "dotted", cursor: "pointer" }}
+                  <Badge
+                    variant="light"
+                    color="yellow"
+                    radius="sm"
+                    tt="none"
+                    fw={500}
+                    leftSection={<FaBolt size={10} />}
+                    style={{ cursor: "pointer" }}
                   >
                     <Trans>E-Mode</Trans>
-                  </Text>
+                  </Badge>
                 </Popover.Target>
                 <Popover.Dropdown>
                   <Text size="sm">
@@ -129,13 +155,26 @@ export const HealthFactorAddressSummary = ({
                   </Text>
                 </Popover.Dropdown>
               </Popover>
-            </Text>
+            )}
+          </Group>
+          {isFetching && (
+            <Loader
+              size="xs"
+              type="dots"
+              style={{
+                position: "absolute",
+                left: "100%",
+                top: "50%",
+                transform: "translateY(-50%)",
+                marginLeft: "8px",
+              }}
+            />
           )}
-        </Text>
+        </div>
       </Center>
 
       <Center>
-        <Text size="sm" ta="center" mt="md" mb="lg">
+        <Text size="xs" c="dimmed" ta="center" mt="xs" mb="lg">
           <Trans>
             Adjust the assets below to see how health factor and borrowing power
             respond.

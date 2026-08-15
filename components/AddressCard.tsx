@@ -1,6 +1,6 @@
-import { useRef } from "react";
 import { Trans } from "@lingui/macro";
 import { Alert, Button, Space } from "@mantine/core";
+import { useElementSize } from "@mantine/hooks";
 import { FiAlertTriangle } from "react-icons/fi";
 
 import { useAaveData, HealthFactorData, markets } from "../hooks/useAaveData";
@@ -20,8 +20,17 @@ const AddressCard = () => {
     retryFetchMarket,
   } = useAaveData("");
   const data = addressData?.[currentMarket] as HealthFactorData;
-  const summaryRef = useRef<HTMLDivElement>(null);
-  const summaryOffset: number = summaryRef?.current?.clientHeight || 0;
+  // The hero summary sticks this far below the viewport top; keep in sync
+  // with .heroWrapper's top in Position.module.css.
+  const HERO_STICKY_TOP = 8;
+  // ResizeObserver-backed measurement: the offset follows the hero through
+  // resizes, wrapping, and content changes (a one-shot clientHeight read left
+  // the sticky section headers pinned at stale offsets).
+  const { ref: summaryRef, height: summaryHeight } =
+    useElementSize<HTMLDivElement>();
+  const summaryOffset: number = summaryHeight
+    ? Math.ceil(summaryHeight) + HERO_STICKY_TOP
+    : 0;
   const isIsolationMode: boolean = !!data?.workingData?.isInIsolationMode;
   const isError: boolean = !!data?.fetchError?.length;
   // Each market renders as soon as its own data arrives; other markets may
@@ -34,9 +43,9 @@ const AddressCard = () => {
   return (
     <div style={{ marginTop: "15px" }}>
       <HealthFactorAddressSummary addressData={addressData} />
-      <div
-        style={{ zIndex: "6", backgroundColor: "var(--mantine-color-body)" }}
-      >
+      {/* No background here: an opaque fill would block the body's radial
+          glow and read as a darker squared slab behind the rounded hero. */}
+      <div>
         {isError && (
           <Alert
             mb={15}

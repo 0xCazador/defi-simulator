@@ -1,4 +1,5 @@
-import { Center, Container, Text, Title } from "@mantine/core";
+import { CSSProperties } from "react";
+import { Center, Text, Title } from "@mantine/core";
 import { Trans } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
 import { ImmutableArray } from "@hookstate/core";
@@ -11,6 +12,7 @@ import {
 import AddAssetDialog from "../AddAssetDialog";
 import { AbbreviatedEthereumAddress } from "../position/AbbreviatedEthereumAddress";
 import { UserAssetItem } from "./UserAssetItem";
+import classes from "./AssetList.module.css";
 
 type UserReserveAssetListProps = {
   summaryOffset: number;
@@ -36,24 +38,15 @@ export const UserReserveAssetList = ({
 
   return (
     <div style={{ marginTop: "15px" }}>
-      <Container
-        style={{
-          marginTop: "15px",
-          display: "flex",
-          justifyContent: "space-between",
-          padding: "0px",
-          paddingBottom: "5px",
-          position: "sticky",
-          top: `${summaryOffset}px`,
-          zIndex: "4",
-          backgroundColor: "var(--mantine-color-body)",
-        }}
+      <div
+        className={classes.sectionHeader}
+        style={{ "--summary-offset": `${summaryOffset}px` } as CSSProperties}
       >
-        <Title order={4} style={{ marginBottom: "10px" }}>
+        <Title order={4}>
           <Trans>Supplied Assets</Trans>
         </Title>
         <AddAssetDialog assetType="RESERVE" />
-      </Container>
+      </div>
       {items.length === 0 && (
         <Center>
           <Text fz="sm" m={25} ta="center">

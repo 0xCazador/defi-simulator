@@ -68,6 +68,108 @@ export const getLogsChunked = async (
   }
 };
 
+/** Explorer APIs report numbers as hex ("0x1a"), bare "0x" for zero, or
+ * occasionally decimal strings, depending on the implementation. */
+const explorerNumber = (value: string | number): number => {
+  if (typeof value === "number") return value;
+  if (value === "0x") return 0;
+  return value.startsWith("0x") ? parseInt(value, 16) : parseInt(value, 10);
+};
+
+/**
+ * LogSource backed by an Etherscan-compatible explorer API (Blockscout,
+ * Routescan, Etherscan). Markets set `logApi` when their RPC caps eth_getLogs
+ * to a block range too small to scan the market's history (Alchemy allows
+ * only 10k-block windows on Plasma and MegaETH — thousands of calls to cover
+ * the market), while their explorers serve the same filter over any range.
+ *
+ * Explorers silently clip results to a page limit that varies by
+ * implementation (Routescan defaults to 100, honors offset up to 1000;
+ * Blockscout ignores paging params entirely), and a clipped result is
+ * indistinguishable from a complete one. So no page size is ever assumed:
+ * each query resumes from the last block seen — re-fetching that block in
+ * full so logs cut off mid-block are not lost, deduped by (txHash, logIndex)
+ * — until a query contributes nothing new.
+ */
+export const explorerLogSource = (apiUrl: string): LogSource => ({
+  async getLogs(filter) {
+    // Routescan matches topic/address params case-sensitively, so normalize
+    // everything to lowercase.
+    const topics = (filter.topics ?? []) as (string | null)[];
+    const params = new URLSearchParams({
+      module: "logs",
+      action: "getLogs",
+      toBlock: String(filter.toBlock),
+      address: String(filter.address).toLowerCase(),
+      // Request the largest page Etherscan-compatible APIs allow; explorers
+      // that ignore paging params fall back to their own limit, which the
+      // resume loop below absorbs either way.
+      page: "1",
+      offset: "1000",
+    });
+    const present = topics
+      .map((topic, index) => (topic ? index : -1))
+      .filter((index) => index >= 0);
+    present.forEach((index) =>
+      params.set(`topic${index}`, topics[index]!.toLowerCase())
+    );
+    present.slice(1).forEach((index, i) => {
+      params.set(`topic${present[i]}_${index}_opr`, "and");
+    });
+
+    const logs: ethers.providers.Log[] = [];
+    const seen = new Set<string>();
+    let fromBlock = Number(filter.fromBlock ?? 0);
+    for (;;) {
+      params.set("fromBlock", String(fromBlock));
+      const res = await fetch(`${apiUrl}?${params}`);
+      if (!res.ok) {
+        throw new Error(`Explorer log query failed: HTTP ${res.status}`);
+      }
+      const body = await res.json();
+      if (!Array.isArray(body?.result)) {
+        // "No records found" is a normal empty result on some explorers.
+        if (/no records/i.test(`${body?.message} ${body?.result}`)) break;
+        throw new Error(
+          `Explorer log query failed: ${body?.result ?? body?.message}`
+        );
+      }
+      if (body.result.length === 0) break;
+
+      let added = 0;
+      body.result.forEach((raw: any) => {
+        const logIndex = explorerNumber(raw.logIndex ?? 0);
+        const key = `${raw.transactionHash}-${logIndex}`;
+        if (seen.has(key)) return;
+        seen.add(key);
+        added += 1;
+        logs.push({
+          blockNumber: explorerNumber(raw.blockNumber),
+          blockHash: raw.blockHash ?? "",
+          transactionIndex: explorerNumber(raw.transactionIndex ?? 0),
+          removed: false,
+          address: raw.address,
+          data: raw.data,
+          // Some explorers (Blockscout) pad topics to four entries with
+          // nulls, which ethers' parseLog cannot digest.
+          topics: (raw.topics ?? []).filter(
+            (topic: unknown): topic is string => typeof topic === "string"
+          ),
+          transactionHash: raw.transactionHash,
+          logIndex,
+        });
+      });
+      if (added === 0) break;
+
+      const lastBlock = explorerNumber(
+        body.result[body.result.length - 1].blockNumber
+      );
+      fromBlock = Math.max(lastBlock, fromBlock);
+    }
+    return logs;
+  },
+});
+
 /** One classified, dated event of the position's interest accounting */
 export type LedgerRow = {
   action: LedgerAction;
@@ -187,9 +289,12 @@ export const getAccrualData = async (
   const userTopic = ethers.utils.hexZeroPad(user, 32);
   const latestBlock = await provider.getBlockNumber();
   const firstBlock = market.startBlock ?? 0;
+  const logSource: LogSource = market.logApi
+    ? explorerLogSource(market.logApi)
+    : provider;
   const userLogs = (topics: (string | null)[]) =>
     getLogsChunked(
-      provider,
+      logSource,
       { address: tokenAddress, topics },
       firstBlock,
       latestBlock
