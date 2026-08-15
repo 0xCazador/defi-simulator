@@ -40,7 +40,7 @@ const MAX_CONSECUTIVE_MISSES = 3;
 /** Fetch all configured liquid eMode categories from an Aave v3 Pool. */
 export const fetchEModeCategories = async (
   provider: ethers.providers.Provider,
-  poolAddress: string
+  poolAddress: string,
 ): Promise<EModeCategoryData[]> => {
   const pool = new ethers.Contract(poolAddress, POOL_ABI, provider);
   const categories: EModeCategoryData[] = [];
@@ -65,8 +65,8 @@ export const fetchEModeCategories = async (
 
     const configs = await Promise.all(
       ids.map((id) =>
-        pool.getEModeCategoryCollateralConfig(id).catch(() => null)
-      )
+        pool.getEModeCategoryCollateralConfig(id).catch(() => null),
+      ),
     );
 
     const hits: { id: number; cfg: any }[] = [];
@@ -89,7 +89,7 @@ export const fetchEModeCategories = async (
               pool.getEModeCategoryLabel(id).catch(() => ""),
               pool.getEModeCategoryCollateralBitmap(id),
               pool.getEModeCategoryBorrowableBitmap(id),
-            ]
+            ],
           );
           const category: EModeCategoryData = {
             id,
@@ -103,10 +103,10 @@ export const fetchEModeCategories = async (
         } catch {
           return null;
         }
-      })
+      }),
     );
     categories.push(
-      ...details.filter((c): c is EModeCategoryData => c !== null)
+      ...details.filter((c): c is EModeCategoryData => c !== null),
     );
   }
   return categories;
@@ -115,12 +115,12 @@ export const fetchEModeCategories = async (
 /** Resolve the Pool address from a PoolAddressesProvider. */
 export const fetchPoolAddress = async (
   provider: ethers.providers.Provider,
-  poolAddressesProvider: string
+  poolAddressesProvider: string,
 ): Promise<string> => {
   const pap = new ethers.Contract(
     poolAddressesProvider,
     PROVIDER_ABI,
-    provider
+    provider,
   );
   return pap.getPool();
 };
@@ -129,7 +129,7 @@ export const fetchPoolAddress = async (
 export const fetchReserveIds = async (
   provider: ethers.providers.Provider,
   poolAddress: string,
-  underlyingAssets: string[]
+  underlyingAssets: string[],
 ): Promise<Map<string, number>> => {
   const pool = new ethers.Contract(poolAddress, POOL_ABI, provider);
   const unique = [...new Set(underlyingAssets.map((a) => a.toLowerCase()))];
@@ -141,7 +141,7 @@ export const fetchReserveIds = async (
       } catch {
         return [asset, -1] as const;
       }
-    })
+    }),
   );
   return new Map(entries.filter(([, id]) => id >= 0));
 };

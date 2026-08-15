@@ -39,7 +39,7 @@ const makeProvider = (logBlocks: number[], cap: number) => {
       const hits = logBlocks.filter((b) => b >= fromBlock && b <= toBlock);
       if (hits.length > cap) {
         throw new Error(
-          'processing response error (body="Log response size exceeded. You can make eth_getLogs requests with up to a 2K block range...")'
+          'processing response error (body="Log response size exceeded. You can make eth_getLogs requests with up to a 2K block range...")',
         );
       }
       return hits.map((blockNumber) => ({ blockNumber })) as any;
@@ -71,7 +71,7 @@ describe("getLogsChunked", () => {
       },
     };
     await expect(getLogsChunked(provider, FILTER, 0, 100)).rejects.toThrow(
-      "whitelist"
+      "whitelist",
     );
   });
 
@@ -80,7 +80,7 @@ describe("getLogsChunked", () => {
     const blocks = Array.from({ length: 1000 }, (_, i) => i);
     const provider = makeProvider(blocks, 1);
     await expect(
-      getLogsChunked(provider, FILTER, 0, 999, { calls: 20 })
+      getLogsChunked(provider, FILTER, 0, 999, { calls: 20 }),
     ).rejects.toThrow(/response size/i);
     expect(provider.calls.length).toBeLessThanOrEqual(21);
   });
@@ -128,7 +128,10 @@ describe("explorerLogSource", () => {
 
   it("parses hex fields, strips null-padded topics, treats bare 0x logIndex as zero", async () => {
     // Blockscout pads topics to four entries with nulls.
-    const padded = { ...rawLog(255, "0x"), topics: ["0xtopic", null, null, null] };
+    const padded = {
+      ...rawLog(255, "0x"),
+      topics: ["0xtopic", null, null, null],
+    };
     // A repeated batch proves completion; the duplicate is dropped.
     fetchMock.mockResponses(ok([padded]), ok([padded]));
     const logs = await explorerLogSource(API).getLogs({
@@ -174,7 +177,7 @@ describe("explorerLogSource", () => {
         status: "0",
         message: "No records found",
         result: "No records found",
-      })
+      }),
     );
     const logs = await explorerLogSource(API).getLogs({
       address: "0xtoken",
@@ -193,11 +196,15 @@ describe("explorerLogSource", () => {
         topics: ["0xtopic"],
         fromBlock: 0,
         toBlock: 100,
-      })
+      }),
     ).rejects.toThrow("HTTP 502");
 
     fetchMock.mockResponseOnce(
-      JSON.stringify({ status: "0", message: "NOTOK", result: "Max rate limit reached" })
+      JSON.stringify({
+        status: "0",
+        message: "NOTOK",
+        result: "Max rate limit reached",
+      }),
     );
     await expect(
       explorerLogSource(API).getLogs({
@@ -205,7 +212,7 @@ describe("explorerLogSource", () => {
         topics: ["0xtopic"],
         fromBlock: 0,
         toBlock: 100,
-      })
+      }),
     ).rejects.toThrow("Max rate limit reached");
   });
 });
@@ -275,14 +282,14 @@ describe("getAccrualData scan range", () => {
     const ranges = stubChain();
     fetchMock.resetMocks();
     fetchMock.mockResponse(
-      JSON.stringify({ status: "1", message: "OK", result: [] })
+      JSON.stringify({ status: "1", message: "OK", result: [] }),
     );
 
     await getAccrualData(
       { ...market(489_000), logApi: "https://explorer.invalid/api" },
       USER,
       TOKEN,
-      "supply"
+      "supply",
     );
 
     // All four supply-side filters (Mint, Burn, Transfer in/out) go to the
@@ -292,7 +299,7 @@ describe("getAccrualData scan range", () => {
     fetchMock.mock.calls.forEach(([url]) => {
       const parsed = new URL(url as string);
       expect(parsed.origin + parsed.pathname).toBe(
-        "https://explorer.invalid/api"
+        "https://explorer.invalid/api",
       );
       expect(parsed.searchParams.get("fromBlock")).toBe("489000");
       expect(parsed.searchParams.get("toBlock")).toBe(String(LATEST_BLOCK));

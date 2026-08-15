@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Trans, t } from "@lingui/macro";
+import { t } from "@lingui/core/macro";
+import { Trans } from "@lingui/react/macro";
 import {
   ActionIcon,
   Badge,
@@ -39,7 +40,7 @@ export const LiquidationScenario = ({
 
   const scenario: AssetDetails[] = getCalculatedLiquidationScenario(
     data?.workingData as AaveHealthFactorData,
-    data?.marketReferenceCurrencyPriceInUSD
+    data?.marketReferenceCurrencyPriceInUSD,
   );
 
   const noScenarioLabel = <Trans>No Liquidation Scenario Available</Trans>;

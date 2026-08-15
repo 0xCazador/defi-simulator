@@ -1,6 +1,6 @@
-import { ReactElement, RefObject } from "react";
+import { ReactElement, RefCallback } from "react";
 import { formatNumber } from "accounting";
-import { Trans } from "@lingui/macro";
+import { Trans } from "@lingui/react/macro";
 import { Center, Flex, Group, Popover, SimpleGrid, Text } from "@mantine/core";
 import { FaInfinity } from "react-icons/fa";
 import { ImmutableObject } from "@hookstate/core";
@@ -17,10 +17,7 @@ import classes from "./Position.module.css";
 
 type HealthFactorSummaryProps = {
   data: ImmutableObject<HealthFactorData>;
-  /** Mantine's useElementSize types its ref as RefObject<T | null> (React 19
-   * style); under React 18 typings RefObject<T>.current is already T | null,
-   * so the shapes match and the render-site cast below is inert. */
-  summaryRef: RefObject<HTMLDivElement | null>;
+  summaryRef: RefCallback<HTMLDivElement | null>;
 };
 
 /**
@@ -52,11 +49,11 @@ export const HealthFactorSummary = ({
 
   const originalHealthFactorDisplayable: string = formatNumber(
     Math.max(data.fetchedData?.healthFactor || 0, 0),
-    2
+    2,
   );
 
   const hfColor: string = getHealthFactorColor(
-    data.workingData?.healthFactor || 0
+    data.workingData?.healthFactor || 0,
   );
 
   const healthFactorElem: ReactElement =
@@ -84,12 +81,12 @@ export const HealthFactorSummary = ({
 
   const originalAvailableBorrowsUSD: number = Math.max(
     data.fetchedData?.availableBorrowsUSD ?? 0,
-    0
+    0,
   );
 
   const availableBorrowsUSD: number = Math.max(
     data.workingData?.availableBorrowsUSD ?? 0,
-    0
+    0,
   );
 
   const availableBorrowsDiffers: boolean =
@@ -100,12 +97,12 @@ export const HealthFactorSummary = ({
   const originalTotalCollateralUSD: number =
     data.fetchedData?.userReservesData.reduce(
       (acc, item) => acc + item.underlyingBalanceUSD,
-      0
+      0,
     ) ?? 0;
   const totalCollateralUSD: number =
     data.workingData?.userReservesData.reduce(
       (acc, item) => acc + item.underlyingBalanceUSD,
-      0
+      0,
     ) ?? 0;
 
   const totalCollateralDiffers: boolean =
@@ -124,14 +121,11 @@ export const HealthFactorSummary = ({
       originalTotalCollateralUSD - (data.fetchedData?.totalBorrowsUSD ?? 0)
     ).toFixed(2) !==
       (totalCollateralUSD - (data.workingData?.totalBorrowsUSD ?? 0)).toFixed(
-        2
+        2,
       );
 
   return (
-    <div
-      ref={summaryRef as RefObject<HTMLDivElement>}
-      className={classes.heroWrapper}
-    >
+    <div ref={summaryRef} className={classes.heroWrapper}>
       <div className={classes.heroCard}>
         <Flex
           justify="space-between"

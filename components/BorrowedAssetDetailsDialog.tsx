@@ -1,5 +1,6 @@
 import * as React from "react";
-import { t, Trans } from "@lingui/macro";
+import { t } from "@lingui/core/macro";
+import { Trans } from "@lingui/react/macro";
 import { useRouter } from "next/router";
 
 import {
@@ -48,17 +49,17 @@ export default function BorrowedAssetDetailsDialog({
   const { addressData, currentMarket, currentAddress } = useAaveData("", true);
 
   const market = markets.find(
-    (mkt) => mkt.id === currentMarket
+    (mkt) => mkt.id === currentMarket,
   ) as AaveMarketDataType;
   const asset = addressData?.[
     currentMarket
   ]?.workingData?.userBorrowsData?.find(
-    (r) => r.asset.symbol === assetDetails.symbol
+    (r) => r.asset.symbol === assetDetails.symbol,
   ) as BorrowedAssetDataItem;
   const fetchedAsset = addressData?.[
     currentMarket
   ]?.fetchedData?.userBorrowsData?.find(
-    (r) => r.asset.symbol === assetDetails.symbol
+    (r) => r.asset.symbol === assetDetails.symbol,
   ) as BorrowedAssetDataItem;
   const resolvedAddress: string = addressData?.[currentMarket]?.resolvedAddress;
 

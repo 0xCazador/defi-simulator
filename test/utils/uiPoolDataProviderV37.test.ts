@@ -91,9 +91,8 @@ describe("getReservesHumanizedV37", () => {
     mockContract.mockImplementation(() => ({
       getReservesData: async () => [[rawReserve()], rawBaseCurrency],
     }));
-    const { reservesData, baseCurrencyData } = await getReservesHumanizedV37(
-      ctx
-    );
+    const { reservesData, baseCurrencyData } =
+      await getReservesHumanizedV37(ctx);
     return { reserve: reservesData[0], baseCurrencyData };
   };
 
@@ -111,7 +110,7 @@ describe("getReservesHumanizedV37", () => {
     expect(reserve.isActive).toBe(true);
     expect(reserve.flashLoanEnabled).toBe(true);
     expect(reserve.aTokenAddress).toBe(
-      "0xbc2A1FA0069e59e2552Ab40889520c7b0D413D9B"
+      "0xbc2A1FA0069e59e2552Ab40889520c7b0D413D9B",
     );
   });
 
@@ -119,7 +118,7 @@ describe("getReservesHumanizedV37", () => {
     const { reserve } = await humanizeOne();
 
     expect(reserve.id).toBe(
-      `143-${UNDERLYING}-${ADDRESSES_PROVIDER}`.toLowerCase()
+      `143-${UNDERLYING}-${ADDRESSES_PROVIDER}`.toLowerCase(),
     );
   });
 
@@ -147,7 +146,7 @@ describe("getReservesHumanizedV37", () => {
 
     expect(baseCurrencyData.marketReferenceCurrencyDecimals).toBe(8);
     expect(baseCurrencyData.marketReferenceCurrencyPriceInUsd).toBe(
-      "100000000"
+      "100000000",
     );
     expect(baseCurrencyData.networkBaseTokenPriceInUsd).toBe("2154503");
     expect(baseCurrencyData.networkBaseTokenPriceDecimals).toBe(8);
@@ -166,7 +165,7 @@ describe("getReservesHumanizedV37", () => {
     expect(mockContract).toHaveBeenCalledWith(
       UI_POOL,
       expect.any(Array),
-      PROVIDER
+      PROVIDER,
     );
   });
 });
@@ -201,7 +200,7 @@ describe("getUserReservesHumanizedV37", () => {
     expect(reserve.usageAsCollateralEnabledOnUser).toBe(true);
     expect(reserve.scaledVariableDebt).toBe("0");
     expect(reserve.id).toBe(
-      `143-${USER}-${UNDERLYING}-${ADDRESSES_PROVIDER}`.toLowerCase()
+      `143-${USER}-${UNDERLYING}-${ADDRESSES_PROVIDER}`.toLowerCase(),
     );
 
     expect(reserve.stableBorrowRate).toBe("0");

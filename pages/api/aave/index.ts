@@ -52,7 +52,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
     const { marketId } = JSON.parse(_req.body);
 
     const market = markets.find(
-      (m: AaveMarketDataType) => m.id === marketId
+      (m: AaveMarketDataType) => m.id === marketId,
     ) as AaveMarketDataType;
     const data: HealthFactorData = await getAaveData(address, market);
     res.status(200).json(data);
@@ -65,11 +65,11 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
 export const getAaveData = async (
   address: string,
   market: AaveMarketDataType,
-  resolvedAddress?: string
+  resolvedAddress?: string,
 ) => {
   const provider = new ethers.providers.StaticJsonRpcProvider(
     market.api,
-    market.chainId
+    market.chainId,
   );
 
   const UiPoolDataCtx: UiPoolDataProviderContext = {
@@ -87,7 +87,7 @@ export const getAaveData = async (
   // and let them run concurrently with the main reserve queries below.
   const poolAddressPromise = fetchPoolAddress(
     provider,
-    market.addresses.LENDING_POOL_ADDRESS_PROVIDER
+    market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
   );
   const eModesPromise: Promise<EModeCategoryData[]> = poolAddressPromise
     .then((poolAddress) => fetchEModeCategories(provider, poolAddress))
@@ -159,7 +159,7 @@ export const getAaveData = async (
     eModesPromise,
     poolAddressPromise
       .then((poolAddress) =>
-        fetchReserveIds(provider, poolAddress, underlyings)
+        fetchReserveIds(provider, poolAddress, underlyings),
       )
       .catch((err) => {
         console.error(`Unable to fetch reserve ids for ${market.id}:`, err);
@@ -175,14 +175,23 @@ export const getAaveData = async (
     baseCurrencyData,
     userReserves.userEmodeCategoryId,
     eModes,
-    reserveIds
+    reserveIds,
   );
   return hf;
 };
 
 /** Reserve shape as it exists at runtime: the humanized on-chain reserve
  * fields are preserved through formatReserves/formatUserSummary. */
-type ReserveData = FormatReserveUSDResponse & ReserveDataHumanized;
+type ReserveData = FormatReserveUSDResponse &
+  ReserveDataHumanized & {
+    eModeCategoryId?: number;
+    eModeLtv?: number;
+    eModeLiquidationThreshold?: number;
+    eModeLabel?: string;
+    stableDebtTokenAddress?: string;
+    stableBorrowAPY?: string | number;
+    stableBorrowAPR?: string | number;
+  };
 
 const aaveUserSummaryToHealthFactor = (
   userSummary: FormatUserSummaryResponse<ReserveData>,
@@ -192,13 +201,13 @@ const aaveUserSummaryToHealthFactor = (
   baseCurrencyData: any,
   userEmodeCategoryId: number,
   eModes: EModeCategoryData[] = [],
-  reserveIds: Map<string, number> = new Map()
+  reserveIds: Map<string, number> = new Map(),
 ) => {
   const activeEMode = eModes.find((e) => e.id === userEmodeCategoryId);
   const userEmodeLabel = activeEMode?.label || undefined;
 
   const getAssetDetailsFromReserveItem = (
-    reserveItem: ComputedUserReserve<ReserveData>
+    reserveItem: ComputedUserReserve<ReserveData>,
   ) => {
     const { reserve } = reserveItem;
     const underlying = (reserve.underlyingAsset || "").toLowerCase();
@@ -209,10 +218,10 @@ const aaveUserSummaryToHealthFactor = (
       reserveId,
       baseLtv: Number(reserve.baseLTVasCollateral),
       baseLiquidationThreshold: Number(reserve.reserveLiquidationThreshold),
-      legacyEModeCategoryId: Number(reserve.eModeCategoryId),
-      legacyEModeLtv: Number(reserve.eModeLtv),
+      legacyEModeCategoryId: Number(reserve.eModeCategoryId ?? 0),
+      legacyEModeLtv: Number(reserve.eModeLtv ?? 0),
       legacyEModeLiquidationThreshold: Number(
-        reserve.eModeLiquidationThreshold
+        reserve.eModeLiquidationThreshold ?? 0,
       ),
     });
     const details: AssetDetails = {
@@ -220,7 +229,7 @@ const aaveUserSummaryToHealthFactor = (
       name: reserve.name,
       priceInUSD: Number(reserve.priceInUSD),
       priceInMarketReferenceCurrency: new BigNumber(
-        reserve.priceInMarketReferenceCurrency
+        reserve.priceInMarketReferenceCurrency,
       )
         .shiftedBy(baseCurrencyData.marketReferenceCurrencyDecimals * -1)
         .toNumber(),
@@ -240,16 +249,16 @@ const aaveUserSummaryToHealthFactor = (
       isActive: reserve.isActive,
       supplyAPY: Number(reserve.supplyAPY),
       variableBorrowAPY: Number(reserve.variableBorrowAPY),
-      stableBorrowAPY: Number(reserve.stableBorrowAPY),
+      stableBorrowAPY: Number(reserve.stableBorrowAPY ?? 0),
       supplyAPR: Number(reserve.supplyAPR),
       variableBorrowAPR: Number(reserve.variableBorrowAPR),
-      stableBorrowAPR: Number(reserve.stableBorrowAPR),
+      stableBorrowAPR: Number(reserve.stableBorrowAPR ?? 0),
       availableLiquidity: Number(reserve.availableLiquidity),
       borrowCap: Number(reserve.borrowCap),
       supplyCap: Number(reserve.supplyCap),
-      eModeLtv: Number(reserve.eModeLtv),
-      eModeLiquidationThreshold: Number(reserve.eModeLiquidationThreshold),
-      eModeCategoryId: Number(reserve.eModeCategoryId),
+      eModeLtv: Number(reserve.eModeLtv ?? 0),
+      eModeLiquidationThreshold: Number(reserve.eModeLiquidationThreshold ?? 0),
+      eModeCategoryId: Number(reserve.eModeCategoryId ?? 0),
       eModeLabel: reserve.eModeLabel || userEmodeLabel,
       reserveId,
       effectiveLtv: risk.ltv,
@@ -266,20 +275,20 @@ const aaveUserSummaryToHealthFactor = (
     totalBorrowsUSD: Number(userSummary?.totalBorrowsUSD),
     availableBorrowsUSD: Number(userSummary?.availableBorrowsUSD),
     totalCollateralMarketReferenceCurrency: Number(
-      userSummary?.totalCollateralMarketReferenceCurrency
+      userSummary?.totalCollateralMarketReferenceCurrency,
     ),
     totalBorrowsMarketReferenceCurrency: Number(
-      userSummary?.totalBorrowsMarketReferenceCurrency
+      userSummary?.totalBorrowsMarketReferenceCurrency,
     ),
     currentLiquidationThreshold: Number(
-      userSummary?.currentLiquidationThreshold
+      userSummary?.currentLiquidationThreshold,
     ),
     currentLoanToValue: Number(userSummary?.currentLoanToValue),
     userReservesData: userSummary?.userReservesData
       ?.filter(
         (reserveItem) =>
           reserveItem?.underlyingBalance &&
-          reserveItem.underlyingBalance !== "0"
+          reserveItem.underlyingBalance !== "0",
       )
       .map((reserveItem) => {
         const item: ReserveAssetDataItem = {
@@ -287,7 +296,7 @@ const aaveUserSummaryToHealthFactor = (
           underlyingBalance: Number(reserveItem.underlyingBalance),
           underlyingBalanceUSD: Number(reserveItem.underlyingBalanceUSD),
           underlyingBalanceMarketReferenceCurrency: Number(
-            reserveItem.underlyingBalanceMarketReferenceCurrency
+            reserveItem.underlyingBalanceMarketReferenceCurrency,
           ),
           usageAsCollateralEnabledOnUser:
             reserveItem.usageAsCollateralEnabledOnUser,
@@ -297,18 +306,18 @@ const aaveUserSummaryToHealthFactor = (
     userBorrowsData: userSummary?.userReservesData
       ?.filter(
         (reserveItem) =>
-          reserveItem?.totalBorrows && reserveItem.totalBorrows !== "0"
+          reserveItem?.totalBorrows && reserveItem.totalBorrows !== "0",
       )
       .map((reserveItem) => {
         const item: BorrowedAssetDataItem = {
           asset: getAssetDetailsFromReserveItem(reserveItem),
-          stableBorrows: Number(reserveItem.stableBorrows),
+          stableBorrows: 0,
           variableBorrows: Number(reserveItem.variableBorrows),
           totalBorrowsUSD: Number(reserveItem.totalBorrowsUSD),
           totalBorrows: Number(reserveItem.totalBorrows),
-          stableBorrowAPY: Number(reserveItem.stableBorrowAPY),
+          stableBorrowAPY: 0,
           totalBorrowsMarketReferenceCurrency: Number(
-            reserveItem.totalBorrowsMarketReferenceCurrency
+            reserveItem.totalBorrowsMarketReferenceCurrency,
           ),
         };
 
@@ -321,7 +330,7 @@ const aaveUserSummaryToHealthFactor = (
   };
 
   const marketReferenceCurrencyPriceInUSD = new BigNumber(
-    baseCurrencyData.marketReferenceCurrencyPriceInUsd
+    baseCurrencyData.marketReferenceCurrencyPriceInUsd,
   )
     .shiftedBy(-8)
     .toNumber();
@@ -346,7 +355,7 @@ const aaveUserSummaryToHealthFactor = (
       eModes: reserveData.eModes,
       isInIsolationMode: reserveData.isInIsolationMode,
     },
-    marketReferenceCurrencyPriceInUSD
+    marketReferenceCurrencyPriceInUSD,
   );
 
   // formatUserSummary reports healthFactor as -1 when the user has no debt,
@@ -358,11 +367,11 @@ const aaveUserSummaryToHealthFactor = (
   }
 
   const workingData: AaveHealthFactorData = JSON.parse(
-    JSON.stringify(fetchedData)
+    JSON.stringify(fetchedData),
   );
   workingData.liquidationScenario = getCalculatedLiquidationScenario(
     workingData,
-    marketReferenceCurrencyPriceInUSD
+    marketReferenceCurrencyPriceInUSD,
   );
 
   const hf: HealthFactorData = {
@@ -374,7 +383,7 @@ const aaveUserSummaryToHealthFactor = (
     market,
     marketReferenceCurrencyPriceInUSD,
     availableAssets: userSummary.userReservesData.map((asset) =>
-      getAssetDetailsFromReserveItem(asset)
+      getAssetDetailsFromReserveItem(asset),
     ),
     fetchedData,
     workingData,

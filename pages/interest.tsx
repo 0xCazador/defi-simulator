@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Button, Center, Container, Space, Text } from "@mantine/core";
 import { NextRouter, useRouter } from "next/router";
 import { ethers } from "ethers";
-import { Trans } from "@lingui/macro";
+import { Trans } from "@lingui/react/macro";
 
 import { useAaveData } from "../hooks/useAaveData";
 import AppBar from "../components/AppBar";
@@ -17,7 +17,7 @@ export default function InterestPage() {
   const isValidAddress: boolean =
     ethers.utils.isAddress(address) || isValidENSAddress(address);
   const { currentAddress, setCurrentAddress } = useAaveData(
-    isValidAddress ? address : ""
+    isValidAddress ? address : "",
   );
 
   const locale = router?.locale;

@@ -35,18 +35,18 @@ describe("formatEModeLabel", () => {
 
   it("beautifies underscore-formatted labels", () => {
     expect(formatEModeLabel("rsETH__ETH_wstETH_ETHx")).toBe(
-      "rsETH / ETH wstETH ETHx"
+      "rsETH / ETH wstETH ETHx",
     );
     expect(formatEModeLabel("LINK__USDC_USDT")).toBe("LINK / USDC USDT");
     expect(formatEModeLabel("LBTC_WBTC")).toBe("LBTC WBTC");
     expect(formatEModeLabel("PT_USDG_28MAY2026__Stablecoins")).toBe(
-      "PT USDG 28MAY2026 / Stablecoins"
+      "PT USDG 28MAY2026 / Stablecoins",
     );
   });
 
   it("truncates long labels with an ellipsis", () => {
     const formatted = formatEModeLabel(
-      "PT_srUSDe_2APR2026_sUSDe__USDT_USDe_USDC"
+      "PT_srUSDe_2APR2026_sUSDe__USDT_USDe_USDC",
     );
     expect(formatted.length).toBeLessThanOrEqual(32);
     expect(formatted.endsWith("…")).toBe(true);
@@ -71,13 +71,13 @@ describe("fetchEModeCategories", () => {
       liquidationBonus: 0,
     })),
     getEModeCategoryLabel: jest.fn(
-      async (id: number) => categories[id]?.label ?? ""
+      async (id: number) => categories[id]?.label ?? "",
     ),
     getEModeCategoryCollateralBitmap: jest.fn(async (id: number) =>
-      BigInt(categories[id]?.collateralBitmap ?? "0")
+      BigInt(categories[id]?.collateralBitmap ?? "0"),
     ),
     getEModeCategoryBorrowableBitmap: jest.fn(async (id: number) =>
-      BigInt(categories[id]?.borrowableBitmap ?? "0")
+      BigInt(categories[id]?.borrowableBitmap ?? "0"),
     ),
   });
 
@@ -137,7 +137,7 @@ describe("fetchEModeCategories", () => {
     expect(categories.map((c) => c.id)).toEqual([1]);
     // Only the first batch of ids should have been probed.
     const probedIds = pool.getEModeCategoryCollateralConfig.mock.calls.map(
-      (call) => call[0]
+      (call) => call[0],
     );
     expect(Math.max(...probedIds)).toBeLessThanOrEqual(EMODE_SCAN_BATCH_SIZE);
   });
@@ -162,17 +162,17 @@ describe("fetchEModeCategories", () => {
     expect(categories.map((c) => c.id)).toEqual([1, 2, 3, 4, 5, 6, 7, 9, 10]);
     // Scan should stop within the second batch (ids 11-13 are 3 misses).
     const probedIds = pool.getEModeCategoryCollateralConfig.mock.calls.map(
-      (call) => call[0]
+      (call) => call[0],
     );
     expect(Math.max(...probedIds)).toBeLessThanOrEqual(
-      EMODE_SCAN_BATCH_SIZE * 2
+      EMODE_SCAN_BATCH_SIZE * 2,
     );
   });
 
   it("treats config call failures as misses", async () => {
     const pool = makePool({});
     pool.getEModeCategoryCollateralConfig.mockRejectedValue(
-      new Error("execution reverted")
+      new Error("execution reverted"),
     );
     mockContract.mockImplementation(() => pool);
 

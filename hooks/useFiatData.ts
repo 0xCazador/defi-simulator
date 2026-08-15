@@ -26,7 +26,7 @@ export function useFiatRates(shouldFetch: boolean = false) {
 
       const fetchData = async () => {
         const response: Response = await fetch(
-          "https://api.coinbase.com/v2/exchange-rates"
+          "https://api.coinbase.com/v2/exchange-rates",
         );
         const responseData = await response.json();
         const rateData = responseData.data.rates;

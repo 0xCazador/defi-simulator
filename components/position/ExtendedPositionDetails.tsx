@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Trans } from "@lingui/macro";
+import { Trans } from "@lingui/react/macro";
 import {
   Button,
   Divider,
@@ -73,7 +73,7 @@ export const ExtendedPositionDetails = ({
   /** BORROWING POWER */
   const availableBorrowsUSD: number = Math.max(
     data.workingData?.availableBorrowsUSD ?? 0,
-    0
+    0,
   );
 
   const originalTotalBorrowsUSD: number =
@@ -83,7 +83,7 @@ export const ExtendedPositionDetails = ({
 
   const originalAvailableBorrowsUSD: number = Math.max(
     data.fetchedData?.availableBorrowsUSD ?? 0,
-    0
+    0,
   );
 
   const currentCumulativeAvailableBorrows =
@@ -112,13 +112,13 @@ export const ExtendedPositionDetails = ({
   const originalWorkingLTV = Math.min(
     100,
     (100 * (data.fetchedData?.totalBorrowsMarketReferenceCurrency || 1)) /
-      (data.fetchedData?.totalCollateralMarketReferenceCurrency || 1)
+      (data.fetchedData?.totalCollateralMarketReferenceCurrency || 1),
   );
 
   const currentWorkingLTV = Math.min(
     100,
     (100 * (data.workingData?.totalBorrowsMarketReferenceCurrency || 1)) /
-      (data.workingData?.totalCollateralMarketReferenceCurrency || 1)
+      (data.workingData?.totalCollateralMarketReferenceCurrency || 1),
   );
 
   const originalWorkingLTVDisplayable = origHasBorrows
@@ -133,7 +133,7 @@ export const ExtendedPositionDetails = ({
     originalWorkingLTVDisplayable !== currentWorkingLTVDisplayable;
 
   const hfColor: string = getHealthFactorColor(
-    data.workingData?.healthFactor || 0
+    data.workingData?.healthFactor || 0,
   );
 
   return (

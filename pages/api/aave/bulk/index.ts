@@ -24,7 +24,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
     const { addresses } = JSON.parse(_req.body);
     const { marketId } = JSON.parse(_req.body);
     const market = markets.find(
-      (m: AaveMarketDataType) => m.id === marketId
+      (m: AaveMarketDataType) => m.id === marketId,
     ) as AaveMarketDataType;
     const data = [];
 

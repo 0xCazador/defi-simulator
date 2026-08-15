@@ -7,7 +7,7 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { Trans } from "@lingui/macro";
+import { Trans } from "@lingui/react/macro";
 
 type HealthFactorSkeletonProps = {
   animate?: boolean;

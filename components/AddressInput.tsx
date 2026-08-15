@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { ethers } from "ethers";
-import { t } from "@lingui/macro";
+import { t } from "@lingui/core/macro";
 
 import { ActionIcon, Center, TextInput, Tooltip } from "@mantine/core";
 import { FaCopy, FaExternalLinkAlt } from "react-icons/fa";
@@ -99,7 +99,7 @@ const AddressInput = () => {
             </ActionIcon>
           </Tooltip>
           <Tooltip
-            label={t`View address on ${market?.explorerName}`}
+            label={t`View address on ${market?.explorerName ?? ""}`}
             position="left"
             withArrow
           >

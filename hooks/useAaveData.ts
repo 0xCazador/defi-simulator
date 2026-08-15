@@ -23,13 +23,13 @@ const FALLBACK_RESOLVED_ADDRESS = "0x87cCC67f0c1b67745989542152DD4acff3841CD6";
 export const withTimeout = <T>(
   promise: Promise<T>,
   ms: number,
-  label: string
+  label: string,
 ): Promise<T> =>
   new Promise<T>((resolve, reject) => {
     const timer = setTimeout(
       () =>
         reject(new Error(`Timed out after ${Math.round(ms / 1000)}s ${label}`)),
-      ms
+      ms,
     );
     promise.then(
       (value) => {
@@ -39,7 +39,7 @@ export const withTimeout = <T>(
       (err) => {
         clearTimeout(timer);
         reject(err);
-      }
+      },
     );
   });
 
@@ -190,9 +190,9 @@ export type AaveMarketDataType = {
    * from genesis. Set it on chains whose history long predates the Aave
    * deployment, so event scans skip a range that cannot hold a match. */
   startBlock?: number;
-  /** True when UI_POOL_DATA_PROVIDER is an Aave v3.7 deployment. Its reserve
-   * and user structs differ from the layout the pinned @aave/contract-helpers
-   * decodes, so these markets read through utils/uiPoolDataProviderV37. */
+  /** True when UI_POOL_DATA_PROVIDER is an Aave v3.7 deployment whose reserve
+   * and user structs still differ from what @aave/contract-helpers decodes, so
+   * these markets read through utils/uiPoolDataProviderV37. */
   v37?: boolean;
   /** Etherscan-compatible logs API (Blockscout / Routescan / Etherscan) used
    * instead of RPC eth_getLogs for interest-accrual event scans. Set it on
@@ -213,7 +213,7 @@ export const markets: AaveMarketDataType[] = [
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Ethereum.POOL_ADDRESSES_PROVIDER,
-      UI_POOL_DATA_PROVIDER: "0x194324C9Af7f56E22F1614dD82E18621cb9238E7",
+      UI_POOL_DATA_PROVIDER: pools.AaveV3Ethereum.UI_POOL_DATA_PROVIDER,
     },
     explorer: "https://etherscan.io/address/{{ADDRESS}}",
     explorerName: "Etherscan",
@@ -227,7 +227,7 @@ export const markets: AaveMarketDataType[] = [
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Arbitrum.POOL_ADDRESSES_PROVIDER,
-      UI_POOL_DATA_PROVIDER: "0xc0179321f0825c3e0F59Fe7Ca4E40557b97797a3", // pools.AaveV3Arbitrum.UI_POOL_DATA_PROVIDER,
+      UI_POOL_DATA_PROVIDER: pools.AaveV3Arbitrum.UI_POOL_DATA_PROVIDER,
     },
     explorer: "https://arbiscan.io/address/{{ADDRESS}}",
     explorerName: "Arbiscan",
@@ -241,7 +241,7 @@ export const markets: AaveMarketDataType[] = [
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Optimism.POOL_ADDRESSES_PROVIDER,
-      UI_POOL_DATA_PROVIDER: "0x86b0521f92a554057e54B93098BA2A6Aaa2F4ACB", // pools.AaveV3Optimism.UI_POOL_DATA_PROVIDER,
+      UI_POOL_DATA_PROVIDER: pools.AaveV3Optimism.UI_POOL_DATA_PROVIDER,
     },
     explorer: "https://optimistic.etherscan.io/address/{{ADDRESS}}",
     explorerName: "Optimistic Etherscan",
@@ -254,7 +254,7 @@ export const markets: AaveMarketDataType[] = [
     api: `https://base-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER: pools.AaveV3Base.POOL_ADDRESSES_PROVIDER,
-      UI_POOL_DATA_PROVIDER: "0xE92cd6164CE7DC68e740765BC1f2a091B6CBc3e4", // pools.AaveV3Base.UI_POOL_DATA_PROVIDER,
+      UI_POOL_DATA_PROVIDER: pools.AaveV3Base.UI_POOL_DATA_PROVIDER,
     },
     explorer: "https://basescan.org/address/{{ADDRESS}}",
     explorerName: "BaseScan",
@@ -268,7 +268,7 @@ export const markets: AaveMarketDataType[] = [
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Polygon.POOL_ADDRESSES_PROVIDER,
-      UI_POOL_DATA_PROVIDER: "0xE92cd6164CE7DC68e740765BC1f2a091B6CBc3e4", // pools.AaveV3Polygon.UI_POOL_DATA_PROVIDER,
+      UI_POOL_DATA_PROVIDER: pools.AaveV3Polygon.UI_POOL_DATA_PROVIDER,
     },
     explorer: "https://polygonscan.com/address/{{ADDRESS}}",
     explorerName: "PolygonScan",
@@ -282,7 +282,7 @@ export const markets: AaveMarketDataType[] = [
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER:
         pools.AaveV3Avalanche.POOL_ADDRESSES_PROVIDER,
-      UI_POOL_DATA_PROVIDER: "0x374a2592f0265b3bb802d75809e61b1b5BbD85B7", // pools.AaveV3Avalanche.UI_POOL_DATA_PROVIDER,
+      UI_POOL_DATA_PROVIDER: pools.AaveV3Avalanche.UI_POOL_DATA_PROVIDER,
     },
     explorer: "https://avascan.info/blockchain/all/address/{{ADDRESS}}",
     explorerName: "AvaScan",
@@ -296,7 +296,7 @@ export const markets: AaveMarketDataType[] = [
     api: `https://metis-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER: pools.AaveV3Metis.POOL_ADDRESSES_PROVIDER,
-      UI_POOL_DATA_PROVIDER: "0x5d4D4007A4c6336550DdAa2a7c0d5e7972eebd16", // pools.AaveV3Metis.UI_POOL_DATA_PROVIDER,
+      UI_POOL_DATA_PROVIDER: pools.AaveV3Metis.UI_POOL_DATA_PROVIDER,
     },
     explorer: "https://andromeda-explorer.metis.io/address/{{ADDRESS}}",
     explorerName: "Metis Explorer",
@@ -340,7 +340,7 @@ export const markets: AaveMarketDataType[] = [
     api: `https://bnb-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
     addresses: {
       LENDING_POOL_ADDRESS_PROVIDER: pools.AaveV3BNB.POOL_ADDRESSES_PROVIDER,
-      UI_POOL_DATA_PROVIDER: "0xb12e82DF057BF16ecFa89D7D089dc7E5C1Dc057B", // pools.AaveV3BNB.UI_POOL_DATA_PROVIDER,
+      UI_POOL_DATA_PROVIDER: pools.AaveV3BNB.UI_POOL_DATA_PROVIDER,
     },
     explorer: "https://bscscan.com/address/{{ADDRESS}}",
     explorerName: "BSC Scan",
@@ -384,7 +384,8 @@ export const markets: AaveMarketDataType[] = [
     // POOL_ADDRESSES_PROVIDER deployed at block 489,196 (verified on-chain).
     startBlock: 489_000,
     v37: true,
-    logApi: "https://api.routescan.io/v2/network/mainnet/evm/9745/etherscan/api",
+    logApi:
+      "https://api.routescan.io/v2/network/mainnet/evm/9745/etherscan/api",
   },
   {
     v3: true,
@@ -430,12 +431,12 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
   }
 
   const isLoadingAny = !!markets.find(
-    (market) => data?.[market.id]?.isFetching === true
+    (market) => data?.[market.id]?.isFetching === true,
   );
 
   // Number of markets that have finished (successfully or with an error).
   const loadedCount = markets.filter(
-    (market) => data?.[market.id]?.lastFetched
+    (market) => data?.[market.id]?.lastFetched,
   ).length;
 
   const deps = [currentAddress, addressProvided, isLoadingAny];
@@ -480,7 +481,7 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
           (await withTimeout(
             getResolvedAddress(address),
             MARKET_FETCH_TIMEOUT_MS,
-            `resolving address "${address}"`
+            `resolving address "${address}"`,
           )) || FALLBACK_RESOLVED_ADDRESS;
       } catch (err: any) {
         const message = `Unable to resolve address "${address}": ${
@@ -496,7 +497,7 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
           const hfData: HealthFactorData = await withTimeout(
             getAaveData(address, market, resolvedAddress),
             MARKET_FETCH_TIMEOUT_MS,
-            `fetching ${market.title} market data`
+            `fetching ${market.title} market data`,
           );
           store.addressData.nested(address).merge({ [market.id]: hfData });
         } catch (err: any) {
@@ -550,7 +551,7 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
     // Only auto-select in response to fresh fetches, not e.g. on remount with
     // cached data (which would override a manual market selection).
     const didFetchRecently = !!markets.find(
-      (market) => (data?.[market.id]?.lastFetched || 0) > Date.now() - 1000
+      (market) => (data?.[market.id]?.lastFetched || 0) > Date.now() - 1000,
     );
     if (!didFetchRecently) return;
 
@@ -572,7 +573,7 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
       .find(
         (market) =>
           data?.[market.id]?.workingData?.healthFactor &&
-          (data?.[market.id]?.workingData?.healthFactor ?? -1) > -1
+          (data?.[market.id]?.workingData?.healthFactor ?? -1) > -1,
       );
 
     if (marketWithPosition && marketWithPosition.id !== currentMarket) {
@@ -594,7 +595,7 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
 
   const addBorrowAsset = (symbol: string) => {
     const asset = data[currentMarket].availableAssets?.find(
-      (a) => a.symbol === symbol
+      (a) => a.symbol === symbol,
     ) as AssetDetails;
 
     asset.isNewlyAddedBySimUser = true;
@@ -615,7 +616,7 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
 
   const addReserveAsset = (symbol: string) => {
     const asset: AssetDetails = data[currentMarket].availableAssets?.find(
-      (a) => a.symbol === symbol
+      (a) => a.symbol === symbol,
     ) as AssetDetails;
 
     asset.isNewlyAddedBySimUser = true;
@@ -665,9 +666,9 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
         JSON.stringify(
           store.addressData[currentAddress][currentMarket].fetchedData.get({
             noproxy: true,
-          })
-        )
-      )
+          }),
+        ),
+      ),
     );
     updateAllDerivedHealthFactorData();
   };
@@ -676,7 +677,7 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
     const workingData = store.addressData.nested(address)[currentMarket]
       .workingData as State<AaveHealthFactorData>;
     const item = workingData?.userBorrowsData.find(
-      (borrowItem) => borrowItem.asset.symbol.get() === symbol
+      (borrowItem) => borrowItem.asset.symbol.get() === symbol,
     );
     if (item?.totalBorrows.get() !== quantity) {
       item?.totalBorrows.set(quantity);
@@ -688,7 +689,7 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
     const workingData = store.addressData.nested(address)[currentMarket]
       .workingData as State<AaveHealthFactorData>;
     const item = workingData?.userReservesData.find(
-      (reserveItem) => reserveItem.asset.symbol.get() === symbol
+      (reserveItem) => reserveItem.asset.symbol.get() === symbol,
     );
 
     if (item?.underlyingBalance.get() !== quantity) {
@@ -701,13 +702,13 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
     const workingData = store.addressData.nested(address)[currentMarket]
       .workingData as State<AaveHealthFactorData>;
     const reserveItem = workingData?.userReservesData.find(
-      (item) => item.asset.symbol.get() === symbol
+      (item) => item.asset.symbol.get() === symbol,
     );
     if (reserveItem && reserveItem?.asset.priceInUSD.get() !== price)
       reserveItem.asset.priceInUSD.set(price);
 
     const borrowItem = workingData?.userBorrowsData.find(
-      (item) => item.asset.symbol.get() === symbol
+      (item) => item.asset.symbol.get() === symbol,
     );
     if (borrowItem && borrowItem?.asset.priceInUSD.get() !== price)
       borrowItem.asset.priceInUSD.set(price);
@@ -717,10 +718,10 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
   const applyLiquidationScenario = () => {
     const liquidationScenario = getCalculatedLiquidationScenario(
       data?.[currentMarket]?.workingData as AaveHealthFactorData,
-      data?.[currentMarket]?.marketReferenceCurrencyPriceInUSD
+      data?.[currentMarket]?.marketReferenceCurrencyPriceInUSD,
     ) as AssetDetails[];
     liquidationScenario?.forEach((asset) =>
-      setAssetPriceInUSD(asset.symbol, asset.priceInUSD)
+      setAssetPriceInUSD(asset.symbol, asset.priceInUSD),
     );
   };
 
@@ -728,7 +729,7 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
     const workingData = store.addressData.nested(address)[currentMarket]
       .workingData as State<AaveHealthFactorData>;
     const reserveItem = workingData?.userReservesData.find(
-      (item) => item.asset.symbol.get() === symbol
+      (item) => item.asset.symbol.get() === symbol,
     );
     if (
       reserveItem &&
@@ -759,7 +760,7 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
     const updatedWorkingData: AaveHealthFactorData =
       updateDerivedHealthFactorData(
         workingData,
-        currentMarketReferenceCurrencyPriceInUSD
+        currentMarketReferenceCurrencyPriceInUSD,
       );
 
     healthFactorItem.workingData.set(updatedWorkingData);
@@ -828,7 +829,7 @@ export const isStablecoinAsset = (asset: AssetDetails) => {
   ];
 
   return !!stablecoinSymbols.find((symbol) =>
-    asset.symbol?.toUpperCase().includes(symbol)
+    asset.symbol?.toUpperCase().includes(symbol),
   );
 };
 
@@ -845,7 +846,7 @@ export const isFlashloanableAsset = (asset: AssetDetails) =>
   isActiveAsset(asset) && asset.flashLoanEnabled;
 
 export const getEligibleLiquidationScenarioReserves = (
-  hfData: AaveHealthFactorData
+  hfData: AaveHealthFactorData,
 ) => {
   const MINIMUM_CUMULATIVE_RESERVE_USD = 50;
   const MINIMUM_CUMULATIVE_RESERVE_PCT = 5;
@@ -853,7 +854,7 @@ export const getEligibleLiquidationScenarioReserves = (
   // Check if there are any borrowed assets that are not stablecoins
   // If so, exclude liquidation scenario entirely
   const hasNonStablecoinBorrows = hfData.userBorrowsData.some(
-    (borrowItem: BorrowedAssetDataItem) => !isStablecoinAsset(borrowItem.asset)
+    (borrowItem: BorrowedAssetDataItem) => !isStablecoinAsset(borrowItem.asset),
   );
 
   if (hasNonStablecoinBorrows) {
@@ -896,8 +897,8 @@ export const getEligibleLiquidationScenarioReserves = (
       (borrowItem: BorrowedAssetDataItem) =>
         !eligibleReserves.find(
           (reserveItem: ReserveAssetDataItem) =>
-            reserveItem.asset.symbol === borrowItem.asset.symbol
-        )
+            reserveItem.asset.symbol === borrowItem.asset.symbol,
+        ),
     );
 
   return hasDifferentBorrowedAsset ? eligibleReserves : [];
@@ -932,14 +933,14 @@ export const getEligibleLiquidationScenarioReserves = (
  */
 export const updateDerivedHealthFactorData = (
   data: AaveHealthFactorData,
-  currentMarketReferenceCurrencyPriceInUSD: number
+  currentMarketReferenceCurrencyPriceInUSD: number,
 ) => {
   let updatedCurrentLiquidationThreshold: BigNumber = new BigNumber(0);
   let updatedCurrentLoanToValue: BigNumber = new BigNumber(0);
   let updatedHealthFactor: BigNumber = new BigNumber(0);
   let updatedAvailableBorrowsUSD: BigNumber = new BigNumber(0);
   let updatedAvailableBorrowsMarketReferenceCurrency: BigNumber = new BigNumber(
-    0
+    0,
   );
   let updatedTotalBorrowsUSD: BigNumber = new BigNumber(0);
 
@@ -950,20 +951,20 @@ export const updateDerivedHealthFactorData = (
 
   data.userReservesData.forEach((reserveItem) => {
     const underlyingBalance: BigNumber = new BigNumber(
-      reserveItem.underlyingBalance
+      reserveItem.underlyingBalance,
     );
     const priceInUSD: BigNumber = new BigNumber(reserveItem.asset.priceInUSD);
 
     // Update reserveItem.priceInMarketReferenceCurrency
     const existingPriceInMarketReferenceCurrency = new BigNumber(
-      reserveItem.asset.priceInMarketReferenceCurrency
+      reserveItem.asset.priceInMarketReferenceCurrency,
     );
     const updatedMarketReferenceCurrency = priceInUSD.dividedBy(
-      currentMarketReferenceCurrencyPriceInUSD
+      currentMarketReferenceCurrencyPriceInUSD,
     );
     if (
       !existingPriceInMarketReferenceCurrency.isEqualTo(
-        updatedMarketReferenceCurrency
+        updatedMarketReferenceCurrency,
       )
     ) {
       reserveItem.asset.priceInMarketReferenceCurrency =
@@ -977,7 +978,7 @@ export const updateDerivedHealthFactorData = (
       updatedMarketReferenceCurrency.multipliedBy(underlyingBalance);
     if (
       !existingUnderlyingBalanceMarketReferenceCurrency.isEqualTo(
-        updatedUnderlyingBalanceMarketReferenceCurrency
+        updatedUnderlyingBalanceMarketReferenceCurrency,
       )
     ) {
       reserveItem.underlyingBalanceMarketReferenceCurrency =
@@ -986,7 +987,7 @@ export const updateDerivedHealthFactorData = (
 
     // Update reserveItem.underlyingBalanceUSD
     const existingUnderlyingBalanceUSD = new BigNumber(
-      reserveItem.underlyingBalanceUSD
+      reserveItem.underlyingBalanceUSD,
     );
     const updatedUnderlyingBalanceUSD =
       underlyingBalance.multipliedBy(priceInUSD);
@@ -997,7 +998,7 @@ export const updateDerivedHealthFactorData = (
     // Update the necessary accumulated values for updating healthFactor etc.
     if (reserveItem.usageAsCollateralEnabledOnUser) {
       updatedCollateral = updatedCollateral.plus(
-        updatedUnderlyingBalanceMarketReferenceCurrency
+        updatedUnderlyingBalanceMarketReferenceCurrency,
       );
 
       const risk = resolveEffectiveRiskParams({
@@ -1018,21 +1019,21 @@ export const updateDerivedHealthFactorData = (
       reserveItem.asset.isEModeCollateral = risk.isEMode;
 
       const itemReserveLiquidationThreshold: BigNumber = new BigNumber(
-        risk.liquidationThreshold
+        risk.liquidationThreshold,
       ).dividedBy(10000);
       const itemBaseLoanToValue: BigNumber = new BigNumber(risk.ltv).dividedBy(
-        10000
+        10000,
       );
 
       weightedReservesETH = weightedReservesETH.plus(
         itemReserveLiquidationThreshold.multipliedBy(
-          updatedUnderlyingBalanceMarketReferenceCurrency
-        )
+          updatedUnderlyingBalanceMarketReferenceCurrency,
+        ),
       );
       weightedLTVETH = weightedLTVETH.plus(
         itemBaseLoanToValue.multipliedBy(
-          updatedUnderlyingBalanceMarketReferenceCurrency
-        )
+          updatedUnderlyingBalanceMarketReferenceCurrency,
+        ),
       );
     }
   });
@@ -1043,14 +1044,14 @@ export const updateDerivedHealthFactorData = (
 
     // Update borrowItem.priceInMarketReferenceCurrency
     const existingPriceInMarketReferenceCurrency = new BigNumber(
-      borrowItem.asset.priceInMarketReferenceCurrency
+      borrowItem.asset.priceInMarketReferenceCurrency,
     );
     const updatedMarketReferenceCurrency = priceInUSD.dividedBy(
-      currentMarketReferenceCurrencyPriceInUSD
+      currentMarketReferenceCurrencyPriceInUSD,
     );
     if (
       !existingPriceInMarketReferenceCurrency.isEqualTo(
-        updatedMarketReferenceCurrency
+        updatedMarketReferenceCurrency,
       )
     ) {
       borrowItem.asset.priceInMarketReferenceCurrency =
@@ -1064,7 +1065,7 @@ export const updateDerivedHealthFactorData = (
       updatedMarketReferenceCurrency.multipliedBy(totalBorrows);
     if (
       !existingTotalBorrowsMarketReferenceCurrency.isEqualTo(
-        updatedTotalBorrowsMarketReferenceCurrency
+        updatedTotalBorrowsMarketReferenceCurrency,
       )
     ) {
       borrowItem.totalBorrowsMarketReferenceCurrency =
@@ -1080,14 +1081,14 @@ export const updateDerivedHealthFactorData = (
 
     // Update the necessary accumulated values for updating healthFactor etc.
     totalBorrowsETH = totalBorrowsETH.plus(
-      updatedTotalBorrowsMarketReferenceCurrency
+      updatedTotalBorrowsMarketReferenceCurrency,
     );
   });
 
   // Update "totalCollateralMarketReferenceCurrency"
   if (
     !updatedCollateral.isEqualTo(
-      new BigNumber(data.totalCollateralMarketReferenceCurrency)
+      new BigNumber(data.totalCollateralMarketReferenceCurrency),
     )
   ) {
     data.totalCollateralMarketReferenceCurrency = updatedCollateral.toNumber();
@@ -1096,7 +1097,7 @@ export const updateDerivedHealthFactorData = (
   // Update "totalBorrowsMarketReferenceCurrency"
   if (
     !totalBorrowsETH.isEqualTo(
-      new BigNumber(data.totalBorrowsMarketReferenceCurrency)
+      new BigNumber(data.totalBorrowsMarketReferenceCurrency),
     )
   ) {
     data.totalBorrowsMarketReferenceCurrency = totalBorrowsETH.toNumber();
@@ -1113,7 +1114,7 @@ export const updateDerivedHealthFactorData = (
 
   if (
     !updatedCurrentLiquidationThreshold.isEqualTo(
-      new BigNumber(data.currentLiquidationThreshold)
+      new BigNumber(data.currentLiquidationThreshold),
     )
   ) {
     data.currentLiquidationThreshold =
@@ -1153,7 +1154,7 @@ export const updateDerivedHealthFactorData = (
     .minus(totalBorrowsETH);
   updatedAvailableBorrowsUSD =
     updatedAvailableBorrowsMarketReferenceCurrency.multipliedBy(
-      currentMarketReferenceCurrencyPriceInUSD
+      currentMarketReferenceCurrencyPriceInUSD,
     );
 
   if (updatedAvailableBorrowsUSD.isLessThan(0))
@@ -1161,7 +1162,7 @@ export const updateDerivedHealthFactorData = (
 
   if (
     !updatedAvailableBorrowsUSD.isEqualTo(
-      new BigNumber(data.availableBorrowsUSD)
+      new BigNumber(data.availableBorrowsUSD),
     )
   ) {
     data.availableBorrowsUSD = updatedAvailableBorrowsUSD.toNumber();
@@ -1169,7 +1170,7 @@ export const updateDerivedHealthFactorData = (
 
   // Update "totalBorrowsUSD"
   updatedTotalBorrowsUSD = totalBorrowsETH.multipliedBy(
-    currentMarketReferenceCurrencyPriceInUSD
+    currentMarketReferenceCurrencyPriceInUSD,
   );
 
   if (!updatedTotalBorrowsUSD.isEqualTo(new BigNumber(data.totalBorrowsUSD))) {
@@ -1190,7 +1191,7 @@ export const updateDerivedHealthFactorData = (
  */
 export const getCalculatedLiquidationScenario = (
   hfData: AaveHealthFactorData,
-  currentMarketReferenceCurrencyPriceInUSD: number
+  currentMarketReferenceCurrencyPriceInUSD: number,
 ) => {
   if (!hfData) return [];
   // deep clone to avoid mutating state
@@ -1201,7 +1202,7 @@ export const getCalculatedLiquidationScenario = (
     getEligibleLiquidationScenarioReserves(hfData);
 
   let assets: AssetDetails[] = reserves.map(
-    (res: ReserveAssetDataItem) => res.asset
+    (res: ReserveAssetDataItem) => res.asset,
   );
 
   let hf: number = hfData?.healthFactor || -1;
@@ -1240,21 +1241,21 @@ export const getCalculatedLiquidationScenario = (
       asset.priceInUSD += priceIncrement;
 
       const reserveItemAsset = hfData.userReservesData.find(
-        (item) => item.asset.symbol === asset.symbol
+        (item) => item.asset.symbol === asset.symbol,
       );
 
       if (reserveItemAsset)
         reserveItemAsset.asset.priceInUSD = asset.priceInUSD;
 
       const borrowItemAsset = hfData.userBorrowsData.find(
-        (item) => item.asset.symbol === asset.symbol
+        (item) => item.asset.symbol === asset.symbol,
       );
 
       if (borrowItemAsset) borrowItemAsset.asset.priceInUSD = asset.priceInUSD;
 
       const updatedWorkingData = updateDerivedHealthFactorData(
         hfData,
-        currentMarketReferenceCurrencyPriceInUSD
+        currentMarketReferenceCurrencyPriceInUSD,
       );
 
       hf = updatedWorkingData.healthFactor;
@@ -1286,8 +1287,8 @@ export const getCalculatedLiquidationScenario = (
             0.01,
             Math.min(
               asset.priceInUSD * ((hf - HF_LIMIT) * 0.45),
-              asset.priceInUSD * 0.5
-            )
+              asset.priceInUSD * 0.5,
+            ),
           );
 
       priceDecrement =
@@ -1309,21 +1310,21 @@ export const getCalculatedLiquidationScenario = (
       }
 
       const reserveItemAsset = hfData.userReservesData.find(
-        (item) => item.asset.symbol === asset.symbol
+        (item) => item.asset.symbol === asset.symbol,
       );
 
       if (reserveItemAsset)
         reserveItemAsset.asset.priceInUSD = asset.priceInUSD;
 
       const borrowItemAsset = hfData.userBorrowsData.find(
-        (item) => item.asset.symbol === asset.symbol
+        (item) => item.asset.symbol === asset.symbol,
       );
 
       if (borrowItemAsset) borrowItemAsset.asset.priceInUSD = asset.priceInUSD;
 
       const updatedWorkingData = updateDerivedHealthFactorData(
         hfData,
-        currentMarketReferenceCurrencyPriceInUSD
+        currentMarketReferenceCurrencyPriceInUSD,
       );
 
       if (updatedWorkingData.healthFactor < 1.0) {

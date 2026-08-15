@@ -38,7 +38,7 @@ function alchemyKey() {
   try {
     const envFile = fs.readFileSync(
       path.join(__dirname, "..", ".env.local"),
-      "utf8"
+      "utf8",
     );
     const match = envFile.match(/NEXT_PUBLIC_ALCHEMY_API_KEY=(\S+)/);
     return match ? match[1] : null;
@@ -55,7 +55,18 @@ const MARKETS = [
     blockscout: "https://eth.blockscout.com/api",
     book: AaveV3Ethereum,
     // Prioritize assets that dominate TVL / borrowing
-    assets: ["WETH", "wstETH", "weETH", "WBTC", "cbBTC", "USDC", "USDT", "USDe", "GHO", "USDS"],
+    assets: [
+      "WETH",
+      "wstETH",
+      "weETH",
+      "WBTC",
+      "cbBTC",
+      "USDC",
+      "USDT",
+      "USDe",
+      "GHO",
+      "USDS",
+    ],
   },
   {
     id: "ARBITRUM_V3",
@@ -112,8 +123,20 @@ const MARKETS = [
     // Blockscout has no Monad instance, so candidates come from Mint events on
     // the Aave tokens themselves. Aave launched here at ~block 85,000,000, so
     // there is nothing to find before that.
-    logHarvest: { rpcHost: "monad-mainnet.g.alchemy.com", startBlock: 85_000_000 },
-    assets: ["USDC", "USDT0", "WETH", "cbBTC", "syrupUSDC", "sUSDe", "wstETH", "GHO"],
+    logHarvest: {
+      rpcHost: "monad-mainnet.g.alchemy.com",
+      startBlock: 85_000_000,
+    },
+    assets: [
+      "USDC",
+      "USDT0",
+      "WETH",
+      "cbBTC",
+      "syrupUSDC",
+      "sUSDe",
+      "wstETH",
+      "GHO",
+    ],
   },
   {
     id: "PLASMA_V3",
@@ -133,7 +156,7 @@ const MARKETS = [
  * — emitted by both aTokens and variable debt tokens, with onBehalfOf indexed
  * as the position owner. */
 const MINT_TOPIC = ethers.utils.id(
-  "Mint(address,address,uint256,uint256,uint256)"
+  "Mint(address,address,uint256,uint256,uint256)",
 );
 
 const KNOWN_GOOD = [
@@ -177,7 +200,7 @@ function tokenAddresses(market, symbol) {
 
 async function getTopHolders(blockscout, token) {
   const d = await fetchJson(
-    `${blockscout}?module=token&action=getTokenHolders&contractaddress=${token}&page=1&offset=${HOLDERS_PER_TOKEN}`
+    `${blockscout}?module=token&action=getTokenHolders&contractaddress=${token}&page=1&offset=${HOLDERS_PER_TOKEN}`,
   );
   if (!Array.isArray(d.result)) return [];
   return d.result
@@ -211,7 +234,11 @@ async function getMintRecipients(rpcUrl, token, fromBlock) {
 
   const logs = d.result || [];
   const recent = new Set();
-  for (let i = logs.length - 1; i >= 0 && recent.size < HOLDERS_PER_TOKEN; i--) {
+  for (
+    let i = logs.length - 1;
+    i >= 0 && recent.size < HOLDERS_PER_TOKEN;
+    i--
+  ) {
     const owner = `0x${logs[i].topics[2].slice(26)}`.toLowerCase();
     if (/^0x[a-f0-9]{40}$/.test(owner)) recent.add(owner);
   }
@@ -229,7 +256,7 @@ async function harvestMarket(market) {
     const key = alchemyKey();
     if (!key) {
       console.warn(
-        `  ${market.id}: skipped — NEXT_PUBLIC_ALCHEMY_API_KEY is required to read logs`
+        `  ${market.id}: skipped — NEXT_PUBLIC_ALCHEMY_API_KEY is required to read logs`,
       );
       return users;
     }
@@ -247,23 +274,21 @@ async function harvestMarket(market) {
       try {
         await sleep(150);
         const found = market.logHarvest
-          ? await getMintRecipients(
-              rpcUrl,
-              addr,
-              market.logHarvest.startBlock
-            )
+          ? await getMintRecipients(rpcUrl, addr, market.logHarvest.startBlock)
           : await getTopHolders(market.blockscout, addr);
         found.forEach((h) => users.add(h));
         tokensQueried += 1;
       } catch (e) {
         console.warn(
           `    ${market.id} ${symbol} ${kind}Token holders failed:`,
-          (e.message || String(e)).slice(0, 100)
+          (e.message || String(e)).slice(0, 100),
         );
       }
     }
   }
-  console.log(`  ${market.id}: ${users.size} unique holders from ${tokensQueried} tokens`);
+  console.log(
+    `  ${market.id}: ${users.size} unique holders from ${tokensQueried} tokens`,
+  );
   return users;
 }
 
@@ -330,7 +355,10 @@ async function mapPool(items, concurrency, fn) {
       const users = await harvestMarket(market);
       for (const u of users) candidates.add(u);
     } catch (e) {
-      console.warn(`  ${market.id} harvest failed:`, (e.message || String(e)).slice(0, 160));
+      console.warn(
+        `  ${market.id} harvest failed:`,
+        (e.message || String(e)).slice(0, 160),
+      );
     }
   }
   const list = [...candidates];
@@ -357,12 +385,12 @@ async function mapPool(items, concurrency, fn) {
         r.debt >= MIN_DEBT_USD &&
         r.healthFactor != null &&
         Number.isFinite(r.healthFactor) &&
-        r.healthFactor > 1.01
+        r.healthFactor > 1.01,
     )
     .sort((a, b) => b.collateral + b.debt - (a.collateral + a.debt));
 
   console.log(
-    `3) Active CDPs with collateral≥$${MIN_COLLATERAL_USD.toLocaleString()} and debt≥$${MIN_DEBT_USD.toLocaleString()}: ${cdps.length}`
+    `3) Active CDPs with collateral≥$${MIN_COLLATERAL_USD.toLocaleString()} and debt≥$${MIN_DEBT_USD.toLocaleString()}: ${cdps.length}`,
   );
 
   // Diversify across markets, then fill remaining by size.
@@ -403,7 +431,7 @@ async function mapPool(items, concurrency, fn) {
           r.debt >= 10_000 &&
           r.healthFactor != null &&
           Number.isFinite(r.healthFactor) &&
-          r.healthFactor > 1.01
+          r.healthFactor > 1.01,
       )
       .sort((a, b) => b.collateral + b.debt - (a.collateral + a.debt));
     for (const row of relaxed) {
@@ -432,7 +460,7 @@ async function mapPool(items, concurrency, fn) {
   console.log("\nMarket mix:", marketCounts);
   console.log(
     `Size range: $${(Math.min(...summary.map((r) => r.collateralUsd)) / 1e6).toFixed(2)}M` +
-      ` – $${(Math.max(...summary.map((r) => r.collateralUsd)) / 1e6).toFixed(2)}M collateral`
+      ` – $${(Math.max(...summary.map((r) => r.collateralUsd)) / 1e6).toFixed(2)}M collateral`,
   );
 
   console.log("\nTop 15 by position size:");
@@ -442,7 +470,7 @@ async function mapPool(items, concurrency, fn) {
     .forEach((r, i) => {
       console.log(
         `  ${String(i + 1).padStart(2)}. ${r.address}  ${r.marketId.padEnd(12)} ` +
-          `coll $${(r.collateralUsd / 1e6).toFixed(2)}M  debt $${(r.debtUsd / 1e6).toFixed(2)}M  HF ${r.healthFactor}`
+          `coll $${(r.collateralUsd / 1e6).toFixed(2)}M  debt $${(r.debtUsd / 1e6).toFixed(2)}M  HF ${r.healthFactor}`,
       );
     });
 
@@ -451,7 +479,7 @@ async function mapPool(items, concurrency, fn) {
   console.log(
     "const addresses = [\n" +
       summary.map((r) => `    "${r.address}",`).join("\n") +
-      "\n  ];"
+      "\n  ];",
   );
 })().catch((e) => {
   console.error(e);

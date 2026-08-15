@@ -5,7 +5,7 @@ import { Notifications } from "@mantine/notifications";
 
 import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
-import { t } from "@lingui/macro";
+import { t } from "@lingui/core/macro";
 
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
@@ -17,10 +17,9 @@ import "../css/global.css";
 
 import { theme } from "../theme";
 import languages from "../src/languages/index.json";
+import { messages } from "../src/locales/en/messages";
 
 const defaultLocale = "en";
-const { messages } = await import(`../src/locales/${defaultLocale}/messages`);
-
 i18n.load(defaultLocale, messages);
 i18n.activate(defaultLocale);
 

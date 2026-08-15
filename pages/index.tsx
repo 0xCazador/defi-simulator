@@ -18,7 +18,8 @@ import {
 } from "react";
 import { NextRouter, useRouter } from "next/router";
 import { ethers } from "ethers";
-import { Trans, t } from "@lingui/macro";
+import { t } from "@lingui/core/macro";
+import { Trans } from "@lingui/react/macro";
 
 import { useAaveData } from "../hooks/useAaveData";
 import AppBar from "../components/AppBar";
@@ -33,7 +34,7 @@ export default function HomePage() {
   const isValidAddress: boolean =
     ethers.utils.isAddress(address) || isValidENSAddress(address);
   const { currentAddress, setCurrentAddress } = useAaveData(
-    isValidAddress ? address : ""
+    isValidAddress ? address : "",
   );
 
   const locale = router?.locale;
@@ -214,9 +215,9 @@ export const RandomAddressButton = ({ children }: RandomAddressButtonProps) => {
 
   const renderChildren = () =>
     Children.map(children, (child) =>
-      cloneElement(child as ReactElement, {
+      cloneElement(child as ReactElement<{ onClick?: () => void }>, {
         onClick: () => router.push(`?address=${address}`),
-      })
+      }),
     );
 
   return children ? (

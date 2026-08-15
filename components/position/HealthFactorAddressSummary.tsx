@@ -7,7 +7,7 @@ import {
   Skeleton,
   Text,
 } from "@mantine/core";
-import { Trans, Plural } from "@lingui/macro";
+import { Trans, Plural } from "@lingui/react/macro";
 import { FaBolt } from "react-icons/fa";
 
 import {
@@ -29,20 +29,20 @@ export const HealthFactorAddressSummary = ({
 }: HealthFactorAddressSummaryProps) => {
   const { isFetching, currentAddress, currentMarket } = useAaveData("");
   const count = markets.filter(
-    (market) => addressData?.[market.id]?.fetchedData?.healthFactor > -1
+    (market) => addressData?.[market.id]?.fetchedData?.healthFactor > -1,
   ).length;
 
   const market: AaveMarketDataType | undefined = markets.find(
-    (mkts) => mkts.id === currentMarket
+    (mkts) => mkts.id === currentMarket,
   );
   const workingData = addressData?.[currentMarket]?.workingData;
   const isEmode: boolean = (workingData?.userEmodeCategoryId || 0) !== 0;
   const eModeLabel: string = formatEModeLabel(
     workingData?.userEmodeLabel ||
       workingData?.userReservesData?.find(
-        (r: ReserveAssetDataItem) => r.asset.isEModeCollateral
+        (r: ReserveAssetDataItem) => r.asset.isEModeCollateral,
       )?.asset.eModeLabel ||
-      ""
+      "",
   );
 
   // Only block on the currently selected market; while other markets are

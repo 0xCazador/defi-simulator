@@ -1,6 +1,7 @@
 import { useId, useState } from "react";
 import { ethers } from "ethers";
-import { Plural, t, Trans } from "@lingui/macro";
+import { t } from "@lingui/core/macro";
+import { Plural, Trans } from "@lingui/react/macro";
 import { useLingui } from "@lingui/react";
 import { ImmutableObject } from "@hookstate/core";
 import {
@@ -105,7 +106,7 @@ const isLedgerUnusable = (state: AccrualLedgerState): boolean => {
 const matchesFilters = (
   position: ManifestPosition,
   sideFilter: SideFilter,
-  searchText: string
+  searchText: string,
 ): boolean => {
   if (sideFilter === "SUPPLY" && position.side !== "supply") return false;
   if (sideFilter === "BORROW" && position.side !== "borrow") return false;
@@ -121,7 +122,7 @@ export default function InterestManifest() {
 
   const marketData = addressData?.[currentMarket];
   const market = markets.find(
-    (m) => m.id === currentMarket
+    (m) => m.id === currentMarket,
   ) as AaveMarketDataType;
   const resolvedAddress: string = marketData?.resolvedAddress ?? "";
 
@@ -214,7 +215,7 @@ const ManifestContent = ({
   });
 
   const openTokenAddresses = new Set(
-    openPositions.map((position) => position.tokenAddress.toLowerCase())
+    openPositions.map((position) => position.tokenAddress.toLowerCase()),
   );
 
   // Closed positions discovered by the full-history scan: any scanned token
@@ -223,11 +224,11 @@ const ManifestContent = ({
     .filter(
       (item) =>
         (item.data?.eventCount ?? 0) > 0 &&
-        !openTokenAddresses.has(item.tokenAddress.toLowerCase())
+        !openTokenAddresses.has(item.tokenAddress.toLowerCase()),
     )
     .map((item) => {
       const asset = marketData?.availableAssets?.find(
-        (a) => a.symbol === item.symbol
+        (a) => a.symbol === item.symbol,
       );
       if (!asset) return null;
       return {
@@ -250,14 +251,14 @@ const ManifestContent = ({
     allPositions.map((position) => ({
       tokenAddress: position.tokenAddress,
       side: position.side,
-    }))
+    })),
   );
 
   const filteredOpen = openPositions.filter((position) =>
-    matchesFilters(position, sideFilter, searchText)
+    matchesFilters(position, sideFilter, searchText),
   );
   const filteredClosed = closedPositions.filter((position) =>
-    matchesFilters(position, sideFilter, searchText)
+    matchesFilters(position, sideFilter, searchText),
   );
 
   // Sides already shown as open positions don't need to be scanned again
@@ -278,7 +279,7 @@ const ManifestContent = ({
     .filter((ref) => ref.aTokenAddress || ref.variableDebtTokenAddress);
 
   const visibleKeys = [...filteredOpen, ...filteredClosed].map((position) =>
-    getPositionKey(position.tokenAddress, position.side)
+    getPositionKey(position.tokenAddress, position.side),
   );
   const areAllExpanded =
     visibleKeys.length > 0 && visibleKeys.every((key) => expandedKeys.has(key));
@@ -504,19 +505,19 @@ const InterestSummary = ({
   const sinceTimestamp = positions.reduce<number | null>(
     (earliest, position) => {
       const state = ledgers.get(
-        getPositionKey(position.tokenAddress, position.side)
+        getPositionKey(position.tokenAddress, position.side),
       );
       const since = state?.data?.sinceTimestamp ?? null;
       if (since === null) return earliest;
       return earliest === null ? since : Math.min(earliest, since);
     },
-    null
+    null,
   );
 
   const totals = positions.reduce(
     (accumulator, position) => {
       const state = ledgers.get(
-        getPositionKey(position.tokenAddress, position.side)
+        getPositionKey(position.tokenAddress, position.side),
       );
       if (!state || state.isFetching) {
         return { ...accumulator, isLoading: true };
@@ -530,7 +531,7 @@ const InterestSummary = ({
         ? { ...accumulator, earned: accumulator.earned + valueUSD }
         : { ...accumulator, paid: accumulator.paid + valueUSD };
     },
-    { earned: 0, paid: 0, unavailable: 0, isLoading: false }
+    { earned: 0, paid: 0, unavailable: 0, isLoading: false },
   );
 
   const net = totals.earned - totals.paid;
@@ -542,8 +543,8 @@ const InterestSummary = ({
     net > 0
       ? classes.summaryCardPositive
       : net < 0
-      ? classes.summaryCardNegative
-      : "";
+        ? classes.summaryCardNegative
+        : "";
 
   const sideStat = (label: React.ReactNode, valueUSD: number, tone: string) => (
     <div>
@@ -576,9 +577,9 @@ const InterestSummary = ({
                 {" · "}
                 <Trans>
                   since{" "}
-                  {i18n.date(new Date(sinceTimestamp * 1000), {
+                  {new Intl.DateTimeFormat(i18n.locale, {
                     dateStyle: "medium",
-                  })}
+                  }).format(new Date(sinceTimestamp * 1000))}
                 </Trans>
               </>
             )}
@@ -778,10 +779,10 @@ const AssetLedgerSection = ({
 
   const formatDate = (timestamp: number | null): string =>
     timestamp
-      ? i18n.date(new Date(timestamp * 1000), {
+      ? new Intl.DateTimeFormat(i18n.locale, {
           dateStyle: "medium",
           timeStyle: "short",
-        })
+        }).format(new Date(timestamp * 1000))
       : "—";
 
   return (
@@ -826,9 +827,9 @@ const AssetLedgerSection = ({
                     {" · "}
                     <Trans>
                       since{" "}
-                      {i18n.date(new Date(data.sinceTimestamp * 1000), {
+                      {new Intl.DateTimeFormat(i18n.locale, {
                         dateStyle: "medium",
-                      })}
+                      }).format(new Date(data.sinceTimestamp * 1000))}
                     </Trans>
                   </>
                 )}
@@ -861,7 +862,7 @@ const AssetLedgerSection = ({
         </Group>
       </UnstyledButton>
 
-      <Collapse in={isExpanded} id={panelId}>
+      <Collapse expanded={isExpanded} id={panelId}>
         {hasBeenExpanded && (
           <>
             <Space h="sm" />

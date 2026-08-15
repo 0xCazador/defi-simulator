@@ -23,13 +23,13 @@ export function useAccruedInterest(
   marketId: string | undefined,
   user: string | undefined,
   tokenAddress: string | undefined,
-  side: AccrualSide
+  side: AccrualSide,
 ) {
   const isReady: boolean =
     !!marketId?.length && !!user?.length && !!tokenAddress?.length;
   const key = `${marketId}:${tokenAddress}:${user}:${side}`.toLowerCase();
   const [state, setState] = useState<AccruedInterestState>(
-    cache.get(key) ?? PENDING
+    cache.get(key) ?? PENDING,
   );
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { unformat } from "accounting";
 import { Indicator, TextInput } from "@mantine/core";
-import { t } from "@lingui/macro";
+import { t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 
 import { useFiatRates } from "../../hooks/useFiatData";
@@ -29,10 +29,10 @@ export const UserAssetPriceInput = ({
   const originalConvertedPrice = originalPrice * currentRate;
 
   const formatPrice = (value: number) =>
-    i18n.number(value, {
+    new Intl.NumberFormat(i18n.locale, {
       style: "currency",
       currency: selectedCurrency,
-    });
+    }).format(value);
 
   const formattedWorkingPrice: string = formatPrice(workingConvertedPrice);
 

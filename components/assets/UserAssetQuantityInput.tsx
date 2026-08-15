@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Indicator, TextInput } from "@mantine/core";
-import { t } from "@lingui/macro";
+import { t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 
 import { formatTokenAmount } from "../../utils/formatTokenAmount";
@@ -51,7 +51,7 @@ export const UserAssetQuantityInput = ({
       formattedOriginalValue={`${formatTokenAmount(
         originalQuantity,
         i18n?.locale,
-        { compact: false }
+        { compact: false },
       )} ${assetSymbol}`}
       onClick={() => handleChange(originalQuantity)}
     />

@@ -17,8 +17,8 @@ export const AssetAPY = ({
     assetType === "RESERVE"
       ? assetDetails.supplyAPY || 0
       : isStableBorrow
-      ? stableBorrowAPY || 0
-      : assetDetails.variableBorrowAPY || 0;
+        ? stableBorrowAPY || 0
+        : assetDetails.variableBorrowAPY || 0;
 
   const apySuffix: string =
     assetType === "RESERVE" ? "" : isStableBorrow ? "(stable)" : "(variable)";

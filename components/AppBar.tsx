@@ -6,7 +6,7 @@ import { formatNumber } from "accounting";
 
 import { FaChevronDown, FaInfinity } from "react-icons/fa";
 
-import { Trans } from "@lingui/macro";
+import { Trans } from "@lingui/react/macro";
 
 import {
   Box,
@@ -48,7 +48,7 @@ export default function AppBar() {
   };
 
   const currentMarketData = markets.find(
-    (market) => market.id === currentMarket
+    (market) => market.id === currentMarket,
   );
   const currentMarketIcon = (
     <img

@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { t } from "@lingui/macro";
+import { t } from "@lingui/core/macro";
 import {
   ActionIcon,
   Center,
@@ -51,7 +51,7 @@ export type UserAssetItemProps = {
 
 const UserAssetItemPropsChecker = (
   oldProps: UserAssetItemProps,
-  newProps: UserAssetItemProps
+  newProps: UserAssetItemProps,
 ) => {
   const oldQuantity = oldProps.workingQuantity;
   const oldPriceInUSD = oldProps.workingPrice;
@@ -193,7 +193,7 @@ export const UserAssetItem = memo(
       </Container>
     </Paper>
   ),
-  UserAssetItemPropsChecker
+  UserAssetItemPropsChecker,
 );
 
 export default UserAssetItem;

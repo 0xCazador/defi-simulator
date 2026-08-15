@@ -44,7 +44,7 @@ export const getLogsChunked = async (
   filter: { address: string; topics: (string | null)[] },
   fromBlock: number,
   toBlock: number,
-  budget: { calls: number } = { calls: 50 }
+  budget: { calls: number } = { calls: 50 },
 ): Promise<ethers.providers.Log[]> => {
   budget.calls -= 1;
   try {
@@ -111,7 +111,7 @@ export const explorerLogSource = (apiUrl: string): LogSource => ({
       .map((topic, index) => (topic ? index : -1))
       .filter((index) => index >= 0);
     present.forEach((index) =>
-      params.set(`topic${index}`, topics[index]!.toLowerCase())
+      params.set(`topic${index}`, topics[index]!.toLowerCase()),
     );
     present.slice(1).forEach((index, i) => {
       params.set(`topic${present[i]}_${index}_opr`, "and");
@@ -131,7 +131,7 @@ export const explorerLogSource = (apiUrl: string): LogSource => ({
         // "No records found" is a normal empty result on some explorers.
         if (/no records/i.test(`${body?.message} ${body?.result}`)) break;
         throw new Error(
-          `Explorer log query failed: ${body?.result ?? body?.message}`
+          `Explorer log query failed: ${body?.result ?? body?.message}`,
         );
       }
       if (body.result.length === 0) break;
@@ -153,7 +153,7 @@ export const explorerLogSource = (apiUrl: string): LogSource => ({
           // Some explorers (Blockscout) pad topics to four entries with
           // nulls, which ethers' parseLog cannot digest.
           topics: (raw.topics ?? []).filter(
-            (topic: unknown): topic is string => typeof topic === "string"
+            (topic: unknown): topic is string => typeof topic === "string",
           ),
           transactionHash: raw.transactionHash,
           logIndex,
@@ -162,7 +162,7 @@ export const explorerLogSource = (apiUrl: string): LogSource => ({
       if (added === 0) break;
 
       const lastBlock = explorerNumber(
-        body.result[body.result.length - 1].blockNumber
+        body.result[body.result.length - 1].blockNumber,
       );
       fromBlock = Math.max(lastBlock, fromBlock);
     }
@@ -208,7 +208,7 @@ export type AccrualResponse = {
 const resolveBlockTimestamps = async (
   provider: ethers.providers.StaticJsonRpcProvider,
   blockNumbers: number[],
-  concurrency: number = 8
+  concurrency: number = 8,
 ): Promise<Map<number, number>> => {
   const unique = [...new Set(blockNumbers)];
   const timestamps = new Map<number, number>();
@@ -223,7 +223,7 @@ const resolveBlockTimestamps = async (
     }
   };
   await Promise.all(
-    Array.from({ length: Math.min(concurrency, unique.length) }, worker)
+    Array.from({ length: Math.min(concurrency, unique.length) }, worker),
   );
   return timestamps;
 };
@@ -263,7 +263,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
       user,
       tokenAddress,
       side,
-      !!includeLedger
+      !!includeLedger,
     );
     res.status(200).json(data);
   } catch (err: any) {
@@ -277,11 +277,11 @@ export const getAccrualData = async (
   user: string,
   tokenAddress: string,
   side: AccrualSide,
-  includeLedger: boolean = false
+  includeLedger: boolean = false,
 ): Promise<AccrualResponse> => {
   const provider = new ethers.providers.StaticJsonRpcProvider(
     market.api,
-    market.chainId
+    market.chainId,
   );
   const token = new ethers.Contract(tokenAddress, TOKEN_ABI, provider);
   const iface = token.interface;
@@ -297,7 +297,7 @@ export const getAccrualData = async (
       logSource,
       { address: tokenAddress, topics },
       firstBlock,
-      latestBlock
+      latestBlock,
     );
 
   // Filtered by the indexed user address, these return the complete event history
@@ -377,7 +377,7 @@ export const getAccrualData = async (
 
   const accruedRaw = clampRoundingDust(
     getAccruedInterest(balance.toString(), events),
-    events.length
+    events.length,
   );
 
   const firstPrincipalEvent = findFirstPrincipalEvent(events);
@@ -397,7 +397,7 @@ export const getAccrualData = async (
 
   const timestamps = await resolveBlockTimestamps(
     provider,
-    events.map((event) => event.blockNumber)
+    events.map((event) => event.blockNumber),
   );
   events.forEach((event) => {
     // eslint-disable-next-line no-param-reassign
@@ -415,14 +415,14 @@ export const getAccrualData = async (
 
   const pendingRaw = clampRoundingDust(
     getPendingInterest(balance.toString(), events),
-    events.length
+    events.length,
   );
 
   return {
     accruedValue: formatUnits(accruedRaw, decimals),
     accruedRaw: accruedRaw.toString(),
     sinceTimestamp: firstPrincipalEvent
-      ? timestamps.get(firstPrincipalEvent.blockNumber) ?? null
+      ? (timestamps.get(firstPrincipalEvent.blockNumber) ?? null)
       : null,
     eventCount: events.length,
     ledger,
@@ -457,7 +457,7 @@ export const getAccrualManifest = async (
   user: string,
   assets: ManifestAssetRef[],
   onProgress?: (done: number, total: number) => void,
-  concurrency: number = 4
+  concurrency: number = 4,
 ): Promise<ManifestScanItem[]> => {
   const tasks: ManifestScanItem[] = [];
   assets.forEach((asset) => {
@@ -490,7 +490,7 @@ export const getAccrualManifest = async (
           user,
           task.tokenAddress,
           task.side,
-          true
+          true,
         );
       } catch (err: any) {
         task.error = err?.message ?? "Failed to fetch";
@@ -500,7 +500,7 @@ export const getAccrualManifest = async (
     }
   };
   await Promise.all(
-    Array.from({ length: Math.min(concurrency, tasks.length) }, worker)
+    Array.from({ length: Math.min(concurrency, tasks.length) }, worker),
   );
 
   return tasks;

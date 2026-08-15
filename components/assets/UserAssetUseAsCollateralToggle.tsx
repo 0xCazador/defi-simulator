@@ -1,5 +1,5 @@
 import { Checkbox } from "@mantine/core";
-import { Trans } from "@lingui/macro";
+import { Trans } from "@lingui/react/macro";
 
 type UserAssetUseAsCollateralToggleProps = {
   assetSymbol: string;
@@ -17,7 +17,7 @@ export const UserAssetUseAsCollateralToggle = ({
   const handleSetUseReserveAssetAsCollateral = () => {
     setUseReserveAssetAsCollateral?.(
       assetSymbol,
-      !usageAsCollateralEnabledOnUser
+      !usageAsCollateralEnabledOnUser,
     );
   };
 

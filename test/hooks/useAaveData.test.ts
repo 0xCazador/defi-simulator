@@ -37,8 +37,8 @@ describe.each(testDataItems)(`useAaveData ()`, (testDataItem) => {
       (reserve) =>
         reserve.asset.usageAsCollateralEnabled &&
         !testDataItem.userBorrowsData.find(
-          (borrow) => borrow.asset.symbol === reserve.asset.symbol
-        )
+          (borrow) => borrow.asset.symbol === reserve.asset.symbol,
+        ),
     );
 
   if (!reserveDataItem) return;
@@ -49,7 +49,7 @@ describe.each(testDataItems)(`useAaveData ()`, (testDataItem) => {
     // Deep-clone per call (like the old response.json() did) so each market
     // gets distinct objects and fetchedData/workingData aren't shared refs.
     mockGetAaveData.mockImplementation(async () =>
-      JSON.parse(JSON.stringify(testHF))
+      JSON.parse(JSON.stringify(testHF)),
     );
   });
 
@@ -89,46 +89,46 @@ describe.each(testDataItems)(`useAaveData ()`, (testDataItem) => {
           const updatedQty = Math.max(originalAssetQty * 10, 100);
           result.current.setReserveAssetQuantity(
             reserveDataItem.asset.symbol,
-            updatedQty
+            updatedQty,
           );
         });
 
         const data = result.current.addressData?.[result.current.currentMarket];
 
         expect(data.workingData?.healthFactor).toBeGreaterThan(
-          originalHealthFactor
+          originalHealthFactor,
         );
         expect(data.workingData?.availableBorrowsUSD).toBeGreaterThan(
-          originalAvailableBorrows
+          originalAvailableBorrows,
         );
 
         act(() => {
           const updatedQty = Math.max(originalAssetQty - 10, 0);
           result.current.setReserveAssetQuantity(
             reserveDataItem.asset.symbol,
-            updatedQty
+            updatedQty,
           );
         });
 
         expect(data.workingData?.healthFactor).toBeLessThan(
-          originalHealthFactor
+          originalHealthFactor,
         );
         expect(data.workingData?.availableBorrowsUSD).toBeLessThanOrEqual(
-          originalAvailableBorrows
+          originalAvailableBorrows,
         ); // Equal in case original was 0
 
         act(() => {
           result.current.setReserveAssetQuantity(
             reserveDataItem.asset.symbol,
-            originalAssetQty
+            originalAssetQty,
           );
         });
 
         expect(data.workingData?.healthFactor.toFixed(PRECISION)).toEqual(
-          originalHealthFactor.toFixed(PRECISION)
+          originalHealthFactor.toFixed(PRECISION),
         );
         expect(
-          data.workingData?.availableBorrowsUSD.toFixed(PRECISION)
+          data.workingData?.availableBorrowsUSD.toFixed(PRECISION),
         ).toEqual(originalAvailableBorrows.toFixed(PRECISION));
       });
     });
@@ -152,7 +152,7 @@ describe.each(testDataItems)(`useAaveData ()`, (testDataItem) => {
           const updatedPrice = Math.max(originalAssetPrice * 10, 100);
           result.current.setAssetPriceInUSD(
             reserveDataItem.asset.symbol,
-            updatedPrice
+            updatedPrice,
           );
         });
 
@@ -169,41 +169,41 @@ describe.each(testDataItems)(`useAaveData ()`, (testDataItem) => {
         } else {
           // every other scenario
           expect(data.workingData?.healthFactor).toBeGreaterThan(
-            originalHealthFactor
+            originalHealthFactor,
           );
         }
 
         expect(data.workingData?.availableBorrowsUSD).toBeGreaterThan(
-          originalAvailableBorrows
+          originalAvailableBorrows,
         );
 
         act(() => {
           const updatedPrice = Math.max(originalAssetPrice - 10, 0);
           result.current.setAssetPriceInUSD(
             reserveDataItem.asset.symbol,
-            updatedPrice
+            updatedPrice,
           );
         });
 
         expect(data.workingData?.healthFactor).toBeLessThan(
-          originalHealthFactor
+          originalHealthFactor,
         );
         expect(data.workingData?.availableBorrowsUSD).toBeLessThanOrEqual(
-          originalAvailableBorrows
+          originalAvailableBorrows,
         ); // Equal in case original was 0
 
         act(() => {
           result.current.setAssetPriceInUSD(
             reserveDataItem.asset.symbol,
-            originalAssetPrice
+            originalAssetPrice,
           );
         });
 
         expect(data.workingData?.healthFactor.toFixed(PRECISION)).toEqual(
-          originalHealthFactor.toFixed(PRECISION)
+          originalHealthFactor.toFixed(PRECISION),
         );
         expect(
-          data.workingData?.availableBorrowsUSD.toFixed(PRECISION)
+          data.workingData?.availableBorrowsUSD.toFixed(PRECISION),
         ).toEqual(originalAvailableBorrows.toFixed(PRECISION));
       });
     });
@@ -225,31 +225,31 @@ describe.each(testDataItems)(`useAaveData ()`, (testDataItem) => {
         act(() => {
           result.current.setUseReserveAssetAsCollateral(
             reserveDataItem.asset.symbol,
-            false
+            false,
           );
         });
 
         const data = result.current.addressData?.[result.current.currentMarket];
 
         expect(data.workingData?.healthFactor).toBeLessThan(
-          originalHealthFactor
+          originalHealthFactor,
         );
         expect(data.workingData?.availableBorrowsUSD).toBeLessThanOrEqual(
-          originalAvailableBorrows
+          originalAvailableBorrows,
         ); // Equal in case original was 0
 
         act(() => {
           result.current.setUseReserveAssetAsCollateral(
             reserveDataItem.asset.symbol,
-            true
+            true,
           );
         });
 
         expect(data.workingData?.healthFactor.toFixed(PRECISION)).toEqual(
-          originalHealthFactor.toFixed(PRECISION)
+          originalHealthFactor.toFixed(PRECISION),
         );
         expect(
-          data.workingData?.availableBorrowsUSD.toFixed(PRECISION)
+          data.workingData?.availableBorrowsUSD.toFixed(PRECISION),
         ).toEqual(originalAvailableBorrows.toFixed(PRECISION));
       });
     });
@@ -266,7 +266,7 @@ describe.each(testDataItems)(`useAaveData ()`, (testDataItem) => {
 
       const liquidationScenario = getCalculatedLiquidationScenario(
         data.workingData as AaveHealthFactorData,
-        data.marketReferenceCurrencyPriceInUSD
+        data.marketReferenceCurrencyPriceInUSD,
       );
 
       expect(liquidationScenario).not.toBeUndefined();
@@ -283,7 +283,7 @@ describe.each(testDataItems)(`useAaveData ()`, (testDataItem) => {
       // HF rounded to hundredths
       const expectedHF: number =
         Math.round(
-          (data.workingData?.healthFactor || 0 + Number.EPSILON) * 100
+          (data.workingData?.healthFactor || 0 + Number.EPSILON) * 100,
         ) / 100;
       expect(expectedHF).toEqual(1.0);
     });
@@ -291,7 +291,7 @@ describe.each(testDataItems)(`useAaveData ()`, (testDataItem) => {
 });
 
 const getHFDataFromAaveDataSeed = (
-  seedItem: (typeof testDataItems)[number]
+  seedItem: (typeof testDataItems)[number],
 ) => {
   // Fixture JSON predates some optional fields on AaveHealthFactorData.
   const aaveData = seedItem as unknown as AaveHealthFactorData;

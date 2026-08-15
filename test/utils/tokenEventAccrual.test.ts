@@ -15,7 +15,7 @@ import {
 
 let eventOrder = 0;
 const event = (
-  partial: Partial<TokenFlowEvent> & Pick<TokenFlowEvent, "kind" | "value">
+  partial: Partial<TokenFlowEvent> & Pick<TokenFlowEvent, "kind" | "value">,
 ): TokenFlowEvent => {
   eventOrder += 1;
   return {
@@ -32,7 +32,7 @@ describe("getPrincipalFlow", () => {
   it("separates principal from credited interest on Mint", () => {
     // supplied 100 while 2 of interest had accrued -> event value is 102
     const flow = getPrincipalFlow(
-      event({ kind: "Mint", value: usdc(102), balanceIncrease: usdc(2) })
+      event({ kind: "Mint", value: usdc(102), balanceIncrease: usdc(2) }),
     );
     expect(flow.toString()).toBe(usdc(100));
   });
@@ -40,7 +40,7 @@ describe("getPrincipalFlow", () => {
   it("handles the burn-side Mint (withdrawal smaller than accrued interest)", () => {
     // withdrew 5 while 8 of interest had accrued -> Mint with value 3
     const flow = getPrincipalFlow(
-      event({ kind: "Mint", value: usdc(3), balanceIncrease: usdc(8) })
+      event({ kind: "Mint", value: usdc(3), balanceIncrease: usdc(8) }),
     );
     expect(flow.toString()).toBe(usdc(-5));
   });
@@ -48,7 +48,7 @@ describe("getPrincipalFlow", () => {
   it("adds credited interest back to the principal on Burn", () => {
     // withdrew 100 while 2 of interest had accrued -> Burn with value 98
     const flow = getPrincipalFlow(
-      event({ kind: "Burn", value: usdc(98), balanceIncrease: usdc(2) })
+      event({ kind: "Burn", value: usdc(98), balanceIncrease: usdc(2) }),
     );
     expect(flow.toString()).toBe(usdc(-100));
   });
@@ -56,13 +56,13 @@ describe("getPrincipalFlow", () => {
   it("treats transfers at face value", () => {
     expect(
       getPrincipalFlow(
-        event({ kind: "TransferIn", value: usdc(50) })
-      ).toString()
+        event({ kind: "TransferIn", value: usdc(50) }),
+      ).toString(),
     ).toBe(usdc(50));
     expect(
       getPrincipalFlow(
-        event({ kind: "TransferOut", value: usdc(50) })
-      ).toString()
+        event({ kind: "TransferOut", value: usdc(50) }),
+      ).toString(),
     ).toBe(usdc(-50));
   });
 });
@@ -147,7 +147,7 @@ describe("findFirstPrincipalEvent", () => {
   it("returns undefined when nothing added principal", () => {
     expect(findFirstPrincipalEvent([])).toBeUndefined();
     expect(
-      findFirstPrincipalEvent([event({ kind: "TransferOut", value: usdc(1) })])
+      findFirstPrincipalEvent([event({ kind: "TransferOut", value: usdc(1) })]),
     ).toBeUndefined();
   });
 });
@@ -157,27 +157,27 @@ describe("classifyEvent", () => {
     expect(
       classifyEvent(
         event({ kind: "Mint", value: usdc(102), balanceIncrease: usdc(2) }),
-        "supply"
-      )
+        "supply",
+      ),
     ).toBe("Supply");
     // withdrawal smaller than accrued interest emits a Mint with negative principal
     expect(
       classifyEvent(
         event({ kind: "Mint", value: usdc(3), balanceIncrease: usdc(8) }),
-        "supply"
-      )
+        "supply",
+      ),
     ).toBe("Withdraw");
     expect(
       classifyEvent(
         event({ kind: "Burn", value: usdc(98), balanceIncrease: usdc(2) }),
-        "supply"
-      )
+        "supply",
+      ),
     ).toBe("Withdraw");
     expect(
-      classifyEvent(event({ kind: "TransferIn", value: usdc(50) }), "supply")
+      classifyEvent(event({ kind: "TransferIn", value: usdc(50) }), "supply"),
     ).toBe("TransferIn");
     expect(
-      classifyEvent(event({ kind: "TransferOut", value: usdc(50) }), "supply")
+      classifyEvent(event({ kind: "TransferOut", value: usdc(50) }), "supply"),
     ).toBe("TransferOut");
   });
 
@@ -185,21 +185,21 @@ describe("classifyEvent", () => {
     expect(
       classifyEvent(
         event({ kind: "Mint", value: usdc(102), balanceIncrease: usdc(2) }),
-        "borrow"
-      )
+        "borrow",
+      ),
     ).toBe("Borrow");
     // repayment smaller than accrued interest emits a Mint with negative principal
     expect(
       classifyEvent(
         event({ kind: "Mint", value: usdc(3), balanceIncrease: usdc(8) }),
-        "borrow"
-      )
+        "borrow",
+      ),
     ).toBe("Repay");
     expect(
       classifyEvent(
         event({ kind: "Burn", value: usdc(45), balanceIncrease: usdc(5) }),
-        "borrow"
-      )
+        "borrow",
+      ),
     ).toBe("Repay");
   });
 
@@ -317,14 +317,14 @@ describe("clampRoundingDust", () => {
   it("leaves materially negative values alone", () => {
     expect(clampRoundingDust(BigNumber.from(-63), 61).toString()).toBe("-63");
     expect(clampRoundingDust(BigNumber.from(-1_000_000), 61).toString()).toBe(
-      "-1000000"
+      "-1000000",
     );
   });
 
   it("never touches zero or positive values", () => {
     expect(clampRoundingDust(BigNumber.from(0), 61).toString()).toBe("0");
     expect(clampRoundingDust(BigNumber.from(12345), 0).toString()).toBe(
-      "12345"
+      "12345",
     );
   });
 });

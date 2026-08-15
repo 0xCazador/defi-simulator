@@ -8,7 +8,7 @@ import {
 } from "@mantine/core";
 import { BiGhost } from "react-icons/bi";
 import { BsTwitter, BsGithub, BsDiscord } from "react-icons/bs";
-import { Trans } from "@lingui/macro";
+import { Trans } from "@lingui/react/macro";
 import SelectLanguageDialog from "./SelectLanguageDialog";
 import SelectCurrencyDialog from "./SelectCurrencyDialog";
 import classes from "./Footer.module.css";

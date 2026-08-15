@@ -62,7 +62,7 @@ export const getPrincipalFlow = (event: TokenFlowEvent): BigNumber => {
 export const getNetPrincipal = (events: TokenFlowEvent[]): BigNumber =>
   events.reduce(
     (sum, event) => sum.add(getPrincipalFlow(event)),
-    BigNumber.from(0)
+    BigNumber.from(0),
   );
 
 /**
@@ -72,7 +72,7 @@ export const getNetPrincipal = (events: TokenFlowEvent[]): BigNumber =>
  */
 export const getAccruedInterest = (
   currentBalanceRaw: string,
-  events: TokenFlowEvent[]
+  events: TokenFlowEvent[],
 ): BigNumber => BigNumber.from(currentBalanceRaw).sub(getNetPrincipal(events));
 
 /**
@@ -83,7 +83,7 @@ export const getAccruedInterest = (
  */
 export const clampRoundingDust = (
   accrued: BigNumber,
-  eventCount: number
+  eventCount: number,
 ): BigNumber =>
   accrued.isNegative() && accrued.abs().lte(eventCount + 1)
     ? BigNumber.from(0)
@@ -94,14 +94,14 @@ const byChainOrder = (a: TokenFlowEvent, b: TokenFlowEvent) =>
 
 /** The earliest event that added principal to the position (for "since" display) */
 export const findFirstPrincipalEvent = (
-  events: TokenFlowEvent[]
+  events: TokenFlowEvent[],
 ): TokenFlowEvent | undefined =>
   [...events]
     .sort(byChainOrder)
     .find(
       (event) =>
         (event.kind === "Mint" || event.kind === "TransferIn") &&
-        getPrincipalFlow(event).gt(0)
+        getPrincipalFlow(event).gt(0),
     );
 
 /**
@@ -134,7 +134,7 @@ export type LedgerEntry = {
 
 export const classifyEvent = (
   event: TokenFlowEvent,
-  side: AccrualSide
+  side: AccrualSide,
 ): LedgerAction => {
   switch (event.kind) {
     case "Mint": {
@@ -158,7 +158,7 @@ export const classifyEvent = (
 /** The chronological, classified accounting of every balance-changing event */
 export const buildLedger = (
   events: TokenFlowEvent[],
-  side: AccrualSide
+  side: AccrualSide,
 ): LedgerEntry[] =>
   [...events].sort(byChainOrder).map((event) => ({
     action: classifyEvent(event, side),
@@ -174,7 +174,7 @@ export const buildLedger = (
 export const getRealizedInterest = (events: TokenFlowEvent[]): BigNumber =>
   events.reduce(
     (sum, event) => sum.add(BigNumber.from(event.balanceIncrease ?? 0)),
-    BigNumber.from(0)
+    BigNumber.from(0),
   );
 
 /**
@@ -183,8 +183,8 @@ export const getRealizedInterest = (events: TokenFlowEvent[]): BigNumber =>
  */
 export const getPendingInterest = (
   currentBalanceRaw: string,
-  events: TokenFlowEvent[]
+  events: TokenFlowEvent[],
 ): BigNumber =>
   getAccruedInterest(currentBalanceRaw, events).sub(
-    getRealizedInterest(events)
+    getRealizedInterest(events),
   );

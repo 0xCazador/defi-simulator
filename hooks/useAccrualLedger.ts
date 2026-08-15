@@ -27,7 +27,7 @@ const ledgerCacheKey = (
   marketId: string | undefined,
   tokenAddress: string | undefined,
   user: string | undefined,
-  side: AccrualSide
+  side: AccrualSide,
 ) => `${marketId}:${tokenAddress}:${user}:${side}`.toLowerCase();
 
 /** Identifies one position (token + side) within a market/user's ledger set */
@@ -54,7 +54,7 @@ const inFlight = new Map<string, Promise<void>>();
 export function useAccrualLedgers(
   marketId: string | undefined,
   user: string | undefined,
-  requests: LedgerRequest[]
+  requests: LedgerRequest[],
 ): Map<string, AccrualLedgerState> {
   const [, bumpVersion] = useReducer((version: number) => version + 1, 0);
   const isReady: boolean = !!marketId?.length && !!user?.length;
@@ -80,7 +80,7 @@ export function useAccrualLedgers(
         marketId,
         request.tokenAddress,
         user,
-        request.side
+        request.side,
       );
 
       const existing = inFlight.get(key);
@@ -99,7 +99,7 @@ export function useAccrualLedgers(
         user!,
         request.tokenAddress,
         request.side,
-        true
+        true,
       )
         .then((data) => {
           ledgerCache.set(key, { isFetching: false, fetchError: "", data });
@@ -127,12 +127,12 @@ export function useAccrualLedgers(
   requests.forEach((request) => {
     const cached = isReady
       ? ledgerCache.get(
-          ledgerCacheKey(marketId, request.tokenAddress, user, request.side)
+          ledgerCacheKey(marketId, request.tokenAddress, user, request.side),
         )
       : undefined;
     states.set(
       getPositionKey(request.tokenAddress, request.side),
-      cached ?? PENDING
+      cached ?? PENDING,
     );
   });
   return states;
@@ -162,11 +162,11 @@ const manifestCache = new Map<string, ManifestScanState>();
  */
 export function useAccrualManifest(
   marketId: string | undefined,
-  user: string | undefined
+  user: string | undefined,
 ) {
   const key = `${marketId}:${user}`.toLowerCase();
   const [state, setState] = useState<ManifestScanState>(
-    manifestCache.get(key) ?? IDLE
+    manifestCache.get(key) ?? IDLE,
   );
 
   useEffect(() => {
@@ -201,7 +201,7 @@ export function useAccrualManifest(
                 scanError: "",
                 progress: { done, total },
                 results: undefined,
-              })
+              }),
           );
           // seed the per-position ledger cache so asset sections render
           // scan results without refetching
@@ -209,7 +209,7 @@ export function useAccrualManifest(
             if (!item.data) return;
             ledgerCache.set(
               ledgerCacheKey(marketId, item.tokenAddress, user, item.side),
-              { isFetching: false, fetchError: "", data: item.data }
+              { isFetching: false, fetchError: "", data: item.data },
             );
           });
           update({
@@ -225,7 +225,7 @@ export function useAccrualManifest(
 
       scan();
     },
-    [key, marketId, user]
+    [key, marketId, user],
   );
 
   return { ...state, startScan };

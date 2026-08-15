@@ -46,20 +46,26 @@ async function probe(name, url, book) {
       lendingPoolAddressProvider: book.POOL_ADDRESSES_PROVIDER,
     });
     legacyOk = true;
-    console.log(`legacy (pre-3.7) decode: OK, ${res.reservesData.length} reserves`);
+    console.log(
+      `legacy (pre-3.7) decode: OK, ${res.reservesData.length} reserves`,
+    );
   } catch (e) {
     console.log(`legacy (pre-3.7) decode: FAILED (${e.code || e.message})`);
   }
 
   // v3.7 decode.
   try {
-    const v37 = new ethers.Contract(book.UI_POOL_DATA_PROVIDER, V37_ABI, provider);
+    const v37 = new ethers.Contract(
+      book.UI_POOL_DATA_PROVIDER,
+      V37_ABI,
+      provider,
+    );
     const [reserves] = await v37.getReservesData(book.POOL_ADDRESSES_PROVIDER);
     console.log(
       `v3.7 decode: OK, ${reserves.length} reserves (${reserves
         .slice(0, 5)
         .map((r) => r.symbol)
-        .join(", ")}...)`
+        .join(", ")}...)`,
     );
   } catch (e) {
     console.log(`v3.7 decode: FAILED (${e.code || e.message})`);
@@ -73,11 +79,15 @@ async function probe(name, url, book) {
     const deployBlock = await findDeployBlock(
       provider,
       book.POOL_ADDRESSES_PROVIDER,
-      latest
+      latest,
     );
-    console.log(`POOL_ADDRESSES_PROVIDER deployed at block: ${deployBlock.toLocaleString()}`);
+    console.log(
+      `POOL_ADDRESSES_PROVIDER deployed at block: ${deployBlock.toLocaleString()}`,
+    );
   } catch (e) {
-    console.log(`deploy-block search failed (archive access?): ${e.code || e.message}`);
+    console.log(
+      `deploy-block search failed (archive access?): ${e.code || e.message}`,
+    );
   }
 }
 

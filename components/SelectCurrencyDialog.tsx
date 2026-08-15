@@ -1,5 +1,6 @@
 import * as React from "react";
-import { t, Trans } from "@lingui/macro";
+import { t } from "@lingui/core/macro";
+import { Trans } from "@lingui/react/macro";
 
 import {
   Button,
@@ -34,7 +35,7 @@ export default function SelectCurrencyDialog() {
   const [searchText, setSearchText] = React.useState("");
   const router: NextRouter = useRouter();
   const selectedCurrencyData = currencyItems.find(
-    (curr) => curr.code === selectedCurrency
+    (curr) => curr.code === selectedCurrency,
   );
   const selectedFlag = flags[selectedCurrency];
 
@@ -134,9 +135,9 @@ export default function SelectCurrencyDialog() {
                   }}
                 >
                   {`${currency.code.toLocaleUpperCase(
-                    router.locale
+                    router.locale,
                   )} - ${currency.description.toLocaleUpperCase(
-                    router.locale
+                    router.locale,
                   )}  ${flag ?? ""}`}
                 </UnstyledButton>
               </List.Item>

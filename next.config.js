@@ -1,7 +1,7 @@
-const linguiConfig = require('./lingui.config');
+const linguiConfig = require("./lingui.config");
 
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
 });
 
 module.exports = withBundleAnalyzer({
@@ -11,8 +11,4 @@ module.exports = withBundleAnalyzer({
     defaultLocale: "en",
   },
   productionBrowserSourceMaps: true,
-  webpack: (config) => {
-    config.experiments.topLevelAwait = true 
-    return config;
-  }
 });

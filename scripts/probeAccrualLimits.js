@@ -10,11 +10,16 @@ const { ethers } = require("ethers");
 const { AaveV3Plasma, AaveV3MegaEth } = require("@aave-dao/aave-address-book");
 
 function alchemyKey() {
-  const envFile = fs.readFileSync(path.join(__dirname, "..", ".env.local"), "utf8");
+  const envFile = fs.readFileSync(
+    path.join(__dirname, "..", ".env.local"),
+    "utf8",
+  );
   return envFile.match(/NEXT_PUBLIC_ALCHEMY_API_KEY=(\S+)/)[1];
 }
 
-const MINT_TOPIC = ethers.utils.id("Mint(address,address,uint256,uint256,uint256)");
+const MINT_TOPIC = ethers.utils.id(
+  "Mint(address,address,uint256,uint256,uint256)",
+);
 
 async function probe(name, host, aToken, startBlock) {
   const provider = new ethers.providers.StaticJsonRpcProvider({
@@ -38,7 +43,9 @@ async function probe(name, host, aToken, startBlock) {
         fromBlock: from,
         toBlock: to,
       });
-      console.log(`${label} (${(to - from + 1).toLocaleString()} blocks): OK, ${logs.length} logs`);
+      console.log(
+        `${label} (${(to - from + 1).toLocaleString()} blocks): OK, ${logs.length} logs`,
+      );
     } catch (e) {
       const msg = e?.error?.message || e?.body || e?.message || String(e);
       console.log(`${label}: FAILED -> ${String(msg).slice(0, 220)}`);
@@ -47,6 +54,16 @@ async function probe(name, host, aToken, startBlock) {
 }
 
 (async () => {
-  await probe("Plasma", "plasma-mainnet", AaveV3Plasma.ASSETS.USDT0.A_TOKEN, 489_000);
-  await probe("MegaETH", "megaeth-mainnet", AaveV3MegaEth.ASSETS.WETH.A_TOKEN, 6_650_000);
+  await probe(
+    "Plasma",
+    "plasma-mainnet",
+    AaveV3Plasma.ASSETS.USDT0.A_TOKEN,
+    489_000,
+  );
+  await probe(
+    "MegaETH",
+    "megaeth-mainnet",
+    AaveV3MegaEth.ASSETS.WETH.A_TOKEN,
+    6_650_000,
+  );
 })();

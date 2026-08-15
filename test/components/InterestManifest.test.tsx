@@ -77,14 +77,16 @@ let mockManifest: any = {};
 
 // The lingui macro isn't compiled under jest, so stand in for it: `t` joins
 // its template, `Trans` renders its children.
-jest.mock("@lingui/macro", () => ({
+jest.mock("@lingui/core/macro", () => ({
   t: (strings: TemplateStringsArray | string, ...values: unknown[]) =>
     typeof strings === "string"
       ? strings
       : strings.reduce(
           (acc, part, index) => acc + part + String(values[index] ?? ""),
-          ""
+          "",
         ),
+}));
+jest.mock("@lingui/react/macro", () => ({
   Trans: ({ children }: { children: React.ReactNode }) => <>{children}</>,
   Plural: ({
     value,
@@ -156,7 +158,7 @@ const renderPage = () => {
       <MantineProvider>
         <InterestManifest />
       </MantineProvider>
-    </I18nProvider>
+    </I18nProvider>,
   );
 };
 
@@ -210,12 +212,12 @@ describe("InterestManifest", () => {
         .filter(
           (el) =>
             el.hasAttribute("aria-expanded") &&
-            !el.hasAttribute("aria-haspopup")
+            !el.hasAttribute("aria-haspopup"),
         );
 
     expect(headers()).toHaveLength(2);
     expect(
-      headers().every((el) => el.getAttribute("aria-expanded") === "false")
+      headers().every((el) => el.getAttribute("aria-expanded") === "false"),
     ).toBe(true);
     expect(container.querySelectorAll("table")).toHaveLength(0);
 
@@ -233,25 +235,25 @@ describe("InterestManifest", () => {
         .filter(
           (el) =>
             el.hasAttribute("aria-expanded") &&
-            !el.hasAttribute("aria-haspopup")
+            !el.hasAttribute("aria-haspopup"),
         );
 
     fireEvent.click(screen.getByText("Expand all"));
     expect(
-      headers().every((el) => el.getAttribute("aria-expanded") === "true")
+      headers().every((el) => el.getAttribute("aria-expanded") === "true"),
     ).toBe(true);
     expect(container.querySelectorAll("table")).toHaveLength(2);
 
     fireEvent.click(screen.getByText("Collapse all"));
     expect(
-      headers().every((el) => el.getAttribute("aria-expanded") === "false")
+      headers().every((el) => el.getAttribute("aria-expanded") === "false"),
     ).toBe(true);
   });
 
   it("shows the scope note and a deep-scan control in the summary", () => {
     const { container } = renderPage();
     expect(container.textContent).toContain(
-      "Current positions only — closed positions aren't included yet."
+      "Current positions only — closed positions aren't included yet.",
     );
     expect(screen.getByText("Scan past assets")).toBeTruthy();
   });
@@ -265,7 +267,7 @@ describe("InterestManifest", () => {
     expect(screen.getByText("$2985")).toBeTruthy();
 
     expect(container.textContent).toContain(
-      "All positions covered, including 1 closed position."
+      "All positions covered, including 1 closed position.",
     );
     expect(container.textContent?.includes("aren't included yet")).toBe(false);
     expect(screen.queryByText("Scan past assets")).toBeNull();

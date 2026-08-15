@@ -1,4 +1,4 @@
-import { Trans } from "@lingui/macro";
+import { Trans } from "@lingui/react/macro";
 import { Alert, Button, Space } from "@mantine/core";
 import { useElementSize } from "@mantine/hooks";
 import { FiAlertTriangle } from "react-icons/fi";

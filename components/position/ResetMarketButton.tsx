@@ -1,5 +1,6 @@
 import { ActionIcon, Tooltip } from "@mantine/core";
-import { Trans, t } from "@lingui/macro";
+import { t } from "@lingui/core/macro";
+import { Trans } from "@lingui/react/macro";
 import { RxReset } from "react-icons/rx";
 
 import { useAaveData } from "../../hooks/useAaveData";

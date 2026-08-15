@@ -13,13 +13,13 @@ type LocalizedFiatDisplayProps = {
 export const getLocalizedFiatString = (
   valueUSD: number,
   currentRate: number,
-  selectedCurrency: string
+  selectedCurrency: string,
 ) => {
   const value = currentRate * valueUSD;
-  return globalI18n.number(value, {
+  return new Intl.NumberFormat(globalI18n.locale, {
     style: "currency",
     currency: selectedCurrency,
-  });
+  }).format(value);
 };
 
 export default function LocalizedFiatDisplay({
@@ -32,13 +32,13 @@ export default function LocalizedFiatDisplay({
 
   const convertedValue = currentRate * valueUSD;
 
-  let currencyString = i18n.number(convertedValue, {
+  let currencyString = new Intl.NumberFormat(i18n.locale, {
     style: "currency",
     currency: selectedCurrency,
     ...(hideFractionDigits
       ? { minimumFractionDigits: 0, maximumFractionDigits: 0 }
       : {}),
-  });
+  }).format(convertedValue);
 
   if (includeCurrencyCode) currencyString += ` (${selectedCurrency})`;
 

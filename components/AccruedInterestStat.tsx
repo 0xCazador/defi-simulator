@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
-import { t, Trans } from "@lingui/macro";
+import { t } from "@lingui/core/macro";
+import { Trans } from "@lingui/react/macro";
 import { useLingui } from "@lingui/react";
 import {
   Button,
@@ -62,7 +63,7 @@ export const AccruedInterestStat = ({
     currentMarket,
     resolvedAddress,
     tokenAddress,
-    side
+    side,
   );
 
   const accruedValue: number = Number(accrual.accruedValue ?? "0");
@@ -82,9 +83,9 @@ export const AccruedInterestStat = ({
       : t`Experimental. The Accrued Interest refers to the total interest accrued by this borrowed asset since it was first borrowed in the current market by the user. This feature is experimental, there may be miscalculations, or it may not be available for all assets.`;
 
   const sinceDate: string = accrual.sinceTimestamp
-    ? i18n.date(new Date(accrual.sinceTimestamp * 1000), {
+    ? new Intl.DateTimeFormat(i18n.locale, {
         dateStyle: "medium",
-      })
+      }).format(new Date(accrual.sinceTimestamp * 1000))
     : "";
 
   return (

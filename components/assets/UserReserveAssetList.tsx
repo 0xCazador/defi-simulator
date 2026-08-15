@@ -1,6 +1,6 @@
 import { CSSProperties } from "react";
 import { Center, Text, Title } from "@mantine/core";
-import { Trans } from "@lingui/macro";
+import { Trans } from "@lingui/react/macro";
 import { useLingui } from "@lingui/react";
 import { ImmutableArray } from "@hookstate/core";
 
@@ -62,7 +62,7 @@ export const UserReserveAssetList = ({
         const originalAsset = addressData?.[
           currentMarket
         ]?.fetchedData?.userReservesData?.find(
-          (asset) => asset.asset.symbol === item.asset.symbol
+          (asset) => asset.asset.symbol === item.asset.symbol,
         );
         return (
           <UserAssetItem

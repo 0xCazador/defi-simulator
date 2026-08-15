@@ -26,14 +26,41 @@ const UI_POOL_DATA_PROVIDER_V37_ABI = [
 
 const { AddressZero } = ethers.constants;
 
+/** Fields the 1.30 SDK used to emit that 1.38 dropped (stable rate + per-reserve eMode). */
+export type LegacyReserveDataHumanized = ReserveDataHumanized & {
+  stableBorrowRateEnabled: boolean;
+  stableBorrowRate: string;
+  stableDebtTokenAddress: string;
+  totalPrincipalStableDebt: string;
+  averageStableRate: string;
+  stableDebtLastUpdateTimestamp: number;
+  stableRateSlope1: string;
+  stableRateSlope2: string;
+  baseStableBorrowRate: string;
+  eModeCategoryId: number;
+  eModeLtv: number;
+  eModeLiquidationThreshold: number;
+  eModeLiquidationBonus: number;
+  eModePriceSource: string;
+  eModeLabel: string;
+  unbacked: string;
+  virtualAccActive?: boolean;
+};
+
+export type LegacyUserReserveDataHumanized = UserReserveDataHumanized & {
+  stableBorrowRate: string;
+  principalStableDebt: string;
+  stableBorrowLastUpdateTimestamp: number;
+};
+
 const contractFor = (
   provider: ethers.providers.Provider,
-  uiPoolDataProviderAddress: string
+  uiPoolDataProviderAddress: string,
 ) =>
   new ethers.Contract(
     uiPoolDataProviderAddress,
     UI_POOL_DATA_PROVIDER_V37_ABI,
-    provider
+    provider,
   );
 
 export type V37Context = {
@@ -50,76 +77,81 @@ export const getReservesHumanizedV37 = async ({
   lendingPoolAddressProvider,
   chainId,
 }: V37Context): Promise<{
-  reservesData: ReserveDataHumanized[];
+  reservesData: LegacyReserveDataHumanized[];
   baseCurrencyData: PoolBaseCurrencyHumanized;
 }> => {
   const [reservesRaw, baseRaw] = await contractFor(
     provider,
-    uiPoolDataProviderAddress
+    uiPoolDataProviderAddress,
   ).getReservesData(lendingPoolAddressProvider);
 
-  const reservesData: ReserveDataHumanized[] = reservesRaw.map((r: any) => ({
-    id: `${chainId}-${r.underlyingAsset}-${lendingPoolAddressProvider}`.toLowerCase(),
-    underlyingAsset: r.underlyingAsset.toLowerCase(),
-    name: r.name,
-    symbol: r.symbol,
-    decimals: r.decimals.toNumber(),
-    baseLTVasCollateral: r.baseLTVasCollateral.toString(),
-    reserveLiquidationThreshold: r.reserveLiquidationThreshold.toString(),
-    reserveLiquidationBonus: r.reserveLiquidationBonus.toString(),
-    reserveFactor: r.reserveFactor.toString(),
-    usageAsCollateralEnabled: r.usageAsCollateralEnabled,
-    borrowingEnabled: r.borrowingEnabled,
-    isActive: r.isActive,
-    isFrozen: r.isFrozen,
-    liquidityIndex: r.liquidityIndex.toString(),
-    variableBorrowIndex: r.variableBorrowIndex.toString(),
-    liquidityRate: r.liquidityRate.toString(),
-    variableBorrowRate: r.variableBorrowRate.toString(),
-    lastUpdateTimestamp: r.lastUpdateTimestamp,
-    aTokenAddress: r.aTokenAddress,
-    variableDebtTokenAddress: r.variableDebtTokenAddress,
-    interestRateStrategyAddress: r.interestRateStrategyAddress,
-    availableLiquidity: r.availableLiquidity.toString(),
-    totalScaledVariableDebt: r.totalScaledVariableDebt.toString(),
-    priceInMarketReferenceCurrency: r.priceInMarketReferenceCurrency.toString(),
-    priceOracle: r.priceOracle,
-    variableRateSlope1: r.variableRateSlope1.toString(),
-    variableRateSlope2: r.variableRateSlope2.toString(),
-    baseVariableBorrowRate: r.baseVariableBorrowRate.toString(),
-    optimalUsageRatio: r.optimalUsageRatio.toString(),
-    isPaused: r.isPaused,
-    isSiloedBorrowing: r.isSiloedBorrowing,
-    accruedToTreasury: r.accruedToTreasury.toString(),
-    isolationModeTotalDebt: r.isolationModeTotalDebt.toString(),
-    flashLoanEnabled: r.flashLoanEnabled,
-    debtCeiling: r.debtCeiling.toString(),
-    debtCeilingDecimals: r.debtCeilingDecimals.toNumber(),
-    borrowCap: r.borrowCap.toString(),
-    supplyCap: r.supplyCap.toString(),
-    borrowableInIsolation: r.borrowableInIsolation,
-    virtualAccActive: true,
-    virtualUnderlyingBalance: r.virtualUnderlyingBalance.toString(),
+  const reservesData: LegacyReserveDataHumanized[] = reservesRaw.map(
+    (r: any) => ({
+      id: `${chainId}-${r.underlyingAsset}-${lendingPoolAddressProvider}`.toLowerCase(),
+      originalId: 0,
+      underlyingAsset: r.underlyingAsset.toLowerCase(),
+      name: r.name,
+      symbol: r.symbol,
+      decimals: r.decimals.toNumber(),
+      baseLTVasCollateral: r.baseLTVasCollateral.toString(),
+      reserveLiquidationThreshold: r.reserveLiquidationThreshold.toString(),
+      reserveLiquidationBonus: r.reserveLiquidationBonus.toString(),
+      reserveFactor: r.reserveFactor.toString(),
+      usageAsCollateralEnabled: r.usageAsCollateralEnabled,
+      borrowingEnabled: r.borrowingEnabled,
+      isActive: r.isActive,
+      isFrozen: r.isFrozen,
+      liquidityIndex: r.liquidityIndex.toString(),
+      variableBorrowIndex: r.variableBorrowIndex.toString(),
+      liquidityRate: r.liquidityRate.toString(),
+      variableBorrowRate: r.variableBorrowRate.toString(),
+      lastUpdateTimestamp: r.lastUpdateTimestamp,
+      aTokenAddress: r.aTokenAddress,
+      variableDebtTokenAddress: r.variableDebtTokenAddress,
+      interestRateStrategyAddress: r.interestRateStrategyAddress,
+      availableLiquidity: r.availableLiquidity.toString(),
+      totalScaledVariableDebt: r.totalScaledVariableDebt.toString(),
+      priceInMarketReferenceCurrency:
+        r.priceInMarketReferenceCurrency.toString(),
+      priceOracle: r.priceOracle,
+      variableRateSlope1: r.variableRateSlope1.toString(),
+      variableRateSlope2: r.variableRateSlope2.toString(),
+      baseVariableBorrowRate: r.baseVariableBorrowRate.toString(),
+      optimalUsageRatio: r.optimalUsageRatio.toString(),
+      isPaused: r.isPaused,
+      isSiloedBorrowing: r.isSiloedBorrowing,
+      accruedToTreasury: r.accruedToTreasury.toString(),
+      isolationModeTotalDebt: r.isolationModeTotalDebt.toString(),
+      flashLoanEnabled: r.flashLoanEnabled,
+      debtCeiling: r.debtCeiling.toString(),
+      debtCeilingDecimals: r.debtCeilingDecimals.toNumber(),
+      borrowCap: r.borrowCap.toString(),
+      supplyCap: r.supplyCap.toString(),
+      borrowableInIsolation: r.borrowableInIsolation,
+      virtualAccActive: true,
+      virtualUnderlyingBalance: r.virtualUnderlyingBalance.toString(),
+      deficit: r.deficit?.toString?.() ?? "0",
 
-    // Dropped by v3.7. Stable borrowing no longer exists, and per-reserve eMode
-    // values were replaced by the Pool's liquid eMode categories.
-    stableBorrowRateEnabled: false,
-    stableBorrowRate: "0",
-    stableDebtTokenAddress: AddressZero,
-    totalPrincipalStableDebt: "0",
-    averageStableRate: "0",
-    stableDebtLastUpdateTimestamp: 0,
-    stableRateSlope1: "0",
-    stableRateSlope2: "0",
-    baseStableBorrowRate: "0",
-    eModeCategoryId: 0,
-    eModeLtv: 0,
-    eModeLiquidationThreshold: 0,
-    eModeLiquidationBonus: 0,
-    eModePriceSource: AddressZero,
-    eModeLabel: "",
-    unbacked: "0",
-  }));
+      // Dropped by v3.7. Stable borrowing no longer exists, and per-reserve eMode
+      // values were replaced by the Pool's liquid eMode categories.
+      stableBorrowRateEnabled: false,
+      stableBorrowRate: "0",
+      stableDebtTokenAddress: AddressZero,
+      totalPrincipalStableDebt: "0",
+      averageStableRate: "0",
+      stableDebtLastUpdateTimestamp: 0,
+      stableRateSlope1: "0",
+      stableRateSlope2: "0",
+      baseStableBorrowRate: "0",
+      eModeCategoryId: 0,
+      eModeLtv: 0,
+      eModeLiquidationThreshold: 0,
+      eModeLiquidationBonus: 0,
+      eModePriceSource: AddressZero,
+      eModeLabel: "",
+      unbacked: "0",
+    }),
+  );
 
   return {
     reservesData,
@@ -143,27 +175,29 @@ export const getUserReservesHumanizedV37 = async (
     lendingPoolAddressProvider,
     chainId,
   }: V37Context,
-  user: string
+  user: string,
 ): Promise<{
-  userReserves: UserReserveDataHumanized[];
+  userReserves: LegacyUserReserveDataHumanized[];
   userEmodeCategoryId: number;
 }> => {
   const [userReservesRaw, userEmodeCategoryId] = await contractFor(
     provider,
-    uiPoolDataProviderAddress
+    uiPoolDataProviderAddress,
   ).getUserReservesData(lendingPoolAddressProvider, user);
 
   return {
-    userReserves: userReservesRaw.map((u: any) => ({
-      id: `${chainId}-${user}-${u.underlyingAsset}-${lendingPoolAddressProvider}`.toLowerCase(),
-      underlyingAsset: u.underlyingAsset.toLowerCase(),
-      scaledATokenBalance: u.scaledATokenBalance.toString(),
-      usageAsCollateralEnabledOnUser: u.usageAsCollateralEnabledOnUser,
-      scaledVariableDebt: u.scaledVariableDebt.toString(),
-      stableBorrowRate: "0",
-      principalStableDebt: "0",
-      stableBorrowLastUpdateTimestamp: 0,
-    })),
+    userReserves: userReservesRaw.map(
+      (u: any): LegacyUserReserveDataHumanized => ({
+        id: `${chainId}-${user}-${u.underlyingAsset}-${lendingPoolAddressProvider}`.toLowerCase(),
+        underlyingAsset: u.underlyingAsset.toLowerCase(),
+        scaledATokenBalance: u.scaledATokenBalance.toString(),
+        usageAsCollateralEnabledOnUser: u.usageAsCollateralEnabledOnUser,
+        scaledVariableDebt: u.scaledVariableDebt.toString(),
+        stableBorrowRate: "0",
+        principalStableDebt: "0",
+        stableBorrowLastUpdateTimestamp: 0,
+      }),
+    ),
     userEmodeCategoryId,
   };
 };

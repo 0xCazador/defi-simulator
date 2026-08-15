@@ -18,7 +18,7 @@ type FormatTokenAmountOptions = {
 export const formatTokenAmount = (
   value: number,
   locale: string = "en",
-  { compact = true }: FormatTokenAmountOptions = {}
+  { compact = true }: FormatTokenAmountOptions = {},
 ): string => {
   if (!Number.isFinite(value) || value === 0) return "0";
 

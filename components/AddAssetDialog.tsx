@@ -1,5 +1,6 @@
 import * as React from "react";
-import { t, Trans } from "@lingui/macro";
+import { t } from "@lingui/core/macro";
+import { Trans } from "@lingui/react/macro";
 
 import {
   Button,
@@ -78,7 +79,7 @@ export default function AddAssetDialog({ assetType }: AddAssetDialogProps) {
         .filter((asset) =>
           assetType === "BORROW"
             ? isBorrowableAsset(asset)
-            : isSuppliableAsset(asset)
+            : isSuppliableAsset(asset),
         )
     : new Array(...(addressData?.[currentMarket]?.availableAssets || []));
 

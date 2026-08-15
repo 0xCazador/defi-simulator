@@ -42,7 +42,7 @@ const emptyPosition = (): AaveHealthFactorData => ({
 
 const makeSuccessData = (
   address: string,
-  market: AaveMarketDataType
+  market: AaveMarketDataType,
 ): HealthFactorData => ({
   address,
   resolvedAddress: address,
@@ -62,7 +62,7 @@ describe("useAaveData market resilience", () => {
     mockGetAaveData.mockReset();
     mockGetResolvedAddress.mockReset();
     mockGetResolvedAddress.mockImplementation(
-      async (address: string) => address
+      async (address: string) => address,
     );
     jest.spyOn(console, "error").mockImplementation(() => {});
   });
@@ -77,7 +77,7 @@ describe("useAaveData market resilience", () => {
     await waitFor(() => {
       markets.forEach((market) => {
         expect(
-          result.current.addressData?.[market.id]?.lastFetched
+          result.current.addressData?.[market.id]?.lastFetched,
         ).toBeTruthy();
       });
     });
@@ -93,7 +93,7 @@ describe("useAaveData market resilience", () => {
           throw new Error("RPC exploded");
         }
         return makeSuccessData(addr, market);
-      }
+      },
     );
 
     const { result } = renderHook(() => useAaveData(address));
@@ -123,7 +123,7 @@ describe("useAaveData market resilience", () => {
     mockGetResolvedAddress.mockResolvedValue(resolved);
     mockGetAaveData.mockImplementation(
       async (addr: string, market: AaveMarketDataType) =>
-        makeSuccessData(addr, market)
+        makeSuccessData(addr, market),
     );
 
     const { result } = renderHook(() => useAaveData(address));
@@ -168,7 +168,7 @@ describe("useAaveData market resilience", () => {
             return new Promise(() => {}); // never settles
           }
           return makeSuccessData(addr, market);
-        }
+        },
       );
 
       const { result } = renderHook(() => useAaveData(address));
@@ -205,14 +205,14 @@ describe("useAaveData market resilience", () => {
           throw new Error("temporary outage");
         }
         return makeSuccessData(addr, market);
-      }
+      },
     );
 
     const { result } = renderHook(() => useAaveData(address));
 
     await waitForAllMarketsSettled(result);
     expect(result.current.addressData?.[flakyMarketId]?.fetchError).toContain(
-      "temporary outage"
+      "temporary outage",
     );
 
     shouldFail = false;
@@ -250,7 +250,7 @@ describe("withTimeout", () => {
     const promise = withTimeout(
       Promise.reject(new Error("inner failure")),
       1000,
-      "test op"
+      "test op",
     );
     await expect(promise).rejects.toThrow("inner failure");
   });

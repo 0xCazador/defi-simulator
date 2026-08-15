@@ -62,18 +62,19 @@ const locales = [
   "uk",
   "uz",
   "vi",
-  "zh-Hans"
+  "zh-Hans",
 ];
 
 module.exports = {
-   locales: locales,
-   catalogs: [{
+  locales: locales,
+  catalogs: [
+    {
       path: "src/locales/{locale}/messages",
-      include: ["./components", "./pages"]
-   }],
-   format: "po",
-   service: {
+      include: ["./components", "./pages"],
+    },
+  ],
+  service: {
     name: "TranslationIO",
-    apiKey: "7945437f43044617aa3eadaf0cb7e184"
-  }
-}
+    apiKey: "7945437f43044617aa3eadaf0cb7e184",
+  },
+};
