@@ -4,6 +4,7 @@ import { Plural, t, Trans } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
 import { ImmutableObject } from "@hookstate/core";
 import {
+  ActionIcon,
   Alert,
   Anchor,
   Badge,
@@ -14,17 +15,18 @@ import {
   Group,
   Loader,
   Paper,
+  Popover,
   Progress,
   SegmentedControl,
-  SimpleGrid,
   Space,
   Table,
   Text,
   TextInput,
   Title,
+  Tooltip,
   UnstyledButton,
 } from "@mantine/core";
-import { FaChevronRight, FaHistory } from "react-icons/fa";
+import { FaChevronRight, FaCopy, FaHistory } from "react-icons/fa";
 import { FiExternalLink, FiInfo, FiSearch } from "react-icons/fi";
 
 import {
@@ -137,9 +139,8 @@ export default function InterestManifest() {
     return (
       <Alert icon={<FiInfo size="1rem" />} color="blue" mt={20}>
         <Trans>
-          Interest history is reconstructed from on-chain events, so it is only
-          available for real on-chain addresses (not simulated sandbox
-          positions).
+          Interest history is only available for real on-chain addresses, not
+          simulated sandbox positions.
         </Trans>
       </Alert>
     );
@@ -173,6 +174,20 @@ const ManifestContent = ({
   const [sideFilter, setSideFilter] = useState<SideFilter>("ALL");
   const [searchText, setSearchText] = useState("");
   const [expandedKeys, setExpandedKeys] = useState<Set<string>>(new Set());
+  const [showCopied, setShowCopied] = useState(false);
+
+  // Copies the resolved hex address (not the ENS name), which is what block
+  // explorers and wallets expect. Confirmation only shows if the write
+  // actually succeeded (the Clipboard API rejects in unfocused documents).
+  const handleCopyAddress = () => {
+    navigator.clipboard
+      .writeText(user)
+      .then(() => {
+        setShowCopied(true);
+        setTimeout(() => setShowCopied(false), 2500);
+      })
+      .catch(() => {});
+  };
 
   const manifest = useAccrualManifest(market.id, user);
 
@@ -296,15 +311,83 @@ const ManifestContent = ({
   return (
     <>
       <Group justify="space-between" mt={10} mb={5}>
-        <Title order={4}>
-          <Trans>Interest Accrual History</Trans>
-        </Title>
-        <Text size="sm" c="dimmed">
-          <AbbreviatedEthereumAddress address={currentAddress} />
-          {" · "}
-          {market.title}
-        </Text>
+        <Group gap={8}>
+          <Title order={4}>
+            <Trans>Aave Interest Accrual</Trans>
+          </Title>
+          <Badge variant="outline" color="yellow" size="xs" radius="sm">
+            <Trans>Experimental</Trans>
+          </Badge>
+        </Group>
+        <Group gap={2}>
+          <Text size="sm" c="dimmed">
+            <AbbreviatedEthereumAddress address={currentAddress} />
+            {" · "}
+            {market.title}
+          </Text>
+          <Tooltip
+            label={
+              showCopied
+                ? t`Address copied to clipboard!`
+                : t`Copy address to clipboard`
+            }
+            opened={showCopied ? true : undefined}
+            color={showCopied ? "green" : undefined}
+            withArrow
+          >
+            <ActionIcon
+              size="sm"
+              variant="subtle"
+              color="gray"
+              aria-label={t`Copy address to clipboard`}
+              onClick={handleCopyAddress}
+            >
+              <FaCopy size={12} />
+            </ActionIcon>
+          </Tooltip>
+          <Tooltip label={t`View address on ${market.explorerName}`} withArrow>
+            <ActionIcon
+              size="sm"
+              variant="subtle"
+              color="gray"
+              component="a"
+              href={market.explorer.replace("{{ADDRESS}}", user)}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={t`View address on ${market.explorerName}`}
+            >
+              <FiExternalLink size={13} />
+            </ActionIcon>
+          </Tooltip>
+        </Group>
       </Group>
+
+      {/* The one-line caption keeps the page scannable; the full explanation
+          lives in the popover so no information is actually lost. */}
+      <Text fz="xs" c="dimmed" mb={12}>
+        <Trans>
+          Reconstructed from on-chain token events, priced at current rates.
+        </Trans>{" "}
+        <Popover width={320} withArrow shadow="md">
+          <Popover.Target>
+            <Anchor component="button" type="button" fz="xs">
+              <Trans>How it works</Trans>
+            </Anchor>
+          </Popover.Target>
+          <Popover.Dropdown>
+            <Text size="sm">
+              <Trans>
+                Interest history is reconstructed from on-chain aToken and
+                variable debt token events, so every row corresponds to a real
+                transaction. Interest is credited to the balance whenever the
+                address interacts with a reserve; the remainder accrues
+                continuously since the last activity. Fiat values use current
+                prices (historical prices are not available).
+              </Trans>
+            </Text>
+          </Popover.Dropdown>
+        </Popover>
+      </Text>
 
       {allPositions.length > 0 && (
         <InterestSummary
@@ -314,22 +397,6 @@ const ManifestContent = ({
           scanRefs={scanRefs}
         />
       )}
-
-      <Alert
-        icon={<FiInfo size="1rem" />}
-        color="blue"
-        variant="outline"
-        mb={15}
-      >
-        <Trans>
-          This accounting is reconstructed from on-chain aToken and variable
-          debt token events, so every row corresponds to a real transaction.
-          Interest is credited to the balance whenever the address interacts
-          with a reserve; the remainder accrues continuously since the last
-          activity. Fiat values use current prices (historical prices are not
-          available). This feature is experimental.
-        </Trans>
-      </Alert>
 
       <Group justify="space-between" mb={15} gap="xs">
         <SegmentedControl
@@ -418,6 +485,9 @@ type InterestSummaryProps = {
  * Totals the interest across the positions in scope. That is only the current
  * positions until the full-history scan runs, since finding closed ones is
  * RPC-heavy and therefore opt-in; afterwards the totals cover everything.
+ *
+ * Net interest is the headline figure — it gets the large type and the card's
+ * tint follows its sign — with earned/paid as supporting stats.
  */
 const InterestSummary = ({
   positions,
@@ -425,8 +495,23 @@ const InterestSummary = ({
   manifest,
   scanRefs,
 }: InterestSummaryProps) => {
+  const { i18n } = useLingui();
   const hasScanned = !!manifest.results;
   const pastCount = positions.filter((position) => !position.isOpen).length;
+
+  // Earliest first-principal-event across the positions in scope: the date
+  // interest started accruing for this address in this market.
+  const sinceTimestamp = positions.reduce<number | null>(
+    (earliest, position) => {
+      const state = ledgers.get(
+        getPositionKey(position.tokenAddress, position.side)
+      );
+      const since = state?.data?.sinceTimestamp ?? null;
+      if (since === null) return earliest;
+      return earliest === null ? since : Math.min(earliest, since);
+    },
+    null
+  );
 
   const totals = positions.reduce(
     (accumulator, position) => {
@@ -449,8 +534,18 @@ const InterestSummary = ({
   );
 
   const net = totals.earned - totals.paid;
+  // eslint-disable-next-line no-nested-ternary
+  const netTone =
+    net > 0 ? classes.earned : net < 0 ? classes.paid : classes.neutral;
+  // eslint-disable-next-line no-nested-ternary
+  const cardTone =
+    net > 0
+      ? classes.summaryCardPositive
+      : net < 0
+      ? classes.summaryCardNegative
+      : "";
 
-  const stat = (label: React.ReactNode, valueUSD: number, tone: string) => (
+  const sideStat = (label: React.ReactNode, valueUSD: number, tone: string) => (
     <div>
       <Text fz="xs" c="dimmed">
         {label}
@@ -458,7 +553,7 @@ const InterestSummary = ({
       {totals.isLoading ? (
         <Loader type="dots" size="sm" mt={6} />
       ) : (
-        <Text className={`${classes.summaryValue} ${tone}`}>
+        <Text className={`${classes.sideStatValue} ${tone}`}>
           <LocalizedFiatDisplay valueUSD={valueUSD} />
         </Text>
       )}
@@ -466,24 +561,49 @@ const InterestSummary = ({
   );
 
   return (
-    <Paper withBorder p="md" mb="md" className={classes.summaryCard}>
-      <SimpleGrid cols={{ base: 1, xs: 3 }} spacing="md">
-        {stat(<Trans>Interest earned</Trans>, totals.earned, classes.earned)}
-        {stat(<Trans>Interest paid</Trans>, totals.paid, classes.paid)}
-        {stat(
-          <Trans>Net interest</Trans>,
-          net,
-          // eslint-disable-next-line no-nested-ternary
-          net > 0 ? classes.earned : net < 0 ? classes.paid : classes.neutral
-        )}
-      </SimpleGrid>
+    <Paper
+      withBorder
+      p="md"
+      mb="md"
+      className={`${classes.summaryCard} ${cardTone}`}
+    >
+      <div className={classes.summaryLayout}>
+        <div>
+          <Text fz="xs" c="dimmed" tt="uppercase" lts={0.5}>
+            <Trans>Net interest</Trans>
+            {sinceTimestamp !== null && !totals.isLoading && (
+              <>
+                {" · "}
+                <Trans>
+                  since{" "}
+                  {i18n.date(new Date(sinceTimestamp * 1000), {
+                    dateStyle: "medium",
+                  })}
+                </Trans>
+              </>
+            )}
+          </Text>
+          {totals.isLoading ? (
+            <Loader type="dots" size="sm" mt={6} />
+          ) : (
+            <Text className={`${classes.netValue} ${netTone}`}>
+              {net > 0 ? "+" : ""}
+              <LocalizedFiatDisplay valueUSD={net} />
+            </Text>
+          )}
+        </div>
+        <div className={classes.sideStats}>
+          {sideStat(<Trans>Earned</Trans>, totals.earned, classes.earned)}
+          {sideStat(<Trans>Paid</Trans>, totals.paid, classes.paid)}
+        </div>
+      </div>
 
       {totals.unavailable > 0 && !totals.isLoading && (
         <Text fz="xs" c="dimmed" mt={8}>
           <Plural
             value={totals.unavailable}
-            one="# position could not be included; it is marked unavailable below."
-            other="# positions could not be included; they are marked unavailable below."
+            one="# position excluded (marked unavailable below)."
+            other="# positions excluded (marked unavailable below)."
           />
         </Text>
       )}
@@ -495,15 +615,14 @@ const InterestSummary = ({
           {hasScanned ? (
             <Plural
               value={pastCount}
-              _0="Covers every asset this address has supplied or borrowed in this market. The full history scan found no closed positions."
-              one="Covers every asset this address has supplied or borrowed in this market, including # position that has since been closed."
-              other="Covers every asset this address has supplied or borrowed in this market, including # positions that have since been closed."
+              _0="All positions covered — no closed positions found."
+              one="All positions covered, including # closed position."
+              other="All positions covered, including # closed positions."
             />
           ) : (
             <Trans>
-              Covers only the assets currently supplied or borrowed in this
-              market. Interest from assets that have since been fully withdrawn
-              or repaid is not included.
+              Current positions only — closed positions aren&apos;t included
+              yet.
             </Trans>
           )}
         </Text>
@@ -557,9 +676,8 @@ const ManifestScanSection = ({
           <div style={{ textAlign: "center" }}>
             <Text size="sm" c="dimmed" mb={10}>
               <Trans>
-                Scan every reserve in this market to find interest accrued by
-                positions that were closed in the past. This checks each token
-                contract for activity by this address and may take a minute.
+                Scan every reserve in this market for interest from positions
+                closed in the past. This may take a minute.
               </Trans>
             </Text>
             <Button
@@ -584,7 +702,7 @@ const ManifestScanSection = ({
           <Center>
             <Text size="sm" c="dimmed">
               <Trans>
-                Scanning token contracts: {progress.done} of {progress.total}
+                Scanning {progress.done} of {progress.total}
               </Trans>
             </Text>
           </Center>
@@ -604,9 +722,9 @@ const ManifestScanSection = ({
           <Text size="sm" c="dimmed">
             <Plural
               value={closedCount}
-              _0="Scan complete: no additional assets with interest history were found."
-              one="Scan complete: found # previously held asset position with interest history."
-              other="Scan complete: found # previously held asset positions with interest history."
+              _0="Scan complete — no closed positions found."
+              one="Scan complete — found # closed position."
+              other="Scan complete — found # closed positions."
             />
           </Text>
         </Center>
@@ -674,7 +792,9 @@ const AssetLedgerSection = ({
         aria-expanded={isExpanded}
         aria-controls={panelId}
       >
-        <Group justify="space-between" wrap="nowrap" gap="sm">
+        {/* Wraps on narrow screens: large amounts drop to their own right-
+            aligned line instead of crushing the symbol and badges. */}
+        <Group justify="space-between" gap="sm">
           <Group gap={8} wrap="nowrap">
             <FaChevronRight
               size={11}
@@ -701,6 +821,17 @@ const AssetLedgerSection = ({
             {!isFetching && !isInvalidValue && eventCount > 0 && (
               <Text fz="xs" c="dimmed" visibleFrom="sm">
                 <Plural value={eventCount} one="# event" other="# events" />
+                {data?.sinceTimestamp != null && (
+                  <>
+                    {" · "}
+                    <Trans>
+                      since{" "}
+                      {i18n.date(new Date(data.sinceTimestamp * 1000), {
+                        dateStyle: "medium",
+                      })}
+                    </Trans>
+                  </>
+                )}
               </Text>
             )}
           </Group>
@@ -756,17 +887,15 @@ const AssetLedgerSection = ({
                 <Text size="xs" c="dimmed" mb={10}>
                   {side === "supply" ? (
                     <Trans>
-                      Total interest earned over the life of this position, of
-                      which {formatAmount(realized)} {symbol} was credited
-                      during past activity and {formatAmount(pending)} {symbol}{" "}
-                      has accrued since the last activity.
+                      Lifetime interest earned: {formatAmount(realized)}{" "}
+                      {symbol} credited in past activity ·{" "}
+                      {formatAmount(pending)} {symbol} accruing since.
                     </Trans>
                   ) : (
                     <Trans>
-                      Total interest owed over the life of this position, of
-                      which {formatAmount(realized)} {symbol} was applied during
-                      past activity and {formatAmount(pending)} {symbol} has
-                      accrued since the last activity.
+                      Lifetime interest owed: {formatAmount(realized)} {symbol}{" "}
+                      applied in past activity · {formatAmount(pending)}{" "}
+                      {symbol} accruing since.
                     </Trans>
                   )}
                 </Text>

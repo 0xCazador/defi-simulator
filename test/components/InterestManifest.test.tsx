@@ -207,7 +207,11 @@ describe("InterestManifest", () => {
     const headers = () =>
       screen
         .getAllByRole("button")
-        .filter((el) => el.hasAttribute("aria-expanded"));
+        .filter(
+          (el) =>
+            el.hasAttribute("aria-expanded") &&
+            !el.hasAttribute("aria-haspopup")
+        );
 
     expect(headers()).toHaveLength(2);
     expect(
@@ -226,7 +230,11 @@ describe("InterestManifest", () => {
     const headers = () =>
       screen
         .getAllByRole("button")
-        .filter((el) => el.hasAttribute("aria-expanded"));
+        .filter(
+          (el) =>
+            el.hasAttribute("aria-expanded") &&
+            !el.hasAttribute("aria-haspopup")
+        );
 
     fireEvent.click(screen.getByText("Expand all"));
     expect(
@@ -243,7 +251,7 @@ describe("InterestManifest", () => {
   it("shows the scope note and a deep-scan control in the summary", () => {
     const { container } = renderPage();
     expect(container.textContent).toContain(
-      "Interest from assets that have since been fully withdrawn or repaid is not included."
+      "Current positions only — closed positions aren't included yet."
     );
     expect(screen.getByText("Scan past assets")).toBeTruthy();
   });
@@ -257,9 +265,9 @@ describe("InterestManifest", () => {
     expect(screen.getByText("$2985")).toBeTruthy();
 
     expect(container.textContent).toContain(
-      "including 1 position that has since been closed"
+      "All positions covered, including 1 closed position."
     );
-    expect(container.textContent?.includes("is not included.")).toBe(false);
+    expect(container.textContent?.includes("aren't included yet")).toBe(false);
     expect(screen.queryByText("Scan past assets")).toBeNull();
   });
 });

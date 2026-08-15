@@ -7,11 +7,69 @@
   border: 1px solid var(--mantine-color-dark-4);
 }
 
-.summaryValue {
+/* The card takes on a faint glow matching the sign of the net figure, which
+   makes the headline number read at a glance (and screenshot well). */
+.summaryCardPositive {
+  background: radial-gradient(
+      140% 180% at 0% 0%,
+      rgba(105, 219, 124, 0.09),
+      transparent 55%
+    ),
+    color-mix(in srgb, var(--mantine-color-dark-6) 70%, transparent);
+  border-color: color-mix(
+    in srgb,
+    var(--mantine-color-green-9) 45%,
+    var(--mantine-color-dark-4)
+  );
+}
+
+.summaryCardNegative {
+  background: radial-gradient(
+      140% 180% at 0% 0%,
+      rgba(255, 169, 77, 0.08),
+      transparent 55%
+    ),
+    color-mix(in srgb, var(--mantine-color-dark-6) 70%, transparent);
+  border-color: color-mix(
+    in srgb,
+    var(--mantine-color-orange-9) 45%,
+    var(--mantine-color-dark-4)
+  );
+}
+
+/* Net on the left, earned/paid on the right; on narrow screens the side
+   stats wrap below the headline with room to breathe, so large figures
+   never collide. */
+.summaryLayout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: var(--mantine-spacing-xl);
+  row-gap: var(--mantine-spacing-md);
+}
+
+.netValue {
   font-family: var(--mantine-font-family-headings);
   font-variant-numeric: tabular-nums;
-  font-size: var(--mantine-font-size-xl);
-  font-weight: 700;
+  /* Scales with the viewport so even 9-figure amounts fit a phone screen. */
+  font-size: clamp(1.6rem, 6.5vw, 2.4rem);
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.sideStats {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--mantine-spacing-xl);
+  row-gap: var(--mantine-spacing-sm);
+}
+
+.sideStatValue {
+  font-family: var(--mantine-font-family-headings);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--mantine-font-size-lg);
+  font-weight: 600;
   line-height: 1.2;
 }
 
@@ -36,10 +94,18 @@
 }
 
 /* Right-aligned so the amounts line up down the page regardless of symbol
-   length, and never wrapped mid-figure. */
+   length, and never wrapped mid-figure. margin-left keeps it pinned right
+   even when the header row wraps it onto its own line on small screens. */
 .amountBlock {
   text-align: right;
   white-space: nowrap;
+  margin-left: auto;
+}
+
+@media (max-width: 36em) {
+  .interestValue {
+    font-size: var(--mantine-font-size-md);
+  }
 }
 
 .assetHeader {
