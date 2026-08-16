@@ -13,9 +13,31 @@ const getRandomInt = (min: number, max: number) => {
   return Math.floor(Math.random() * (upper - lower) + lower);
 };
 
-// Random Aave CDP addresses — refreshed via `node scripts/refreshRandomAddresses.js`
-// (live aToken/vToken participants scored by userMarketState; collateral≥$200k, debt≥$40k).
+// Random Aave CDP addresses — V3 rows refreshed via
+// `node scripts/refreshRandomAddresses.js`; V4 rows via
+// `npx tsx scripts/seedV4RandomAddresses.ts` (~2 live CDPs per Spoke).
 const addresses = [
+  // Aave v4 Ethereum spokes (2 per market where unique borrowers exist)
+  "0x00b9ac091f0cb002d1184635d936a7f0d84700b9",
+  "0x25f4ff25a37f236dae64ce1c35e6ccc8e563e5f4",
+  "0xec5c612c9dde24ebf496d06edc12e206cd156a65",
+  "0x8e4c5e295f5705cdbe7396b405c7a1ab3269a575",
+  "0xca686974913389d42f3c5f61010503daccdb487a",
+  "0x1b85cf8e5dd598018e7f86abec050e19d5865b6f",
+  "0xabfe00f81c2b9734c2fecec3f1996e18611ce658",
+  "0xc2a11bd14bcb4ec4524576ba153248d228ad4d25",
+  "0x561a8431b23fe6a524ce874a029cdaadc9642bf4",
+  "0xde51ec5d10484a21ec0b9d7c60d76a95977da29f",
+  "0xc8b77e0dabfea5e3b4ec6f313bf8358bc1bc121c",
+  "0x25028398f590ca25af002ed19c66b5172a0ab93e",
+  "0x707ecbafef8dbc3b248b8a6fd6ca45e7c569a85c",
+  "0x87e2a697eb1a58e9d52c9b2539f83898222f5cc6",
+  "0xfc011a28a204cf5b17c01ac4fc96517e4b1d738a",
+  "0x4b553e44e9903c95a056e244cc37de144a228de1",
+  "0x21c9ce0611541099583e4249bfb583606715a796",
+  "0x6efc48b8b6222924fa6ea95d174af5518b761177",
+  "0xcf590d3a32c688209d664df69f5b38ab5590068b",
+  // Aave v3 (live aToken/vToken participants scored by userMarketState)
   "0x46db0650645f7c9a29783c89171a62240ccc35cf",
   "0x0f8dd218ee17eee03d254805f84c7ba613e45e62",
   "0x9cbf099ff424979439dfba03f00b5961784c06ce",

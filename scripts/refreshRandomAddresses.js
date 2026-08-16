@@ -12,6 +12,8 @@
  *
  * Usage: node scripts/refreshRandomAddresses.js
  * Read-only. Writes scripts/randomAddresses.generated.json and prints a paste-ready array.
+ * V4 spokes are harvested separately (`npx tsx scripts/seedV4RandomAddresses.ts`)
+ * because api.v3.aave.com has no Hub/Spoke userMarketState.
  */
 const fs = require("fs");
 const path = require("path");

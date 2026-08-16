@@ -78,6 +78,8 @@ const getActionLabel = (action: LedgerAction): string => {
       return t`Transfer in`;
     case "TransferOut":
       return t`Transfer out`;
+    case "Liquidation":
+      return t`Liquidation`;
     case "InterestApplied":
     default:
       return t`Interest applied`;
@@ -377,14 +379,25 @@ const ManifestContent = ({
           </Popover.Target>
           <Popover.Dropdown>
             <Text size="sm">
-              <Trans>
-                Interest history is reconstructed from on-chain aToken and
-                variable debt token events, so every row corresponds to a real
-                transaction. Interest is credited to the balance whenever the
-                address interacts with a reserve; the remainder accrues
-                continuously since the last activity. Fiat values use current
-                prices (historical prices are not available).
-              </Trans>
+              {market.v4 ? (
+                <Trans>
+                  Interest history is reconstructed from on-chain Aave v4 Spoke
+                  events, so every row corresponds to a real transaction.
+                  Interest between events is derived from share-price movement;
+                  the remainder accrues continuously since the last activity.
+                  Fiat values use current prices (historical prices are not
+                  available).
+                </Trans>
+              ) : (
+                <Trans>
+                  Interest history is reconstructed from on-chain aToken and
+                  variable debt token events, so every row corresponds to a
+                  real transaction. Interest is credited to the balance
+                  whenever the address interacts with a reserve; the remainder
+                  accrues continuously since the last activity. Fiat values use
+                  current prices (historical prices are not available).
+                </Trans>
+              )}
             </Text>
           </Popover.Dropdown>
         </Popover>

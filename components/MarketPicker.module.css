@@ -1,0 +1,198 @@
+.trigger {
+  display: flex;
+  align-items: center;
+  color: var(--mantine-color-dark-0);
+  padding: 6px 8px;
+  border-radius: var(--mantine-radius-sm);
+  transition: background-color 100ms ease;
+}
+
+.trigger:hover,
+.triggerActive {
+  background-color: var(--mantine-color-dark-8);
+}
+
+.trigger:focus-visible {
+  outline: 2px solid var(--mantine-color-brand-5);
+  outline-offset: 2px;
+}
+
+.triggerLabel {
+  max-width: min(46vw, 220px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  /* lh=1 plus overflow:hidden clips descenders (Polygon, Kelp, etc.). */
+  line-height: 1.3;
+}
+
+.dropdown {
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--mantine-color-dark-6);
+  border-color: var(--mantine-color-dark-4);
+}
+
+.drawerContent {
+  background-color: var(--mantine-color-dark-6);
+  display: flex;
+  flex-direction: column;
+  height: 85dvh;
+}
+
+.drawerHeader {
+  background-color: var(--mantine-color-dark-6);
+  border-bottom: 1px solid var(--mantine-color-dark-4);
+}
+
+.drawerBody {
+  padding: 0;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.panelPopover {
+  width: 100%;
+  max-height: min(72vh, 640px);
+}
+
+.panelSheet {
+  flex: 1;
+  min-height: 0;
+}
+
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 10px 12px 8px;
+  background-color: var(--mantine-color-dark-6);
+  border-bottom: 1px solid var(--mantine-color-dark-4);
+}
+
+.list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 6px 6px 10px;
+  overscroll-behavior: contain;
+}
+
+.groupLabel {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 10px 4px;
+  background-color: color-mix(
+    in srgb,
+    var(--mantine-color-dark-6) 92%,
+    transparent
+  );
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: var(--mantine-radius-sm);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.row:hover {
+  background-color: var(--mantine-color-dark-5);
+}
+
+.row:focus-visible {
+  outline: 2px solid var(--mantine-color-brand-5);
+  outline-offset: -2px;
+}
+
+.rowCurrent {
+  background-color: color-mix(
+    in srgb,
+    var(--mantine-color-brand-5) 14%,
+    var(--mantine-color-dark-6)
+  );
+  box-shadow: inset 2px 0 0 var(--mantine-color-brand-5);
+}
+
+.rowCurrent:hover {
+  background-color: color-mix(
+    in srgb,
+    var(--mantine-color-brand-5) 20%,
+    var(--mantine-color-dark-6)
+  );
+}
+
+.rowIcon {
+  display: block;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.rowBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.rowTitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rowMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.empty {
+  padding: 28px 16px;
+  text-align: center;
+}
+
+@media (max-width: $mantine-breakpoint-md) {
+  .toolbar {
+    padding: 12px 16px 10px;
+  }
+
+  .list {
+    padding: 8px 10px 20px;
+  }
+
+  .row {
+    min-height: 52px;
+    padding: 10px 12px;
+    gap: 12px;
+  }
+
+  .rowIcon {
+    width: 28px;
+    height: 28px;
+  }
+}

@@ -6,8 +6,13 @@ import {
   AaveHealthFactorData,
   getCalculatedLiquidationScenario,
 } from "../../hooks/useAaveData";
-import testDataItems from "../fixtures/aave/AaveHealthFactorData.json";
+import v3TestDataItems from "../fixtures/aave/AaveHealthFactorData.json";
+import v4TestDataItems from "../fixtures/aave/AaveHealthFactorDataV4.json";
 import { getAaveData } from "../../pages/api/aave";
+
+// The v4 fixture exercises the CF-only risk model (a single collateral factor
+// serves as both LTV and liquidation threshold, so LTV == LT per asset).
+const testDataItems = [...v3TestDataItems, ...v4TestDataItems];
 
 // The hook calls getAaveData directly (not the /api/aave route), so mock the
 // module. The factory avoids loading the real implementation, which pulls in

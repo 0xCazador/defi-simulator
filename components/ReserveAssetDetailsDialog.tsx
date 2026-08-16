@@ -136,12 +136,21 @@ export default function ReserveAssetDetailsDialog({
         />
 
         <SimpleGrid cols={2}>
+          {/* v4 has no aTokens: positions live in the Spoke contract itself. */}
           <AssetDetailsItem
-            title={t`aToken Contract: `}
-            description={t`The aToken Contract refers to the Aave token contract that corresponds to the supplied asset.`}
+            title={market?.v4 ? t`Spoke Contract: ` : t`aToken Contract: `}
+            description={
+              market?.v4
+                ? t`The Spoke Contract is the Aave v4 market contract that holds this supplied position; v4 has no separate aToken contracts.`
+                : t`The aToken Contract refers to the Aave token contract that corresponds to the supplied asset.`
+            }
             node={
               <AssetDetailsAddress
-                address={assetDetails?.aTokenAddress}
+                address={
+                  market?.v4
+                    ? market?.v4Addresses?.SPOKE
+                    : assetDetails?.aTokenAddress
+                }
                 explorer={market?.explorer}
               />
             }

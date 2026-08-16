@@ -14,6 +14,14 @@ import {
   getPendingInterest,
   getRealizedInterest,
 } from "../../../../utils/tokenEventAccrual";
+import {
+  SpokeFlowEvent,
+  buildLedgerV4,
+  decodeV4PositionRef,
+  findFirstPrincipalEventV4,
+  getAccruedInterestV4,
+  getRealizedInterestV4,
+} from "../../../../utils/spokeEventAccrual";
 
 const TOKEN_ABI = [
   "event Mint(address indexed caller, address indexed onBehalfOf, uint256 value, uint256 balanceIncrease, uint256 index)",
@@ -21,6 +29,18 @@ const TOKEN_ABI = [
   "event Transfer(address indexed from, address indexed to, uint256 value)",
   "function balanceOf(address) view returns (uint256)",
   "function decimals() view returns (uint8)",
+];
+
+/** The v4 Spoke events and views the accrual scan needs (see ISpoke). */
+const SPOKE_ACCRUAL_ABI = [
+  "event Supply(uint256 indexed reserveId, address indexed caller, address indexed user, uint256 suppliedShares, uint256 suppliedAmount)",
+  "event Withdraw(uint256 indexed reserveId, address indexed caller, address indexed user, uint256 withdrawnShares, uint256 withdrawnAmount)",
+  "event Borrow(uint256 indexed reserveId, address indexed caller, address indexed user, uint256 drawnShares, uint256 drawnAmount)",
+  "event Repay(uint256 indexed reserveId, address indexed caller, address indexed user, uint256 drawnShares, uint256 totalAmountRepaid, (int256 sharesDelta, int256 offsetRayDelta, uint256 restoredPremiumRay) premiumDelta)",
+  "event LiquidationCall(uint256 indexed collateralReserveId, uint256 indexed debtReserveId, address indexed user, address liquidator, bool receiveShares, uint256 debtAmountRestored, uint256 drawnSharesLiquidated, (int256 sharesDelta, int256 offsetRayDelta, uint256 restoredPremiumRay) premiumDelta, uint256 collateralAmountRemoved, uint256 collateralSharesLiquidated, uint256 collateralSharesToLiquidator)",
+  "function getReserve(uint256 reserveId) view returns (tuple(address underlying, address hub, uint16 assetId, uint8 decimals, uint24 collateralRisk, uint8 flags, uint32 dynamicConfigKey))",
+  "function getUserSuppliedAssets(uint256 reserveId, address user) view returns (uint256)",
+  "function getUserTotalDebt(uint256 reserveId, address user) view returns (uint256)",
 ];
 
 export type { AccrualSide };
@@ -113,9 +133,14 @@ export const explorerLogSource = (apiUrl: string): LogSource => ({
     present.forEach((index) =>
       params.set(`topic${index}`, topics[index]!.toLowerCase()),
     );
-    present.slice(1).forEach((index, i) => {
-      params.set(`topic${present[i]}_${index}_opr`, "and");
-    });
+    // Etherscan-compatible APIs require an operator for every pair of
+    // provided topics, not just adjacent ones (a v4 scan filters on three:
+    // event, reserveId and user).
+    present.forEach((a, i) =>
+      present.slice(i + 1).forEach((b) => {
+        params.set(`topic${a}_${b}_opr`, "and");
+      }),
+    );
 
     const logs: ethers.providers.Log[] = [];
     const seen = new Set<string>();
@@ -249,7 +274,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
     const market = markets.find((m: AaveMarketDataType) => m.id === marketId);
 
     if (
-      !market?.v3 ||
+      !(market?.v3 || market?.v4) ||
       !ethers.utils.isAddress(user ?? "") ||
       !ethers.utils.isAddress(tokenAddress ?? "") ||
       (side !== "supply" && side !== "borrow")
@@ -279,6 +304,18 @@ export const getAccrualData = async (
   side: AccrualSide,
   includeLedger: boolean = false,
 ): Promise<AccrualResponse> => {
+  // v4 positions are internal Spoke storage keyed by reserveId; the
+  // "tokenAddress" is a synthetic position ref carrying that id.
+  if (market.v4) {
+    return getV4AccrualData(
+      market,
+      user,
+      decodeV4PositionRef(tokenAddress),
+      side,
+      includeLedger,
+    );
+  }
+
   const provider = new ethers.providers.StaticJsonRpcProvider(
     market.api,
     market.chainId,
@@ -428,6 +465,177 @@ export const getAccrualData = async (
     ledger,
     realizedValue: formatUnits(getRealizedInterest(events), decimals),
     pendingValue: formatUnits(pendingRaw, decimals),
+  };
+};
+
+/**
+ * v4 equivalent of the token-event scan above: Spoke events carry both shares
+ * and asset amounts per (reserveId, user), and the current balance comes from
+ * the Spoke's own views (premium debt included on the borrow side), so the
+ * same "current balance minus net principal" identity applies.
+ */
+const getV4AccrualData = async (
+  market: AaveMarketDataType,
+  user: string,
+  reserveId: number,
+  side: AccrualSide,
+  includeLedger: boolean = false,
+): Promise<AccrualResponse> => {
+  const provider = new ethers.providers.StaticJsonRpcProvider(
+    market.api,
+    market.chainId,
+  );
+  const spokeAddress = market.v4Addresses!.SPOKE;
+  const spoke = new ethers.Contract(spokeAddress, SPOKE_ACCRUAL_ABI, provider);
+  const iface = spoke.interface;
+
+  const userTopic = ethers.utils.hexZeroPad(user, 32);
+  const reserveTopic = ethers.utils.hexZeroPad(
+    ethers.utils.hexlify(reserveId),
+    32,
+  );
+  const latestBlock = await provider.getBlockNumber();
+  const firstBlock = market.startBlock ?? 0;
+  const logSource: LogSource = market.logApi
+    ? explorerLogSource(market.logApi)
+    : provider;
+  const scan = (topics: (string | null)[]) =>
+    getLogsChunked(
+      logSource,
+      { address: spokeAddress, topics },
+      firstBlock,
+      latestBlock,
+    );
+
+  const inflowEvent = side === "supply" ? "Supply" : "Borrow";
+  const outflowEvent = side === "supply" ? "Withdraw" : "Repay";
+
+  // reserveId and user are both indexed on the flow events, so these return
+  // the complete per-reserve history. LiquidationCall indexes the collateral
+  // and debt reserve ids in separate topics, so it's fetched per-user and
+  // filtered by the relevant reserve below.
+  const [balance, reserve, inflowLogs, outflowLogs, liquidationLogs] =
+    await Promise.all([
+      (side === "supply"
+        ? spoke.getUserSuppliedAssets(reserveId, user)
+        : spoke.getUserTotalDebt(reserveId, user)) as Promise<ethers.BigNumber>,
+      spoke.getReserve(reserveId),
+      scan([iface.getEventTopic(inflowEvent), reserveTopic, null, userTopic]),
+      scan([iface.getEventTopic(outflowEvent), reserveTopic, null, userTopic]),
+      scan([iface.getEventTopic("LiquidationCall"), null, null, userTopic]),
+    ]);
+
+  const decimals: number = Number(reserve.decimals);
+  const events: SpokeFlowEvent[] = [];
+
+  inflowLogs.forEach((log) => {
+    const { args } = iface.parseLog(log);
+    events.push({
+      kind: inflowEvent,
+      shares: (side === "supply" ? args.suppliedShares : args.drawnShares).toString(),
+      amount: (side === "supply" ? args.suppliedAmount : args.drawnAmount).toString(),
+      blockNumber: log.blockNumber,
+      logIndex: log.logIndex,
+      transactionHash: log.transactionHash,
+    });
+  });
+
+  outflowLogs.forEach((log) => {
+    const { args } = iface.parseLog(log);
+    events.push({
+      kind: outflowEvent,
+      shares: (side === "supply" ? args.withdrawnShares : args.drawnShares).toString(),
+      // totalAmountRepaid includes premium debt, matching getUserTotalDebt.
+      amount: (side === "supply"
+        ? args.withdrawnAmount
+        : args.totalAmountRepaid
+      ).toString(),
+      blockNumber: log.blockNumber,
+      logIndex: log.logIndex,
+      transactionHash: log.transactionHash,
+    });
+  });
+
+  liquidationLogs.forEach((log) => {
+    const { args } = iface.parseLog(log);
+    if (side === "supply" && args.collateralReserveId.eq(reserveId)) {
+      events.push({
+        kind: "CollateralLiquidated",
+        shares: args.collateralSharesLiquidated.toString(),
+        amount: args.collateralAmountRemoved.toString(),
+        blockNumber: log.blockNumber,
+        logIndex: log.logIndex,
+        transactionHash: log.transactionHash,
+      });
+    }
+    if (side === "borrow" && args.debtReserveId.eq(reserveId)) {
+      events.push({
+        kind: "DebtLiquidated",
+        shares: args.drawnSharesLiquidated.toString(),
+        amount: args.debtAmountRestored.toString(),
+        blockNumber: log.blockNumber,
+        logIndex: log.logIndex,
+        transactionHash: log.transactionHash,
+      });
+    }
+  });
+
+  const accruedRaw = clampRoundingDust(
+    getAccruedInterestV4(balance.toString(), events),
+    events.length,
+  );
+
+  const firstPrincipalEvent = findFirstPrincipalEventV4(events);
+
+  if (!includeLedger) {
+    const sinceTimestamp = firstPrincipalEvent
+      ? (await provider.getBlock(firstPrincipalEvent.blockNumber)).timestamp
+      : null;
+
+    return {
+      accruedValue: formatUnits(accruedRaw, decimals),
+      accruedRaw: accruedRaw.toString(),
+      sinceTimestamp,
+      eventCount: events.length,
+    };
+  }
+
+  const timestamps = await resolveBlockTimestamps(
+    provider,
+    events.map((event) => event.blockNumber),
+  );
+  events.forEach((event) => {
+    // eslint-disable-next-line no-param-reassign
+    event.timestamp = timestamps.get(event.blockNumber);
+  });
+
+  const ledger: LedgerRow[] = buildLedgerV4(events).map((entry) => ({
+    action: entry.action,
+    principalDelta: formatUnits(entry.principalDelta, decimals),
+    interestRealized: formatUnits(entry.interestRealized, decimals),
+    timestamp: entry.timestamp ?? null,
+    txHash: entry.transactionHash ?? null,
+    blockNumber: entry.blockNumber,
+  }));
+
+  // Realized interest is reconstructed from share prices, so pending (the
+  // remainder of the exact lifetime total) absorbs any reconstruction noise.
+  const realizedRaw = getRealizedInterestV4(events);
+  const pendingRaw = accruedRaw.sub(realizedRaw);
+
+  return {
+    accruedValue: formatUnits(accruedRaw, decimals),
+    accruedRaw: accruedRaw.toString(),
+    sinceTimestamp: firstPrincipalEvent
+      ? (timestamps.get(firstPrincipalEvent.blockNumber) ?? null)
+      : null,
+    eventCount: events.length,
+    ledger,
+    realizedValue: formatUnits(realizedRaw, decimals),
+    pendingValue: formatUnits(
+      pendingRaw.isNegative() ? ethers.BigNumber.from(0) : pendingRaw,
+      decimals,
+    ),
   };
 };
 

@@ -145,19 +145,29 @@ export default function BorrowedAssetDetailsDialog({
         />
 
         <SimpleGrid cols={2}>
+          {/* v4 has no debt tokens: positions live in the Spoke contract. */}
           <AssetDetailsItem
-            title={t`${
-              isStableBorrow ? "Stable" : "Variable"
-            } Debt Token Contract`}
-            description={t`The ${
-              isStableBorrow ? "Stable" : "Variable"
-            } Debt Token Contract refers to the Aave debt token contract that corresponds to the underlying borrowed asset.`}
+            title={
+              market?.v4
+                ? t`Spoke Contract: `
+                : t`${isStableBorrow ? "Stable" : "Variable"} Debt Token Contract`
+            }
+            description={
+              market?.v4
+                ? t`The Spoke Contract is the Aave v4 market contract that holds this debt position; v4 has no separate debt token contracts.`
+                : t`The ${
+                    isStableBorrow ? "Stable" : "Variable"
+                  } Debt Token Contract refers to the Aave debt token contract that corresponds to the underlying borrowed asset.`
+            }
             node={
               <AssetDetailsAddress
                 address={
-                  isStableBorrow
-                    ? assetDetails?.stableDebtTokenAddress
-                    : assetDetails?.variableDebtTokenAddress
+                  // eslint-disable-next-line no-nested-ternary
+                  market?.v4
+                    ? market?.v4Addresses?.SPOKE
+                    : isStableBorrow
+                      ? assetDetails?.stableDebtTokenAddress
+                      : assetDetails?.variableDebtTokenAddress
                 }
                 explorer={market?.explorer}
               />

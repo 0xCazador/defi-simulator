@@ -1,0 +1,51 @@
+[
+  {
+    "healthFactor": 2,
+    "totalBorrowsUSD": 8000,
+    "availableBorrowsUSD": 8000,
+    "totalCollateralMarketReferenceCurrency": 20000,
+    "totalBorrowsMarketReferenceCurrency": 8000,
+    "currentLiquidationThreshold": 0.8,
+    "currentLoanToValue": 0.8,
+    "userReservesData": [
+      {
+        "asset": {
+          "symbol": "WETH",
+          "name": "Wrapped Ether",
+          "priceInUSD": 2000,
+          "priceInMarketReferenceCurrency": 2000,
+          "baseLTVasCollateral": 8000,
+          "reserveFactor": 0.1,
+          "usageAsCollateralEnabled": true,
+          "reserveLiquidationThreshold": 8000,
+          "initialPriceInUSD": 2000
+        },
+        "underlyingBalance": 10,
+        "underlyingBalanceUSD": 20000,
+        "underlyingBalanceMarketReferenceCurrency": 20000,
+        "usageAsCollateralEnabledOnUser": true
+      }
+    ],
+    "userBorrowsData": [
+      {
+        "asset": {
+          "symbol": "USDC",
+          "name": "USD Coin",
+          "priceInUSD": 1,
+          "priceInMarketReferenceCurrency": 1,
+          "baseLTVasCollateral": 7500,
+          "reserveFactor": 0.1,
+          "usageAsCollateralEnabled": true,
+          "reserveLiquidationThreshold": 7500,
+          "initialPriceInUSD": 1
+        },
+        "stableBorrows": 0,
+        "totalBorrowsUSD": 8000,
+        "totalBorrows": 8000,
+        "totalBorrowsMarketReferenceCurrency": 8000
+      }
+    ],
+    "liquidationScenario": [],
+    "address": "0xf4a4e59788b8b0d3d81d150eb1f4b2c063eef58c"
+  }
+]

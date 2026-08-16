@@ -566,5 +566,100 @@
     "debtUsd": 46688457,
     "netWorthUsd": 31135630,
     "healthFactor": 1.384
+  },
+  {
+    "address": "0x00b9ac091f0cb002d1184635d936a7f0d84700b9",
+    "marketId": "ETHEREUM_V4_MAIN",
+    "healthFactor": 1.245
+  },
+  {
+    "address": "0x25f4ff25a37f236dae64ce1c35e6ccc8e563e5f4",
+    "marketId": "ETHEREUM_V4_MAIN",
+    "healthFactor": 3.125
+  },
+  {
+    "address": "0xec5c612c9dde24ebf496d06edc12e206cd156a65",
+    "marketId": "ETHEREUM_V4_LIDO",
+    "healthFactor": 1.539
+  },
+  {
+    "address": "0x8e4c5e295f5705cdbe7396b405c7a1ab3269a575",
+    "marketId": "ETHEREUM_V4_LIDO",
+    "healthFactor": 1.121
+  },
+  {
+    "address": "0xca686974913389d42f3c5f61010503daccdb487a",
+    "marketId": "ETHEREUM_V4_ETHERFI",
+    "healthFactor": 1.022
+  },
+  {
+    "address": "0x1b85cf8e5dd598018e7f86abec050e19d5865b6f",
+    "marketId": "ETHEREUM_V4_ETHERFI",
+    "healthFactor": 1.036
+  },
+  {
+    "address": "0xabfe00f81c2b9734c2fecec3f1996e18611ce658",
+    "marketId": "ETHEREUM_V4_KELP",
+    "healthFactor": 10.16
+  },
+  {
+    "address": "0xc2a11bd14bcb4ec4524576ba153248d228ad4d25",
+    "marketId": "ETHEREUM_V4_KELP",
+    "healthFactor": 1.347
+  },
+  {
+    "address": "0x561a8431b23fe6a524ce874a029cdaadc9642bf4",
+    "marketId": "ETHEREUM_V4_LOMBARD",
+    "healthFactor": 1.772
+  },
+  {
+    "address": "0xde51ec5d10484a21ec0b9d7c60d76a95977da29f",
+    "marketId": "ETHEREUM_V4_LOMBARD",
+    "healthFactor": 5.201
+  },
+  {
+    "address": "0xc8b77e0dabfea5e3b4ec6f313bf8358bc1bc121c",
+    "marketId": "ETHEREUM_V4_GOLD",
+    "healthFactor": 1.517
+  },
+  {
+    "address": "0x25028398f590ca25af002ed19c66b5172a0ab93e",
+    "marketId": "ETHEREUM_V4_GOLD",
+    "healthFactor": 1.332
+  },
+  {
+    "address": "0x707ecbafef8dbc3b248b8a6fd6ca45e7c569a85c",
+    "marketId": "ETHEREUM_V4_FOREX",
+    "healthFactor": 1.036
+  },
+  {
+    "address": "0x87e2a697eb1a58e9d52c9b2539f83898222f5cc6",
+    "marketId": "ETHEREUM_V4_FOREX",
+    "healthFactor": 1.476
+  },
+  {
+    "address": "0xfc011a28a204cf5b17c01ac4fc96517e4b1d738a",
+    "marketId": "ETHEREUM_V4_BLUECHIP",
+    "healthFactor": 1.492
+  },
+  {
+    "address": "0x4b553e44e9903c95a056e244cc37de144a228de1",
+    "marketId": "ETHEREUM_V4_BLUECHIP",
+    "healthFactor": 1.592
+  },
+  {
+    "address": "0x21c9ce0611541099583e4249bfb583606715a796",
+    "marketId": "ETHEREUM_V4_ETHENA",
+    "healthFactor": 1.014
+  },
+  {
+    "address": "0x6efc48b8b6222924fa6ea95d174af5518b761177",
+    "marketId": "ETHEREUM_V4_ETHENA",
+    "healthFactor": 1.013
+  },
+  {
+    "address": "0xcf590d3a32c688209d664df69f5b38ab5590068b",
+    "marketId": "ETHEREUM_V4_ETHENA_CORRELATED",
+    "healthFactor": 1.006
   }
 ]

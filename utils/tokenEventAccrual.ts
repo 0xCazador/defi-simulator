@@ -108,7 +108,9 @@ export const findFirstPrincipalEvent = (
  * The user-facing meaning of a single token event. TransferIn / TransferOut
  * cover aToken transfers between wallets, collateral swaps, and liquidation
  * seizures. InterestApplied marks index updates that credited accrued interest
- * to the balance without moving any principal.
+ * to the balance without moving any principal. Liquidation is emitted only by
+ * v4 Spoke ledgers, where liquidations are distinct events rather than
+ * transfers (v3 liquidation seizures surface as TransferOut).
  */
 export type LedgerAction =
   | "Supply"
@@ -117,7 +119,8 @@ export type LedgerAction =
   | "Repay"
   | "TransferIn"
   | "TransferOut"
-  | "InterestApplied";
+  | "InterestApplied"
+  | "Liquidation";
 
 export type LedgerEntry = {
   action: LedgerAction;

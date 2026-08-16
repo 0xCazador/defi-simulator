@@ -66,15 +66,16 @@ export const AssetSlider = ({ defaultValue, onChange }: AssetSliderProps) => {
   }, [onChange]);
 
   useEffect(() => {
-    // handle external reset or change
-    if (
-      !isDragging &&
-      value != null &&
-      defaultValue != null &&
-      defaultValue !== value
-    ) {
-      createSlider();
-    }
+    // Recenter when the parent changes the value (reset, liquidation
+    // scenario, typed input). The slider's React `value` must stay in
+    // sync with `defaultValue` — otherwise a later reset back to the
+    // original price looks like a no-op and the handle stays on the
+    // previous scenario price.
+    if (isDragging) return;
+    if (defaultValue == null || !Number.isFinite(defaultValue)) return;
+    if (defaultValue === value) return;
+    setValue(defaultValue);
+    createSlider();
   }, [defaultValue, value, isDragging]);
 
   const createSlider = () => {

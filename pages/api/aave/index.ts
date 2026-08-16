@@ -38,6 +38,7 @@ import {
   getReservesHumanizedV37,
   getUserReservesHumanizedV37,
 } from "../../../utils/uiPoolDataProviderV37";
+import { getV4MarketData } from "../../../utils/spokeDataProviderV4";
 
 const allowedMethods = ["POST", "OPTIONS"];
 
@@ -72,8 +73,21 @@ export const getAaveData = async (
     market.chainId,
   );
 
+  // Aave v4 (Hub & Spoke) has no UiPoolDataProvider, eModes or isolation
+  // mode; its fetch/decode path is entirely different, so branch early.
+  if (market.v4) {
+    const user =
+      resolvedAddress ||
+      (await getResolvedAddress(address)) ||
+      "0x87cCC67f0c1b67745989542152DD4acff3841CD6";
+    return getAaveDataV4(address, user, market, provider);
+  }
+
+  // The V3 pool addresses are present on every non-v4 market.
+  const addresses = market.addresses!;
+
   const UiPoolDataCtx: UiPoolDataProviderContext = {
-    uiPoolDataProviderAddress: market.addresses.UI_POOL_DATA_PROVIDER,
+    uiPoolDataProviderAddress: addresses.UI_POOL_DATA_PROVIDER,
     provider,
     chainId: market.chainId,
   };
@@ -87,7 +101,7 @@ export const getAaveData = async (
   // and let them run concurrently with the main reserve queries below.
   const poolAddressPromise = fetchPoolAddress(
     provider,
-    market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
+    addresses.LENDING_POOL_ADDRESS_PROVIDER,
   );
   const eModesPromise: Promise<EModeCategoryData[]> = poolAddressPromise
     .then((poolAddress) => fetchEModeCategories(provider, poolAddress))
@@ -105,8 +119,8 @@ export const getAaveData = async (
 
   const v37Ctx: V37Context = {
     provider,
-    uiPoolDataProviderAddress: market.addresses.UI_POOL_DATA_PROVIDER,
-    lendingPoolAddressProvider: market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
+    uiPoolDataProviderAddress: addresses.UI_POOL_DATA_PROVIDER,
+    lendingPoolAddressProvider: addresses.LENDING_POOL_ADDRESS_PROVIDER,
     chainId: market.chainId,
   };
 
@@ -114,14 +128,12 @@ export const getAaveData = async (
     market.v37
       ? getReservesHumanizedV37(v37Ctx)
       : poolDataProviderContract.getReservesHumanized({
-          lendingPoolAddressProvider:
-            market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
+          lendingPoolAddressProvider: addresses.LENDING_POOL_ADDRESS_PROVIDER,
         }),
     market.v37
       ? getUserReservesHumanizedV37(v37Ctx, user)
       : poolDataProviderContract.getUserReservesHumanized({
-          lendingPoolAddressProvider:
-            market.addresses.LENDING_POOL_ADDRESS_PROVIDER,
+          lendingPoolAddressProvider: addresses.LENDING_POOL_ADDRESS_PROVIDER,
           user,
         }),
   ]);
@@ -175,6 +187,70 @@ export const getAaveData = async (
     baseCurrencyData,
     userReserves.userEmodeCategoryId,
     eModes,
+    reserveIds,
+  );
+  return hf;
+};
+
+/**
+ * Aave v4 market fetch: reserves, prices and user amounts come from the
+ * Spoke/Hub adapter, then flow through the same formatReserves /
+ * formatUserSummary pipeline as v3. There are no eModes (correlated-asset
+ * Spokes replace them) and no isolation mode, so those inputs stay empty.
+ */
+const getAaveDataV4 = async (
+  address: string,
+  user: string,
+  market: AaveMarketDataType,
+  provider: ethers.providers.Provider,
+) => {
+  const { SPOKE, ORACLE } = market.v4Addresses!;
+  const {
+    reservesData,
+    baseCurrencyData,
+    userReserves,
+    userEmodeCategoryId,
+    reserveIds,
+  } = await getV4MarketData(
+    {
+      provider,
+      spokeAddress: SPOKE,
+      oracleAddress: ORACLE,
+      chainId: market.chainId,
+    },
+    user,
+  );
+
+  const currentTimestamp = dayjs().unix();
+
+  const formattedPoolReserves = formatReserves({
+    reserves: reservesData,
+    currentTimestamp,
+    marketReferenceCurrencyDecimals:
+      baseCurrencyData.marketReferenceCurrencyDecimals,
+    marketReferencePriceInUsd:
+      baseCurrencyData.marketReferenceCurrencyPriceInUsd,
+  });
+
+  const userSummary = formatUserSummary({
+    currentTimestamp,
+    marketReferencePriceInUsd:
+      baseCurrencyData.marketReferenceCurrencyPriceInUsd,
+    marketReferenceCurrencyDecimals:
+      baseCurrencyData.marketReferenceCurrencyDecimals,
+    userReserves,
+    formattedReserves: formattedPoolReserves,
+    userEmodeCategoryId,
+  });
+
+  const hf: HealthFactorData = aaveUserSummaryToHealthFactor(
+    userSummary,
+    address,
+    user,
+    market,
+    baseCurrencyData,
+    userEmodeCategoryId,
+    [],
     reserveIds,
   );
   return hf;

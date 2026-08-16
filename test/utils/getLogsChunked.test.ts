@@ -6,6 +6,7 @@ import {
   getLogsChunked,
 } from "../../pages/api/aave/accrual";
 import { AaveMarketDataType } from "../../hooks/useAaveData";
+import { encodeV4PositionRef } from "../../utils/spokeEventAccrual";
 
 // getAccrualData builds its own provider and token contract, so replace both to
 // observe the block range it asks for without touching the network.
@@ -124,6 +125,28 @@ describe("explorerLogSource", () => {
     expect(url.searchParams.get("topic1")).toBeNull();
     expect(url.searchParams.get("topic2")).toBe("0xuser");
     expect(url.searchParams.get("topic0_2_opr")).toBe("and");
+  });
+
+  it("emits an operator for every pair of topics, not just adjacent ones", async () => {
+    // A v4 Spoke scan filters on three topics: event, reserveId and user.
+    // Blockscout rejects the query unless all three pairs carry an operator.
+    fetchMock.mockResponseOnce(ok([]));
+    await explorerLogSource(API).getLogs({
+      address: "0xtoken",
+      topics: ["0xSUPPLY", "0xRESERVE", null, "0xUSER"],
+      fromBlock: 0,
+      toBlock: 1000,
+    });
+
+    const url = new URL(fetchMock.mock.calls[0][0] as string);
+    expect(url.searchParams.get("topic0")).toBe("0xsupply");
+    expect(url.searchParams.get("topic1")).toBe("0xreserve");
+    expect(url.searchParams.get("topic2")).toBeNull();
+    expect(url.searchParams.get("topic3")).toBe("0xuser");
+    expect(url.searchParams.get("topic0_1_opr")).toBe("and");
+    expect(url.searchParams.get("topic0_3_opr")).toBe("and");
+    expect(url.searchParams.get("topic1_3_opr")).toBe("and");
+    expect(url.searchParams.get("topic0_2_opr")).toBeNull();
   });
 
   it("parses hex fields, strips null-padded topics, treats bare 0x logIndex as zero", async () => {
@@ -276,6 +299,63 @@ describe("getAccrualData scan range", () => {
 
     expect(ranges.length).toBeGreaterThan(0);
     ranges.forEach((range) => expect(range.fromBlock).toBe(0));
+  });
+
+  it("scans v4 Spoke events keyed by the synthetic position ref", async () => {
+    const SPOKE = "0x0000000000000000000000000000000000000003";
+    const filters: Array<{ address: string; topics: (string | null)[] }> = [];
+    (
+      ethers.providers.StaticJsonRpcProvider as unknown as jest.Mock
+    ).mockImplementation(() => ({
+      getBlockNumber: async () => LATEST_BLOCK,
+      getLogs: async ({ address, topics, fromBlock, toBlock }: any) => {
+        expect(fromBlock).toBe(24_700_000);
+        expect(toBlock).toBe(LATEST_BLOCK);
+        filters.push({ address, topics });
+        return [];
+      },
+    }));
+    (ethers.Contract as unknown as jest.Mock).mockImplementation(() => ({
+      interface: { getEventTopic: (name: string) => `0x${name}` },
+      getUserSuppliedAssets: async () => ethers.BigNumber.from(0),
+      getUserTotalDebt: async () => ethers.BigNumber.from(0),
+      getReserve: async () => ({ decimals: 6 }),
+    }));
+
+    const v4Market: AaveMarketDataType = {
+      v4: true,
+      id: "TEST_V4",
+      title: "Test v4",
+      chainId: 1 as AaveMarketDataType["chainId"],
+      api: "https://example.invalid/rpc",
+      v4Addresses: { SPOKE, ORACLE: TOKEN },
+      explorer: "https://example.invalid/address/{{ADDRESS}}",
+      explorerName: "Test",
+      startBlock: 24_700_000,
+    };
+
+    const data = await getAccrualData(
+      v4Market,
+      USER,
+      encodeV4PositionRef(3, "supply"),
+      "supply",
+    );
+
+    // supply-side scan: Supply + Withdraw filtered by (reserveId, user),
+    // LiquidationCall by user only (reserve ids sit in different topics)
+    const reserveTopic = ethers.utils.hexZeroPad("0x03", 32);
+    const userTopic = ethers.utils.hexZeroPad(USER, 32);
+    expect(filters).toHaveLength(3);
+    filters.forEach((filter) => expect(filter.address).toBe(SPOKE));
+    expect(filters.map((f) => f.topics)).toEqual(
+      expect.arrayContaining([
+        ["0xSupply", reserveTopic, null, userTopic],
+        ["0xWithdraw", reserveTopic, null, userTopic],
+        ["0xLiquidationCall", null, null, userTopic],
+      ]),
+    );
+    expect(data.eventCount).toBe(0);
+    expect(data.accruedRaw).toBe("0");
   });
 
   it("scans through the explorer API instead of RPC when logApi is set", async () => {

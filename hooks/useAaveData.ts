@@ -176,13 +176,27 @@ export type AssetDetails = {
 
 export type AaveMarketDataType = {
   v3?: boolean;
+  /** True for Aave v4 (Hub & Spoke) markets. Each v4 market is one Spoke;
+   * data is read through utils/spokeDataProviderV4 instead of a
+   * UiPoolDataProvider (v4 has no equivalent aggregator contract). */
+  v4?: boolean;
   id: string;
   title: string;
   chainId: ChainId;
   api: string;
-  addresses: {
+  /** Aave v3 pool addresses. Absent on v4 markets, which carry v4Addresses. */
+  addresses?: {
     LENDING_POOL_ADDRESS_PROVIDER: string;
     UI_POOL_DATA_PROVIDER: string;
+  };
+  /** Aave v4 Spoke addresses. The Spoke is the user-facing market contract;
+   * its 8-decimal AaveOracle is deployed one-per-Spoke. Hub addresses are not
+   * configured here because a Spoke can list reserves from several Hubs
+   * (e.g. Bluechip draws from Prime and Core) — each reserve's Hub is read
+   * from the Spoke's own reserve struct. */
+  v4Addresses?: {
+    SPOKE: string;
+    ORACLE: string;
   };
   explorer: string;
   explorerName: string;
@@ -407,6 +421,89 @@ export const markets: AaveMarketDataType[] = [
     v37: true,
     logApi: "https://megaeth.blockscout.com/api",
   },
+  // Aave v4 (Hub & Spoke) on Ethereum. One market entry per Spoke: users hold
+  // an independent position on each Spoke, so each behaves like a market.
+  // Spoke/oracle addresses come from the v4 activation proposal and were
+  // verified on-chain (each Spoke's ORACLE() returns the address below);
+  // @aave-dao/aave-address-book does not publish v4 entries yet — switch to it
+  // when it does. All Spokes deployed at block ~24,720,899 (2026-03-24,
+  // verified on-chain), so v4 event scans share one startBlock.
+  ...(
+    [
+      {
+        id: "ETHEREUM_V4_MAIN",
+        title: "Ethereum v4 Main",
+        SPOKE: "0x94e7A5dCbE816e498b89aB752661904E2F56c485",
+        ORACLE: "0x99B2B6CEa9C3D2fd8F4d90f86741C44B212a6127",
+      },
+      {
+        id: "ETHEREUM_V4_LIDO",
+        title: "Ethereum v4 Lido",
+        SPOKE: "0xe1900480ac69f0B296841Cd01cC37546d92F35Cd",
+        ORACLE: "0x664D73b6C3591333Fd79510f7ce9ef81228824F5",
+      },
+      {
+        id: "ETHEREUM_V4_ETHERFI",
+        title: "Ethereum v4 EtherFi",
+        SPOKE: "0xbF10BDfE177dE0336aFD7fcCF80A904E15386219",
+        ORACLE: "0xd8B153FaAA8f2b1bC774916FEd333A4F3dE48792",
+      },
+      {
+        id: "ETHEREUM_V4_KELP",
+        title: "Ethereum v4 Kelp",
+        SPOKE: "0x3131FE68C4722e726fe6B2819ED68e514395B9a4",
+        ORACLE: "0x37C316996C714Bf906743071e04E62220b3271ac",
+      },
+      {
+        id: "ETHEREUM_V4_LOMBARD",
+        title: "Ethereum v4 Lombard BTC",
+        SPOKE: "0x7EC68b5695e803e98a21a9A05d744F28b0a7753D",
+        ORACLE: "0x198Cac7f54FFc7d709Ac0FEc4B6454CE73e21D3D",
+      },
+      {
+        id: "ETHEREUM_V4_GOLD",
+        title: "Ethereum v4 Gold",
+        SPOKE: "0x65407b940966954b23dfA3caA5C0702bB42984DC",
+        ORACLE: "0x0083421fd178749af2201ddA5A7C3feB5790B80c",
+      },
+      {
+        id: "ETHEREUM_V4_FOREX",
+        title: "Ethereum v4 Forex",
+        SPOKE: "0xD8B93635b8C6d0fF98CbE90b5988E3F2d1Cd9da1",
+        ORACLE: "0xB3CE6E7b6d389a66eA4a3777bA07219d00FB3a9D",
+      },
+      {
+        id: "ETHEREUM_V4_BLUECHIP",
+        title: "Ethereum v4 Bluechip",
+        SPOKE: "0x973a023A77420ba610f06b3858aD991Df6d85A08",
+        ORACLE: "0xdA1266a7b8620819dAE3F8bd6B546Da36e505bB8",
+      },
+      {
+        id: "ETHEREUM_V4_ETHENA",
+        title: "Ethereum v4 Ethena",
+        SPOKE: "0xba1B3D55D249692b669A164024A838309B7508AF",
+        ORACLE: "0xc390dbe9fc00D6db73C52d375642b47008C33c90",
+      },
+      {
+        id: "ETHEREUM_V4_ETHENA_CORRELATED",
+        title: "Ethereum v4 Ethena Correlated",
+        SPOKE: "0x58131E79531caB1d52301228d1f7b842F26B9649",
+        ORACLE: "0x9b91a0943CADf554742E8Fb358B1cC4ae4F85F01",
+      },
+    ] as const
+  ).map(
+    ({ id, title, SPOKE, ORACLE }): AaveMarketDataType => ({
+      v4: true,
+      id,
+      title,
+      chainId: ChainId.mainnet,
+      api: `https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
+      v4Addresses: { SPOKE, ORACLE },
+      explorer: "https://etherscan.io/address/{{ADDRESS}}",
+      explorerName: "Etherscan",
+      startBlock: 24_700_000,
+    }),
+  ),
 ];
 
 /** hook to fetch user aave data
