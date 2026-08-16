@@ -511,13 +511,15 @@ describe("share copy helpers", () => {
     expect(description).toContain("0x1111…1111");
   });
 
-  it("builds tweets that include the headline", () => {
-    expect(getShareTweet(interestCard, en)).toContain(
-      "+$12,482 net Aave interest",
+  it("builds terse tweet labels, not card rehashes", () => {
+    expect(getShareTweet(positionCard, en)).toBe(
+      "0x1111…1111 Aave position summary:",
     );
-    const liqTweet = getShareTweet(liqCard, en);
-    expect(liqTweet).toContain("then liquidation");
-    expect(liqTweet).toContain("HF 1.24 → 1.00");
-    expect(liqTweet).toContain("One scenario of many");
+    expect(getShareTweet(liqCard, en)).toBe(
+      "0x1111…1111 Aave position liquidation scenario:",
+    );
+    expect(getShareTweet(interestCard, en)).toBe(
+      "0x1111…1111 Aave interest accrual summary:",
+    );
   });
 });

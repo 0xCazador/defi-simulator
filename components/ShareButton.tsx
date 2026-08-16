@@ -119,7 +119,12 @@ export default function ShareButton({ buildPayload, label }: ShareButtonProps) {
 
   const openTweetIntent = () => {
     if (!links) return;
-    const params = new URLSearchParams({ text: links.tweet, url: links.url });
+    // The link goes inside `text` with an explicit newline (instead of the
+    // separate `url` param, which X joins with a space) so the unfurled card
+    // sits on its own line under the summary text.
+    const params = new URLSearchParams({
+      text: `${links.tweet}\n${links.url}`,
+    });
     // x.com directly, not twitter.com: the redirect hop would defeat
     // universal-link interception by the native app.
     const intent = `https://x.com/intent/post?${params.toString()}`;
@@ -163,7 +168,7 @@ export default function ShareButton({ buildPayload, label }: ShareButtonProps) {
       <Popover.Dropdown>
         {error && (
           <Text size="sm" c="dimmed">
-            <Trans>Nothing to share yet — load a position first.</Trans>
+            <Trans>Nothing to share yet. Load a position first.</Trans>
           </Text>
         )}
         {!error && (isMinting || !links) && (

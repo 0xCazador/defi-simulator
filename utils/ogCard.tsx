@@ -599,7 +599,9 @@ const LiquidationTemplate = ({
                 {t(i18n)`Liquidation risk`}
               </span>
               <span style={{ fontSize: 24, color: COLORS.dimmed }}>
-                {t(i18n)`if supplied asset prices drop to…`}
+                {t(
+                  i18n,
+                )`if supplied asset prices drop, the position may be liquidated:`}
               </span>
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -621,16 +623,18 @@ const LiquidationTemplate = ({
               gap: 8,
             }}
           >
-            <HfGauge hf={card.hf} label={t(i18n)`Health Factor`} size={240} />
-            <span style={{ fontSize: 26, color: COLORS.dimmed }}>
-              {fmtHf(card.hf)} → 1.00
-            </span>
+          {/* The gauge shows the liquidation point the scenario lands on
+              (HF 1.00), not the current HF — the path below gives context. */}
+          <HfGauge hf={1} label={t(i18n)`Health Factor`} size={240} />
+          <span style={{ fontSize: 26, color: COLORS.dimmed }}>
+            {fmtHf(card.hf)} → 1.00
+          </span>
           </div>
         </div>
         <span style={{ fontSize: 19, color: COLORS.dimmed, marginTop: 18 }}>
           {t(
             i18n,
-          )`One scenario of many — accruing interest, oracle prices, and governance-set risk parameters all shift liquidation risk`}
+          )`One scenario of many: accruing interest, oracle prices, and governance-set risk parameters all shift liquidation risk`}
         </span>
       </div>
     </Frame>

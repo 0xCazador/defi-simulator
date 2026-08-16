@@ -676,7 +676,7 @@ const dropsScenario = (
 const liquidationDisclaimer = (i18n: I18n): string =>
   t(
     i18n,
-  )`One scenario of many — accruing interest, oracle prices, and governance-set risk parameters all shift liquidation risk`;
+  )`One scenario of many: accruing interest, oracle prices, and governance-set risk parameters all shift liquidation risk`;
 
 export const getShareTitle = (card: ShareCard, i18n: I18n): string => {
   const locale = i18n.locale;
@@ -757,17 +757,18 @@ export const getShareDescription = (card: ShareCard, i18n: I18n): string => {
   }
 };
 
+/** Tweet text is a terse label, not a rehash of the card: the OG image
+ * unfurled from the share URL carries the actual numbers. */
 export const getShareTweet = (card: ShareCard, i18n: I18n): string => {
+  const address = abbreviateAddress(card.a);
   switch (card.k) {
     case "liq":
-      // Title already carries the terse scenario; append the HF path and the
-      // "one scenario" caveat rather than the full description.
-      return `${getShareTitle(card, i18n)} · HF ${fmtHf(card.hf)} → 1.00 · ${liquidationDisclaimer(i18n)}`;
+      return t(i18n)`${address} Aave position liquidation scenario:`;
     case "interest":
-      return `${getShareTitle(card, i18n)} — ${getShareDescription(card, i18n)}`;
+      return t(i18n)`${address} Aave interest accrual summary:`;
     case "position":
     default:
-      return `${getShareTitle(card, i18n)} — ${getShareDescription(card, i18n)}`;
+      return t(i18n)`${address} Aave position summary:`;
   }
 };
 
