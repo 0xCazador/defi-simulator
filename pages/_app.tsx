@@ -19,6 +19,7 @@ import "../css/global.css";
 import { theme } from "../theme";
 import languages from "../src/languages/index.json";
 import "../utils/i18n";
+import PageShell from "../components/PageShell";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -54,6 +55,7 @@ export default function App(props: AppProps) {
       )}
       <I18nProvider i18n={i18n}>
         <MantineProvider theme={theme} forceColorScheme="dark">
+          <PageShell />
           <Component {...pageProps} />
           <Notifications />
         </MantineProvider>

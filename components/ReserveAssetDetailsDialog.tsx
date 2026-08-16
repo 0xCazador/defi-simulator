@@ -30,6 +30,7 @@ import {
 import { AbbreviatedEthereumAddress } from "./position/AbbreviatedEthereumAddress";
 import { AssetAPY } from "./AssetAPY";
 import { AccruedInterestStat, AssetStatCard } from "./AccruedInterestStat";
+import { buildViewHref } from "./ViewTabs";
 import { AssetLT } from "./AssetLT";
 import { AssetLTV } from "./AssetLTV";
 
@@ -122,7 +123,13 @@ export default function ReserveAssetDetailsDialog({
               resolvedAddress={resolvedAddress}
               onViewHistory={() => {
                 setOpen(false);
-                router.push(`/interest?address=${currentAddress}`);
+                router.push(
+                  buildViewHref("/interest", router.query, {
+                    address: currentAddress,
+                    asset: fetchedAsset?.asset?.symbol ?? assetDetails.symbol,
+                    side: "supply",
+                  }),
+                );
               }}
             />
           </AssetStatCard>

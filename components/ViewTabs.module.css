@@ -1,0 +1,98 @@
+.nav {
+  margin-top: 14px;
+  margin-bottom: 6px;
+}
+
+.track {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 4px;
+  border-radius: 999px;
+  background-color: color-mix(
+    in srgb,
+    var(--mantine-color-dark-8) 80%,
+    transparent
+  );
+  border: 1px solid var(--mantine-color-dark-5);
+}
+
+/* Sliding pill behind the active link: a quietly raised neutral surface
+   whose depth (not color) marks the selection. */
+.indicator {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  border-radius: 999px;
+  background-color: var(--mantine-color-dark-6);
+  border: 1px solid var(--mantine-color-dark-4);
+  box-shadow:
+    0 2px 10px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition: transform 240ms cubic-bezier(0.45, 0, 0.2, 1);
+}
+
+.track[data-active-index="1"] .indicator {
+  transform: translateX(100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .indicator {
+    transition: none;
+  }
+}
+
+.link {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 16px;
+  border-radius: 999px;
+  color: var(--mantine-color-dark-2);
+  text-decoration: none;
+  font-family: var(--mantine-font-family-headings);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  transition: color 160ms ease;
+}
+
+/* Tighten spacing so both labels stay on one line on narrow phones. */
+@media (max-width: 30em) {
+  .link {
+    font-size: 0.85rem;
+    gap: 6px;
+    padding: 0 8px;
+  }
+}
+
+.link:hover {
+  color: var(--mantine-color-dark-1);
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--mantine-color-brand-5);
+  outline-offset: 2px;
+}
+
+.active {
+  color: var(--mantine-color-dark-0);
+}
+
+/* A restrained accent: only the active icon carries color. */
+.active .icon {
+  color: var(--mantine-color-brand-3);
+}
+
+.icon {
+  display: flex;
+  flex-shrink: 0;
+  transition: color 160ms ease;
+}

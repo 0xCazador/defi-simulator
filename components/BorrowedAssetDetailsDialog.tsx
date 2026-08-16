@@ -32,6 +32,7 @@ import { AssetAPY } from "./AssetAPY";
 import { AssetLT } from "./AssetLT";
 import { AssetLTV } from "./AssetLTV";
 import { AccruedInterestStat, AssetStatCard } from "./AccruedInterestStat";
+import { buildViewHref } from "./ViewTabs";
 
 type BorrowedAssetDetailsDialogProps = {
   assetDetails: AssetDetails;
@@ -131,7 +132,13 @@ export default function BorrowedAssetDetailsDialog({
               resolvedAddress={resolvedAddress}
               onViewHistory={() => {
                 setOpen(false);
-                router.push(`/interest?address=${currentAddress}`);
+                router.push(
+                  buildViewHref("/interest", router.query, {
+                    address: currentAddress,
+                    asset: fetchedAsset?.asset?.symbol ?? assetDetails.symbol,
+                    side: "borrow",
+                  }),
+                );
               }}
             />
           </AssetStatCard>

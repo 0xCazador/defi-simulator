@@ -1,11 +1,11 @@
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
+import { useRouter } from "next/router";
 import { ethers } from "ethers";
 import { t } from "@lingui/core/macro";
 import { Plural, Trans } from "@lingui/react/macro";
 import { useLingui } from "@lingui/react";
 import { ImmutableObject } from "@hookstate/core";
 import {
-  ActionIcon,
   Alert,
   Anchor,
   Badge,
@@ -24,10 +24,9 @@ import {
   Text,
   TextInput,
   Title,
-  Tooltip,
   UnstyledButton,
 } from "@mantine/core";
-import { FaChevronRight, FaCopy, FaHistory } from "react-icons/fa";
+import { FaChevronRight, FaHistory } from "react-icons/fa";
 import { FiExternalLink, FiInfo, FiSearch } from "react-icons/fi";
 
 import {
@@ -52,7 +51,6 @@ import { LedgerAction } from "../utils/tokenEventAccrual";
 import { formatTokenAmount } from "../utils/formatTokenAmount";
 import LocalizedFiatDisplay from "./LocalizedFiatDisplay";
 import TokenIcon from "./TokenIcon";
-import { AbbreviatedEthereumAddress } from "./position/AbbreviatedEthereumAddress";
 import classes from "./InterestManifest.module.css";
 
 type SideFilter = "ALL" | "SUPPLY" | "BORROW";
@@ -120,7 +118,7 @@ const matchesFilters = (
 };
 
 export default function InterestManifest() {
-  const { addressData, currentMarket, currentAddress } = useAaveData("", true);
+  const { addressData, currentMarket } = useAaveData("", true);
 
   const marketData = addressData?.[currentMarket];
   const market = markets.find(
@@ -154,7 +152,6 @@ export default function InterestManifest() {
       market={market}
       marketData={marketData}
       user={resolvedAddress}
-      currentAddress={currentAddress}
     />
   );
 }
@@ -164,33 +161,17 @@ type ManifestContentProps = {
   marketData: ImmutableObject<HealthFactorData>;
   /** the resolved on-chain address whose events are read */
   user: string;
-  /** the address as the user entered it (may be an ENS name) */
-  currentAddress: string;
 };
 
 const ManifestContent = ({
   market,
   marketData,
   user,
-  currentAddress,
 }: ManifestContentProps) => {
+  const router = useRouter();
   const [sideFilter, setSideFilter] = useState<SideFilter>("ALL");
   const [searchText, setSearchText] = useState("");
   const [expandedKeys, setExpandedKeys] = useState<Set<string>>(new Set());
-  const [showCopied, setShowCopied] = useState(false);
-
-  // Copies the resolved hex address (not the ENS name), which is what block
-  // explorers and wallets expect. Confirmation only shows if the write
-  // actually succeeded (the Clipboard API rejects in unfocused documents).
-  const handleCopyAddress = () => {
-    navigator.clipboard
-      .writeText(user)
-      .then(() => {
-        setShowCopied(true);
-        setTimeout(() => setShowCopied(false), 2500);
-      })
-      .catch(() => {});
-  };
 
   const manifest = useAccrualManifest(market.id, user);
 
@@ -246,6 +227,30 @@ const ManifestContent = ({
   // Empty until the full-history scan completes, so this is the summary's
   // scope in both states: current positions only, then everything once scanned.
   const allPositions = [...openPositions, ...closedPositions];
+
+  const focusAsset =
+    typeof router.query.asset === "string" ? router.query.asset : "";
+  const focusSide =
+    router.query.side === "borrow" || router.query.side === "supply"
+      ? router.query.side
+      : "";
+  const focusPosition = allPositions.find(
+    (position) =>
+      position.asset.symbol === focusAsset && position.side === focusSide,
+  );
+  const focusPositionKey = focusPosition
+    ? getPositionKey(focusPosition.tokenAddress, focusPosition.side)
+    : "";
+
+  useEffect(() => {
+    if (!focusPositionKey) return;
+    setExpandedKeys((previous) => {
+      if (previous.has(focusPositionKey)) return previous;
+      const next = new Set(previous);
+      next.add(focusPositionKey);
+      return next;
+    });
+  }, [focusPositionKey]);
 
   const ledgers = useAccrualLedgers(
     market.id,
@@ -313,56 +318,13 @@ const ManifestContent = ({
 
   return (
     <>
-      <Group justify="space-between" mt={10} mb={5}>
-        <Group gap={8}>
-          <Title order={4}>
-            <Trans>Aave Interest Accrual</Trans>
-          </Title>
-          <Badge variant="outline" color="yellow" size="xs" radius="sm">
-            <Trans>Experimental</Trans>
-          </Badge>
-        </Group>
-        <Group gap={2}>
-          <Text size="sm" c="dimmed">
-            <AbbreviatedEthereumAddress address={currentAddress} />
-            {" · "}
-            {market.title}
-          </Text>
-          <Tooltip
-            label={
-              showCopied
-                ? t`Address copied to clipboard!`
-                : t`Copy address to clipboard`
-            }
-            opened={showCopied ? true : undefined}
-            color={showCopied ? "green" : undefined}
-            withArrow
-          >
-            <ActionIcon
-              size="sm"
-              variant="subtle"
-              color="gray"
-              aria-label={t`Copy address to clipboard`}
-              onClick={handleCopyAddress}
-            >
-              <FaCopy size={12} />
-            </ActionIcon>
-          </Tooltip>
-          <Tooltip label={t`View address on ${market.explorerName}`} withArrow>
-            <ActionIcon
-              size="sm"
-              variant="subtle"
-              color="gray"
-              component="a"
-              href={market.explorer.replace("{{ADDRESS}}", user)}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={t`View address on ${market.explorerName}`}
-            >
-              <FiExternalLink size={13} />
-            </ActionIcon>
-          </Tooltip>
-        </Group>
+      <Group gap={8} mt={10} mb={5}>
+        <Title order={4}>
+          <Trans>Aave Interest Accrual</Trans>
+        </Title>
+        <Badge variant="outline" color="yellow" size="xs" radius="sm">
+          <Trans>Experimental</Trans>
+        </Badge>
       </Group>
 
       {/* The one-line caption keeps the page scannable; the full explanation
@@ -391,11 +353,11 @@ const ManifestContent = ({
               ) : (
                 <Trans>
                   Interest history is reconstructed from on-chain aToken and
-                  variable debt token events, so every row corresponds to a
-                  real transaction. Interest is credited to the balance
-                  whenever the address interacts with a reserve; the remainder
-                  accrues continuously since the last activity. Fiat values use
-                  current prices (historical prices are not available).
+                  variable debt token events, so every row corresponds to a real
+                  transaction. Interest is credited to the balance whenever the
+                  address interacts with a reserve; the remainder accrues
+                  continuously since the last activity. Fiat values use current
+                  prices (historical prices are not available).
                 </Trans>
               )}
             </Text>

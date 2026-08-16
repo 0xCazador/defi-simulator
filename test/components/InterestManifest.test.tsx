@@ -147,6 +147,15 @@ jest.mock("../../components/TokenIcon", () => ({
   default: () => <span />,
 }));
 
+const mockRouter = {
+  pathname: "/interest",
+  query: {} as Record<string, string>,
+};
+
+jest.mock("next/router", () => ({
+  useRouter: () => mockRouter,
+}));
+
 // eslint-disable-next-line import/first
 import InterestManifest from "../../components/InterestManifest";
 
@@ -181,6 +190,8 @@ const withCompletedScan = () => {
 
 describe("InterestManifest", () => {
   beforeEach(() => {
+    mockRouter.pathname = "/interest";
+    mockRouter.query = {};
     mockAvailableAssets = [];
     mockLedgers = new Map<string, any>([
       [`${A_TOKEN}:supply`, ledgerState("1.5")],
@@ -271,5 +282,20 @@ describe("InterestManifest", () => {
     );
     expect(container.textContent?.includes("aren't included yet")).toBe(false);
     expect(screen.queryByText("Scan past assets")).toBeNull();
+  });
+
+  it("expands the ledger targeted by asset and side query params", () => {
+    mockRouter.query = { asset: "WETH", side: "supply" };
+    const { container } = renderPage();
+    const headers = screen
+      .getAllByRole("button")
+      .filter(
+        (el) =>
+          el.hasAttribute("aria-expanded") && !el.hasAttribute("aria-haspopup"),
+      );
+
+    expect(headers[0].getAttribute("aria-expanded")).toBe("true");
+    expect(headers[1].getAttribute("aria-expanded")).toBe("false");
+    expect(container.querySelectorAll("table")).toHaveLength(1);
   });
 });
