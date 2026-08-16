@@ -1,3 +1,6 @@
+// Brings the jest-dom matcher types (toHaveAttribute) into this module for
+// `tsc` during `next build`; the runtime side already loads in jest.setup.js.
+import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import { MantineProvider } from "@mantine/core";
 import { i18n } from "@lingui/core";
