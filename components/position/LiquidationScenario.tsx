@@ -21,9 +21,13 @@ import {
   AssetDetails,
   HealthFactorData,
   getCalculatedLiquidationScenario,
+  markets,
+  useAaveData,
 } from "../../hooks/useAaveData";
+import { buildLiquidationPayload } from "../../utils/shareMint";
 import TokenIcon from "../TokenIcon";
 import LocalizedFiatDisplay from "../LocalizedFiatDisplay";
+import ShareButton from "../ShareButton";
 
 type LiquidationScenarioProps = {
   data: ImmutableObject<HealthFactorData>;
@@ -35,6 +39,7 @@ export const LiquidationScenario = ({
   applyLiquidationScenario,
 }: LiquidationScenarioProps) => {
   const [showLiquidation, setShowLiquidation] = useState(true);
+  const { currentAddress, currentMarket } = useAaveData("");
 
   if (data?.isFetching) return null;
 
@@ -157,6 +162,20 @@ export const LiquidationScenario = ({
             >
               <Trans>Apply</Trans>
             </Button>
+            <ShareButton
+              label={t`Share liquidation scenario`}
+              buildPayload={() => {
+                const market = markets.find((m) => m.id === currentMarket);
+                if (!market || !currentAddress || !scenario?.length)
+                  return null;
+                return buildLiquidationPayload(
+                  data,
+                  scenario,
+                  market,
+                  currentAddress,
+                );
+              }}
+            />
           </Flex>
         )}
       </Transition>

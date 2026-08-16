@@ -30,6 +30,9 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
+# netlify (local blob-store fallback lives under .netlify/)
+.netlify
+
 # vercel
 .vercel
 *.tsbuildinfo

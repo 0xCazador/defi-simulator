@@ -11,6 +11,7 @@ import {
   EModeCategoryData,
   resolveEffectiveRiskParams,
 } from "../utils/liquidEMode";
+import type { ReplayResult, SimOp } from "../utils/shareCard";
 
 /** Max time a single market fetch (or ENS resolution) may take before it is
  * treated as failed. Keeps one hung RPC from blocking the UI forever. */
@@ -491,19 +492,17 @@ export const markets: AaveMarketDataType[] = [
         ORACLE: "0x9b91a0943CADf554742E8Fb358B1cC4ae4F85F01",
       },
     ] as const
-  ).map(
-    ({ id, title, SPOKE, ORACLE }): AaveMarketDataType => ({
-      v4: true,
-      id,
-      title,
-      chainId: ChainId.mainnet,
-      api: `https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
-      v4Addresses: { SPOKE, ORACLE },
-      explorer: "https://etherscan.io/address/{{ADDRESS}}",
-      explorerName: "Etherscan",
-      startBlock: 24_700_000,
-    }),
-  ),
+  ).map(({ id, title, SPOKE, ORACLE }): AaveMarketDataType => ({
+    v4: true,
+    id,
+    title,
+    chainId: ChainId.mainnet,
+    api: `https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
+    v4Addresses: { SPOKE, ORACLE },
+    explorer: "https://etherscan.io/address/{{ADDRESS}}",
+    explorerName: "Etherscan",
+    startBlock: 24_700_000,
+  })),
 ];
 
 /** hook to fetch user aave data
@@ -822,6 +821,145 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
     );
   };
 
+  /**
+   * Replay simulator edits from a share snapshot onto the current market's
+   * workingData. Best-effort by design: ops referencing assets no longer in
+   * availableAssets are skipped and counted (never thrown), so years-old
+   * snapshots degrade gracefully. Reads the store fresh for every op —
+   * unlike the UI mutators above, several ops apply in one call, so a
+   * render-time snapshot would go stale mid-replay.
+   */
+  const applySimSnapshot = (ops: SimOp[]): ReplayResult => {
+    const availableAssets = data?.[currentMarket]?.availableAssets ?? [];
+    const availableBySymbol = new Map(
+      availableAssets.map((asset) => [asset.symbol, asset]),
+    );
+    let applied = 0;
+    const skippedSymbols = new Set<string>();
+
+    const getWorkingData = () =>
+      store.addressData.nested(address)[currentMarket]
+        .workingData as State<AaveHealthFactorData>;
+
+    const skip = (symbol: string) => skippedSymbols.add(symbol);
+
+    ops.forEach((op) => {
+      const workingData = getWorkingData();
+      const reserves = workingData.userReservesData.get({ noproxy: true });
+      const borrows = workingData.userBorrowsData.get({ noproxy: true });
+      const inReserves = reserves.some((item) => item.asset.symbol === op.s);
+      const inBorrows = borrows.some((item) => item.asset.symbol === op.s);
+
+      switch (op.op) {
+        case "addReserve": {
+          if (inReserves) {
+            applied += 1; // idempotent: already present
+            return;
+          }
+          const asset = availableBySymbol.get(op.s);
+          if (!asset) return skip(op.s);
+          workingData.userReservesData.merge([
+            {
+              asset: { ...asset, isNewlyAddedBySimUser: true },
+              underlyingBalance: 0,
+              underlyingBalanceUSD: 0,
+              underlyingBalanceMarketReferenceCurrency: 0,
+              usageAsCollateralEnabledOnUser: asset.usageAsCollateralEnabled,
+            },
+          ]);
+          applied += 1;
+          return;
+        }
+        case "addBorrow": {
+          if (inBorrows) {
+            applied += 1;
+            return;
+          }
+          const asset = availableBySymbol.get(op.s);
+          if (!asset) return skip(op.s);
+          workingData.userBorrowsData.merge([
+            {
+              asset: { ...asset, isNewlyAddedBySimUser: true },
+              totalBorrows: 0,
+              totalBorrowsUSD: 0,
+              totalBorrowsMarketReferenceCurrency: 0,
+              stableBorrowAPY: 0,
+            },
+          ]);
+          applied += 1;
+          return;
+        }
+        case "removeAsset": {
+          const list =
+            op.t === "RESERVE"
+              ? workingData.userReservesData
+              : workingData.userBorrowsData;
+          const index = list
+            .get({ noproxy: true })
+            .findIndex((item: any) => item.asset.symbol === op.s);
+          if (index < 0) return skip(op.s);
+          list.set((previous: any[]) => {
+            previous.splice(index, 1);
+            return previous;
+          });
+          applied += 1;
+          return;
+        }
+        case "reserveQty": {
+          const item = workingData.userReservesData.find(
+            (reserveItem) => reserveItem.asset.symbol.get() === op.s,
+          );
+          if (!item) return skip(op.s);
+          item.underlyingBalance.set(op.n);
+          applied += 1;
+          return;
+        }
+        case "borrowQty": {
+          const item = workingData.userBorrowsData.find(
+            (borrowItem) => borrowItem.asset.symbol.get() === op.s,
+          );
+          if (!item) return skip(op.s);
+          item.totalBorrows.set(op.n);
+          applied += 1;
+          return;
+        }
+        case "price": {
+          if (!inReserves && !inBorrows) return skip(op.s);
+          const reserveItem = workingData.userReservesData.find(
+            (item) => item.asset.symbol.get() === op.s,
+          );
+          if (reserveItem) reserveItem.asset.priceInUSD.set(op.n);
+          const borrowItem = workingData.userBorrowsData.find(
+            (item) => item.asset.symbol.get() === op.s,
+          );
+          if (borrowItem) borrowItem.asset.priceInUSD.set(op.n);
+          applied += 1;
+          return;
+        }
+        case "collateral": {
+          const item = workingData.userReservesData.find(
+            (reserveItem) => reserveItem.asset.symbol.get() === op.s,
+          );
+          if (!item) return skip(op.s);
+          item.usageAsCollateralEnabledOnUser.set(op.on);
+          applied += 1;
+          return;
+        }
+        default:
+          return undefined;
+      }
+    });
+
+    // One derived-data pass at the end keeps intermediate states invisible.
+    updateAllDerivedHealthFactorData();
+
+    return {
+      applied,
+      skipped: ops.length - applied,
+      skippedSymbols: [...skippedSymbols],
+    };
+  };
+
   const setUseReserveAssetAsCollateral = (symbol: string, value: boolean) => {
     const workingData = store.addressData.nested(address)[currentMarket]
       .workingData as State<AaveHealthFactorData>;
@@ -882,6 +1020,7 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
     setReserveAssetQuantity,
     setAssetPriceInUSD,
     applyLiquidationScenario,
+    applySimSnapshot,
     setUseReserveAssetAsCollateral,
   };
 }

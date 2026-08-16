@@ -19,6 +19,7 @@ import {
   UnstyledButton,
 } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
+import { useRouter } from "next/router";
 import { FaChevronDown, FaInfinity } from "react-icons/fa";
 import { RxReset } from "react-icons/rx";
 
@@ -107,6 +108,7 @@ const HealthBadge = ({
 };
 
 export default function MarketPicker() {
+  const router = useRouter();
   const [opened, { open, close, toggle }] = useDisclosure(false);
   const [query, setQuery] = React.useState("");
   const [filter, setFilter] = React.useState<MarketFilter>("all");
@@ -196,6 +198,16 @@ export default function MarketPicker() {
 
   const handleSelectMarket = (marketId: string) => {
     setCurrentMarket(marketId);
+    // Reflect the market in the URL so copied links and share click-throughs
+    // reopen the same market.
+    router.replace(
+      {
+        pathname: router.pathname,
+        query: { ...router.query, market: marketId },
+      },
+      undefined,
+      { shallow: true },
+    );
     closePicker();
   };
 

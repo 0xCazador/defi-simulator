@@ -10,6 +10,46 @@ interface TokenIconProps {
   waToken?: boolean;
 }
 
+// Get the icon name from the symbol, similar to the interface project.
+// Exported so the OG image renderer resolves the same icon files.
+export const getTokenIconName = (assetSymbol: string) => {
+  if (!assetSymbol) return "";
+
+  let iconName = assetSymbol.toLowerCase();
+
+  // Handle special PT (Principal Token) cases
+  if (iconName.includes("pt-")) {
+    // Extract the base token from PT tokens
+    // e.g., "PT-eUSDE-14AUG2025" -> "eusde"
+    // e.g., "PT-sUSDE-25SEP2025" -> "susde"
+    // e.g., "PT-USDe-31JUL2025" -> "usde"
+    const ptMatch = iconName.match(/pt-(.+?)-/);
+    if (ptMatch) {
+      [, iconName] = ptMatch;
+    }
+  }
+
+  // Handle Ethereal/Ethena tokens
+  if (iconName.includes("ethereal") || iconName.includes("ethena")) {
+    // Extract the base token from the long name
+    // e.g., "PT Ethereal eUSDE 14AUG2025" -> "eusde"
+    // e.g., "PT Ethena sUSDE 25SEP2025" -> "susde"
+    const etherealMatch = iconName.match(/(eusde|susde|usde)/);
+    if (etherealMatch) {
+      [, iconName] = etherealMatch;
+    }
+  }
+
+  // Apply standard transformations
+  iconName = iconName
+    .replace(".e", "")
+    .replace(".b", "")
+    .replace("m.", "")
+    .replace("btcb", "btc");
+
+  return iconName;
+};
+
 export default function TokenIcon({
   symbol,
   size = "24px",
@@ -21,46 +61,7 @@ export default function TokenIcon({
 }: TokenIconProps) {
   const [imageError, setImageError] = useState(false);
 
-  // Get the icon name from the symbol, similar to the interface project
-  const getIconName = (assetSymbol: string) => {
-    if (!assetSymbol) return "";
-
-    let iconName = assetSymbol.toLowerCase();
-
-    // Handle special PT (Principal Token) cases
-    if (iconName.includes("pt-")) {
-      // Extract the base token from PT tokens
-      // e.g., "PT-eUSDE-14AUG2025" -> "eusde"
-      // e.g., "PT-sUSDE-25SEP2025" -> "susde"
-      // e.g., "PT-USDe-31JUL2025" -> "usde"
-      const ptMatch = iconName.match(/pt-(.+?)-/);
-      if (ptMatch) {
-        [, iconName] = ptMatch;
-      }
-    }
-
-    // Handle Ethereal/Ethena tokens
-    if (iconName.includes("ethereal") || iconName.includes("ethena")) {
-      // Extract the base token from the long name
-      // e.g., "PT Ethereal eUSDE 14AUG2025" -> "eusde"
-      // e.g., "PT Ethena sUSDE 25SEP2025" -> "susde"
-      const etherealMatch = iconName.match(/(eusde|susde|usde)/);
-      if (etherealMatch) {
-        [, iconName] = etherealMatch;
-      }
-    }
-
-    // Apply standard transformations
-    iconName = iconName
-      .replace(".e", "")
-      .replace(".b", "")
-      .replace("m.", "")
-      .replace("btcb", "btc");
-
-    return iconName;
-  };
-
-  const iconName = getIconName(symbol);
+  const iconName = getTokenIconName(symbol);
   const fallbackIcon = imageError ? "default" : iconName;
 
   // Handle aToken and waToken styling

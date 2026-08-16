@@ -49,7 +49,9 @@ import {
 } from "../pages/api/aave/accrual";
 import { LedgerAction } from "../utils/tokenEventAccrual";
 import { formatTokenAmount } from "../utils/formatTokenAmount";
+import { buildInterestPayload } from "../utils/shareMint";
 import LocalizedFiatDisplay from "./LocalizedFiatDisplay";
+import ShareButton from "./ShareButton";
 import TokenIcon from "./TokenIcon";
 import classes from "./InterestManifest.module.css";
 
@@ -472,6 +474,7 @@ const InterestSummary = ({
   scanRefs,
 }: InterestSummaryProps) => {
   const { i18n } = useLingui();
+  const { currentAddress, currentMarket } = useAaveData("");
   const hasScanned = !!manifest.results;
   const pastCount = positions.filter((position) => !position.isOpen).length;
 
@@ -571,6 +574,42 @@ const InterestSummary = ({
         <div className={classes.sideStats}>
           {sideStat(<Trans>Earned</Trans>, totals.earned, classes.earned)}
           {sideStat(<Trans>Paid</Trans>, totals.paid, classes.paid)}
+          <ShareButton
+            label={t`Share interest summary`}
+            buildPayload={() => {
+              const market = markets.find((m) => m.id === currentMarket);
+              if (!market || !currentAddress || totals.isLoading) return null;
+              // Top assets by absolute accrued interest, signed by side.
+              const bySymbol = new Map<string, number>();
+              positions.forEach((position) => {
+                const state = ledgers.get(
+                  getPositionKey(position.tokenAddress, position.side),
+                );
+                if (!state?.data || isLedgerUnusable(state)) return;
+                const valueUSD =
+                  Number(state.data.accruedValue ?? "0") *
+                  position.asset.priceInUSD;
+                const signed =
+                  position.side === "supply" ? valueUSD : -valueUSD;
+                const symbol = position.asset.symbol;
+                bySymbol.set(symbol, (bySymbol.get(symbol) ?? 0) + signed);
+              });
+              const top = [...bySymbol.entries()]
+                .sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]))
+                .slice(0, 4) as [string, number][];
+              return buildInterestPayload(
+                {
+                  net,
+                  earned: totals.earned,
+                  paid: totals.paid,
+                  since: sinceTimestamp,
+                  top,
+                },
+                market,
+                currentAddress,
+              );
+            }}
+          />
         </div>
       </div>
 

@@ -5,11 +5,17 @@ import { Center, Flex, Group, Popover, SimpleGrid, Text } from "@mantine/core";
 import { FaInfinity } from "react-icons/fa";
 import { ImmutableObject } from "@hookstate/core";
 
+import { t } from "@lingui/core/macro";
+
 import {
   HealthFactorData,
   getHealthFactorColor,
+  markets,
+  useAaveData,
 } from "../../hooks/useAaveData";
+import { buildPositionPayload } from "../../utils/shareMint";
 import LocalizedFiatDisplay from "../LocalizedFiatDisplay";
+import ShareButton from "../ShareButton";
 import { HealthFactorSkeleton } from "./HealthFactorSkeleton";
 import { ResetMarketButton } from "./ResetMarketButton";
 import { PositionStat } from "./PositionStat";
@@ -29,6 +35,8 @@ export const HealthFactorSummary = ({
   data,
   summaryRef,
 }: HealthFactorSummaryProps) => {
+  const { currentAddress, currentMarket } = useAaveData("");
+
   if (data?.isFetching) return <HealthFactorSkeleton animate />;
 
   if (!data) {
@@ -152,6 +160,15 @@ export const HealthFactorSummary = ({
                 </Popover.Dropdown>
               </Popover>
               <ResetMarketButton />
+              <ShareButton
+                label={t`Share position stats`}
+                buildPayload={() => {
+                  const market = markets.find((m) => m.id === currentMarket);
+                  if (!market || !currentAddress || !data?.workingData)
+                    return null;
+                  return buildPositionPayload(data, market, currentAddress);
+                }}
+              />
             </Group>
             <Group gap="sm" align="baseline" wrap="nowrap">
               {healthFactorDiffers && (

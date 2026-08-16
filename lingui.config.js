@@ -70,7 +70,8 @@ module.exports = {
   catalogs: [
     {
       path: "src/locales/{locale}/messages",
-      include: ["./components", "./pages"],
+      // utils holds the share-card copy helpers (t(i18n) macro calls)
+      include: ["./components", "./pages", "./utils"],
     },
   ],
   service: {

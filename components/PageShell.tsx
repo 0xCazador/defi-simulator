@@ -36,6 +36,14 @@ export default function PageShell() {
     if (isInterest) setInterestVisited(true);
   }, [isInterest]);
 
+  // Share routes render their own chrome (snapshot-seeded views + status
+  // banner), so the shell stays out of the way there.
+  if (
+    router.pathname.startsWith("/s/") ||
+    router.pathname === "/share-fallback"
+  )
+    return null;
+
   return (
     <>
       <Head>
