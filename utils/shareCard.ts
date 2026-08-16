@@ -27,7 +27,7 @@ export const SHARE_CARD_VERSION = 1;
 
 /** Bump when the OG template design changes to naturally re-render cached
  * cards (the value rides in the image URL, which is the CDN cache key). */
-export const OG_TEMPLATE_VERSION = 1;
+export const OG_TEMPLATE_VERSION = 2;
 
 /** Hard cap on a stored payload; anything bigger is rejected at mint. */
 export const MAX_PAYLOAD_BYTES = 32 * 1024;
@@ -640,6 +640,9 @@ export const fmtHf = (hf: number): string =>
 /** Map a live health factor to its JSON-safe stored form. */
 export const toStoredHf = (hf: number | undefined): number => {
   if (hf === undefined || Number.isNaN(hf)) return 0;
+  // aave-utilities (and this app) represent "no debt" as -1; for display
+  // purposes that's an infinite health factor, not "HF -1.00".
+  if (hf < 0) return HF_INFINITY_SENTINEL;
   if (!Number.isFinite(hf) || hf >= HF_INFINITY_SENTINEL)
     return HF_INFINITY_SENTINEL;
   return hf;
@@ -650,8 +653,8 @@ export const abbreviateAddress = (address: string): string =>
     ? `${address.slice(0, 6)}…${address.slice(-4)}`
     : address;
 
-/** Human-readable drop list: "WBTC → $41.2K and WETH → $1,850" (+ overflow) */
-const dropsSummary = (
+/** Terse scenario list: "WBTC drops to $41.2K, WETH drops to $1.9K (+1 more)" */
+const dropsScenario = (
   i18n: I18n,
   card: LiquidationShareCard,
   { compact }: { compact: boolean },
@@ -659,59 +662,74 @@ const dropsSummary = (
   const locale = i18n.locale;
   const shown = card.drops.slice(0, 2);
   const parts = shown.map(
-    (drop) => `${drop.s} → ${fmtUSD(locale, drop.to, { compact })}`,
+    (drop) =>
+      t(i18n)`${drop.s} drops to ${fmtUSD(locale, drop.to, { compact })}`,
   );
-  const joined = parts.join(t(i18n)` and `);
+  const joined = parts.join(", ");
   const extra = card.drops.length - shown.length;
-  return extra > 0 ? t(i18n)`${joined} and ${extra} more` : joined;
+  return extra > 0 ? t(i18n)`${joined} (+${extra} more)` : joined;
 };
+
+/** The liquidation card describes ONE path to liquidation, not the only one.
+ * Keep this wording identical to the line rendered in ogCard.tsx so both
+ * share a single translation entry. */
+const liquidationDisclaimer = (i18n: I18n): string =>
+  t(
+    i18n,
+  )`One scenario of many — accruing interest, oracle prices, and governance-set risk parameters all shift liquidation risk`;
 
 export const getShareTitle = (card: ShareCard, i18n: I18n): string => {
   const locale = i18n.locale;
+  const address = abbreviateAddress(card.a);
   switch (card.k) {
     case "liq":
       return t(
         i18n,
-      )`Liquidated if ${dropsSummary(i18n, card, { compact: true })}`;
+      )`${address} on Aave: if ${dropsScenario(i18n, card, { compact: true })}, then liquidation`;
     case "interest": {
       const net = fmtSignedUSD(locale, card.net);
       return card.since !== null
         ? t(
             i18n,
-          )`${net} net Aave interest since ${fmtMonthYear(locale, card.since)}`
-        : t(i18n)`${net} net Aave interest`;
+          )`${address}: ${net} net Aave interest since ${fmtMonthYear(locale, card.since)}`
+        : t(i18n)`${address}: ${net} net Aave interest`;
     }
     case "position":
     default: {
       const power = fmtUSD(locale, card.availableUSD, { compact: true });
       return card.sim
-        ? t(i18n)`Simulated: HF ${fmtHf(card.hf)} with ${power} borrowing power`
-        : t(i18n)`HF ${fmtHf(card.hf)} with ${power} borrowing power`;
+        ? t(
+            i18n,
+          )`${address} simulated on Aave: HF ${fmtHf(card.hf)} with ${power} borrowing power`
+        : t(
+            i18n,
+          )`${address} on Aave: HF ${fmtHf(card.hf)} with ${power} borrowing power`;
     }
   }
 };
+
+/** Market titles are minted bare ("Ethereum v3"); brand them explicitly. */
+const marketLabel = (card: ShareCard): string => `Aave ${card.mt}`;
 
 export const getShareDescription = (card: ShareCard, i18n: I18n): string => {
   const locale = i18n.locale;
   const address = abbreviateAddress(card.a);
   switch (card.k) {
     case "liq": {
-      const sentence = card.drops
+      const path = card.drops
         .slice(0, 3)
         .map(
           (drop) =>
-            t(
-              i18n,
-            )`${drop.s} drops ${Math.abs(Math.round(drop.pct))}% to ${fmtUSD(
+            `${drop.s} −${Math.abs(Math.round(drop.pct))}% → ${fmtUSD(
               locale,
               drop.to,
             )}`,
         )
-        .join(t(i18n)` and `);
+        .join(" · ");
       const simNote = card.sim ? `${t(i18n)`Simulated position`} · ` : "";
       return t(
         i18n,
-      )`This position could be liquidated if ${sentence} · HF ${fmtHf(card.hf)} → 1.00 · ${simNote}${card.mt}`;
+      )`HF ${fmtHf(card.hf)} → 1.00 if ${path} · ${simNote}${address} · ${marketLabel(card)} · ${liquidationDisclaimer(i18n)}`;
     }
     case "interest": {
       const top = card.top
@@ -721,7 +739,7 @@ export const getShareDescription = (card: ShareCard, i18n: I18n): string => {
       const detail = top.length ? ` · ${top}` : "";
       return t(
         i18n,
-      )`Earned ${fmtUSD(locale, card.earned)} · paid ${fmtUSD(locale, card.paid)} · reconstructed from on-chain events, not APY estimates${detail} · ${address} · ${card.mt}`;
+      )`Earned ${fmtUSD(locale, card.earned)} · paid ${fmtUSD(locale, card.paid)} · reconstructed from on-chain events, not APY estimates${detail} · ${address} · ${marketLabel(card)}`;
     }
     case "position":
     default: {
@@ -734,7 +752,7 @@ export const getShareDescription = (card: ShareCard, i18n: I18n): string => {
       )} borrowed · ${fmtUSD(locale, card.availableUSD)} borrowing power · net ${fmtUSD(
         locale,
         card.netUSD,
-      )} · ${address} · ${card.mt}`;
+      )} · ${address} · ${marketLabel(card)}`;
     }
   }
 };
@@ -742,7 +760,9 @@ export const getShareDescription = (card: ShareCard, i18n: I18n): string => {
 export const getShareTweet = (card: ShareCard, i18n: I18n): string => {
   switch (card.k) {
     case "liq":
-      return getShareDescription(card, i18n);
+      // Title already carries the terse scenario; append the HF path and the
+      // "one scenario" caveat rather than the full description.
+      return `${getShareTitle(card, i18n)} · HF ${fmtHf(card.hf)} → 1.00 · ${liquidationDisclaimer(i18n)}`;
     case "interest":
       return `${getShareTitle(card, i18n)} — ${getShareDescription(card, i18n)}`;
     case "position":

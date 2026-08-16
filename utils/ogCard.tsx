@@ -139,18 +139,32 @@ const Header = ({ card, ctx }: { card: ShareCard; ctx: OgContext }) => (
         dataUri={ctx.icons[`network:${card.ni}`]}
         size={30}
       />
-      <span style={{ fontSize: 24, fontWeight: 600 }}>{card.mt}</span>
-      <span style={{ fontSize: 24, color: COLORS.dimmed }}>·</span>
-      <span
-        style={{
-          fontFamily: "JetBrains Mono",
-          fontSize: 22,
-          color: COLORS.dimmed,
-        }}
-      >
-        {abbreviateAddress(card.a)}
-      </span>
+      <span style={{ fontSize: 24, fontWeight: 600 }}>{`Aave ${card.mt}`}</span>
     </div>
+  </div>
+);
+
+/** Whose position this is — the identity line every card leads with. */
+const OwnerRow = ({ card, label }: { card: ShareCard; label: string }) => (
+  <div
+    style={{
+      display: "flex",
+      alignItems: "baseline",
+      gap: 14,
+      marginTop: 22,
+    }}
+  >
+    <span
+      style={{
+        fontFamily: "JetBrains Mono",
+        fontSize: 34,
+        color: COLORS.brand,
+      }}
+    >
+      {abbreviateAddress(card.a)}
+    </span>
+    <span style={{ fontSize: 24, color: COLORS.dimmed }}>·</span>
+    <span style={{ fontSize: 24, color: COLORS.dimmed }}>{label}</span>
   </div>
 );
 
@@ -198,17 +212,20 @@ const SimRibbon = ({ i18n }: { i18n: I18n }) => (
   </div>
 );
 
-/** Root frame: page bg + tinted radial glow + header/body/footer. */
+/** Root frame: page bg + tinted radial glow + header/owner/body/footer. */
 const Frame = ({
   card,
   ctx,
   glow,
+  ownerLabel,
   sim,
   children,
 }: {
   card: ShareCard;
   ctx: OgContext;
   glow: string;
+  /** what the address owns on this card, e.g. "Aave position" */
+  ownerLabel: string;
   sim?: boolean;
   children: ReactElement;
 }) => (
@@ -227,6 +244,7 @@ const Frame = ({
     }}
   >
     <Header card={card} ctx={ctx} />
+    <OwnerRow card={card} label={ownerLabel} />
     <div
       style={{
         display: "flex",
@@ -401,7 +419,13 @@ const PositionTemplate = ({
       ? "rgba(255, 107, 107, 0.10)"
       : "rgba(56, 217, 169, 0.09)";
   return (
-    <Frame card={card} ctx={ctx} glow={glow} sim={card.sim}>
+    <Frame
+      card={card}
+      ctx={ctx}
+      glow={glow}
+      ownerLabel={t(i18n)`Aave position`}
+      sim={card.sim}
+    >
       <div
         style={{
           display: "flex",
@@ -411,7 +435,7 @@ const PositionTemplate = ({
           gap: 48,
         }}
       >
-        <HfGauge hf={card.hf} label={t(i18n)`Health Factor`} size={300} />
+        <HfGauge hf={card.hf} label={t(i18n)`Health Factor`} size={280} />
         <div
           style={{
             display: "flex",
@@ -550,51 +574,64 @@ const LiquidationTemplate = ({
       card={card}
       ctx={ctx}
       glow="rgba(255, 107, 107, 0.10)"
+      ownerLabel={t(i18n)`Aave liquidation scenario`}
       sim={card.sim}
     >
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          width: "100%",
-          gap: 40,
-        }}
-      >
-        <div style={{ display: "flex", flexDirection: "column", gap: 26 }}>
-          <span
-            style={{
-              fontFamily: "Space Grotesk",
-              fontSize: 44,
-              fontWeight: 700,
-            }}
-          >
-            {t(i18n)`Liquidated if…`}
-          </span>
-          <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
-            {shown.map((drop) => (
-              <DropRow key={drop.s} drop={drop} ctx={ctx} />
-            ))}
-            {extra > 0 ? (
-              <span style={{ fontSize: 24, color: COLORS.dimmed }}>
-                {t(i18n)`and ${extra} more`}
-              </span>
-            ) : null}
-          </div>
-        </div>
+      <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
         <div
           style={{
             display: "flex",
-            flexDirection: "column",
             alignItems: "center",
-            gap: 8,
+            justifyContent: "space-between",
+            width: "100%",
+            gap: 40,
           }}
         >
-          <HfGauge hf={card.hf} label={t(i18n)`Health Factor`} size={260} />
-          <span style={{ fontSize: 26, color: COLORS.dimmed }}>
-            {fmtHf(card.hf)} → 1.00
-          </span>
+          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+              <span
+                style={{
+                  fontFamily: "Space Grotesk",
+                  fontSize: 42,
+                  fontWeight: 700,
+                }}
+              >
+                {t(i18n)`Liquidation risk`}
+              </span>
+              <span style={{ fontSize: 24, color: COLORS.dimmed }}>
+                {t(i18n)`if supplied asset prices drop to…`}
+              </span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              {shown.map((drop) => (
+                <DropRow key={drop.s} drop={drop} ctx={ctx} />
+              ))}
+              {extra > 0 ? (
+                <span style={{ fontSize: 24, color: COLORS.dimmed }}>
+                  {t(i18n)`and ${extra} more`}
+                </span>
+              ) : null}
+            </div>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 8,
+            }}
+          >
+            <HfGauge hf={card.hf} label={t(i18n)`Health Factor`} size={240} />
+            <span style={{ fontSize: 26, color: COLORS.dimmed }}>
+              {fmtHf(card.hf)} → 1.00
+            </span>
+          </div>
         </div>
+        <span style={{ fontSize: 19, color: COLORS.dimmed, marginTop: 18 }}>
+          {t(
+            i18n,
+          )`One scenario of many — accruing interest, oracle prices, and governance-set risk parameters all shift liquidation risk`}
+        </span>
       </div>
     </Frame>
   );
@@ -617,7 +654,12 @@ const InterestTemplate = ({
   const shown = card.top.slice(0, 3);
   const extra = card.top.length - shown.length;
   return (
-    <Frame card={card} ctx={ctx} glow={glow}>
+    <Frame
+      card={card}
+      ctx={ctx}
+      glow={glow}
+      ownerLabel={t(i18n)`Aave interest`}
+    >
       <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
           <span
@@ -631,8 +673,8 @@ const InterestTemplate = ({
             {card.since !== null
               ? t(
                   i18n,
-                )`Net Aave interest · since ${fmtMonthYear(locale, card.since)}`
-              : t(i18n)`Net Aave interest`}
+                )`Net interest · since ${fmtMonthYear(locale, card.since)}`
+              : t(i18n)`Net interest`}
           </span>
           <span
             style={{

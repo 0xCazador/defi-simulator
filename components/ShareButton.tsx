@@ -111,14 +111,27 @@ export default function ShareButton({ buildPayload, label }: ShareButtonProps) {
   const canNativeShare =
     typeof navigator !== "undefined" && typeof navigator.share === "function";
 
+  /** Phones/tablets where the X app may be installed (iPadOS 13+ reports a
+   * desktop Safari UA, so also treat touch-capable "Macintosh" as mobile). */
+  const isMobileDevice = () =>
+    /android|iphone|ipad|ipod/i.test(navigator.userAgent) ||
+    (navigator.userAgent.includes("Macintosh") && navigator.maxTouchPoints > 1);
+
   const openTweetIntent = () => {
     if (!links) return;
     const params = new URLSearchParams({ text: links.tweet, url: links.url });
-    window.open(
-      `https://twitter.com/intent/tweet?${params.toString()}`,
-      "_blank",
-      "noopener,noreferrer",
-    );
+    // x.com directly, not twitter.com: the redirect hop would defeat
+    // universal-link interception by the native app.
+    const intent = `https://x.com/intent/post?${params.toString()}`;
+    if (isMobileDevice()) {
+      // Top-level navigation, not window.open: iOS universal links and
+      // Android app links only reliably hand the URL to the installed X app
+      // on a same-tab navigation. Without the app, the web composer loads
+      // in-tab and back returns here.
+      window.location.href = intent;
+      return;
+    }
+    window.open(intent, "_blank", "noopener,noreferrer");
   };
 
   const nativeShare = () => {

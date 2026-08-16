@@ -95,7 +95,7 @@ export const LiquidationScenario = ({
             direction="row"
             wrap="wrap"
           >
-            <Popover width="250px" position="bottom" withArrow shadow="md">
+            <Popover width="300px" position="bottom" withArrow shadow="md">
               <Popover.Target>
                 <ActionIcon aria-label={t`Price Liquidation Scenario`}>
                   <FiAlertTriangle size={18} />
@@ -104,20 +104,19 @@ export const LiquidationScenario = ({
               <Popover.Dropdown>
                 <Trans>
                   <Text size="sm">
-                    The price liquidation scenario represents supplied asset
-                    prices slightly greater than the prices that could subject
-                    the position to liquidation. Stable assets are not included
-                    in this scenario and are assumed to maintain their present
-                    value. Many factors affect liquidation. This scenario is
-                    only one example for reference. Many different scenarios can
-                    trigger liquidation.
+                    This scenario shows one set of supplied-asset price drops
+                    that would bring the position to its liquidation threshold,
+                    with stable assets held at their present value. Treat it as
+                    illustrative, not predictive: liquidation risk also shifts
+                    with interest accruing over time, oracle prices, and risk
+                    parameters that Aave governance can change at any time.
                     <a
-                      href="https://docs.aave.com/faq/liquidations"
+                      href="https://aave.com/help/borrowing/liquidations"
                       target="_blank"
                       rel="noreferrer"
                       style={{ color: "var(--mantine-color-dark-0)" }}
                     >
-                      {" Read more here"}
+                      {" Learn more about health factor & liquidations"}
                     </a>
                     .
                   </Text>

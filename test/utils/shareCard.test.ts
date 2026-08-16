@@ -442,6 +442,10 @@ describe("infinite health factor handling", () => {
     expect(toStoredHf(1.84)).toBe(1.84);
   });
 
+  it("treats the -1 no-debt convention as infinite", () => {
+    expect(toStoredHf(-1)).toBe(HF_INFINITY_SENTINEL);
+  });
+
   it("renders the sentinel and Infinity as ∞", () => {
     expect(fmtHf(HF_INFINITY_SENTINEL)).toBe("∞");
     expect(fmtHf(Infinity)).toBe("∞");
@@ -456,33 +460,50 @@ describe("infinite health factor handling", () => {
 });
 
 describe("share copy helpers", () => {
-  it("builds a position title with compact borrowing power", () => {
+  it("builds an address-first position title with compact borrowing power", () => {
     const title = getShareTitle(positionCard, en);
-    expect(title).toBe("HF 1.84 with $2.1M borrowing power");
+    expect(title).toBe(
+      "0x1111…1111 on Aave: HF 1.84 with $2.1M borrowing power",
+    );
   });
 
   it("marks simulated position titles", () => {
     const title = getShareTitle({ ...positionCard, sim: true }, en);
-    expect(title).toMatch(/^Simulated: /);
+    expect(title).toBe(
+      "0x1111…1111 simulated on Aave: HF 1.84 with $2.1M borrowing power",
+    );
   });
 
-  it("builds a liquidation title from the drops", () => {
+  it("builds a terse if/then liquidation title from the drops", () => {
     const title = getShareTitle(liqCard, en);
-    expect(title).toBe("Liquidated if WBTC → $41.2K and WETH → $1.9K");
+    expect(title).toBe(
+      "0x1111…1111 on Aave: if WBTC drops to $41.2K, WETH drops to $1.9K, then liquidation",
+    );
   });
 
-  it("builds an interest title with a since date", () => {
+  it("notes overflow drops in the liquidation title", () => {
+    const card = {
+      ...liqCard,
+      drops: [...liqCard.drops, { s: "LINK", from: 20, to: 9, pct: -55 }],
+    };
+    expect(getShareTitle(card, en)).toContain("(+1 more)");
+  });
+
+  it("builds an interest title with the address and a since date", () => {
     const title = getShareTitle(interestCard, en);
-    expect(title).toBe("+$12,482 net Aave interest since Jan 2024");
+    expect(title).toBe(
+      "0x1111…1111: +$12,482 net Aave interest since Jan 2024",
+    );
   });
 
-  it("describes liquidation with percentages and HF path", () => {
+  it("describes liquidation tersely with the HF path and the scenario caveat", () => {
     const description = getShareDescription(liqCard, en);
-    expect(description).toContain("WBTC drops 37% to $41,200");
-    expect(description).toContain("WETH drops 42% to $1,850");
-    expect(description).toContain("HF 1.24 → 1.00");
+    expect(description).toContain("HF 1.24 → 1.00 if");
+    expect(description).toContain("WBTC −37% → $41,200");
+    expect(description).toContain("WETH −42% → $1,850");
     expect(description).toContain("Simulated position");
-    expect(description).toContain("Ethereum v3");
+    expect(description).toContain("Aave Ethereum v3");
+    expect(description).toContain("One scenario of many");
   });
 
   it("abbreviates 0x addresses in descriptions", () => {
@@ -494,6 +515,9 @@ describe("share copy helpers", () => {
     expect(getShareTweet(interestCard, en)).toContain(
       "+$12,482 net Aave interest",
     );
-    expect(getShareTweet(liqCard, en)).toContain("could be liquidated");
+    const liqTweet = getShareTweet(liqCard, en);
+    expect(liqTweet).toContain("then liquidation");
+    expect(liqTweet).toContain("HF 1.24 → 1.00");
+    expect(liqTweet).toContain("One scenario of many");
   });
 });
