@@ -14,7 +14,7 @@ import { Trans } from "@lingui/react/macro";
 import { t } from "@lingui/core/macro";
 
 import { markets } from "../hooks/useAaveData";
-import { getSiteUrl, OG_TEMPLATE_VERSION } from "../utils/shareCard";
+import { getOgImageUrlForAddress, getSiteUrl } from "../utils/shareCard";
 import { loadServerI18n } from "../utils/serverI18n";
 
 type ShareFallbackProps = {
@@ -54,27 +54,26 @@ export const getServerSideProps: GetServerSideProps<
         i18n,
       )`Simulate this Aave position: health factor, liquidation scenarios, and on-chain interest.`;
 
-  const imageParams = new URLSearchParams({ tv: String(OG_TEMPLATE_VERSION) });
-  if (safeAddress) imageParams.set("a", safeAddress);
-  if (locale !== "en") imageParams.set("locale", locale);
-
   const canonicalParams = new URLSearchParams();
   if (safeAddress) canonicalParams.set("address", safeAddress);
   if (market) canonicalParams.set("market", market.id);
   const localePrefix = locale !== "en" ? `/${locale}` : "";
   const canonicalPath = `${localePrefix}${from === "/" ? "" : from}`;
 
-  ctx.res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=86400, stale-while-revalidate=604800",
-  );
+  // Never publicly cache this response: it's served under the rewritten
+  // app URL (`/` or `/interest`) and Netlify's edge cache key ignores the
+  // ?address= query param — a public entry here would poison the homepage
+  // for regular visitors. The render is zero-RPC, so recomputing is cheap.
+  ctx.res.setHeader("Cache-Control", "private, no-store");
 
   return {
     props: {
       meta: {
         title,
         description,
-        imageUrl: `${getSiteUrl()}/api/og?${imageParams.toString()}`,
+        imageUrl: safeAddress
+          ? getOgImageUrlForAddress(safeAddress, locale)
+          : `${getSiteUrl()}/api/og`,
         canonicalUrl: `${getSiteUrl()}${canonicalPath}/?${canonicalParams.toString()}`,
       },
       appHref: `${from}?${canonicalParams.toString()}`,

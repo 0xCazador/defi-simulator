@@ -84,9 +84,9 @@ jest.mock("@lingui/core/macro", () => ({
   },
 }));
 
-import handler from "../../pages/api/og";
+import handler from "../../pages/api/og/[[...slug]]";
 import shareHandler from "../../pages/api/share";
-import { encodeInlinePayload, SharePayload } from "../../utils/shareCard";
+import { encodeInlineCard, SharePayload } from "../../utils/shareCard";
 
 const PNG_SIGNATURE = Buffer.from([
   0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a,
@@ -98,7 +98,7 @@ type MockRes = {
   body: any;
 };
 
-const invokeOg = async (query: Record<string, string>): Promise<MockRes> => {
+const invokeOg = async (slug?: string[]): Promise<MockRes> => {
   const res = {
     statusCode: 0,
     headers: {} as Record<string, string>,
@@ -122,11 +122,19 @@ const invokeOg = async (query: Record<string, string>): Promise<MockRes> => {
     },
   };
   await handler(
-    { query, headers: {} } as unknown as NextApiRequest,
+    { query: { slug }, headers: {} } as unknown as NextApiRequest,
     res as unknown as NextApiResponse,
   );
   return res;
 };
+
+/** Path segments as the app builds them: /api/og/{tv}/{locale}/{kind}/{v}.png */
+const ogSlug = (kind: "id" | "c" | "a", value: string, locale = "en") => [
+  "1",
+  locale,
+  kind,
+  `${value}.png`,
+];
 
 /** Read PNG dimensions straight from the IHDR chunk. */
 const pngSize = (buffer: Buffer) => ({
@@ -164,13 +172,13 @@ describe("/api/og", () => {
   jest.setTimeout(30_000);
 
   it("renders the branded default card with immutable caching", async () => {
-    const res = await invokeOg({});
+    const res = await invokeOg(undefined);
     expectFullSizePng(res);
     expect(res.headers["cache-control"]).toContain("immutable");
   });
 
   it("renders a liquidation card from an inline payload", async () => {
-    const res = await invokeOg({ card: encodeInlinePayload(liqPayload) });
+    const res = await invokeOg(ogSlug("c", encodeInlineCard(liqPayload.card)));
     expectFullSizePng(res);
   });
 
@@ -194,7 +202,7 @@ describe("/api/og", () => {
         ],
       },
     };
-    const res = await invokeOg({ card: encodeInlinePayload(payload) });
+    const res = await invokeOg(ogSlug("c", encodeInlineCard(payload.card)));
     expectFullSizePng(res);
   });
 
@@ -244,35 +252,41 @@ describe("/api/og", () => {
     expect(mintRes.statusCode).toBe(200);
     expect(mintRes.body.id).toBeTruthy();
 
-    const res = await invokeOg({ id: mintRes.body.id });
+    const res = await invokeOg(ogSlug("id", mintRes.body.id));
     expectFullSizePng(res);
   });
 
   it("falls back to the default card for unknown ids (never 500)", async () => {
-    const res = await invokeOg({ id: "zzzzzzzzzz" });
+    const res = await invokeOg(ogSlug("id", "zzzzzzzzzz"));
     expectFullSizePng(res);
   });
 
   it("falls back to the default card for corrupt inline payloads", async () => {
-    const res = await invokeOg({ card: "!!!corrupt!!!" });
+    const res = await invokeOg(ogSlug("c", "!!!corrupt!!!"));
+    expectFullSizePng(res);
+  });
+
+  it("falls back to the default card for malformed paths", async () => {
+    const res = await invokeOg(["1", "en", "bogus"]);
     expectFullSizePng(res);
   });
 
   it("renders the address-only variant for pasted URLs", async () => {
-    const res = await invokeOg({ a: "stani.eth" });
+    const res = await invokeOg(ogSlug("a", "stani.eth"));
     expectFullSizePng(res);
   });
 
   it("ignores hostile address input on the address-only variant", async () => {
-    const res = await invokeOg({ a: "<script>alert(1)</script>" });
+    const res = await invokeOg(
+      ogSlug("a", encodeURIComponent("<script>alert(1)</script>")),
+    );
     expectFullSizePng(res);
   });
 
   it("renders localized cards for a non-default locale", async () => {
-    const res = await invokeOg({
-      card: encodeInlinePayload(liqPayload),
-      locale: "es",
-    });
+    const res = await invokeOg(
+      ogSlug("c", encodeInlineCard(liqPayload.card), "es"),
+    );
     expectFullSizePng(res);
   });
 });

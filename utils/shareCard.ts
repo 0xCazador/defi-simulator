@@ -312,6 +312,11 @@ export const encodeInlinePayload = (payload: SharePayload): string =>
     .replace(/\//g, "_")
     .replace(/=+$/, "");
 
+/** Card-only encoding for the inline OG image URL. The image renders from
+ * the card alone; leaving simOps/expect out keeps the path segment short. */
+export const encodeInlineCard = (card: ShareCard): string =>
+  encodeInlinePayload({ card });
+
 /** Decode + validate an inline `?card=` value. Null on any malformation. */
 export const decodeInlinePayload = (encoded: string): SharePayload | null => {
   try {
@@ -750,11 +755,16 @@ export const getShareTweet = (card: ShareCard, i18n: I18n): string => {
 // URL helpers
 // ---------------------------------------------------------------------------
 
-export const getSiteUrl = (): string =>
-  (process.env.NEXT_PUBLIC_SITE_URL || "https://defisim.xyz").replace(
-    /\/$/,
-    "",
-  );
+export const getSiteUrl = (): string => {
+  if (process.env.NEXT_PUBLIC_SITE_URL)
+    return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
+  // In the browser, prefer the actual origin: production resolves to the
+  // canonical domain anyway, while localhost/deploy previews mint links that
+  // really work there (a prod URL for a locally-stored blob resolves to
+  // nothing when pasted elsewhere).
+  if (typeof window !== "undefined") return window.location.origin;
+  return "https://defisim.xyz";
+};
 
 /** Absolute share URL for a minted snapshot, locale-prefixed when non-en. */
 export const getShareUrl = (id: string, locale?: string): string => {
@@ -768,22 +778,28 @@ export const getShareUrlInline = (encoded: string, locale?: string): string => {
   return `${getSiteUrl()}${prefix}/s/inline?card=${encoded}`;
 };
 
-/** Absolute OG image URL for a snapshot (locale + template version keyed). */
-export const getOgImageUrl = (id: string, locale?: string): string => {
-  const params = new URLSearchParams({ id, tv: String(OG_TEMPLATE_VERSION) });
-  if (locale && locale !== "en") params.set("locale", locale);
-  return `${getSiteUrl()}/api/og?${params.toString()}`;
-};
+/**
+ * OG image URLs carry every variant (template version, locale, payload
+ * reference) in the PATH, never the query string: Netlify's Next runtime
+ * pins the edge cache key to the path + internal Next params only
+ * (`Netlify-Vary: query=__nextDataReq|_rsc`), so query-varied images would
+ * all collapse into one year-long immutable cache entry.
+ *
+ * Shape: /api/og/{templateVersion}/{locale}/{kind}/{value}.png
+ */
+const ogImagePath = (kind: "id" | "a" | "c", value: string, locale?: string) =>
+  `${getSiteUrl()}/api/og/${OG_TEMPLATE_VERSION}/${locale || "en"}/${kind}/${value}.png`;
 
-/** OG image URL for the inline-payload fallback form. */
-export const getOgImageUrlInline = (
-  encoded: string,
+/** Absolute OG image URL for a minted snapshot. */
+export const getOgImageUrl = (id: string, locale?: string): string =>
+  ogImagePath("id", id, locale);
+
+/** OG image URL for the inline fallback: the card rides in the path. */
+export const getOgImageUrlInline = (card: ShareCard, locale?: string): string =>
+  ogImagePath("c", encodeInlineCard(card), locale);
+
+/** OG image URL for the crawler-rewritten pasted-URL card (address only). */
+export const getOgImageUrlForAddress = (
+  address: string,
   locale?: string,
-): string => {
-  const params = new URLSearchParams({
-    card: encoded,
-    tv: String(OG_TEMPLATE_VERSION),
-  });
-  if (locale && locale !== "en") params.set("locale", locale);
-  return `${getSiteUrl()}/api/og?${params.toString()}`;
-};
+): string => ogImagePath("a", encodeURIComponent(address), locale);

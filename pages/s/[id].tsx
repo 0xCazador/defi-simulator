@@ -78,11 +78,19 @@ export const getServerSideProps: GetServerSideProps<SharePageProps> = async (
 
   const i18n = await loadServerI18n(locale);
 
-  // Snapshots are immutable, so crawler/CDN caching is safe and aggressive.
-  ctx.res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=86400, stale-while-revalidate=604800",
-  );
+  // Snapshots are immutable, so minted /s/{id} pages cache aggressively at
+  // the CDN — the id is in the path, which is the cache key. Inline shares
+  // (/s/inline?card=…) must NOT be publicly cached: Netlify's edge ignores
+  // custom query params in its cache key, so one inline share would be
+  // served for all of them. Same for misses, which shouldn't stick for a day.
+  if (shareId) {
+    ctx.res.setHeader(
+      "Cache-Control",
+      "public, s-maxage=86400, stale-while-revalidate=604800",
+    );
+  } else {
+    ctx.res.setHeader("Cache-Control", "private, no-store");
+  }
 
   if (!payload) {
     return {
@@ -105,7 +113,7 @@ export const getServerSideProps: GetServerSideProps<SharePageProps> = async (
     description: getShareDescription(payload.card, i18n),
     imageUrl: shareId
       ? getOgImageUrl(shareId, locale)
-      : getOgImageUrlInline(inline!, locale),
+      : getOgImageUrlInline(payload.card, locale),
     url: shareId
       ? getShareUrl(shareId, locale)
       : getShareUrlInline(inline!, locale),

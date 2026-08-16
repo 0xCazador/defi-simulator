@@ -90,7 +90,7 @@ export default function ShareButton({ buildPayload, label }: ShareButtonProps) {
         const encoded = encodeInlinePayload(payload);
         setLinks({
           url: getShareUrlInline(encoded, locale),
-          imageUrl: getOgImageUrlInline(encoded, locale),
+          imageUrl: getOgImageUrlInline(payload.card, locale),
           tweet,
         });
       }

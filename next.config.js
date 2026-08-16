@@ -13,7 +13,7 @@ module.exports = withBundleAnalyzer({
   // The OG image function reads fonts and icon SVGs from disk at request
   // time; make sure file tracing bundles them into the serverless function.
   outputFileTracingIncludes: {
-    "/api/og": ["./public/fonts/**", "./public/icons/**"],
+    "/api/og/[[...slug]]": ["./public/fonts/**", "./public/icons/**"],
   },
   productionBrowserSourceMaps: true,
   webpack: (config) => {

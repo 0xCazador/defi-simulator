@@ -1,15 +1,26 @@
 /**
- * OG image endpoint: renders a 1200×630 PNG for a share snapshot (?id= or
- * inline ?card=), an address-only card for crawler-rewritten pasted URLs
- * (?a=), or the branded default card (no params).
+ * OG image endpoint: renders a 1200×630 PNG for a share snapshot, an
+ * address-only card for crawler-rewritten pasted URLs, or the branded
+ * default card.
+ *
+ * URL shape: /api/og/{templateVersion}/{locale}/{kind}/{value}.png
+ *   kind "id" — minted snapshot id (blob store)
+ *   kind "c"  — inline base64url card (blob store was unavailable at mint)
+ *   kind "a"  — address-only card for pasted app URLs
+ * Bare /api/og renders the default card.
+ *
+ * Every variant lives in the PATH on purpose: Netlify's Next runtime keys
+ * the edge cache on the path plus internal Next query params only
+ * (`Netlify-Vary: query=__nextDataReq|_rsc`), so query-string variants
+ * would all collapse into a single year-long immutable cache entry.
  *
  * Contract:
  * - Never 500s: any failure (unknown ID, corrupt payload, font/icon problem)
  *   renders the branded default card with HTTP 200. Crawlers must never see
  *   a broken image.
- * - Zero RPC: everything renders from the stored payload / query params.
+ * - Zero RPC: everything renders from the stored payload / path params.
  * - Immutable caching: content is addressed by id + locale + template
- *   version, all of which live in the URL (the CDN cache key).
+ *   version, all of which live in the URL path (the CDN cache key).
  *
  * Node runtime on purpose (this repo compiles with Babel; Edge + wasm on
  * Netlify is the classic footgun). Rendering is milliseconds.
@@ -27,11 +38,11 @@ import {
   OgIcons,
   renderCard,
   renderDefaultCard,
-} from "../../utils/ogCard";
-import { SharePayload, decodeInlinePayload } from "../../utils/shareCard";
-import { getShare } from "../../utils/shareStore";
-import { loadServerI18n } from "../../utils/serverI18n";
-import { getTokenIconName } from "../../components/TokenIcon";
+} from "../../../utils/ogCard";
+import { SharePayload, decodeInlinePayload } from "../../../utils/shareCard";
+import { getShare } from "../../../utils/shareStore";
+import { loadServerI18n } from "../../../utils/serverI18n";
+import { getTokenIconName } from "../../../components/TokenIcon";
 
 const PUBLIC_DIR = path.join(process.cwd(), "public");
 const FONTS_DIR = path.join(PUBLIC_DIR, "fonts");
@@ -155,15 +166,35 @@ const resolveIcons = async (payload: SharePayload): Promise<OgIcons> => {
   return icons;
 };
 
-const firstString = (
-  value: string | string[] | undefined,
-): string | undefined => (Array.isArray(value) ? value[0] : value);
-
 /** Address text on the address-only card is user-controlled; keep it tame. */
 const sanitizeAddress = (value: string | undefined): string | undefined => {
   if (!value) return undefined;
   const trimmed = value.trim().slice(0, 60);
   return /^[\w.\-…]+$/.test(trimmed) ? trimmed : undefined;
+};
+
+type OgRequest = {
+  locale: string;
+  kind: "default" | "id" | "c" | "a";
+  value?: string;
+};
+
+/**
+ * Parse /api/og/{tv}/{locale}/{kind}/{value}.png path segments. The template
+ * version segment only exists to bust CDN entries across redesigns; its
+ * value is not otherwise meaningful. Malformed paths render the default
+ * card (never an error).
+ */
+const parseSlug = (slug: string | string[] | undefined): OgRequest => {
+  const segments = typeof slug === "string" ? [slug] : (slug ?? []);
+  if (segments.length === 0) return { locale: "en", kind: "default" };
+  if (segments.length !== 4) return { locale: "en", kind: "default" };
+  const [, locale, kind, rawValue] = segments;
+  const value = rawValue.replace(/\.png$/, "");
+  if ((kind === "id" || kind === "c" || kind === "a") && value) {
+    return { locale, kind, value };
+  }
+  return { locale, kind: "default" };
 };
 
 const sendPng = async (
@@ -186,19 +217,17 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   let i18n: I18n | null = null;
   let fonts: OgFont[] = [];
   try {
-    const id = firstString(_req.query.id);
-    const inline = firstString(_req.query.card);
-    const address = sanitizeAddress(firstString(_req.query.a));
-    const requestedLocale = firstString(_req.query.locale) ?? "en";
+    const request = parseSlug(_req.query.slug);
 
     const { fonts: resolvedFonts, effectiveLocale } =
-      await resolveFontsAndLocale(requestedLocale);
+      await resolveFontsAndLocale(request.locale);
     fonts = resolvedFonts;
     i18n = await loadServerI18n(effectiveLocale);
 
     let payload: SharePayload | null = null;
-    if (id) payload = await getShare(id);
-    else if (inline) payload = decodeInlinePayload(inline);
+    if (request.kind === "id") payload = await getShare(request.value);
+    else if (request.kind === "c")
+      payload = decodeInlinePayload(request.value!);
 
     if (payload) {
       const icons = await resolveIcons(payload);
@@ -206,6 +235,10 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
       return;
     }
 
+    const address =
+      request.kind === "a"
+        ? sanitizeAddress(decodeURIComponent(request.value!))
+        : undefined;
     await sendPng(res, renderDefaultCard(i18n, { address }), fonts);
   } catch (err) {
     console.error("OG render failed, serving default card:", err);
