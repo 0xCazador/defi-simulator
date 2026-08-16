@@ -10,6 +10,7 @@ import {
   Image,
   Loader,
   Popover,
+  Skeleton,
   Text,
   Tooltip,
 } from "@mantine/core";
@@ -55,6 +56,9 @@ export default function ShareButton({ buildPayload, label }: ShareButtonProps) {
   const [links, setLinks] = useState<ShareLinks | null>(null);
   const [isMinting, setIsMinting] = useState(false);
   const [error, setError] = useState(false);
+  // The OG PNG is rendered on demand and can take a few seconds; a skeleton
+  // holds its place until the browser has decoded it.
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const locale = router.locale ?? "en";
 
@@ -156,6 +160,16 @@ export default function ShareButton({ buildPayload, label }: ShareButtonProps) {
         )}
         {!error && links && (
           <>
+            {!imageLoaded && (
+              <Skeleton
+                radius="sm"
+                mb="xs"
+                w="100%"
+                /* reserve the OG image's 1200×630 footprint so the popover
+                   doesn't jump when the real image swaps in */
+                style={{ aspectRatio: "1200 / 630", height: "auto" }}
+              />
+            )}
             <Image
               /* same-origin path so the preview also renders on localhost
                  and deploy previews; the OG meta keeps the absolute URL */
@@ -164,6 +178,9 @@ export default function ShareButton({ buildPayload, label }: ShareButtonProps) {
               radius="sm"
               mb="xs"
               w="100%"
+              onLoad={() => setImageLoaded(true)}
+              onError={() => setImageLoaded(true)}
+              style={imageLoaded ? undefined : { display: "none" }}
             />
             <Text size="xs" c="dimmed" mb="xs" truncate>
               {links.url}

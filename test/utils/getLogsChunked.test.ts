@@ -57,10 +57,10 @@ describe("getLogsChunked", () => {
   });
 
   it("bisects the range on a cap error and returns the complete set", async () => {
-    // 30 logs spread over blocks 0..2999 with a cap of 10 forces recursive splits
-    const blocks = Array.from({ length: 30 }, (_, i) => i * 100);
+    // 30 logs spread over 3M blocks with a cap of 10 forces recursive splits
+    const blocks = Array.from({ length: 30 }, (_, i) => i * 100_000);
     const provider = makeProvider(blocks, 10);
-    const logs = await getLogsChunked(provider, FILTER, 0, 2999);
+    const logs = await getLogsChunked(provider, FILTER, 0, 2_999_999);
     expect(logs.map((l) => l.blockNumber)).toEqual(blocks);
     expect(provider.calls.length).toBeGreaterThan(1);
   });
@@ -77,13 +77,27 @@ describe("getLogsChunked", () => {
   });
 
   it("gives up once the call budget is exhausted", async () => {
-    // every block has a log and the cap is 1, so chunking can never succeed
-    const blocks = Array.from({ length: 1000 }, (_, i) => i);
-    const provider = makeProvider(blocks, 1);
+    // logs every 100 blocks over 10M blocks with a cap of 10: every window
+    // down to the safe range still exceeds the cap, so the tree outlives a
+    // small budget long before splitting bottoms out
+    const blocks = Array.from({ length: 100_000 }, (_, i) => i * 100);
+    const provider = makeProvider(blocks, 10);
     await expect(
-      getLogsChunked(provider, FILTER, 0, 999, { calls: 20 }),
+      getLogsChunked(provider, FILTER, 0, 9_999_999, { calls: 6 }),
     ).rejects.toThrow(/response size/i);
-    expect(provider.calls.length).toBeLessThanOrEqual(21);
+    expect(provider.calls.length).toBeLessThanOrEqual(7);
+  });
+
+  it("rethrows instead of splitting below the provider's safe range", async () => {
+    // A cap error on a <=10k-block window cannot be fixed by splitting
+    // (providers serve any response size at that range), so it propagates
+    // after a single call rather than recursing to tiny windows.
+    const blocks = Array.from({ length: 100 }, (_, i) => i * 10);
+    const provider = makeProvider(blocks, 10);
+    await expect(getLogsChunked(provider, FILTER, 0, 9_999)).rejects.toThrow(
+      /response size/i,
+    );
+    expect(provider.calls.length).toBe(1);
   });
 });
 

@@ -6,6 +6,12 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 
 module.exports = withBundleAnalyzer({
   reactStrictMode: false,
+  // The dev static-route indicator crashes on load: the HMR socket can
+  // deliver its isrManifest message before window.next.router exists, and
+  // handleStaticIndicator dereferences it unguarded ("[HMR] Invalid message"
+  // + TypeError in the console). Disabling the indicator compiles that code
+  // path out; error overlays are unaffected.
+  devIndicators: false,
   i18n: {
     locales: linguiConfig.locales,
     defaultLocale: "en",

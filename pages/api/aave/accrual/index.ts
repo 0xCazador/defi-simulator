@@ -49,14 +49,22 @@ export type { AccrualSide };
 const LOG_CAP_ERROR =
   /response size exceeded|more than 10000 results|10K logs|query returned more than/i;
 
+/** Alchemy serves any number of logs when the queried range is at most 10k
+ * blocks, so bisection never needs to descend below this window: a cap error
+ * on a smaller range cannot be fixed by splitting further. */
+const SAFE_RANGE = 10_000;
+
 type LogSource = {
   getLogs(filter: ethers.providers.Filter): Promise<ethers.providers.Log[]>;
 };
 
 /**
  * getLogs that survives the provider's response-size cap: on a cap error the
- * block range is bisected and both halves fetched, recursively. Hyperactive
- * addresses (10k+ events on one token) resolve in a handful of extra calls.
+ * block range is bisected and both halves fetched, recursively, stopping at
+ * `SAFE_RANGE` windows the provider guarantees to serve. Halves are fetched
+ * sequentially — hyperactive addresses (bots with 10k+ events on one token)
+ * produce deep trees, and a parallel burst trips the provider's request
+ * throttling, which ethers retries with silent multi-minute backoffs.
  * The budget guards against unbounded recursion; other errors are rethrown.
  */
 export const getLogsChunked = async (
@@ -64,7 +72,7 @@ export const getLogsChunked = async (
   filter: { address: string; topics: (string | null)[] },
   fromBlock: number,
   toBlock: number,
-  budget: { calls: number } = { calls: 50 },
+  budget: { calls: number } = { calls: 150 },
 ): Promise<ethers.providers.Log[]> => {
   budget.calls -= 1;
   try {
@@ -76,14 +84,12 @@ export const getLogsChunked = async (
     if (
       !LOG_CAP_ERROR.test(text) ||
       budget.calls <= 0 ||
-      toBlock - fromBlock < 2
+      toBlock - fromBlock < SAFE_RANGE
     )
       throw err;
     const mid = fromBlock + Math.floor((toBlock - fromBlock) / 2);
-    const [lower, upper] = await Promise.all([
-      getLogsChunked(provider, filter, fromBlock, mid, budget),
-      getLogsChunked(provider, filter, mid + 1, toBlock, budget),
-    ]);
+    const lower = await getLogsChunked(provider, filter, fromBlock, mid, budget);
+    const upper = await getLogsChunked(provider, filter, mid + 1, toBlock, budget);
     return [...lower, ...upper];
   }
 };
@@ -225,6 +231,12 @@ export type AccrualResponse = {
   pendingValue?: string;
 };
 
+/** Timestamps cost one getBlock call per unique block. Hyperactive addresses
+ * (bots) touch tens of thousands of blocks, which would dwarf the log scan
+ * itself and trip provider throttling, so only the earliest blocks get dated
+ * — the ledger shows "—" for the rest and the interest math is unaffected. */
+const MAX_TIMESTAMP_LOOKUPS = 2_000;
+
 /**
  * Resolve block timestamps for the given block numbers with a bounded number
  * of concurrent RPC requests. Positions rarely span more than a few dozen
@@ -235,7 +247,9 @@ const resolveBlockTimestamps = async (
   blockNumbers: number[],
   concurrency: number = 8,
 ): Promise<Map<number, number>> => {
-  const unique = [...new Set(blockNumbers)];
+  const unique = [...new Set(blockNumbers)]
+    .sort((a, b) => a - b)
+    .slice(0, MAX_TIMESTAMP_LOOKUPS);
   const timestamps = new Map<number, number>();
   let next = 0;
   const worker = async () => {
@@ -297,7 +311,35 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export const getAccrualData = async (
+/** Bound on one position's scan. A stalled RPC (providers throttle bursts and
+ * ethers retries with silent, exponentially growing backoffs) would otherwise
+ * leave callers pending forever. */
+const SCAN_TIMEOUT_MS = 180_000;
+
+const withScanTimeout = <T>(work: Promise<T>): Promise<T> =>
+  new Promise<T>((resolve, reject) => {
+    const timer = setTimeout(
+      () =>
+        reject(
+          new Error(
+            "Interest scan timed out. This address may have too much on-chain history.",
+          ),
+        ),
+      SCAN_TIMEOUT_MS,
+    );
+    work.then(resolve, reject).finally(() => clearTimeout(timer));
+  });
+
+export const getAccrualData = (
+  market: AaveMarketDataType,
+  user: string,
+  tokenAddress: string,
+  side: AccrualSide,
+  includeLedger: boolean = false,
+): Promise<AccrualResponse> =>
+  withScanTimeout(scanAccrualData(market, user, tokenAddress, side, includeLedger));
+
+const scanAccrualData = async (
   market: AaveMarketDataType,
   user: string,
   tokenAddress: string,
