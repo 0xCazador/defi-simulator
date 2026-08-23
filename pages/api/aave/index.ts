@@ -39,6 +39,10 @@ import {
   getUserReservesHumanizedV37,
 } from "../../../utils/uiPoolDataProviderV37";
 import { getV4MarketData } from "../../../utils/spokeDataProviderV4";
+import {
+  isMeaningfulFetchedBorrow,
+  isMeaningfulFetchedSupply,
+} from "../../../utils/minPositionUsd";
 
 const allowedMethods = ["POST", "OPTIONS"];
 
@@ -512,12 +516,10 @@ const aaveUserSummaryToHealthFactor = (
       userSummary?.currentLiquidationThreshold,
     ),
     currentLoanToValue: Number(userSummary?.currentLoanToValue),
+    // Dust under $1 is dropped here so every consumer (UI, HF, interest,
+    // share cards) sees the same position set. Simulated edits are not filtered.
     userReservesData: userSummary?.userReservesData
-      ?.filter(
-        (reserveItem) =>
-          reserveItem?.underlyingBalance &&
-          reserveItem.underlyingBalance !== "0",
-      )
+      ?.filter(isMeaningfulFetchedSupply)
       .map((reserveItem) => {
         const item: ReserveAssetDataItem = {
           asset: getAssetDetailsFromReserveItem(reserveItem),
@@ -532,10 +534,7 @@ const aaveUserSummaryToHealthFactor = (
         return item;
       }),
     userBorrowsData: userSummary?.userReservesData
-      ?.filter(
-        (reserveItem) =>
-          reserveItem?.totalBorrows && reserveItem.totalBorrows !== "0",
-      )
+      ?.filter(isMeaningfulFetchedBorrow)
       .map((reserveItem) => {
         const item: BorrowedAssetDataItem = {
           asset: getAssetDetailsFromReserveItem(reserveItem),
