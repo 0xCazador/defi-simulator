@@ -2,6 +2,7 @@ import { ethers } from "ethers";
 import {
   EMODE_SCAN_BATCH_SIZE,
   fetchEModeCategories,
+  fetchEModeCategory,
   formatEModeLabel,
   isReserveInBitmap,
   resolveEffectiveRiskParams,
@@ -21,6 +22,35 @@ jest.mock("ethers", () => {
 });
 
 const mockContract = ethers.Contract as unknown as jest.Mock;
+
+type MockCategory = {
+  ltv: number;
+  liquidationThreshold: number;
+  label?: string;
+  collateralBitmap?: string;
+  borrowableBitmap?: string;
+};
+
+// Unconfigured category ids return zeroed config structs on-chain (they
+// don't revert), which the scanner treats as a miss.
+const makePool = (categories: Record<number, MockCategory>) => ({
+  getEModeCategoryCollateralConfig: jest.fn(async (id: number) => ({
+    ltv: categories[id]?.ltv ?? 0,
+    liquidationThreshold: categories[id]?.liquidationThreshold ?? 0,
+    liquidationBonus: 0,
+  })),
+  getEModeCategoryLabel: jest.fn(
+    async (id: number) => categories[id]?.label ?? "",
+  ),
+  getEModeCategoryCollateralBitmap: jest.fn(async (id: number) =>
+    BigInt(categories[id]?.collateralBitmap ?? "0"),
+  ),
+  getEModeCategoryBorrowableBitmap: jest.fn(async (id: number) =>
+    BigInt(categories[id]?.borrowableBitmap ?? "0"),
+  ),
+});
+
+const provider = {} as any;
 
 describe("formatEModeLabel", () => {
   it("returns empty string for missing labels", () => {
@@ -53,36 +83,80 @@ describe("formatEModeLabel", () => {
   });
 });
 
-describe("fetchEModeCategories", () => {
-  type MockCategory = {
-    ltv: number;
-    liquidationThreshold: number;
-    label?: string;
-    collateralBitmap?: string;
-    borrowableBitmap?: string;
-  };
-
-  // Unconfigured category ids return zeroed config structs on-chain (they
-  // don't revert), which the scanner treats as a miss.
-  const makePool = (categories: Record<number, MockCategory>) => ({
-    getEModeCategoryCollateralConfig: jest.fn(async (id: number) => ({
-      ltv: categories[id]?.ltv ?? 0,
-      liquidationThreshold: categories[id]?.liquidationThreshold ?? 0,
-      liquidationBonus: 0,
-    })),
-    getEModeCategoryLabel: jest.fn(
-      async (id: number) => categories[id]?.label ?? "",
-    ),
-    getEModeCategoryCollateralBitmap: jest.fn(async (id: number) =>
-      BigInt(categories[id]?.collateralBitmap ?? "0"),
-    ),
-    getEModeCategoryBorrowableBitmap: jest.fn(async (id: number) =>
-      BigInt(categories[id]?.borrowableBitmap ?? "0"),
-    ),
+describe("fetchEModeCategory", () => {
+  beforeEach(() => {
+    mockContract.mockReset();
   });
 
-  const provider = {} as any;
+  it("fetches only the requested category", async () => {
+    const pool = makePool({
+      1: { ltv: 9300, liquidationThreshold: 9500, label: "ETH correlated" },
+      2: {
+        ltv: 9000,
+        liquidationThreshold: 9200,
+        label: "Stablecoins",
+        collateralBitmap: "264",
+        borrowableBitmap: "8",
+      },
+      3: { ltv: 8500, liquidationThreshold: 8800, label: "LST" },
+    });
+    mockContract.mockImplementation(() => pool);
 
+    const category = await fetchEModeCategory(provider, "0xpool", 2);
+
+    expect(category).toEqual({
+      id: 2,
+      label: "Stablecoins",
+      ltv: 9000,
+      liquidationThreshold: 9200,
+      collateralBitmap: "264",
+      borrowableBitmap: "8",
+    });
+    // The whole point of this path: no probing of the other categories.
+    expect(pool.getEModeCategoryCollateralConfig).toHaveBeenCalledTimes(1);
+    expect(pool.getEModeCategoryCollateralConfig).toHaveBeenCalledWith(2);
+  });
+
+  it("makes no calls at all for category id 0 (user not in an eMode)", async () => {
+    const pool = makePool({ 1: { ltv: 9300, liquidationThreshold: 9500 } });
+    mockContract.mockImplementation(() => pool);
+
+    expect(await fetchEModeCategory(provider, "0xpool", 0)).toBeNull();
+    expect(pool.getEModeCategoryCollateralConfig).not.toHaveBeenCalled();
+  });
+
+  it("returns null for an unconfigured category", async () => {
+    const pool = makePool({});
+    mockContract.mockImplementation(() => pool);
+
+    expect(await fetchEModeCategory(provider, "0xpool", 7)).toBeNull();
+  });
+
+  it("returns null when the config call reverts", async () => {
+    const pool = makePool({});
+    pool.getEModeCategoryCollateralConfig.mockRejectedValue(
+      new Error("execution reverted"),
+    );
+    mockContract.mockImplementation(() => pool);
+
+    expect(await fetchEModeCategory(provider, "0xpool", 1)).toBeNull();
+  });
+
+  it("tolerates label fetch failures", async () => {
+    const pool = makePool({
+      1: { ltv: 9300, liquidationThreshold: 9500, collateralBitmap: "3" },
+    });
+    pool.getEModeCategoryLabel.mockRejectedValue(new Error("no label getter"));
+    mockContract.mockImplementation(() => pool);
+
+    const category = await fetchEModeCategory(provider, "0xpool", 1);
+
+    expect(category?.label).toBe("");
+    expect(category?.collateralBitmap).toBe("3");
+  });
+});
+
+describe("fetchEModeCategories", () => {
   beforeEach(() => {
     mockContract.mockReset();
   });

@@ -37,7 +37,63 @@ export const EMODE_SCAN_BATCH_SIZE = 8;
 /** Stop scanning for categories after this many consecutive empty slots. */
 const MAX_CONSECUTIVE_MISSES = 3;
 
-/** Fetch all configured liquid eMode categories from an Aave v3 Pool. */
+/**
+ * Read label + bitmaps for a category whose collateral config is already known.
+ * Split out so the single-category and full-scan paths stay in sync.
+ */
+const fetchCategoryDetail = async (
+  pool: ethers.Contract,
+  id: number,
+  cfg: any,
+): Promise<EModeCategoryData | null> => {
+  try {
+    const [label, collateralBitmap, borrowableBitmap] = await Promise.all([
+      pool.getEModeCategoryLabel(id).catch(() => ""),
+      pool.getEModeCategoryCollateralBitmap(id),
+      pool.getEModeCategoryBorrowableBitmap(id),
+    ]);
+    return {
+      id,
+      label: String(label || ""),
+      ltv: Number(cfg.ltv),
+      liquidationThreshold: Number(cfg.liquidationThreshold),
+      collateralBitmap: collateralBitmap.toString(),
+      borrowableBitmap: borrowableBitmap.toString(),
+    };
+  } catch {
+    return null;
+  }
+};
+
+/**
+ * Fetch a single liquid eMode category by id.
+ *
+ * Only the user's *active* category changes their risk params, so this is the
+ * path the market fetch uses: four calls for the one category that matters
+ * instead of ~40 to enumerate every category the pool has configured.
+ */
+export const fetchEModeCategory = async (
+  provider: ethers.providers.Provider,
+  poolAddress: string,
+  id: number,
+): Promise<EModeCategoryData | null> => {
+  if (!id) return null;
+  const pool = new ethers.Contract(poolAddress, POOL_ABI, provider);
+  try {
+    const cfg = await pool.getEModeCategoryCollateralConfig(id);
+    if (!cfg || Number(cfg.liquidationThreshold) === 0) return null;
+    return fetchCategoryDetail(pool, id, cfg);
+  } catch {
+    return null;
+  }
+};
+
+/**
+ * Fetch all configured liquid eMode categories from an Aave v3 Pool.
+ *
+ * Costs ~40 RPC calls per pool. Prefer `fetchEModeCategory` unless you
+ * genuinely need the whole set (e.g. offering a category picker).
+ */
 export const fetchEModeCategories = async (
   provider: ethers.providers.Provider,
   poolAddress: string,
@@ -82,28 +138,7 @@ export const fetchEModeCategories = async (
     }
 
     const details = await Promise.all(
-      hits.map(async ({ id, cfg }) => {
-        try {
-          const [label, collateralBitmap, borrowableBitmap] = await Promise.all(
-            [
-              pool.getEModeCategoryLabel(id).catch(() => ""),
-              pool.getEModeCategoryCollateralBitmap(id),
-              pool.getEModeCategoryBorrowableBitmap(id),
-            ],
-          );
-          const category: EModeCategoryData = {
-            id,
-            label: String(label || ""),
-            ltv: Number(cfg.ltv),
-            liquidationThreshold: Number(cfg.liquidationThreshold),
-            collateralBitmap: collateralBitmap.toString(),
-            borrowableBitmap: borrowableBitmap.toString(),
-          };
-          return category;
-        } catch {
-          return null;
-        }
-      }),
+      hits.map(({ id, cfg }) => fetchCategoryDetail(pool, id, cfg)),
     );
     categories.push(
       ...details.filter((c): c is EModeCategoryData => c !== null),
