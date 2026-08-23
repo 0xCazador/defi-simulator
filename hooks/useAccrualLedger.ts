@@ -5,8 +5,8 @@ import {
   AccrualSide,
   ManifestAssetRef,
   ManifestScanItem,
-  getAccrualData,
   getAccrualManifest,
+  scanPositions,
 } from "../pages/api/aave/accrual";
 import { markets } from "./useAaveData";
 
@@ -75,6 +75,8 @@ export function useAccrualLedgers(
       if (!cancelled) bumpVersion();
     };
 
+    // Join anything already being fetched; collect the rest for one scan.
+    const missing: LedgerRequest[] = [];
     requests.forEach((request) => {
       const key = ledgerCacheKey(
         marketId,
@@ -89,34 +91,50 @@ export function useAccrualLedgers(
         return;
       }
       if (ledgerCache.has(key)) return;
+      missing.push(request);
+    });
 
-      ledgerCache.set(key, PENDING);
-      // Fetched directly from the browser (like getAaveData) so RPC requests
-      // carry the page origin; keyed RPC providers may allowlist origins and
-      // reject server-side requests that have none.
-      const fetch = getAccrualData(
-        market,
-        user!,
-        request.tokenAddress,
-        request.side,
-        true,
-      )
-        .then((data) => {
-          ledgerCache.set(key, { isFetching: false, fetchError: "", data });
-        })
-        .catch((err: any) => {
-          ledgerCache.set(key, {
+    if (missing.length === 0) {
+      return () => {
+        cancelled = true;
+      };
+    }
+
+    const keyFor = (request: LedgerRequest) =>
+      ledgerCacheKey(marketId, request.tokenAddress, user, request.side);
+    missing.forEach((request) => ledgerCache.set(keyFor(request), PENDING));
+
+    // One scan for every missing position rather than one per position: the
+    // underlying log queries cover them all in the same requests.
+    //
+    // Fetched directly from the browser (like getAaveData) so RPC requests
+    // carry the page origin; keyed RPC providers may allowlist origins and
+    // reject server-side requests that have none.
+    const fetch = scanPositions(market, user!, missing, true)
+      .then((results) => {
+        results.forEach((result) => {
+          ledgerCache.set(
+            ledgerCacheKey(marketId, result.tokenAddress, user, result.side),
+            result.error
+              ? { isFetching: false, fetchError: result.error }
+              : { isFetching: false, fetchError: "", data: result.data },
+          );
+        });
+      })
+      .catch((err: any) => {
+        missing.forEach((request) =>
+          ledgerCache.set(keyFor(request), {
             isFetching: false,
             fetchError: err?.message ?? "Failed to fetch",
-          });
-        })
-        .finally(() => {
-          inFlight.delete(key);
-        });
+          }),
+        );
+      })
+      .finally(() => {
+        missing.forEach((request) => inFlight.delete(keyFor(request)));
+      });
 
-      inFlight.set(key, fetch);
-      fetch.then(onSettled);
-    });
+    missing.forEach((request) => inFlight.set(keyFor(request), fetch));
+    fetch.then(onSettled);
 
     return () => {
       cancelled = true;

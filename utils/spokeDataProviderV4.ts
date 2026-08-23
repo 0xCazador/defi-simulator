@@ -86,7 +86,12 @@ type Call = { target: string; allowFailure: boolean; callData: string };
 /** One Multicall3 round-trip. Each entry decodes with its own interface. */
 const multicall = async (
   provider: ethers.providers.Provider,
-  calls: { target: string; iface: ethers.utils.Interface; fn: string; args: unknown[] }[],
+  calls: {
+    target: string;
+    iface: ethers.utils.Interface;
+    fn: string;
+    args: unknown[];
+  }[],
 ): Promise<ethers.utils.Result[]> => {
   const multicall3 = new ethers.Contract(
     MULTICALL3_ADDRESS,
@@ -190,8 +195,18 @@ export const getV4MarketData = async (
 ): Promise<V4MarketData> => {
   // Round-trip 1: how many reserves, and the user's on-chain account summary.
   const [[reserveCountRaw], [accountRaw]] = await multicall(provider, [
-    { target: spokeAddress, iface: spokeInterface, fn: "getReserveCount", args: [] },
-    { target: spokeAddress, iface: spokeInterface, fn: "getUserAccountData", args: [user] },
+    {
+      target: spokeAddress,
+      iface: spokeInterface,
+      fn: "getReserveCount",
+      args: [],
+    },
+    {
+      target: spokeAddress,
+      iface: spokeInterface,
+      fn: "getUserAccountData",
+      args: [user],
+    },
   ]);
   const reserveCount = Number(reserveCountRaw);
   const reserveIdList = Array.from({ length: reserveCount }, (_, i) => i);
@@ -312,7 +327,9 @@ export const getV4MarketData = async (
         addedAssets: rt3[
           hubBase + i * hubFns.length + 3
         ][0] as ethers.BigNumber,
-        liquidityFee: Number(rt3[hubBase + i * hubFns.length + 4][0].liquidityFee),
+        liquidityFee: Number(
+          rt3[hubBase + i * hubFns.length + 4][0].liquidityFee,
+        ),
       },
     ]),
   );
@@ -409,7 +426,10 @@ export const getV4MarketData = async (
       // v4 has no aTokens/debt tokens; these synthetic refs carry the Spoke
       // reserveId through the tokenAddress-keyed accrual hooks and UI.
       aTokenAddress: encodeV4PositionRef(primary.reserveId, "supply"),
-      variableDebtTokenAddress: encodeV4PositionRef(primary.reserveId, "borrow"),
+      variableDebtTokenAddress: encodeV4PositionRef(
+        primary.reserveId,
+        "borrow",
+      ),
       interestRateStrategyAddress: AddressZero,
       availableLiquidity: primary.liquidity.toString(),
       totalScaledVariableDebt: primary.reserveTotalDebt.toString(),

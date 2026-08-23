@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import {
@@ -10,6 +10,7 @@ import {
   SimpleGrid,
   Space,
   Text,
+  Title,
 } from "@mantine/core";
 import { FiAlertTriangle } from "react-icons/fi";
 import { t } from "@lingui/core/macro";
@@ -23,9 +24,18 @@ import AddressCard from "./AddressCard";
 import InterestManifest from "./InterestManifest";
 import Footer from "./Footer";
 import ViewTabs from "./ViewTabs";
+import SeoHead from "./SeoHead";
 import { RandomAddressButton } from "./RandomAddressButton";
+import type { SeoContent } from "../utils/seoContent";
 
-export default function PageShell() {
+type PageShellProps = {
+  /** Copy resolved for the request's locale in getStaticProps. Absent on the
+   * share routes, which supply their own meta. */
+  seo?: SeoContent;
+  children?: ReactNode;
+};
+
+export default function PageShell({ seo, children }: PageShellProps) {
   useAddressFromQuery();
   const router = useRouter();
   const { currentAddress } = useAaveData("");
@@ -42,19 +52,32 @@ export default function PageShell() {
     router.pathname.startsWith("/s/") ||
     router.pathname === "/share-fallback"
   )
-    return null;
+    return <>{children}</>;
 
   return (
     <>
-      <Head>
-        <title>
-          {isInterest
-            ? t`Interest Accrual · DeFi Simulator`
-            : t`DeFi Simulator`}
-        </title>
-      </Head>
+      {seo ? (
+        <SeoHead route={isInterest ? "/interest" : "/"} content={seo} />
+      ) : (
+        <Head>
+          <title>
+            {isInterest
+              ? t`Interest Accrual · DeFi Simulator`
+              : t`DeFi Simulator`}
+          </title>
+        </Head>
+      )}
       <Container px="xs" style={{ contain: "paint" }}>
         <AppBar />
+        {/* The page's one <h1>. Kept above the address input so the document
+            outline opens with the heading that describes the tool, and driven
+            by the locale-resolved copy rather than a t`` macro, which would
+            render English into every prerendered locale. */}
+        {seo && (
+          <Title order={1} size="h3" ta="center" mt="md" mb="xs">
+            {seo.h1}
+          </Title>
+        )}
         <AddressInput />
         <ViewTabs />
         <div hidden={isInterest} inert={isInterest || undefined}>
@@ -66,6 +89,7 @@ export default function PageShell() {
             {currentAddress ? <InterestManifest /> : <InterestEmptyState />}
           </div>
         )}
+        {children}
         <Footer />
       </Container>
     </>

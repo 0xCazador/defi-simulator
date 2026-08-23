@@ -646,9 +646,11 @@ const InterestSummary = ({
           <Group gap={6} wrap="nowrap">
             <Loader type="dots" size="xs" />
             <Text fz="xs" c="dimmed">
-              <Trans>
-                Scanning {manifest.progress.done} of {manifest.progress.total}
-              </Trans>
+              <Plural
+                value={manifest.progress.total}
+                one="Scanning # asset"
+                other="Scanning # assets"
+              />
             </Text>
           </Group>
         )}
@@ -709,16 +711,16 @@ const ManifestScanSection = ({
 
       {isScanning && (
         <>
-          <Progress
-            value={progress.total ? (progress.done / progress.total) * 100 : 0}
-            animated
-            mb={10}
-          />
+          {/* Every asset is scanned by the same few log queries, so there is
+              no per-asset progress to report — only that work is underway. */}
+          <Progress value={100} animated striped mb={10} />
           <Center>
             <Text size="sm" c="dimmed">
-              <Trans>
-                Scanning {progress.done} of {progress.total}
-              </Trans>
+              <Plural
+                value={progress.total}
+                one="Scanning # asset"
+                other="Scanning # assets"
+              />
             </Text>
           </Center>
         </>

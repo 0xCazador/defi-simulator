@@ -15,28 +15,28 @@ const getRandomInt = (min: number, max: number) => {
 
 // Random Aave CDP addresses — V3 rows refreshed via
 // `node scripts/refreshRandomAddresses.js`; V4 rows via
-// `npx tsx scripts/seedV4RandomAddresses.ts` (~2 live CDPs per Spoke).
+// `npx tsx scripts/seedV4RandomAddresses.ts` (largest live CDPs per Spoke).
 const addresses = [
-  // Aave v4 Ethereum spokes (2 per market where unique borrowers exist)
-  "0x00b9ac091f0cb002d1184635d936a7f0d84700b9",
-  "0x25f4ff25a37f236dae64ce1c35e6ccc8e563e5f4",
+  // Aave v4 Ethereum spokes (up to 2 unique borrowers per market)
+  "0xbdfa4f4492dd7b7cf211209c4791af8d52bf5c50",
+  "0xcdd342b253f3ea24d4ce1c5f040c1288e4214fe6",
+  "0x886d8b7fbd5987f4518921d4e0e7d547ea9d4feb",
   "0xec5c612c9dde24ebf496d06edc12e206cd156a65",
-  "0x8e4c5e295f5705cdbe7396b405c7a1ab3269a575",
   "0xca686974913389d42f3c5f61010503daccdb487a",
-  "0x1b85cf8e5dd598018e7f86abec050e19d5865b6f",
-  "0xabfe00f81c2b9734c2fecec3f1996e18611ce658",
-  "0xc2a11bd14bcb4ec4524576ba153248d228ad4d25",
+  "0x99858c5f2668a972419a4c6be3870f988cdc25ed",
+  "0x7aad74b7f0d60d5867b59dbd377a71783425af47",
+  "0x1ce18aca85cafac75804fe78bd2bc96292fb8d10",
   "0x561a8431b23fe6a524ce874a029cdaadc9642bf4",
-  "0xde51ec5d10484a21ec0b9d7c60d76a95977da29f",
-  "0xc8b77e0dabfea5e3b4ec6f313bf8358bc1bc121c",
-  "0x25028398f590ca25af002ed19c66b5172a0ab93e",
+  "0xa447b855719c3114545b10b29aabcc4955f99d67",
+  "0x08fc74f337c5287a67c38169ee95c3a6ae6aa7d4",
   "0x707ecbafef8dbc3b248b8a6fd6ca45e7c569a85c",
-  "0x87e2a697eb1a58e9d52c9b2539f83898222f5cc6",
-  "0xfc011a28a204cf5b17c01ac4fc96517e4b1d738a",
-  "0x4b553e44e9903c95a056e244cc37de144a228de1",
+  "0x8449f934dbfbfa050f5e7738bf2e73a811022904",
+  "0x7dedea128c251bc79bfd6d26bb7e5678cc2dbc26",
+  "0x830ea0d87457bcd10698f23191980a9413c24ad6",
   "0x21c9ce0611541099583e4249bfb583606715a796",
-  "0x6efc48b8b6222924fa6ea95d174af5518b761177",
-  "0xcf590d3a32c688209d664df69f5b38ab5590068b",
+  "0x1d9c4116e5784036dbd15bced8aff88970b4a598",
+  "0x994f6e5a3e97e6f7f1948e9bf80f59016d0672c2",
+  "0x37a097f5263c5657370e300b3f179478f730a1aa",
   // Aave v3 (live aToken/vToken participants scored by userMarketState)
   "0x46db0650645f7c9a29783c89171a62240ccc35cf",
   "0x0f8dd218ee17eee03d254805f84c7ba613e45e62",

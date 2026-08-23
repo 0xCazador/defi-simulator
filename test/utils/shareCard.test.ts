@@ -18,6 +18,7 @@ jest.mock("@lingui/core/macro", () => ({
 }));
 
 import {
+  HF_INFINITY_SENTINEL,
   InterestShareCard,
   LiquidationShareCard,
   LiveState,
@@ -30,9 +31,11 @@ import {
   decodeInlinePayload,
   diffSimOps,
   encodeInlinePayload,
+  fmtHf,
   getShareDescription,
   getShareTitle,
   getShareTweet,
+  toStoredHf,
   validateSharePayload,
 } from "../../utils/shareCard";
 import type { AaveHealthFactorData } from "../../hooks/useAaveData";
@@ -428,13 +431,6 @@ describe("checkReproduction", () => {
 // ---------------------------------------------------------------------------
 
 describe("infinite health factor handling", () => {
-  // eslint-disable-next-line global-require
-  const {
-    toStoredHf,
-    HF_INFINITY_SENTINEL,
-    fmtHf,
-  } = require("../../utils/shareCard");
-
   it("stores Infinity as a JSON-safe sentinel", () => {
     expect(toStoredHf(Infinity)).toBe(HF_INFINITY_SENTINEL);
     expect(toStoredHf(undefined)).toBe(0);

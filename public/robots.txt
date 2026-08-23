@@ -1,0 +1,18 @@
+# https://defisim.xyz/robots.txt
+
+# Data endpoints are POST-only or address-scoped: nothing to index, and
+# crawling them would burn RPC quota. /api/og and /api/sitemap stay open —
+# social unfurlers fetch the former, Search Console fetches the latter.
+User-agent: *
+Allow: /
+Disallow: /api/aave
+Disallow: /api/resolver
+Disallow: /api/share
+Allow: /api/og
+Allow: /api/sitemap
+
+# /s/* and /share-fallback are intentionally crawlable: they serve
+# "noindex" in their markup, and a Disallow here would stop crawlers from
+# ever reading that directive (URL-only indexing instead of exclusion).
+
+Sitemap: https://defisim.xyz/sitemap.xml

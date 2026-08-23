@@ -195,7 +195,9 @@ const answer = (target: string, fn: string, args: ethers.utils.Result) => {
       ];
     case "getReserve": {
       const r = reserve();
-      return [[r.underlying, r.hub, r.assetId, r.decimals, 0, 0, r.reserveConfigKey]];
+      return [
+        [r.underlying, r.hub, r.assetId, r.decimals, 0, 0, r.reserveConfigKey],
+      ];
     }
     case "getReserveConfig": {
       const r = reserve();
@@ -219,7 +221,11 @@ const answer = (target: string, fn: string, args: ethers.utils.Result) => {
     case "getUserPosition":
       return [[0, 0, 0, 0, reserve().userConfigKey]];
     case "getReservesPrices":
-      return [(args[0] as ethers.BigNumber[]).map((id) => reserveFixtures[Number(id)].price)];
+      return [
+        (args[0] as ethers.BigNumber[]).map(
+          (id) => reserveFixtures[Number(id)].price,
+        ),
+      ];
     case "symbol":
       return [metaByAddress[target].symbol];
     case "name":
@@ -237,9 +243,23 @@ const answer = (target: string, fn: string, args: ethers.utils.Result) => {
       const zero = ethers.constants.AddressZero;
       return [
         [
-          hub.liquidity, 0, 6, 0, 0, 0, 0, 0,
+          hub.liquidity,
+          0,
+          6,
+          0,
+          0,
+          0,
+          0,
+          0,
           hub.liquidityFee,
-          0, hub.drawnRate, 0, zero, zero, zero, zero, 0,
+          0,
+          hub.drawnRate,
+          0,
+          zero,
+          zero,
+          zero,
+          zero,
+          0,
         ],
       ];
     }
@@ -272,7 +292,12 @@ beforeEach(() => {
 
 const fetchMarket = () =>
   getV4MarketData(
-    { provider: PROVIDER, spokeAddress: SPOKE, oracleAddress: ORACLE, chainId: 1 },
+    {
+      provider: PROVIDER,
+      spokeAddress: SPOKE,
+      oracleAddress: ORACLE,
+      chainId: 1,
+    },
     USER,
   );
 
@@ -312,7 +337,9 @@ describe("getV4MarketData", () => {
     expect(weth.liquidityRate).toBe("13500000000000000000000000");
     // synthetic position refs carry the reserveId through the accrual system
     expect(weth.aTokenAddress).toBe(encodeV4PositionRef(0, "supply"));
-    expect(weth.variableDebtTokenAddress).toBe(encodeV4PositionRef(0, "borrow"));
+    expect(weth.variableDebtTokenAddress).toBe(
+      encodeV4PositionRef(0, "borrow"),
+    );
 
     // oracle prices are 8-decimal USD
     expect(baseCurrencyData.marketReferenceCurrencyDecimals).toBe(8);

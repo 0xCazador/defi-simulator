@@ -256,6 +256,128 @@ const getAaveDataV4 = async (
   return hf;
 };
 
+/** One asset's public risk parameters and rates — no user involved. */
+export type MarketReserveStat = {
+  symbol: string;
+  /** fraction, e.g. 0.8 for an 80% max LTV */
+  ltv: number;
+  /** fraction, e.g. 0.825 */
+  liquidationThreshold: number;
+  /** the liquidator's bonus as a fraction, e.g. 0.05 for a 5% penalty */
+  liquidationPenalty: number;
+  /** fraction, e.g. 0.0432 for 4.32% */
+  supplyAPY: number;
+  variableBorrowAPY: number;
+  /** used only for ranking assets by size */
+  totalLiquidityUSD: number;
+  borrowingEnabled: boolean;
+  usageAsCollateralEnabled: boolean;
+};
+
+/**
+ * RPC endpoint for server-side reads.
+ *
+ * NEXT_PUBLIC_ALCHEMY_API_KEY is origin-locked: Alchemy answers requests that
+ * arrive without an allowlisted Referer with `403 Unspecified origin not on
+ * whitelist`. That is the right posture for a key shipped to browsers — and
+ * the app does fetch positions from the browser — but it means anything
+ * running at build or revalidate time needs its own unrestricted key.
+ *
+ * Set ALCHEMY_SERVER_API_KEY (no NEXT_PUBLIC prefix, so it stays server-side)
+ * to enable those fetches. Without it the reserve snapshot is unavailable and
+ * the pages render their copy without the parameter tables.
+ */
+const serverRpcUrl = (market: AaveMarketDataType): string => {
+  const serverKey = process.env.ALCHEMY_SERVER_API_KEY;
+  const publicKey = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY;
+  if (!serverKey || !publicKey || !market.api.includes(publicKey)) {
+    return market.api;
+  }
+  return market.api.replace(publicKey, serverKey);
+};
+
+/**
+ * Public reserve parameters for one market, with no address in the picture.
+ *
+ * getAaveData needs a user: it resolves ENS, pulls user reserves, runs
+ * formatUserSummary and fetches E-Mode categories and reserve ids. None of
+ * that applies to the reserve catalog rendered on the marketing sections, and
+ * skipping it drops this to a single RPC round trip per v3 market.
+ */
+export const getMarketReserveStats = async (
+  market: AaveMarketDataType,
+): Promise<MarketReserveStat[]> => {
+  const provider = new ethers.providers.StaticJsonRpcProvider(
+    serverRpcUrl(market),
+    market.chainId,
+  );
+  const currentTimestamp = dayjs().unix();
+
+  let reservesArray;
+  let baseCurrencyData;
+
+  if (market.v4) {
+    // The v4 adapter always reads a user's amounts alongside the reserves;
+    // the zero address just makes every user field zero.
+    const { SPOKE, ORACLE } = market.v4Addresses!;
+    const v4Data = await getV4MarketData(
+      {
+        provider,
+        spokeAddress: SPOKE,
+        oracleAddress: ORACLE,
+        chainId: market.chainId,
+      },
+      ethers.constants.AddressZero,
+    );
+    reservesArray = v4Data.reservesData;
+    baseCurrencyData = v4Data.baseCurrencyData;
+  } else {
+    const addresses = market.addresses!;
+    const v37Ctx: V37Context = {
+      provider,
+      uiPoolDataProviderAddress: addresses.UI_POOL_DATA_PROVIDER,
+      lendingPoolAddressProvider: addresses.LENDING_POOL_ADDRESS_PROVIDER,
+      chainId: market.chainId,
+    };
+    const reserves = market.v37
+      ? await getReservesHumanizedV37(v37Ctx)
+      : await new UiPoolDataProvider({
+          uiPoolDataProviderAddress: addresses.UI_POOL_DATA_PROVIDER,
+          provider,
+          chainId: market.chainId,
+        }).getReservesHumanized({
+          lendingPoolAddressProvider: addresses.LENDING_POOL_ADDRESS_PROVIDER,
+        });
+    reservesArray = reserves.reservesData;
+    baseCurrencyData = reserves.baseCurrencyData;
+  }
+
+  const formatted = formatReserves({
+    reserves: reservesArray,
+    currentTimestamp,
+    marketReferenceCurrencyDecimals:
+      baseCurrencyData.marketReferenceCurrencyDecimals,
+    marketReferencePriceInUsd:
+      baseCurrencyData.marketReferenceCurrencyPriceInUsd,
+  });
+
+  return formatted
+    .filter((reserve) => reserve.isActive && !reserve.isFrozen)
+    .map((reserve) => ({
+      symbol: reserve.symbol,
+      ltv: Number(reserve.formattedBaseLTVasCollateral),
+      liquidationThreshold: Number(
+        reserve.formattedReserveLiquidationThreshold,
+      ),
+      liquidationPenalty: Number(reserve.formattedReserveLiquidationBonus),
+      supplyAPY: Number(reserve.supplyAPY),
+      variableBorrowAPY: Number(reserve.variableBorrowAPY),
+      totalLiquidityUSD: Number(reserve.totalLiquidityUSD),
+      borrowingEnabled: Boolean(reserve.borrowingEnabled),
+      usageAsCollateralEnabled: Boolean(reserve.usageAsCollateralEnabled),
+    }));
+};
+
 /** Reserve shape as it exists at runtime: the humanized on-chain reserve
  * fields are preserved through formatReserves/formatUserSummary. */
 type ReserveData = FormatReserveUSDResponse &

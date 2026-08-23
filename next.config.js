@@ -15,6 +15,27 @@ module.exports = withBundleAnalyzer({
   i18n: {
     locales: linguiConfig.locales,
     defaultLocale: "en",
+    // Accept-Language redirects made "/" a moving target: the same URL served
+    // 62 different documents depending on the request, which muddies the
+    // canonical set and puts a 302 in front of every crawl. hreflang tags
+    // advertise the localized URLs instead, and the footer's language picker
+    // still lets people switch.
+    localeDetection: false,
+  },
+  async rewrites() {
+    return [
+      // The sitemap is built by an API route (those are exempt from locale
+      // prefixing, unlike a pages/sitemap.xml route which i18n would fan out
+      // into 62 copies) but has to be served from the conventional path that
+      // robots.txt advertises.
+      //
+      // No `locale: false` here: i18n normalizes an unprefixed request to the
+      // default locale internally, so a locale-exempt source never matches
+      // and /sitemap.xml 404s. Letting the source stay locale-aware also
+      // answers /de/sitemap.xml, which is harmless — the document contains
+      // absolute URLs either way, and robots.txt advertises only the one.
+      { source: "/sitemap.xml", destination: "/api/sitemap" },
+    ];
   },
   // The OG image function reads fonts and icon SVGs from disk at request
   // time; make sure file tracing bundles them into the serverless function.

@@ -31,10 +31,14 @@ const usdc = (value: number): string => String(Math.round(value * 1e6));
 describe("getPrincipalFlowV4", () => {
   it("treats Supply and Borrow as inflows at face value", () => {
     expect(
-      getPrincipalFlowV4(event({ kind: "Supply", amount: usdc(100) })).toString(),
+      getPrincipalFlowV4(
+        event({ kind: "Supply", amount: usdc(100) }),
+      ).toString(),
     ).toBe(usdc(100));
     expect(
-      getPrincipalFlowV4(event({ kind: "Borrow", amount: usdc(50) })).toString(),
+      getPrincipalFlowV4(
+        event({ kind: "Borrow", amount: usdc(50) }),
+      ).toString(),
     ).toBe(usdc(50));
   });
 

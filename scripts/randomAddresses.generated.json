@@ -568,98 +568,136 @@
     "healthFactor": 1.384
   },
   {
-    "address": "0x00b9ac091f0cb002d1184635d936a7f0d84700b9",
+    "address": "0xbdfa4f4492dd7b7cf211209c4791af8d52bf5c50",
     "marketId": "ETHEREUM_V4_MAIN",
-    "healthFactor": 1.245
+    "collateralUsd": 12163885,
+    "debtUsd": 3673556,
+    "healthFactor": 2.595
   },
   {
-    "address": "0x25f4ff25a37f236dae64ce1c35e6ccc8e563e5f4",
+    "address": "0xcdd342b253f3ea24d4ce1c5f040c1288e4214fe6",
     "marketId": "ETHEREUM_V4_MAIN",
-    "healthFactor": 3.125
+    "collateralUsd": 5517188,
+    "debtUsd": 3171472,
+    "healthFactor": 1.386
+  },
+  {
+    "address": "0x886d8b7fbd5987f4518921d4e0e7d547ea9d4feb",
+    "marketId": "ETHEREUM_V4_LIDO",
+    "collateralUsd": 15787,
+    "debtUsd": 14037,
+    "healthFactor": 1.074
   },
   {
     "address": "0xec5c612c9dde24ebf496d06edc12e206cd156a65",
     "marketId": "ETHEREUM_V4_LIDO",
+    "collateralUsd": 5424,
+    "debtUsd": 3367,
     "healthFactor": 1.539
-  },
-  {
-    "address": "0x8e4c5e295f5705cdbe7396b405c7a1ab3269a575",
-    "marketId": "ETHEREUM_V4_LIDO",
-    "healthFactor": 1.121
   },
   {
     "address": "0xca686974913389d42f3c5f61010503daccdb487a",
     "marketId": "ETHEREUM_V4_ETHERFI",
+    "collateralUsd": 6285020,
+    "debtUsd": 5873877,
     "healthFactor": 1.022
   },
   {
-    "address": "0x1b85cf8e5dd598018e7f86abec050e19d5865b6f",
+    "address": "0x99858c5f2668a972419a4c6be3870f988cdc25ed",
     "marketId": "ETHEREUM_V4_ETHERFI",
-    "healthFactor": 1.036
+    "collateralUsd": 3524381,
+    "debtUsd": 3302273,
+    "healthFactor": 1.019
   },
   {
-    "address": "0xabfe00f81c2b9734c2fecec3f1996e18611ce658",
+    "address": "0x7aad74b7f0d60d5867b59dbd377a71783425af47",
     "marketId": "ETHEREUM_V4_KELP",
-    "healthFactor": 10.16
+    "collateralUsd": 225600,
+    "debtUsd": 205453,
+    "healthFactor": 1.043
   },
   {
-    "address": "0xc2a11bd14bcb4ec4524576ba153248d228ad4d25",
+    "address": "0x1ce18aca85cafac75804fe78bd2bc96292fb8d10",
     "marketId": "ETHEREUM_V4_KELP",
-    "healthFactor": 1.347
+    "collateralUsd": 182,
+    "debtUsd": 162,
+    "healthFactor": 1.069
   },
   {
     "address": "0x561a8431b23fe6a524ce874a029cdaadc9642bf4",
     "marketId": "ETHEREUM_V4_LOMBARD",
+    "collateralUsd": 26,
+    "debtUsd": 13,
     "healthFactor": 1.772
   },
   {
-    "address": "0xde51ec5d10484a21ec0b9d7c60d76a95977da29f",
-    "marketId": "ETHEREUM_V4_LOMBARD",
-    "healthFactor": 5.201
+    "address": "0xa447b855719c3114545b10b29aabcc4955f99d67",
+    "marketId": "ETHEREUM_V4_GOLD",
+    "collateralUsd": 2332094,
+    "debtUsd": 1171201,
+    "healthFactor": 1.493
   },
   {
-    "address": "0xc8b77e0dabfea5e3b4ec6f313bf8358bc1bc121c",
+    "address": "0x08fc74f337c5287a67c38169ee95c3a6ae6aa7d4",
     "marketId": "ETHEREUM_V4_GOLD",
-    "healthFactor": 1.517
-  },
-  {
-    "address": "0x25028398f590ca25af002ed19c66b5172a0ab93e",
-    "marketId": "ETHEREUM_V4_GOLD",
-    "healthFactor": 1.332
+    "collateralUsd": 2130796,
+    "debtUsd": 1087433,
+    "healthFactor": 1.47
   },
   {
     "address": "0x707ecbafef8dbc3b248b8a6fd6ca45e7c569a85c",
     "marketId": "ETHEREUM_V4_FOREX",
+    "collateralUsd": 732061,
+    "debtUsd": 636039,
     "healthFactor": 1.036
   },
   {
-    "address": "0x87e2a697eb1a58e9d52c9b2539f83898222f5cc6",
+    "address": "0x8449f934dbfbfa050f5e7738bf2e73a811022904",
     "marketId": "ETHEREUM_V4_FOREX",
-    "healthFactor": 1.476
+    "collateralUsd": 546395,
+    "debtUsd": 484252,
+    "healthFactor": 1.015
   },
   {
-    "address": "0xfc011a28a204cf5b17c01ac4fc96517e4b1d738a",
+    "address": "0x7dedea128c251bc79bfd6d26bb7e5678cc2dbc26",
     "marketId": "ETHEREUM_V4_BLUECHIP",
-    "healthFactor": 1.492
+    "collateralUsd": 3191074,
+    "debtUsd": 948567,
+    "healthFactor": 2.876
   },
   {
-    "address": "0x4b553e44e9903c95a056e244cc37de144a228de1",
+    "address": "0x830ea0d87457bcd10698f23191980a9413c24ad6",
     "marketId": "ETHEREUM_V4_BLUECHIP",
-    "healthFactor": 1.592
+    "collateralUsd": 2037981,
+    "debtUsd": 1247988,
+    "healthFactor": 1.396
   },
   {
     "address": "0x21c9ce0611541099583e4249bfb583606715a796",
     "marketId": "ETHEREUM_V4_ETHENA",
+    "collateralUsd": 1026436,
+    "debtUsd": 930827,
     "healthFactor": 1.014
   },
   {
-    "address": "0x6efc48b8b6222924fa6ea95d174af5518b761177",
+    "address": "0x1d9c4116e5784036dbd15bced8aff88970b4a598",
     "marketId": "ETHEREUM_V4_ETHENA",
-    "healthFactor": 1.013
+    "collateralUsd": 686597,
+    "debtUsd": 615818,
+    "healthFactor": 1.026
   },
   {
-    "address": "0xcf590d3a32c688209d664df69f5b38ab5590068b",
+    "address": "0x994f6e5a3e97e6f7f1948e9bf80f59016d0672c2",
     "marketId": "ETHEREUM_V4_ETHENA_CORRELATED",
-    "healthFactor": 1.006
+    "collateralUsd": 23,
+    "debtUsd": 11,
+    "healthFactor": 1.952
+  },
+  {
+    "address": "0x37a097f5263c5657370e300b3f179478f730a1aa",
+    "marketId": "ETHEREUM_V4_ETHENA_CORRELATED",
+    "collateralUsd": 19,
+    "debtUsd": 9,
+    "healthFactor": 2.015
   }
 ]

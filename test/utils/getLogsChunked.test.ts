@@ -274,24 +274,47 @@ describe("getAccrualData scan range", () => {
     startBlock,
   });
 
-  /** Stub an event-free chain, collecting every range getAccrualData requests. */
-  const stubChain = () => {
-    const ranges: Array<{ fromBlock: number; toBlock: number }> = [];
+  /**
+   * Stub an event-free chain, collecting every filter getAccrualData requests.
+   * Log queries go out as raw eth_getLogs sends (ethers' own getLogs cannot
+   * express the address/topic sets a batched scan relies on), so ranges arrive
+   * hex-encoded and are decoded back for readable assertions.
+   */
+  const stubSends = () => {
+    const filters: Array<{
+      address: string | string[];
+      topics: (string | null | string[])[];
+      fromBlock: number;
+      toBlock: number;
+    }> = [];
     (
       ethers.providers.StaticJsonRpcProvider as unknown as jest.Mock
     ).mockImplementation(() => ({
       getBlockNumber: async () => LATEST_BLOCK,
-      getLogs: async ({ fromBlock, toBlock }: any) => {
-        ranges.push({ fromBlock, toBlock });
+      send: async (method: string, params: any[]) => {
+        expect(method).toBe("eth_getLogs");
+        const { address, topics, fromBlock, toBlock } = params[0];
+        filters.push({
+          address,
+          topics,
+          fromBlock: Number(fromBlock),
+          toBlock: Number(toBlock),
+        });
         return [];
       },
     }));
+    return filters;
+  };
+
+  /** Stub an event-free chain plus the ERC-20 views a v3 scan may use. */
+  const stubChain = () => {
+    const filters = stubSends();
     (ethers.Contract as unknown as jest.Mock).mockImplementation(() => ({
       interface: { getEventTopic: (name: string) => `0x${name}` },
       balanceOf: async () => ethers.BigNumber.from(0),
       decimals: async () => 18,
     }));
-    return ranges;
+    return filters;
   };
 
   beforeEach(() => jest.clearAllMocks());
@@ -317,18 +340,7 @@ describe("getAccrualData scan range", () => {
 
   it("scans v4 Spoke events keyed by the synthetic position ref", async () => {
     const SPOKE = "0x0000000000000000000000000000000000000003";
-    const filters: Array<{ address: string; topics: (string | null)[] }> = [];
-    (
-      ethers.providers.StaticJsonRpcProvider as unknown as jest.Mock
-    ).mockImplementation(() => ({
-      getBlockNumber: async () => LATEST_BLOCK,
-      getLogs: async ({ address, topics, fromBlock, toBlock }: any) => {
-        expect(fromBlock).toBe(24_700_000);
-        expect(toBlock).toBe(LATEST_BLOCK);
-        filters.push({ address, topics });
-        return [];
-      },
-    }));
+    const filters = stubSends();
     (ethers.Contract as unknown as jest.Mock).mockImplementation(() => ({
       interface: { getEventTopic: (name: string) => `0x${name}` },
       getUserSuppliedAssets: async () => ethers.BigNumber.from(0),
@@ -356,11 +368,17 @@ describe("getAccrualData scan range", () => {
     );
 
     // supply-side scan: Supply + Withdraw filtered by (reserveId, user),
-    // LiquidationCall by user only (reserve ids sit in different topics)
+    // LiquidationCall by user only (reserve ids sit in different topics).
+    // A single reserve collapses to the scalar topic form, so a one-position
+    // scan issues exactly the filters a per-position scan always did.
     const reserveTopic = ethers.utils.hexZeroPad("0x03", 32);
     const userTopic = ethers.utils.hexZeroPad(USER, 32);
     expect(filters).toHaveLength(3);
-    filters.forEach((filter) => expect(filter.address).toBe(SPOKE));
+    filters.forEach((filter) => {
+      expect(filter.address).toBe(SPOKE);
+      expect(filter.fromBlock).toBe(24_700_000);
+      expect(filter.toBlock).toBe(LATEST_BLOCK);
+    });
     expect(filters.map((f) => f.topics)).toEqual(
       expect.arrayContaining([
         ["0xSupply", reserveTopic, null, userTopic],

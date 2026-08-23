@@ -29,7 +29,11 @@ export default function AppBar() {
         >
           <Group gap={7}>
             <BiGhost size={32} />
-            <Title order={3} className={classes.brandTitle}>
+            {/* A span, not a heading: the brand repeats on every page, so
+                letting it own an <h3> put a heading above each page's <h1>
+                and inverted the document outline. `order` still drives the
+                type scale. */}
+            <Title order={3} component="span" className={classes.brandTitle}>
               DeFi Simulator
             </Title>
           </Group>

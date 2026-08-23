@@ -623,12 +623,12 @@ const LiquidationTemplate = ({
               gap: 8,
             }}
           >
-          {/* The gauge shows the liquidation point the scenario lands on
+            {/* The gauge shows the liquidation point the scenario lands on
               (HF 1.00), not the current HF — the path below gives context. */}
-          <HfGauge hf={1} label={t(i18n)`Health Factor`} size={240} />
-          <span style={{ fontSize: 26, color: COLORS.dimmed }}>
-            {fmtHf(card.hf)} → 1.00
-          </span>
+            <HfGauge hf={1} label={t(i18n)`Health Factor`} size={240} />
+            <span style={{ fontSize: 26, color: COLORS.dimmed }}>
+              {fmtHf(card.hf)} → 1.00
+            </span>
           </div>
         </div>
         <span style={{ fontSize: 19, color: COLORS.dimmed, marginTop: 18 }}>
