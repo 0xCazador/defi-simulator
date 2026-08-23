@@ -26,6 +26,22 @@
   line-height: 1.15;
 }
 
+/* Button labels are nowrap by default, so a long translation of "View full
+   interest history" (Portuguese runs to ~30 characters) overflowed the card
+   rather than wrapping. Let it wrap and grow instead of pushing out sideways. */
+.historyButtonRoot {
+  height: auto;
+  max-width: 100%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.historyButtonLabel {
+  white-space: normal;
+  text-align: center;
+  line-height: 1.3;
+}
+
 .earned {
   color: var(--mantine-color-green-4);
 }

@@ -111,21 +111,30 @@ const addresses = [
   "0x2bd72f8fb377337c9cc16da4dd2dd274537ffb82",
 ];
 
-export const RandomAddressButton = ({ children }: RandomAddressButtonProps) => {
+/** Jumps to a random Aave position. Shared with the address input's dice button. */
+export const useRandomAddress = () => {
   const router = useRouter();
-  const address = addresses[getRandomInt(0, addresses.length)];
+
+  return () => {
+    const address = addresses[getRandomInt(0, addresses.length)];
+    router.push(`?address=${address}`);
+  };
+};
+
+export const RandomAddressButton = ({ children }: RandomAddressButtonProps) => {
+  const goToRandomAddress = useRandomAddress();
 
   const renderChildren = () =>
     Children.map(children, (child) =>
       cloneElement(child as ReactElement<{ onClick?: () => void }>, {
-        onClick: () => router.push(`?address=${address}`),
+        onClick: goToRandomAddress,
       }),
     );
 
   return children ? (
     <span>{renderChildren()}</span>
   ) : (
-    <Button onClick={() => router.push(`?address=${address}`)}>
+    <Button onClick={goToRandomAddress}>
       <Trans>Use Random Address</Trans>
     </Button>
   );

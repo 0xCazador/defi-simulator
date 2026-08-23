@@ -14,3 +14,98 @@
   box-shadow: 0 0 0 3px
     color-mix(in srgb, var(--mantine-color-brand-5) 25%, transparent);
 }
+
+/* Three controls plus an address is a lot for a phone, so the address gives up
+   a little type size rather than the buttons giving up tap area. `sm` is this
+   theme's phone breakpoint (36em); `xs` is remapped to 0em. */
+@media (max-width: $mantine-breakpoint-sm) {
+  .input {
+    --input-fz: var(--mantine-font-size-md);
+  }
+}
+
+/* A hairline keeps a truncated address from reading as though it runs into the
+   buttons, which is what made the cluster feel cramped. */
+.actions {
+  position: relative;
+  padding-right: 6px;
+}
+
+.actions::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -5px;
+  width: 1px;
+  height: 24px;
+  transform: translateY(-50%);
+  background-color: var(--mantine-color-dark-4);
+}
+
+.action {
+  position: relative;
+  /* ActionIcon clips to its own box by default, which would swallow the
+     enlarged tap target below. */
+  overflow: visible;
+  color: var(--mantine-color-dark-1);
+  transition:
+    background-color 120ms ease,
+    color 120ms ease,
+    transform 80ms ease;
+}
+
+/* The visible button stays 36px so all three fit beside the address, while the
+   pointer target grows into the gap to reach the recommended 44px. Matching the
+   cluster pitch exactly means targets tile without overlapping, so a tap near
+   an edge can't land on the wrong control. */
+.action::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 44px;
+  height: 44px;
+  transform: translate(-50%, -50%);
+}
+
+.action:hover:not([data-disabled]) {
+  background-color: var(--mantine-color-dark-5);
+  color: var(--mantine-color-gray-0);
+}
+
+.action:active:not([data-disabled]) {
+  transform: scale(0.92);
+}
+
+.action:focus-visible {
+  outline: 2px solid var(--mantine-color-brand-5);
+  outline-offset: 2px;
+}
+
+.action[data-disabled] {
+  background-color: transparent;
+  color: var(--mantine-color-dark-3);
+  cursor: not-allowed;
+}
+
+/* Reinforces the copy result for anyone watching the button rather than
+   reading the tooltip. */
+.action[data-copy-state="copied"] {
+  color: var(--mantine-color-green-4);
+}
+
+.action[data-copy-state="failed"] {
+  color: var(--mantine-color-red-4);
+}
+
+/* The press animation is decorative; motion-sensitive users keep the colour
+   feedback without the scale. */
+@media (prefers-reduced-motion: reduce) {
+  .action {
+    transition: none;
+  }
+
+  .action:active:not([data-disabled]) {
+    transform: none;
+  }
+}

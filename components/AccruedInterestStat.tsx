@@ -146,6 +146,10 @@ export const AccruedInterestStat = ({
         variant="light"
         leftSection={<FaHistory size={11} />}
         onClick={onViewHistory}
+        classNames={{
+          root: classes.historyButtonRoot,
+          label: classes.historyButtonLabel,
+        }}
       >
         <Trans>View full interest history</Trans>
       </Button>

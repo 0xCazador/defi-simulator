@@ -10,9 +10,8 @@ import {
   Tooltip,
   ActionIcon,
   Text,
-  Center,
   SimpleGrid,
-  Paper,
+  Stack,
   Divider,
   Space,
   Popover,
@@ -107,7 +106,7 @@ export default function BorrowedAssetDetailsDialog({
           labelPosition="center"
         />
 
-        <SimpleGrid cols={2} spacing="sm">
+        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="sm">
           <AssetStatCard>
             <AssetDetailsItem
               title={t`Current Borrow Interest Rate: `}
@@ -151,7 +150,7 @@ export default function BorrowedAssetDetailsDialog({
           labelPosition="center"
         />
 
-        <SimpleGrid cols={2}>
+        <SimpleGrid cols={{ base: 1, sm: 2 }}>
           {/* v4 has no debt tokens: positions live in the Spoke contract. */}
           <AssetDetailsItem
             title={
@@ -199,7 +198,7 @@ export default function BorrowedAssetDetailsDialog({
           labelPosition="center"
         />
 
-        <SimpleGrid cols={2} mb="xl">
+        <SimpleGrid cols={{ base: 1, sm: 2 }} mb="xl">
           <AssetDetailsItem
             title={t`Liquidation Threshold: `}
             description={t`The Liquidation Threshold refers to the loan to value percentage that makes the position subject to liquidation. This value represents the Liquidation Threshold provided by this asset.`}
@@ -256,7 +255,15 @@ const AssetDetailsAddress = ({
   };
 
   return (
-    <>
+    // The address and its copy button are one unit: at mobile widths the label
+    // above them wraps, and without this the icon breaks onto its own line.
+    <span
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        whiteSpace: "nowrap",
+      }}
+    >
       <a
         href={explorer.replace("{{ADDRESS}}", address)}
         target="_blank"
@@ -276,7 +283,7 @@ const AssetDetailsAddress = ({
       >
         <CopyButtonForTooltip onCopy={handleCopy} copyValue={address} />
       </Tooltip>
-    </>
+    </span>
   );
 };
 
@@ -315,31 +322,31 @@ export const AssetDetailsItem = ({
   description,
   node,
 }: AssetDetailsItemProps) => (
-  <Center>
-    <Paper>
-      <Text size="xs" ta="center" component="div">
-        {titleIcon}
-        <Popover width="250px" withArrow shadow="md">
-          <Popover.Target>
-            <Text
-              span
-              fz="xs"
-              td="underline"
-              style={{ textDecorationStyle: "dotted", cursor: "pointer" }}
-            >
-              <Trans>{title}</Trans>
-            </Text>
-          </Popover.Target>
-          <Popover.Dropdown>
-            <Trans>
-              <Text size="sm">{description}</Text>
-            </Trans>
-          </Popover.Dropdown>
-        </Popover>
-        <Text fw="600" span>
-          {node}
-        </Text>
-      </Text>
-    </Paper>
-  </Center>
+  <Stack gap={2} align="center">
+    {/* Label above, value below: the labels are long once translated, and
+        keeping the value inline left it stranded mid-wrap. */}
+    <Text size="xs" ta="center" component="div" c="dimmed">
+      {titleIcon}
+      <Popover width="250px" withArrow shadow="md">
+        <Popover.Target>
+          <Text
+            span
+            fz="xs"
+            td="underline"
+            style={{ textDecorationStyle: "dotted", cursor: "pointer" }}
+          >
+            <Trans>{title}</Trans>
+          </Text>
+        </Popover.Target>
+        <Popover.Dropdown>
+          <Trans>
+            <Text size="sm">{description}</Text>
+          </Trans>
+        </Popover.Dropdown>
+      </Popover>
+    </Text>
+    <Text fw="600" size="sm" ta="center" component="div">
+      {node}
+    </Text>
+  </Stack>
 );
