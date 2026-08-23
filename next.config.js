@@ -26,7 +26,7 @@ module.exports = withBundleAnalyzer({
     return [
       // The sitemap is built by an API route (those are exempt from locale
       // prefixing, unlike a pages/sitemap.xml route which i18n would fan out
-      // into 62 copies) but has to be served from the conventional path that
+      // into 63 copies) but has to be served from the conventional path that
       // robots.txt advertises.
       //
       // No `locale: false` here: i18n normalizes an unprefixed request to the

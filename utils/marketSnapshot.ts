@@ -2,7 +2,7 @@
  * Reserve-parameter snapshot for the server-rendered marketing sections.
  *
  * Caching is the whole difficulty here. Every indexable route is prerendered
- * once per locale, so there are 124 pages (2 routes x 62 locales) each
+ * once per locale, so there are 126 pages (2 routes x 63 locales) each
  * revalidating on its own timer against ~20 markets. Uncached, one revalidate
  * window could fan out into thousands of RPC calls, so there are two tiers:
  *

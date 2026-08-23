@@ -1,5 +1,5 @@
 /**
- * The snapshot's job is to make 124 prerendered pages share one set of RPC
+ * The snapshot's job is to make 126 prerendered pages share one set of RPC
  * calls, so these tests are mostly about how often the fetcher runs.
  */
 import type { MarketReserveStat } from "../../pages/api/aave/index";

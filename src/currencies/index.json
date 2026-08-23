@@ -8,6 +8,10 @@
     "description": "Euro"
   },
   {
+    "code": "BRL",
+    "description": "Brazilian Real"
+  },
+  {
     "code": "JPY",
     "description": "Japanese Yen"
   },
@@ -106,10 +110,6 @@
   {
     "code": "BOB",
     "description": "Bolivian Boliviano"
-  },
-  {
-    "code": "BRL",
-    "description": "Brazilian Real"
   },
   {
     "code": "BSD",

@@ -47,6 +47,7 @@ const locales = [
   "pa",
   "pl",
   "pt",
+  "pt-BR",
   "ro",
   "ru",
   "sc",
@@ -67,6 +68,14 @@ const locales = [
 
 module.exports = {
   locales: locales,
+  // pt-BR is a specialization of pt, not a separate translation effort: anything
+  // not translated specifically for Brazil should read as Portuguese rather than
+  // fall through to the English source. Lingui seeds fallbacks from CLDR parent
+  // locales, but CLDR treats `pt` as Brazilian-default and lists no pt-* parents,
+  // so this pairing has to be stated explicitly.
+  fallbackLocales: {
+    "pt-BR": "pt",
+  },
   catalogs: [
     {
       path: "src/locales/{locale}/messages",

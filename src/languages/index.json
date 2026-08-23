@@ -272,8 +272,14 @@
   {
     "code": "pt",
     "name": "Portuguese",
-    "region": "Portuguese",
+    "region": "Portuguese (Portugal)",
     "native": "Português"
+  },
+  {
+    "code": "pt-BR",
+    "name": "Portuguese",
+    "region": "Portuguese (Brazil)",
+    "native": "Português (Brasil)"
   },
   {
     "code": "ro",

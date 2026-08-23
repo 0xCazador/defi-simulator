@@ -4,7 +4,7 @@
  * Why strings-in-props instead of <Trans> in the component: locale activation
  * for the global i18n singleton happens in a client effect
  * (hooks/useAddressFromQuery), so anything rendered with <Trans> during static
- * generation comes out in English for all 62 locales. That is fine for the
+ * generation comes out in English for all 63 locales. That is fine for the
  * interactive chrome, which retranslates on hydration, but it would make every
  * localized URL a byte-identical English duplicate — and hreflang annotations
  * pointing at 62 identical pages are worse than none at all.

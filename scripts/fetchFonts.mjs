@@ -12,7 +12,7 @@
  * needs. Serving the same subsets from our own origin folds them into the
  * existing CSS bundle.
  *
- * Every subset Google offers is kept, not just latin: the app ships 62 locales,
+ * Every subset Google offers is kept, not just latin: the app ships 63 locales,
  * and dropping the cyrillic/greek/vietnamese ranges would silently downgrade
  * Russian, Ukrainian, Greek, Vietnamese and friends to a system font. Browsers
  * only fetch the ranges they actually render, so the file count is free.

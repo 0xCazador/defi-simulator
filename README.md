@@ -25,13 +25,13 @@ set it in the Netlify environment.
 
 ## SEO
 
-Indexable surface: `/` and `/interest`, prerendered once per locale (124 URLs).
+Indexable surface: `/` and `/interest`, prerendered once per locale (126 URLs).
 Share routes (`/s/{id}`, `/share-fallback`) are deliberately `noindex`.
 
 - `public/robots.txt` — static, advertises the sitemap.
 - `/sitemap.xml` — served by `pages/api/sitemap.ts` through a rewrite in
   `next.config.js`. An API route rather than a page so pages-router i18n does
-  not fan it out into 62 locale-prefixed copies.
+  not fan it out into 63 locale-prefixed copies.
 - `utils/seo.ts` — canonical and hreflang derivation, shared by the sitemap and
   `components/SeoHead.tsx` so the two can't disagree.
 - `utils/seoContent.ts` — the crawlable copy, resolved per locale in
@@ -40,7 +40,7 @@ Share routes (`/s/{id}`, `/share-fallback`) are deliberately `noindex`.
   prerendered HTML; this copy goes through `loadServerI18n` instead so the
   localized URLs are genuinely localized rather than 62 identical duplicates.
 - `utils/marketSnapshot.ts` — reserve parameters behind a module memo plus a
-  Netlify Blobs entry, so 124 independently-revalidating pages share one set of
+  Netlify Blobs entry, so 126 independently-revalidating pages share one set of
   RPC calls.
 
 ### Operational steps (not in code)
@@ -68,7 +68,7 @@ node scripts/fetchFonts.mjs
 
 Re-run that after changing the font stack in `theme/index.ts`. The script keeps
 every unicode subset Google offers (latin, latin-ext, cyrillic, greek,
-vietnamese) because the app ships 62 locales, and it collapses weights that
+vietnamese) because the app ships 63 locales, and it collapses weights that
 share a variable-font file so a browser needing two weights doesn't download the
 same file twice.
 
