@@ -40,8 +40,8 @@ import {
 } from "../../../utils/uiPoolDataProviderV37";
 import { getV4MarketData } from "../../../utils/spokeDataProviderV4";
 import {
-  isMeaningfulFetchedBorrow,
-  isMeaningfulFetchedSupply,
+  filterFetchedBorrows,
+  filterFetchedSupplies,
 } from "../../../utils/minPositionUsd";
 
 const allowedMethods = ["POST", "OPTIONS"];
@@ -517,10 +517,10 @@ const aaveUserSummaryToHealthFactor = (
     ),
     currentLoanToValue: Number(userSummary?.currentLoanToValue),
     // Dust under $1 is dropped here so every consumer (UI, HF, interest,
-    // share cards) sees the same position set. Simulated edits are not filtered.
-    userReservesData: userSummary?.userReservesData
-      ?.filter(isMeaningfulFetchedSupply)
-      .map((reserveItem) => {
+    // share cards) sees the same position set — unless that would empty the
+    // supply or borrow side. Simulated edits are not filtered.
+    userReservesData: filterFetchedSupplies(userSummary?.userReservesData).map(
+      (reserveItem) => {
         const item: ReserveAssetDataItem = {
           asset: getAssetDetailsFromReserveItem(reserveItem),
           underlyingBalance: Number(reserveItem.underlyingBalance),
@@ -532,10 +532,10 @@ const aaveUserSummaryToHealthFactor = (
             reserveItem.usageAsCollateralEnabledOnUser,
         };
         return item;
-      }),
-    userBorrowsData: userSummary?.userReservesData
-      ?.filter(isMeaningfulFetchedBorrow)
-      .map((reserveItem) => {
+      },
+    ),
+    userBorrowsData: filterFetchedBorrows(userSummary?.userReservesData).map(
+      (reserveItem) => {
         const item: BorrowedAssetDataItem = {
           asset: getAssetDetailsFromReserveItem(reserveItem),
           stableBorrows: 0,
@@ -549,7 +549,8 @@ const aaveUserSummaryToHealthFactor = (
         };
 
         return item;
-      }),
+      },
+    ),
     userEmodeCategoryId,
     userEmodeLabel,
     eModes,

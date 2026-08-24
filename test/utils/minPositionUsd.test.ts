@@ -1,5 +1,7 @@
 import {
   MIN_FETCHED_POSITION_USD,
+  filterFetchedBorrows,
+  filterFetchedSupplies,
   isMeaningfulFetchedBorrow,
   isMeaningfulFetchedPositionUsd,
   isMeaningfulFetchedSupply,
@@ -90,5 +92,73 @@ describe("isMeaningfulFetchedBorrow", () => {
         totalBorrowsUSD: "80",
       }),
     ).toBe(false);
+  });
+});
+
+const supply = (symbol: string, usd: string | number, balance = "1") => ({
+  symbol,
+  underlyingBalance: balance,
+  underlyingBalanceUSD: usd,
+});
+
+const borrow = (symbol: string, usd: string | number, amount = "1") => ({
+  symbol,
+  totalBorrows: amount,
+  totalBorrowsUSD: usd,
+});
+
+describe("filterFetchedSupplies", () => {
+  it("drops dust when another supply is worth at least $1", () => {
+    const kept = filterFetchedSupplies([
+      supply("USDC", "100"),
+      supply("DAI", "0.50"),
+      supply("IDLE", "0", "0"),
+    ]);
+    expect(kept.map((item) => item.symbol)).toEqual(["USDC"]);
+  });
+
+  it("keeps every dust supply when that would otherwise empty the list", () => {
+    const kept = filterFetchedSupplies([
+      supply("DAI", "0.50"),
+      supply("ETH", "0.30"),
+      supply("IDLE", "0", "0"),
+    ]);
+    expect(kept.map((item) => item.symbol)).toEqual(["DAI", "ETH"]);
+  });
+
+  it("keeps a lone dust supply", () => {
+    expect(
+      filterFetchedSupplies([supply("DAI", 0.4)]).map((item) => item.symbol),
+    ).toEqual(["DAI"]);
+  });
+
+  it("returns an empty list when nothing is held", () => {
+    expect(filterFetchedSupplies([supply("IDLE", "50", "0")])).toEqual([]);
+    expect(filterFetchedSupplies(undefined)).toEqual([]);
+    expect(filterFetchedSupplies(null)).toEqual([]);
+  });
+});
+
+describe("filterFetchedBorrows", () => {
+  it("drops dust when another borrow is worth at least $1", () => {
+    const kept = filterFetchedBorrows([
+      borrow("USDC", "80"),
+      borrow("USDT", "0.40"),
+    ]);
+    expect(kept.map((item) => item.symbol)).toEqual(["USDC"]);
+  });
+
+  it("keeps every dust borrow when that would otherwise empty the list", () => {
+    const kept = filterFetchedBorrows([
+      borrow("USDT", "0.40"),
+      borrow("GHO", "0.10"),
+    ]);
+    expect(kept.map((item) => item.symbol)).toEqual(["USDT", "GHO"]);
+  });
+
+  it("keeps a lone dust borrow", () => {
+    expect(
+      filterFetchedBorrows([borrow("USDT", "0.40")]).map((item) => item.symbol),
+    ).toEqual(["USDT"]);
   });
 });

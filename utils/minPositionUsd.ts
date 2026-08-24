@@ -6,6 +6,10 @@
  * scan, and nudges health-factor math by a fraction of a cent. Simulated
  * edits are not subject to this floor: a user who adds an asset or drags a
  * quantity below $1 should still see the row.
+ *
+ * Dust is dropped only when hiding it would still leave at least one supply
+ * (or, separately, at least one borrow). A wallet whose entire supply or
+ * borrow side is under $1 keeps those rows so the position does not look empty.
  */
 export const MIN_FETCHED_POSITION_USD = 1;
 
@@ -39,3 +43,33 @@ export const isMeaningfulFetchedSupply = (item: FetchedSupply): boolean =>
 export const isMeaningfulFetchedBorrow = (item: FetchedBorrow): boolean =>
   hasPositiveAmount(item.totalBorrows) &&
   isMeaningfulFetchedPositionUsd(item.totalBorrowsUSD);
+
+const keepHeldOrMeaningful = <T>(
+  items: readonly T[],
+  isHeld: (item: T) => boolean,
+  isMeaningful: (item: T) => boolean,
+): T[] => {
+  const held = items.filter(isHeld);
+  const meaningful = held.filter(isMeaningful);
+  return meaningful.length > 0 ? meaningful : held;
+};
+
+/** Drop sub-$1 supplies when another supply is worth at least $1. */
+export const filterFetchedSupplies = <T extends FetchedSupply>(
+  items: readonly T[] | undefined | null,
+): T[] =>
+  keepHeldOrMeaningful(
+    items ?? [],
+    (item) => hasPositiveAmount(item.underlyingBalance),
+    isMeaningfulFetchedSupply,
+  );
+
+/** Drop sub-$1 borrows when another borrow is worth at least $1. */
+export const filterFetchedBorrows = <T extends FetchedBorrow>(
+  items: readonly T[] | undefined | null,
+): T[] =>
+  keepHeldOrMeaningful(
+    items ?? [],
+    (item) => hasPositiveAmount(item.totalBorrows),
+    isMeaningfulFetchedBorrow,
+  );
