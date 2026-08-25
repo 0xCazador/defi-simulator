@@ -616,17 +616,26 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
     fetchMarkets(marketsToFetch);
   }, deps);
 
+  const adoptAddress = (nextAddress: string) => {
+    if (nextAddress === store.currentAddress.get()) return;
+    store.currentAddress.set(nextAddress);
+    // A new wallet should auto-select again; a manual pick is per-address.
+    store.userPickedMarket.set(false);
+  };
+
   useEffect(() => {
-    if (address) store.currentAddress.set(address);
+    if (address) adoptAddress(address);
   }, [address]);
 
   // Progressive market auto-select: as each market resolves, if the currently
   // selected market has finished loading and another loaded market has a
   // bigger position, switch to it (prefer highest collateral value). Runs on
   // every market completion so users see a market with a position as soon as
-  // one is found, instead of waiting for the slowest market.
+  // one is found, instead of waiting for the slowest market. Stops once the
+  // user (or a URL/`?market=` share) has picked a market for this address.
   useEffect(() => {
     if (!addressProvided || !loadedCount) return;
+    if (store.userPickedMarket.get()) return;
 
     const current = data?.[currentMarket];
     // Wait until the selected market itself has resolved so we don't yank the
@@ -673,7 +682,9 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
       );
 
     if (marketWithPosition && marketWithPosition.id !== currentMarket) {
-      setCurrentMarket(marketWithPosition.id);
+      // Direct store write: this is not a user pick, so leave userPickedMarket
+      // false so later (larger) positions can still win until the user chooses.
+      store.currentMarket.set(marketWithPosition.id);
     }
   }, [loadedCount, addressProvided]);
 
@@ -686,6 +697,7 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
   };
 
   const setCurrentMarket = (marketId: string) => {
+    store.userPickedMarket.set(true);
     store.currentMarket.set(marketId);
   };
 
@@ -976,7 +988,7 @@ export function useAaveData(address: string, preventFetch: boolean = false) {
   };
 
   const setCurrentAddress = (newAddress: string) => {
-    store.currentAddress.set(newAddress);
+    adoptAddress(newAddress);
   };
 
   const updateAllDerivedHealthFactorData = () => {
@@ -1430,6 +1442,13 @@ export const getCalculatedLiquidationScenario = (
   currentMarketReferenceCurrencyPriceInUSD: number,
 ) => {
   if (!hfData) return [];
+
+  const hf0: number = hfData.healthFactor || -1;
+  if (hf0 === Infinity || hf0 === -1) return [];
+  // Eligibility is read-only; skip the deep clone when there is nothing to solve
+  // (most markets, and every re-render of a stablecoin-only or empty position).
+  if (!getEligibleLiquidationScenarioReserves(hfData).length) return [];
+
   // deep clone to avoid mutating state
   // eslint-disable-next-line no-param-reassign
   hfData = JSON.parse(JSON.stringify(hfData)) as AaveHealthFactorData;

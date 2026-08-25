@@ -230,6 +230,65 @@ describe("useAaveData market resilience", () => {
     // Only the failed market was refetched.
     expect(mockGetAaveData).toHaveBeenCalledTimes(markets.length + 1);
   });
+
+  test("does not auto-select away from a market the user picked", async () => {
+    const address = "0x5000000000000000000000000000000000000005";
+    let releaseBnb: () => void = () => {};
+    const bnbHeld = new Promise<void>((resolve) => {
+      releaseBnb = resolve;
+    });
+
+    const withPosition = (
+      data: HealthFactorData,
+      collateral: number,
+    ): HealthFactorData => {
+      const position: AaveHealthFactorData = {
+        ...emptyPosition(),
+        healthFactor: 2,
+        totalCollateralMarketReferenceCurrency: collateral,
+        totalBorrowsMarketReferenceCurrency: collateral / 2,
+        totalBorrowsUSD: collateral / 2,
+      };
+      return { ...data, fetchedData: position, workingData: position };
+    };
+
+    mockGetAaveData.mockImplementation(
+      async (addr: string, market: AaveMarketDataType) => {
+        const data = makeSuccessData(addr, market);
+        if (market.id === "BNB_V3") await bnbHeld;
+        if (market.id === "ETHEREUM_V3") return withPosition(data, 1_000_000);
+        if (market.id === "ARBITRUM_V3") return withPosition(data, 100);
+        return data;
+      },
+    );
+
+    const { result } = renderHook(() => useAaveData(address));
+
+    await waitFor(() => {
+      expect(result.current.addressData?.ETHEREUM_V3?.lastFetched).toBeTruthy();
+      expect(result.current.addressData?.ARBITRUM_V3?.lastFetched).toBeTruthy();
+    });
+
+    // Ethereum is the larger position, so auto-select should have landed there
+    // (or stayed, since it is the default) before the user picks.
+    expect(result.current.currentMarket).toBe("ETHEREUM_V3");
+
+    act(() => {
+      result.current.setCurrentMarket("ARBITRUM_V3");
+    });
+    expect(result.current.currentMarket).toBe("ARBITRUM_V3");
+
+    await act(async () => {
+      releaseBnb();
+    });
+
+    await waitFor(() => {
+      expect(result.current.addressData?.BNB_V3?.lastFetched).toBeTruthy();
+    });
+
+    // A later market completion must not yank the user back to Ethereum.
+    expect(result.current.currentMarket).toBe("ARBITRUM_V3");
+  });
 });
 
 describe("withTimeout", () => {

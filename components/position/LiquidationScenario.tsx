@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import {
@@ -41,12 +41,35 @@ export const LiquidationScenario = ({
   const [showLiquidation, setShowLiquidation] = useState(true);
   const { currentAddress, currentMarket } = useAaveData("");
 
-  if (data?.isFetching) return null;
-
-  const scenario: AssetDetails[] = getCalculatedLiquidationScenario(
-    data?.workingData as AaveHealthFactorData,
+  // Fingerprint the current market's position so other markets finishing their
+  // fetch (which re-renders this tree via the shared store) do not re-run the
+  // iterative liquidation solver on the main thread.
+  const scenarioFingerprint = [
+    data?.isFetching ? "fetching" : "ready",
     data?.marketReferenceCurrencyPriceInUSD,
-  );
+    data?.workingData?.healthFactor,
+    ...(data?.workingData?.userReservesData ?? []).map(
+      (item) =>
+        `${item.asset.symbol}:${item.underlyingBalance}:${item.asset.priceInUSD}:${item.usageAsCollateralEnabledOnUser}`,
+    ),
+    ...(data?.workingData?.userBorrowsData ?? []).map(
+      (item) =>
+        `${item.asset.symbol}:${item.totalBorrows}:${item.asset.priceInUSD}`,
+    ),
+  ].join("|");
+
+  const scenario: AssetDetails[] = useMemo(() => {
+    if (data?.isFetching || !data?.workingData) return [];
+    return getCalculatedLiquidationScenario(
+      data.workingData as AaveHealthFactorData,
+      data.marketReferenceCurrencyPriceInUSD,
+    );
+    // scenarioFingerprint is the intentional dep: equal numbers/balances skip
+    // the solver even when hookstate hands us a new object identity.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scenarioFingerprint]);
+
+  if (data?.isFetching) return null;
 
   const noScenarioLabel = <Trans>No Liquidation Scenario Available</Trans>;
 

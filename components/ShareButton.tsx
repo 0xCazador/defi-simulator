@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { useLingui } from "@lingui/react";
@@ -62,14 +62,35 @@ export default function ShareButton({ buildPayload, label }: ShareButtonProps) {
 
   const locale = router.locale ?? "en";
 
+  // Fingerprint the card so a market/address/edit change remints instead of
+  // serving the first snapshot for the lifetime of this button instance.
+  const mintGenerationRef = useRef(0);
+  const fingerprintRef = useRef<string | null>(null);
+  const isMintingRef = useRef(false);
+  const linksRef = useRef<ShareLinks | null>(null);
+
   const mint = async () => {
-    if (links || isMinting) return;
     setError(false);
     const payload = validateSharePayload(buildPayload());
     if (!payload) {
       setError(true);
       return;
     }
+    const fingerprint = JSON.stringify(payload.card);
+    if (
+      fingerprintRef.current === fingerprint &&
+      (isMintingRef.current || linksRef.current)
+    ) {
+      return;
+    }
+
+    const generation = mintGenerationRef.current + 1;
+    mintGenerationRef.current = generation;
+    fingerprintRef.current = fingerprint;
+    isMintingRef.current = true;
+    linksRef.current = null;
+    setLinks(null);
+    setImageLoaded(false);
     setIsMinting(true);
     try {
       const tweet = getShareTweet(payload.card, i18n);
@@ -84,22 +105,25 @@ export default function ShareButton({ buildPayload, label }: ShareButtonProps) {
       } catch {
         id = null;
       }
-      if (id) {
-        setLinks({
-          url: getShareUrl(id, locale),
-          imageUrl: getOgImageUrl(id, locale),
-          tweet,
-        });
-      } else {
-        const encoded = encodeInlinePayload(payload);
-        setLinks({
-          url: getShareUrlInline(encoded, locale),
-          imageUrl: getOgImageUrlInline(payload.card, locale),
-          tweet,
-        });
-      }
+      if (generation !== mintGenerationRef.current) return;
+      const nextLinks: ShareLinks = id
+        ? {
+            url: getShareUrl(id, locale),
+            imageUrl: getOgImageUrl(id, locale),
+            tweet,
+          }
+        : {
+            url: getShareUrlInline(encodeInlinePayload(payload), locale),
+            imageUrl: getOgImageUrlInline(payload.card, locale),
+            tweet,
+          };
+      linksRef.current = nextLinks;
+      setLinks(nextLinks);
     } finally {
-      setIsMinting(false);
+      if (generation === mintGenerationRef.current) {
+        isMintingRef.current = false;
+        setIsMinting(false);
+      }
     }
   };
 
